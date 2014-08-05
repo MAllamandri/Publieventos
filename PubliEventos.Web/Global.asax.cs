@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using log4net.Config;
+using PubliEventos.DataAccess.Infrastructure;
 
 namespace PubliEventos.Web
 {
@@ -22,6 +24,22 @@ namespace PubliEventos.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            XmlConfigurator.Configure();
+            Bootstrapper.Initialise();
+        }
+
+        protected SessionHelper _sessionHelper = null;
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            _sessionHelper = new SessionHelper();
+            _sessionHelper.OpenSession();
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            _sessionHelper = new SessionHelper();
+            _sessionHelper.CloseSession();
         }
     }
 }

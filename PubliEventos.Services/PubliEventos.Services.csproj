@@ -39,8 +39,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesHandler.cs" />
+    <Compile Include="Services\ServiceLocalities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PubliEventos.Contract\PubliEventos.Contract.csproj">
+      <Project>{72aed5a0-b15e-48b4-90be-3f34e4dbb69f}</Project>
+      <Name>PubliEventos.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PubliEventos.DataAccessNH\PubliEventos.DataAccessNH.csproj">
+      <Project>{53e86565-3adc-4f54-8a75-ba8bc326e58e}</Project>
+      <Name>PubliEventos.DataAccessNH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">
+      <Project>{532e03b2-580d-423a-b1bb-78b80edea718}</Project>
+      <Name>PubliEventos.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PubliEventos.Domain\PubliEventos.Domain.csproj">
+      <Project>{4ff11de9-97d7-4327-ba56-45f4209eae85}</Project>
+      <Name>PubliEventos.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
