@@ -8,7 +8,7 @@
     /// <summary>
     /// Manejador de servicios.
     /// </summary>
-    public class ServicesHandler : IServiceLocalities
+    public class ServicesLocalitiesHandler : IServiceLocalities
     {
         /// <summary>
         /// Obtiene todas las localidades.

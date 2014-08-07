@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using PubliEventos.DataAccessNH.Querys;
+    using PubliEventos.DataAccess.Querys;
     using PubliEventos.Domain.Domain;
 
     /// <summary>

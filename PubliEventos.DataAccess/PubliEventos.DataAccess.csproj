@@ -50,6 +50,7 @@
     <Compile Include="Infrastructure\BaseIdentifier.cs" />
     <Compile Include="Infrastructure\SessionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Querys\BaseQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

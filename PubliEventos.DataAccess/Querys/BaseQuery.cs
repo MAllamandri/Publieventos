@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.DataAccessNH.Querys
+﻿namespace PubliEventos.DataAccess.Querys
 {
     using System.Collections.Generic;
     using System.Linq;

@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubliEventos.Contract", "Pu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubliEventos.Services", "PubliEventos.Services\PubliEventos.Services.csproj", "{D23D4480-D0D4-4B6E-BC1B-D1D4CECA310D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubliEventos.DataAccessNH", "PubliEventos.DataAccessNH\PubliEventos.DataAccessNH.csproj", "{53E86565-3ADC-4F54-8A75-BA8BC326E58E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,10 +40,6 @@ Global
 		{D23D4480-D0D4-4B6E-BC1B-D1D4CECA310D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D23D4480-D0D4-4B6E-BC1B-D1D4CECA310D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D23D4480-D0D4-4B6E-BC1B-D1D4CECA310D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53E86565-3ADC-4F54-8A75-BA8BC326E58E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53E86565-3ADC-4F54-8A75-BA8BC326E58E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53E86565-3ADC-4F54-8A75-BA8BC326E58E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53E86565-3ADC-4F54-8A75-BA8BC326E58E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

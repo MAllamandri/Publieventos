@@ -20,7 +20,7 @@ namespace PubliEventos.Web
         private static IUnityContainer BuildUnityContainer()
         {
             var container = new UnityContainer();
-            container.RegisterType<IServiceLocalities, ServicesHandler>(
+            container.RegisterType<IServiceLocalities, ServicesLocalitiesHandler>(
                     new HierarchicalLifetimeManager()
                 );
 
