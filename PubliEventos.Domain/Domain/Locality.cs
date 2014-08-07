@@ -6,7 +6,7 @@
     /// <summary>
     /// Clase localidad.
     /// </summary>
-    public class Locality : BaseIdentifier<Int64>
+    public class Locality : BaseIdentifier<int>
     {
         /// <summary>
         /// Nombre de la localidad.

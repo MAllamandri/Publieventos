@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="PubliEventos.Domain"
+                   namespace="PubliEventos.Domain.Domain">
+
+  <class name="MultimediaContent" table="MultimediaContents" lazy="true">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="Name" />
+    <property name="Active"/>
+    <property name="NullDate"/>
+    <many-to-one name="Event" class="Event" column="IdEvent" cascade="save-update"/>
+    <property name="ContentType" column="IdContentType" type="int"/>
+  </class>
+</hibernate-mapping>

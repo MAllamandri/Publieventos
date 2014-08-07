@@ -39,7 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Comment.cs" />
+    <Compile Include="Domain\Event.cs" />
+    <Compile Include="Domain\EventType.cs" />
     <Compile Include="Domain\Locality.cs" />
+    <Compile Include="Domain\MultimediaContent.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Enums\ContentTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +53,9 @@
       <Project>{532e03b2-580d-423a-b1bb-78b80edea718}</Project>
       <Name>PubliEventos.DataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

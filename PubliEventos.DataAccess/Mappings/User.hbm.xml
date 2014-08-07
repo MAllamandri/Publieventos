@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="PubliEventos.Domain"
+                   namespace="PubliEventos.Domain.Domain">
+
+  <class name="User" table="Users" lazy="true">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="UserName" />
+    <property name="Password" />
+    <property name="FirstName" />
+    <property name="LastName" />
+    <property name="BirthDate" />
+    <property name="Email"/>
+    <property name="Active"/>
+    <property name="NullDate"/>
+    <many-to-one name="Locality" class="Locality" column="IdLocality" cascade="save-update"/>
+  </class>
+</hibernate-mapping>

@@ -31,6 +31,11 @@
                     var configuration = new Configuration();
                     configuration.Configure();
                     configuration.AddFile(mappingPath + "Locality.hbm.xml");
+                    configuration.AddFile(mappingPath + "User.hbm.xml");
+                    configuration.AddFile(mappingPath + "Event.hbm.xml");
+                    configuration.AddFile(mappingPath + "Comment.hbm.xml");
+                    configuration.AddFile(mappingPath + "EventType.hbm.xml");
+                    configuration.AddFile(mappingPath + "MultimediaContent.hbm.xml");
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;

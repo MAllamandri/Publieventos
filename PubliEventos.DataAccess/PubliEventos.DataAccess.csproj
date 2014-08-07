@@ -55,7 +55,13 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Mappings\Comment.hbm.xml" />
+    <Content Include="Mappings\Event.hbm.xml" />
+    <Content Include="Mappings\EventType.hbm.xml" />
+    <Content Include="Mappings\MultimediaContent.hbm.xml" />
+    <Content Include="Mappings\User.hbm.xml" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Locality.hbm.xml" />
   </ItemGroup>

@@ -1,6 +1,5 @@
 ﻿namespace PubliEventos.Services.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using PubliEventos.DataAccess.Querys;
@@ -17,7 +16,7 @@
         /// <returns>Lista de localidades.</returns>
         public static List<Locality> GetAllLocalities()
         {
-            return new BaseQuery<Locality, Int64>().LoadAll().ToList();
+            return new BaseQuery<Locality, int>().LoadAll().ToList();
         }
     }
 }

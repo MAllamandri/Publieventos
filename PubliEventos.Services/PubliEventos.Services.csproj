@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesEventsHandler.cs" />
     <Compile Include="ServicesLocalitiesHandler.cs" />
+    <Compile Include="Services\ServiceEvents.cs" />
     <Compile Include="Services\ServiceLocalities.cs" />
   </ItemGroup>
   <ItemGroup>

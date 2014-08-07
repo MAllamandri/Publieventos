@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="PubliEventos.Domain"
+                   namespace="PubliEventos.Domain.Domain">
+
+  <class name="Event" table="Events" lazy="true">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="Title" />
+    <property name="Detail" />
+    <property name="Description" />
+    <property name="CreationDate" />
+    <property name="Private" />
+    <property name="EventDate" />
+    <property name="EventTime" />
+    <property name="CoverPhoto" />
+    <many-to-one name="EventType" class="EventType" column="IdEventType" cascade="save-update"/>
+    <many-to-one name="Locality" class="Locality" column="IdLocality" cascade="save-update"/>
+    <property name="Active" />
+    <many-to-one name="User" class="User" column="IdUser" cascade="save-update"/>
+    <property name="NullDate" />
+  </class>
+</hibernate-mapping>

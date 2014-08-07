@@ -23,6 +23,9 @@ namespace PubliEventos.Web
             container.RegisterType<IServiceLocalities, ServicesLocalitiesHandler>(
                     new HierarchicalLifetimeManager()
                 );
+            container.RegisterType<IServiceEvents, ServicesEventsHandler>(
+                    new HierarchicalLifetimeManager()
+                );
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
