@@ -19,6 +19,14 @@
     <many-to-one name="Locality" class="Locality" column="IdLocality" cascade="save-update"/>
     <property name="Active" />
     <many-to-one name="User" class="User" column="IdUser" cascade="save-update"/>
+    <bag name="Comments" cascade="save-update">
+      <key column="IdEvent"/>
+      <one-to-many class="Comment"/>
+    </bag>
+    <bag name="MultimediaContents" cascade="save-update">
+      <key column="IdEvent"/>
+      <one-to-many class="MultimediaContent"/>
+    </bag>
     <property name="NullDate" />
   </class>
 </hibernate-mapping>

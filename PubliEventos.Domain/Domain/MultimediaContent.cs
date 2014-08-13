@@ -4,7 +4,6 @@
     using PubliEventos.DataAccess.Infrastructure;
     using PubliEventos.Domain.Enums;
 
-
     /// <summary>
     /// Representa un contenido multimedia usado en la aplicación (imagen, video, evento o comentario).
     /// </summary>

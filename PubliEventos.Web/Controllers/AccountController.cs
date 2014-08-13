@@ -20,24 +20,19 @@
         public IServiceLocalities serviceLocalities { get; set; }
 
         /// <summary>
-        /// Servicio de eventos.
-        /// </summary>
-        [Dependency]
-        public IServiceEvents serviceEvents { get; set; }
-
-        /// <summary>
         /// Vista de login.
         /// </summary>
         /// <returns>Login view.</returns>
         public ActionResult Login()
         {
-            var events = serviceEvents.GetAllEvents();
 
-            var contents = serviceEvents.All();
-
-            var id = (int)contents[0].ContentType;
-            events[0].Description = "Malisima la peli.";
             var localities = serviceLocalities.GetAllLocalities();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string password)
+        {
             return View();
         }
     }

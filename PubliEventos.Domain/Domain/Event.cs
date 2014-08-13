@@ -1,4 +1,6 @@
-﻿namespace PubliEventos.Domain.Domain
+﻿using System.Collections.Generic;
+
+namespace PubliEventos.Domain.Domain
 {
     using System;
     using PubliEventos.DataAccess.Infrastructure;
@@ -52,6 +54,16 @@
         /// Tipo de evento.
         /// </summary>
         public virtual EventType EventType { get; set; }
+
+        /// <summary>
+        /// Comentarios del evento.
+        /// </summary>
+        public virtual IList<Comment> Comments { get; set; }
+
+        /// <summary>
+        /// Contenidos multimedia relacionados al evento (imagenes o videos).
+        /// </summary>
+        public virtual IList<MultimediaContent> MultimediaContents { get; set; }
 
         /// <summary>
         /// Localidad del evento.

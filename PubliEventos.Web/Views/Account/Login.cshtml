@@ -1,6 +1,133 @@
 ﻿@{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<h2>Login</h2>
+<@*style>
+    .form-signin
+    {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+        .form-signin .form-signin-heading, .form-signin .checkbox
+        {
+            margin-bottom: 10px;
+        }
+
+        .form-signin .checkbox
+        {
+            font-weight: normal;
+        }
+
+        .form-signin .form-control
+        {
+            position: relative;
+            font-size: 16px;
+            height: auto;
+            padding: 10px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+            .form-signin .form-control:focus
+            {
+                z-index: 2;
+            }
+
+        .form-signin input[type="text"]
+        {
+            margin-bottom: -1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .form-signin input[type="password"]
+        {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+    .account-wall
+    {
+        margin-top: 20px;
+        padding: 40px 0px 20px 0px;
+        background-color: #f7f7f7;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-title
+    {
+        color: #555;
+        font-size: 18px;
+        font-weight: 400;
+        display: block;
+    }
+
+    .profile-img
+    {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+    .need-help
+    {
+        margin-top: 10px;
+    }
+
+    .new-account
+    {
+        display: block;
+        margin-top: 10px;
+    }
+</style>*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>PubliEventos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    <link rel="stylesheet" href="~/Content/themes/base/unicorn.login.css" />
+</head>
+<body style="">
+    <div id="container">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div id="loginbox">
+                <p>Ingrese usuario y password para continuar.</p>
+                <div class="input-group input-sm">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i>
+                    </span>
+                    <input class="form-control" type="text" id="UserName" placeholder="Usuario">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i>
+                    </span>
+                    <input class="form-control" type="password" id="Password" placeholder="Password">
+                </div>
+                <div class="form-actions clearfix">
+                    <div class="pull-right">
+                        <a href="#" class="flip-link to-recover grey">Recuperar contraseña</a>
+                    </div>
+                    <input type="submit" class="btn btn-block btn-primary btn-default" value="Login">
+                </div>
+            </div>
+        }
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui.custom.min.js"></script>
+    <script src="~/Scripts/unicorn.login.js"></script>
+</body>
+</html>

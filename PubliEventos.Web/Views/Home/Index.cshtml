@@ -1,0 +1,38 @@
+﻿@Model PubliEventos.Web.Models.EventsModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+@using PubliEventos.Domain.Domain
+
+<section style="padding-top: 0px !important">
+    <div class="page-header">
+        <h1>PUBLIEVENTOS</h1>
+    </div>
+    <table class="table table-striped">
+        <tbody>
+            @foreach (Event e in Model.events)
+            {
+                <tr>
+                    <td class="table-event">
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img src="/Content/themes/images/default-image-event.jpg" style="width: 130px; height: 130px;" alt="" class="img-circle" data-src="holder.js/130x130"></a>
+                            <div class="media-body">
+                                <a href="#">
+                                    <h4 class="media-heading">@e.Title</h4>
+                                </a>
+                                <p style="color: blanchedalmond">@e.Description</p>
+                                <p style="color: blanchedalmond">@e.Detail</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="col-xs-1"></tr>
+            }
+        </tbody>
+    </table>
+</section>
