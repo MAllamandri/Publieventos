@@ -12,10 +12,27 @@ header, footer, nav, section
     display: block;
 }
 
-.table-event {
+.table-event
+{
     background-color: #333333 !important;
 }
 
+.title
+{
+    color: #dddddd;
+    font-family: arial;
+}
+
+.image
+{
+    -webkit-transform: rotate(385deg);
+    -moz-transform: rotate(318deg);
+    -o-transform: rotate(318deg);
+    width: 110px; 
+    height: 80px !important;
+    position: absolute;
+    /*writing-mode: tb-rl;*/
+}
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
