@@ -3,68 +3,35 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("/Content/Site.css")
-    @Styles.Render("/Content/themes/base/docs.css")
     @Styles.Render("/Content/bootstrap/css/bootstrap-responsive.css")
     @Styles.Render("/Content/themes/bootstrap3.2/css/bootstrap.min.css")
+    @Styles.Render("/Content/bootstrap/css/bootstrap-glyphicons.css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+    <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
 </head>
 <body>
-    <div class="container-fluid col-xs-2 col-md-2">
-        <nav style="margin-top: 20px;" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/Home/Index">PUBLIEVENTOS</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="container-index">
+        <div class="affix" style="display: inline; z-index: 1;">
+            <a class="title" href="../Home/Index">publieventos</a>
+        </div>
+        <div class="col-xs-6" style="float: right">
+            <div class="container.fluid">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar...">
-                        </div>
-                    </form>
-                    <div class="navbar-right" style="margin-right: 10%;">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">MAllamandri <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Perfil</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Salir</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <img src="/Content/images/maxi.png" alt="" class="image img-thumbnail right" data-src="holder.js/110x80">
-                    </div>
+                    <img src="/Content/images/maxi.png" alt="" class="image-profile img-circle right" data-src="holder.js/50x50">
+                    <a title="Editar Perfil" href="#"><span class="username">MAllamandri</span></a>
                 </div>
             </div>
-        </nav>
+        </div>
     </div>
-    <div class="row container-fluid">
-        <div class="row">
-            <div>
-                <div style="margin-left: 2%; margin-top: 10%;" class="row list-group affix col-xs-2">
-                    <a href="#" class="list-group-item">Crear Evento</a>
-                    <a href="#" class="list-group-item">Mis Eventos<span class="badge">25</span></a>
-                    <a href="#" class="list-group-item">Invitaciones</a>
-                    <a href="#" class="list-group-item">Grupos</a>
-                </div>
-                <div class="row col-xs-10">
-                    <div>
-                        @RenderBody()
-                    </div>
-                </div>
-            </div>
+    <div class="container-fluid col-xs-12 container-total-index">
+        <div>
+            @RenderBody()
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -73,3 +40,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

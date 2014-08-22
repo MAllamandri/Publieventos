@@ -20,7 +20,7 @@ namespace PubliEventos.Web.Controllers
         public ActionResult Index()
         {
             var events = new EventsModel();
-            events.events = serviceEvents.GetAllEvents();
+            events.events = serviceEvents.GetAllEvents().OrderBy(x=> x.EventDate).ToList();
 
             return View(events);
         }
