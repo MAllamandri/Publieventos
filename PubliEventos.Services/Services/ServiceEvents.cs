@@ -5,6 +5,9 @@
     using PubliEventos.DataAccess.Querys;
     using PubliEventos.Domain.Domain;
 
+    /// <summary>
+    /// Servicio de eventos.
+    /// </summary>
     public class ServiceEvents
     {
         /// <summary>

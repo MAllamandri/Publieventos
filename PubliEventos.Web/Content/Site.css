@@ -40,6 +40,20 @@ header, footer, nav, section
         text-decoration: none;
     }
 
+.sections-title
+{
+    color: #a69567;
+    font-family: orange_juiceregular;
+    font-size: 20px;
+    display: inline;
+    margin-right: 5px;
+}
+
+    .sections-title:hover
+    {
+        text-decoration: none;
+    }
+
 @font-face
 {
     font-family: 'orange_juiceregular';
@@ -69,6 +83,14 @@ header, footer, nav, section
 .glyphicon-chevron-down
 {
     color: #a69567;
+}
+
+.log-out
+{
+    width: 8%;
+    height: 50%;
+    float: right;
+    background-image: none;
 }
 
 /*----------------------------------------------------------*/
@@ -449,4 +471,5 @@ img
 .font-text
 {
     font-family: 'MuseoSans-500';
+    color: #5f6364;
 }

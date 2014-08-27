@@ -18,13 +18,29 @@
 <body>
     <div class="container-index">
         <div class="affix" style="display: inline; z-index: 1;">
-            <a class="title" href="../Home/Index">publieventos</a>
+            <a class="title" href="../">publieventos</a> </br>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="sections-title" href="#">Crear Evento - </a>
+                <a class="sections-title" href="#">Mis Eventos - </a>
+                <a class="sections-title" href="#">Mis Grupos - </a>
+                <a class="sections-title" href="#">Invitaciones</a>
+            }
+            else
+            {
+                <a class="sections-title" href="/Account/Login">Ingresar</a>
+            }
         </div>
         <div class="col-xs-6" style="float: right">
             <div class="container.fluid">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <img src="/Content/images/maxi.png" alt="" class="image-profile img-circle right" data-src="holder.js/50x50">
-                    <a title="Editar Perfil" href="#"><span class="username">MAllamandri</span></a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a title="Salir" href="/Account/LogOut">
+                            <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
+                        <img src="/Content/images/maxi.png" alt="" class="image-profile img-circle right" data-src="holder.js/50x50">
+                        <a title="Editar Perfil" href="#"><span class="username">@User.Identity.Name</span></a>
+                    }
                 </div>
             </div>
         </div>

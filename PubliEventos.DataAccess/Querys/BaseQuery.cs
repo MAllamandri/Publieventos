@@ -22,11 +22,6 @@
         protected ISession CurrentSession { get; set; }
 
         /// <summary>
-        /// Variable de transacción.
-        /// </summary>
-        TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required);
-
-        /// <summary>
         /// Constructor.
         /// </summary>
         public BaseQuery()
@@ -54,7 +49,7 @@
         public TIdentifier Create(TEntity entity)
         {
             var identifier = new TIdentifier();
-            using (transaction)
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 identifier = (TIdentifier)CurrentSession.Save(entity);
                 transaction.Complete();
@@ -69,7 +64,7 @@
         public void SaveOrUpdate(TEntity entity)
         {
             var identifier = new TIdentifier();
-            using (transaction)
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 CurrentSession.SaveOrUpdate(entity);
                 transaction.Complete();
@@ -82,7 +77,7 @@
         /// <param name="entity">Entidad a modificar.</param>
         public void Update(TEntity entity)
         {
-            using (transaction)
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 CurrentSession.Update(entity);
                 CurrentSession.Flush();
@@ -96,7 +91,7 @@
         /// <param name="entity">Objeto entidad.</param>
         public void Delete(TEntity entity)
         {
-            using (transaction)
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 CurrentSession.Delete(entity);
                 transaction.Complete();
@@ -109,7 +104,7 @@
         /// <param name="entityIdentifier">Identificador del objeto.</param>
         public void DeleteById(TIdentifier entityIdentifier)
         {
-            using (transaction)
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 TEntity entity = LoadById(entityIdentifier);
                 CurrentSession.Delete(entity);

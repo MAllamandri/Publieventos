@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomPrincipal.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -150,6 +151,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Encryptor.cs" />
+    <Compile Include="Models\AccountModels\LoginModel.cs" />
     <Compile Include="Models\EventsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -232,6 +235,8 @@
     <Content Include="Content\images\default-image-event.jpg" />
     <Content Include="Content\themes\images\background_tile.jpg" />
     <Content Include="Content\themes\images\cloud_1.png" />
+    <Content Include="Content\themes\images\door-open-icon.png" />
+    <Content Include="Content\themes\images\log-out.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />

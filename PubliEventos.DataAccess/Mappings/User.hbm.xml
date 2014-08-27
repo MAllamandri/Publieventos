@@ -14,7 +14,7 @@
     <property name="BirthDate" />
     <property name="Email"/>
     <property name="Active"/>
-    <property name="NullDate"/>
+    <property name="NullDate" not-null="false"/>
     <many-to-one name="Locality" class="Locality" column="IdLocality" cascade="save-update"/>
   </class>
 </hibernate-mapping>
