@@ -57,5 +57,10 @@
         /// Indica si el usuario esta dado de baja.
         /// </summary>
         public DateTime? NullDate { get; set; }
+
+        /// <summary>
+        /// Imagen de perfil.
+        /// </summary>
+        public string ImageProfile { get; set; }
     }
 }

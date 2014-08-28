@@ -3,58 +3,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-xs-12">
-    <img class="image-cloud" alt="nube" src="/Content/themes/images/cloud_1.png" />
-    <ul class="timeline">
-        @for (int i = 0; i < Model.events.Count; i++)
-        {
-            <li>
-                <div class="tldate">@DateTime.Now.ToShortDateString()</div>
-            </li>
-            <li style="margin-bottom: 40px;">
-                <div class="tl-circ">
-                    <img src="/Content/images/@Model.events[i].CoverPhoto" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120">
-                </div>
-                <div class="timeline-panel" style="margin-top: 1%;">
-                    <div class="tl-heading">
-                        <h4 class="font-text">@Model.events[i].Title</h4>
-                        <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
-                    </div>
-                    <div class="tl-body">
-                        <p class="font-text">@Model.events[i].Description</p>
-
-                        <p class="font-text">@Model.events[i].Detail</p>
-                    </div>
-                </div>
-            </li>
-            
-            if ((i + 1) < Model.events.Count)
-            {
-                i++;
-            <li class="timeline-inverted">
-                <div class="tl-circ">
-                    <img src="/Content/images/@Model.events[i].CoverPhoto" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120">
-                </div>
-                <div class="timeline-panel">
-                    <div class="tl-heading">
-                        <h4>@Model.events[i].Title</h4>
-                        <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
-                    </div>
-                    <div class="tl-body">
-                        <p class="font-text">@Model.events[i].Description</p>
-
-                        <p class="font-text">@Model.events[i].Detail</p>
-                    </div>
-                </div>
-            </li>
-            }
-        }
-    </ul>
-    <nav class="navbar-fixed-bottom" style="margin-right: 20px">
-        <form class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <input type="text" class="form-control search" id="s" style="width: 300px" placeholder="Buscar...">
+<div class="row-fluid" style="margin-top: 3%">
+    <div class="col-xs-12">
+        <div class="row-fluid">
+            <div class="col-xs-12">
+                <img class="image-cloud" alt="nube" src="/Content/themes/images/cloud_1.png" />
             </div>
-        </form>
-    </nav>
+        </div>
+        <ul class="timeline">
+            @for (int i = 0; i < Model.events.Count; i++)
+            {
+                <li>
+                    <div class="tldate">@DateTime.Now.ToShortDateString()</div>
+                </li>
+                <li style="margin-bottom: 40px;">
+                    <div class="tl-circ">
+                        <img src="/Content/images/@Model.events[i].CoverPhoto" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120">
+                    </div>
+                    <div class="timeline-panel" style="margin-top: 1%;">
+                        <div class="tl-heading">
+                            <h4 class="font-text">@Model.events[i].Title</h4>
+                            <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
+                        </div>
+                        <div class="tl-body">
+                            <p class="font-text">@Model.events[i].Description</p>
+
+                            <p class="font-text">@Model.events[i].Detail</p>
+                        </div>
+                    </div>
+                </li>
+            
+                if ((i + 1) < Model.events.Count)
+                {
+                    i++;
+                <li class="timeline-inverted">
+                    <div class="tl-circ">
+                        <img src="/Content/images/@Model.events[i].CoverPhoto" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120">
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="tl-heading">
+                            <h4>@Model.events[i].Title</h4>
+                            <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
+                        </div>
+                        <div class="tl-body">
+                            <p class="font-text">@Model.events[i].Description</p>
+
+                            <p class="font-text">@Model.events[i].Detail</p>
+                        </div>
+                    </div>
+                </li>
+                }
+            }
+        </ul>
+        <nav class="navbar-fixed-bottom" style="margin-right: 20px">
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control search" id="s" style="width: 300px" placeholder="Buscar...">
+                </div>
+            </form>
+        </nav>
+    </div>
 </div>

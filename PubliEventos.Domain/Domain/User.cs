@@ -52,5 +52,10 @@
         /// Indica si el usuario esta dado de baja.
         /// </summary>
         public virtual DateTime? NullDate { get; set; }
+
+        /// <summary>
+        /// Imagen de perfil.
+        /// </summary>
+        public virtual string ImageProfile { get; set; }
     }
 }

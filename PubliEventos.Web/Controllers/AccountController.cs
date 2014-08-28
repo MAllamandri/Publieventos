@@ -1,20 +1,21 @@
-﻿using System;
-using System.Web.Security;
-
-namespace PubliEventos.Web.Controllers
+﻿namespace PubliEventos.Web.Controllers
 {
+    using System;
+    using System.Web;
     using System.Web.Mvc;
+    using System.Web.Script.Serialization;
+    using System.Web.Security;
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
-    using PubliEventos.Web.Models.AccountModels;
     using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Helpers;
+    using PubliEventos.Web.Models.AccountModels;
 
     /// <summary>
     /// Controlador de cuentas.
     /// </summary>
     [AllowAnonymous]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         #region Properties
 
@@ -32,7 +33,7 @@ namespace PubliEventos.Web.Controllers
         /// <returns>Login view.</returns>
         public ActionResult Login()
         {
-            var model = new LoginModel();
+            var model = new UserModel();
             return View(model);
         }
 
@@ -43,7 +44,7 @@ namespace PubliEventos.Web.Controllers
         /// <returns>Index o Login view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(UserModel model)
         {
             if (ModelState.IsValid)
             {
@@ -69,6 +70,22 @@ namespace PubliEventos.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Vista de registración.
+        /// </summary>
+        /// <returns>SignUp view.</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp(UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("Login", model);
+        }
+
         #region Private Methods
 
         /// <summary>
@@ -92,13 +109,52 @@ namespace PubliEventos.Web.Controllers
                 {
                     // Inicializa el identity y crea la cookie.
                     var custom = new CustomPrincipal(userName);
-                    custom.CreateAuthenticationTicket(userName);
+                    this.CreateAuthenticationTicket(userName);
 
                     return true;
                 }
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Creao una cookie y la devuelve al usuario.
+        /// </summary>
+        /// <param name="userName">userName.</param>
+        public void CreateAuthenticationTicket(string userName)
+        {
+            var authUser = this.serviceAccounts.GetUserByUserName(userName);
+
+            // Datos a pasar al usuario en la cookie.
+            var customPrincipalModel = new CustomPrincipalSerializeModel()
+            {
+                Id = authUser.Id,
+                FirstName = authUser.FirstName,
+                LastName = authUser.LastName,
+                ImageProfile = authUser.ImageProfile
+            };
+
+            var serializer = new JavaScriptSerializer();
+            string userData = serializer.Serialize(customPrincipalModel);
+
+            // Creo el ticket.
+            var authTicket = new FormsAuthenticationTicket(
+              1,
+              userName,
+              DateTime.Now,
+              DateTime.Now.AddDays(90),
+              false,
+              userData);
+
+            // Encrypto el ticket.
+            string encTicket = FormsAuthentication.Encrypt(authTicket);
+
+            // Creo la cookie.
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+
+            // Devuelvo la cookie al usuario.
+            HttpContext.Response.Cookies.Add(cookie);
         }
 
         #endregion

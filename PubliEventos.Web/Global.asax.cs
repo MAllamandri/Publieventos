@@ -6,8 +6,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 using log4net.Config;
 using PubliEventos.DataAccess.Infrastructure;
+using PubliEventos.Web.App_Start;
 
 namespace PubliEventos.Web
 {
@@ -40,6 +43,33 @@ namespace PubliEventos.Web
         {
             _sessionHelper = new SessionHelper();
             _sessionHelper.CloseSession();
+        }
+
+        /// <summary>
+        /// Obtengo los datos del usuario.
+        /// </summary>
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+                var serializer = new JavaScriptSerializer();
+
+                var serializeModel = serializer.Deserialize<CustomPrincipalSerializeModel>(authTicket.UserData);
+
+                var newUser = new CustomPrincipal(authTicket.Name)
+                {
+                    Id = serializeModel.Id,
+                    FirstName = serializeModel.FirstName,
+                    LastName = serializeModel.LastName,
+                    ImageProfile = serializeModel.ImageProfile
+                };
+
+                HttpContext.Current.User = newUser;
+            }
         }
     }
 }

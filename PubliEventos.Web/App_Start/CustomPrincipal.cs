@@ -1,39 +1,49 @@
-﻿using PubliEventos.Services.Services;
-
-namespace PubliEventos.Web.App_Start
+﻿namespace PubliEventos.Web.App_Start
 {
-    using System;
     using System.Security.Principal;
-    using System.Web;
     using System.Web.Security;
-    using Microsoft.Practices.Unity;
-    using PubliEventos.Contract.Contracts;
 
+    /// <summary>
+    /// Interface que contiene las propiedad que tendra el usuario.
+    /// </summary>
+    interface ICustomPrincipal : IPrincipal
+    {
+        /// <summary>
+        /// Identificador del usuario.
+        /// </summary>
+        int Id { get; set; }
 
-    public class CustomPrincipal : IPrincipal
+        /// <summary>
+        /// Nombre del usuario.
+        /// </summary>
+        string FirstName { get; set; }
+
+        /// <summary>
+        /// Apellido del usuario.
+        /// </summary>
+        string LastName { get; set; }
+
+        /// <summary>
+        /// Imagen de perfil.
+        /// </summary>
+        string ImageProfile { get; set; }
+    }
+
+    /// <summary>
+    /// Representa un usuario logueado.
+    /// </summary>
+    public class CustomPrincipal : ICustomPrincipal
     {
         #region Properties
 
         /// <summary>
-        /// Servicio de cuentas.
+        /// Identity.
         /// </summary>
-        [Dependency]
-        public IServiceAccounts serviceAccounts { get; set; }
-
         public IIdentity Identity { get; private set; }
 
         #endregion
 
         #region Constructor
-
-        /// <summary>
-        /// Constructor de la clase.
-        /// </summary>
-        /// <param name="serviceAccounts">Servicio de cuentas.</param>
-        public CustomPrincipal(IServiceAccounts serviceAccounts)
-        {
-            this.serviceAccounts = serviceAccounts;
-        }
 
         /// <summary>
         /// Constructor de la clase.
@@ -47,6 +57,26 @@ namespace PubliEventos.Web.App_Start
         #endregion
 
         /// <summary>
+        /// Identificador del usuario.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Nombre del usuario.
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Apellido del usuario.
+        /// </summary>
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Imagen de perfil.
+        /// </summary>
+        public string ImageProfile { get; set; }
+
+        /// <summary>
         /// Indica si un usuario se encuentra en dicho rol.
         /// </summary>
         /// <param name="role">Rol a verificar.</param>
@@ -56,51 +86,31 @@ namespace PubliEventos.Web.App_Start
             return Identity != null && Identity.IsAuthenticated &&
                !string.IsNullOrWhiteSpace(role) && Roles.IsUserInRole(Identity.Name, role);
         }
-
-        /// <summary>
-        /// Creao una cookie y la devuelve al usuario.
-        /// </summary>
-        /// <param name="userName">userName.</param>
-        public void CreateAuthenticationTicket(string userName)
-        {
-            var authUser = ServiceAccounts.GetUserByUserName(userName);
-
-            var authTicket = new FormsAuthenticationTicket(
-              1,
-              userName,
-              DateTime.Now,
-              DateTime.Now.AddHours(8),
-              false,
-              string.Format("{0}-{1}-{2}", authUser.Id, authUser.UserName, authUser.Email));
-
-            // Encrypto el ticket.
-            string encTicket = FormsAuthentication.Encrypt(authTicket);
-
-            // Creo la cookie.
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-
-            // Devuelvo la cookie al usuario.
-            HttpContext.Current.Response.Cookies.Add(cookie);
-        }
     }
 
-    //public class CustomIdentity : IIdentity
-    //{
-    //    public CustomIdentity(string name)
-    //    {
-    //        this.Name = name;
-    //    }
+    /// <summary>
+    /// Representa un usuario logueado.
+    /// </summary>
+    public class CustomPrincipalSerializeModel
+    {
+        /// <summary>
+        /// Identificador del usuario.
+        /// </summary>
+        public int Id { get; set; }
 
-    //    public string AuthenticationType
-    //    {
-    //        get { return "Custom"; }
-    //    }
+        /// <summary>
+        /// Nombre del usuario.
+        /// </summary>
+        public string FirstName { get; set; }
 
-    //    public bool IsAuthenticated
-    //    {
-    //        get { return !string.IsNullOrEmpty(this.Name); }
-    //    }
+        /// <summary>
+        /// Apellido del usuario.
+        /// </summary>
+        public string LastName { get; set; }
 
-    //    public string Name { get; private set; }
-    //}
+        /// <summary>
+        /// Imagen de perfil.
+        /// </summary>
+        public string ImageProfile { get; set; }
+    }
 }

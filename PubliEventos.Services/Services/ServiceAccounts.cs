@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using NHibernate.Linq;
-
-namespace PubliEventos.Services.Services
+﻿namespace PubliEventos.Services.Services
 {
+    using System.Linq;
     using NHibernate;
-    using NHibernate.Criterion;
+    using NHibernate.Linq;
     using PubliEventos.Contract.ContractClass;
     using PubliEventos.DataAccess.Infrastructure;
 
@@ -25,32 +22,22 @@ namespace PubliEventos.Services.Services
 
             using (ITransaction transaction = sessionHelper.Current.BeginTransaction())
             {
-                var query =
-                    sessionHelper.Current.QueryOver<Domain.Domain.User>()
-                        .Where(u => u.UserName == userName.ToLower() && u.NullDate == null).SingleOrDefault();
-
-                if (query != null)
-                {
-                    var user = new User();
-                    {
-                        user.Id = query.Id;
-                        user.UserName = query.UserName;
-                        user.Password = query.Password;
-                        user.Active = query.Active;
-                        user.BirthDate = query.BirthDate;
-                        user.Locality = query.Locality;
-                        user.Email = query.Email;
-                        user.FirstName = query.FirstName;
-                        user.LastName = query.LastName;
-                        user.NullDate = query.NullDate;
-                    };
-
-                    return user;
-                }
-
-                return null;
+                return sessionHelper.Current.Query<Domain.Domain.User>().
+                     Where(u => u.UserName.ToLower() == userName.ToLower() && !u.NullDate.HasValue).Select(u => new User()
+                     {
+                         Id = u.Id,
+                         UserName = u.UserName,
+                         Password = u.Password,
+                         Active = u.Active,
+                         BirthDate = u.BirthDate,
+                         Locality = u.Locality,
+                         Email = u.Email,
+                         FirstName = u.FirstName,
+                         LastName = u.LastName,
+                         ImageProfile = u.ImageProfile,
+                         NullDate = u.NullDate
+                     }).Single();
             }
         }
-
     }
 }

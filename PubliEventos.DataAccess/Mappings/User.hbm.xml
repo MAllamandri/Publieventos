@@ -7,14 +7,15 @@
     <id name="Id">
       <generator class="identity" />
     </id>
-    <property name="UserName" />
-    <property name="Password" />
-    <property name="FirstName" />
-    <property name="LastName" />
+    <property name="UserName" type="AnsiString" />
+    <property name="Password" type="AnsiString" />
+    <property name="FirstName" type="AnsiString" />
+    <property name="LastName" type="AnsiString"/>
     <property name="BirthDate" />
-    <property name="Email"/>
+    <property name="Email" type="AnsiString"/>
     <property name="Active"/>
     <property name="NullDate" not-null="false"/>
+    <property name="ImageProfile" type="AnsiString"/>
     <many-to-one name="Locality" class="Locality" column="IdLocality" cascade="save-update"/>
   </class>
 </hibernate-mapping>
