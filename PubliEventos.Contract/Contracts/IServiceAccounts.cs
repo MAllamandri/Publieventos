@@ -13,5 +13,11 @@
         /// <param name="userName">userName del usuario.</param>
         /// <returns>User.</returns>
         User GetUserByUserName(string userName);
+
+        /// <summary>
+        /// Da de alta un usuario.
+        /// </summary>
+        /// <param name="user">usuario.</param>
+        void CreateUser(User user);
     }
 }

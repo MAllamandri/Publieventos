@@ -5,6 +5,7 @@
     using NHibernate.Linq;
     using PubliEventos.Contract.ContractClass;
     using PubliEventos.DataAccess.Infrastructure;
+    using PubliEventos.DataAccess.Querys;
 
     /// <summary>
     /// Servicio de cuentas.
@@ -36,7 +37,29 @@
                          LastName = u.LastName,
                          ImageProfile = u.ImageProfile,
                          NullDate = u.NullDate
-                     }).Single();
+                     }).SingleOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Da de alta un usuario.
+        /// </summary>
+        /// <param name="user">Usuario.</param>
+        public static void CreateUser(User user)
+        {
+            if (user != null)
+            {
+                var userCreate = new Domain.Domain.User()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Password = user.Password,
+                    EffectDate = user.EffectDate,
+                    UserName = user.UserName
+                };
+
+                new BaseQuery<Domain.Domain.User, int>().Create(userCreate);
             }
         }
     }

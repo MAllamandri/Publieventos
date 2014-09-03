@@ -14,6 +14,7 @@
     <property name="BirthDate" />
     <property name="Email" type="AnsiString"/>
     <property name="Active"/>
+    <property name="EffectDate" />
     <property name="NullDate" not-null="false"/>
     <property name="ImageProfile" type="AnsiString"/>
     <many-to-one name="Locality" class="Locality" column="IdLocality" cascade="save-update"/>

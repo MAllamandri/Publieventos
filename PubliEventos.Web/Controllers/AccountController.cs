@@ -1,4 +1,7 @@
-﻿namespace PubliEventos.Web.Controllers
+﻿using PubliEventos.Domain.Domain;
+using User = PubliEventos.Contract.ContractClass.User;
+
+namespace PubliEventos.Web.Controllers
 {
     using System;
     using System.Web;
@@ -25,6 +28,12 @@
         [Dependency]
         public IServiceAccounts serviceAccounts { get; set; }
 
+        /// <summary>
+        /// Servicio de localidades.
+        /// </summary>
+        [Dependency]
+        public IServiceLocalities ServiceLocalities { get; set; }
+
         #endregion
 
         /// <summary>
@@ -34,6 +43,10 @@
         public ActionResult Login()
         {
             var model = new UserModel();
+            model.IsLogin = true;
+
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name");
+
             return View(model);
         }
 
@@ -56,7 +69,10 @@
                 ModelState.AddModelError("Password", "Contraseña Incorrecta.");
             }
 
-            return View();
+            model.IsLogin = true;
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.Locality.HasValue ? model.Locality.Value : 0);
+
+            return View(model);
         }
 
         /// <summary>
@@ -80,8 +96,24 @@
         {
             if (ModelState.IsValid)
             {
+                var user = new User()
+                {
+                    Email = model.Email,
+                    UserName = model.UserName,
+                    Password = Encryptor.Encrypt(model.Password),
+                    Locality = new Locality()
+                    {
+                        Id = model.Locality.Value
+                    }
+                };
+
+                serviceAccounts.CreateUser(user);
+
                 return RedirectToAction("Index", "Home");
             }
+
+            model.IsLogin = false;
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.Locality.HasValue ? model.Locality.Value : 0);
 
             return View("Login", model);
         }

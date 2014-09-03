@@ -36,7 +36,12 @@
         /// <summary>
         /// Fecha de nacimiento.
         /// </summary>
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
+
+        /// <summary>
+        /// Fecha de alta.
+        /// </summary>
+        public DateTime? EffectDate { get; set; }
 
         /// <summary>
         /// Email del usuario.

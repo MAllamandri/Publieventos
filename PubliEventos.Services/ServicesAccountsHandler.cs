@@ -18,5 +18,14 @@
         {
             return ServiceAccounts.GetUserByUserName(userName);
         }
+
+        /// <summary>
+        /// Da de alta un usuario.
+        /// </summary>
+        /// <param name="user">Usuario.</param>
+        public void CreateUser(User user)
+        {
+            ServiceAccounts.CreateUser(user);
+        }
     }
 }

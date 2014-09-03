@@ -31,7 +31,12 @@
         /// <summary>
         /// Fecha de nacimiento.
         /// </summary>
-        public virtual DateTime BirthDate { get; set; }
+        public virtual DateTime? BirthDate { get; set; }
+
+        /// <summary>
+        /// Fecha de alta.
+        /// </summary>
+        public virtual DateTime? EffectDate { get; set; }
 
         /// <summary>
         /// Email del usuario.
