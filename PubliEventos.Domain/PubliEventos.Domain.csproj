@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\AccountActivationToken.cs" />
     <Compile Include="Domain\Comment.cs" />
     <Compile Include="Domain\Event.cs" />
     <Compile Include="Domain\EventType.cs" />

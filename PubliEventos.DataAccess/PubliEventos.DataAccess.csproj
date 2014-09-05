@@ -54,6 +54,7 @@
     <Compile Include="Querys\BaseQuery.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Mappings\AccountActivationToken.hbm.xml" />
     <Content Include="Mappings\Comment.hbm.xml" />
     <Content Include="Mappings\Event.hbm.xml" />
     <Content Include="Mappings\EventType.hbm.xml" />

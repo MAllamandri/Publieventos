@@ -18,6 +18,6 @@
         /// Da de alta un usuario.
         /// </summary>
         /// <param name="user">usuario.</param>
-        void CreateUser(User user);
+        int RegisterUser(User user);
     }
 }

@@ -138,6 +138,7 @@ textarea
 .field-validation-error
 {
     color: #f00;
+    font-size: 11px;
 }
 
 .field-validation-valid

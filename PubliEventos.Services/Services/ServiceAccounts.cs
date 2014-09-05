@@ -45,7 +45,7 @@
         /// Da de alta un usuario.
         /// </summary>
         /// <param name="user">Usuario.</param>
-        public static void CreateUser(User user)
+        public static int RegisterUser(User user)
         {
             if (user != null)
             {
@@ -56,11 +56,16 @@
                     Email = user.Email,
                     Password = user.Password,
                     EffectDate = user.EffectDate,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    Locality = user.Locality,
+                    BirthDate = user.BirthDate
                 };
 
                 new BaseQuery<Domain.Domain.User, int>().Create(userCreate);
+
+                return userCreate.Id;
             }
+            return 0;
         }
     }
 }

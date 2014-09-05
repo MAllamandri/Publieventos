@@ -36,6 +36,7 @@
                     configuration.AddFile(mappingPath + "Comment.hbm.xml");
                     configuration.AddFile(mappingPath + "EventType.hbm.xml");
                     configuration.AddFile(mappingPath + "MultimediaContent.hbm.xml");
+                    configuration.AddFile(mappingPath + "AccountActivationToken.hbm.xml");
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;

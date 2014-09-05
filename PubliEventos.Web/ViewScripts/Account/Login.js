@@ -10,7 +10,9 @@
         $('#login').attr('class', 'tab-pane fane');
         $('#tabCreate').attr('class', 'active');
         $('#tabLogin').removeAttr('class');
-        $('#loginModal').attr('class', 'col-md-6')
+        $('#loginModal').attr('class', 'col-md-6');
+        $('#First').attr('class', "col-md-3");
+        $('#Second').attr('class', 'col-md-3');
     }
 
     $('#tabCreate').click(function () {
@@ -23,5 +25,11 @@
         $('#loginModal').attr('class', 'col-md-4');
         $('#First').attr('class', "col-md-4");
         $('#Second').attr('class', 'col-md-4');
+    });
+
+    $('#SignUpModel_BirthDate').datetimepicker({
+        pickTime: false,
+        format: "DD-MM-YYYY",
+        language: 'es'
     });
 });

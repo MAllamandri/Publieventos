@@ -65,7 +65,7 @@ namespace PubliEventos.Web
                     Id = serializeModel.Id,
                     FirstName = serializeModel.FirstName,
                     LastName = serializeModel.LastName,
-                    ImageProfile = serializeModel.ImageProfile
+                    ImageProfile = string.IsNullOrEmpty(serializeModel.ImageProfile) ? "/Content/themes/images/contact-default-image.jpg" : "/Content/images/" + serializeModel.ImageProfile
                 };
 
                 HttpContext.Current.User = newUser;

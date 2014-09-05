@@ -23,9 +23,9 @@
         /// Da de alta un usuario.
         /// </summary>
         /// <param name="user">Usuario.</param>
-        public void CreateUser(User user)
+        public int RegisterUser(User user)
         {
-            ServiceAccounts.CreateUser(user);
+            return ServiceAccounts.RegisterUser(user);
         }
     }
 }

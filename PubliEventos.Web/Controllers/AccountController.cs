@@ -1,5 +1,6 @@
-﻿using PubliEventos.Domain.Domain;
-using User = PubliEventos.Contract.ContractClass.User;
+﻿using System.Configuration;
+using System.Net;
+using System.Net.Mail;
 
 namespace PubliEventos.Web.Controllers
 {
@@ -10,9 +11,11 @@ namespace PubliEventos.Web.Controllers
     using System.Web.Security;
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
+    using PubliEventos.Domain.Domain;
     using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models.AccountModels;
+    using User = PubliEventos.Contract.ContractClass.User;
 
     /// <summary>
     /// Controlador de cuentas.
@@ -66,11 +69,11 @@ namespace PubliEventos.Web.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError("Password", "Contraseña Incorrecta.");
+                ModelState.AddModelError("UserNameOrPassword", "Usuario o ccntraseña Incorrecta.");
             }
 
             model.IsLogin = true;
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.Locality.HasValue ? model.Locality.Value : 0);
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", 0);
 
             return View(model);
         }
@@ -98,24 +101,36 @@ namespace PubliEventos.Web.Controllers
             {
                 var user = new User()
                 {
-                    Email = model.Email,
-                    UserName = model.UserName,
-                    Password = Encryptor.Encrypt(model.Password),
+                    Email = model.SignUpModel.Email,
+                    UserName = model.SignUpModel.UserNameToRegister,
+                    Password = Encryptor.Encrypt(model.SignUpModel.PasswordToRegister),
                     Locality = new Locality()
                     {
-                        Id = model.Locality.Value
-                    }
+                        Id = model.SignUpModel.Locality.Value
+                    },
+                    EffectDate = DateTime.Now,
+                    BirthDate = model.SignUpModel.BirthDate
                 };
 
-                serviceAccounts.CreateUser(user);
+                var idUser = serviceAccounts.RegisterUser(user);
+
+                if (idUser != 0)
+                {
+                    this.SendEmailAccountConfirmation(user.UserName);
+                }
 
                 return RedirectToAction("Index", "Home");
             }
 
             model.IsLogin = false;
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.Locality.HasValue ? model.Locality.Value : 0);
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.SignUpModel.Locality.HasValue ? model.SignUpModel.Locality.Value : 0);
 
             return View("Login", model);
+        }
+
+        public void AccountActivation(string token)
+        {
+            // TODO > Activar cuenta.
         }
 
         #region Private Methods
@@ -137,7 +152,7 @@ namespace PubliEventos.Web.Controllers
                     return false;
                 }
 
-                if (Encryptor.Encrypt(password) == Encryptor.Encrypt(user.Password))
+                if (user.Password == Encryptor.Encrypt(password))
                 {
                     // Inicializa el identity y crea la cookie.
                     var custom = new CustomPrincipal(userName);
@@ -187,6 +202,37 @@ namespace PubliEventos.Web.Controllers
 
             // Devuelvo la cookie al usuario.
             HttpContext.Response.Cookies.Add(cookie);
+        }
+
+        public void SendEmailAccountConfirmation(string userName)
+        {
+            var user = this.serviceAccounts.GetUserByUserName(userName);
+
+            var token = new Guid();
+
+            var smtp = new SmtpClient
+            {
+                Host = ConfigurationManager.AppSettings["SmtpHost"].ToString(),
+                Port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]),
+                EnableSsl = true,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(ConfigurationManager.AppSettings["Mail"], ConfigurationManager.AppSettings["Password"])
+            };
+
+            var fromAddress = new MailAddress(ConfigurationManager.AppSettings["Mail"]);
+            var toAddress = new MailAddress(user.Email);
+            string subject = "PubliEventos - Activación de cuenta";
+            string body = "Para activar su cuenta ingrese al link que figura a continuación: <br/>";
+            body += System.Web.HttpContext.Current.Server.MapPath("/Account/AccountActivation") + "?token=" + token.ToString();
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }
         }
 
         #endregion
