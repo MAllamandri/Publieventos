@@ -16,7 +16,7 @@
         /// <summary>
         /// Provincia de la localidad.
         /// </summary>
-        public virtual string Province { get; set; }
+        public virtual Province Province { get; set; }
 
         /// <summary>
         /// Latitud de la localidad.

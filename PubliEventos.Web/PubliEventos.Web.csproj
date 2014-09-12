@@ -231,14 +231,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\themes\base\unicorn.css" />
-    <Content Include="Content\themes\base\unicorn.login.css" />
-    <Content Include="Content\themes\bootstrap3.2\css\bootstrap-theme.css" />
-    <Content Include="Content\themes\bootstrap3.2\css\bootstrap-theme.min.css" />
-    <Content Include="Content\themes\bootstrap3.2\css\bootstrap.css" />
-    <Content Include="Content\themes\bootstrap3.2\css\bootstrap.min.css" />
-    <Content Include="Content\themes\bootstrap3.2\js\bootstrap.js" />
-    <Content Include="Content\themes\bootstrap3.2\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
     <Content Include="Content\images\default-image-event.jpg" />
     <Content Include="Content\themes\images\background_tile.jpg" />
     <Content Include="Content\themes\images\cloud_1.png" />
@@ -247,16 +245,12 @@
     <Content Include="Content\themes\images\log-out.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\themes\bootstrap3.2\css\bootstrap-theme.css.map" />
-    <Content Include="Content\themes\bootstrap3.2\css\bootstrap.css.map" />
-    <Content Include="Content\themes\bootstrap3.2\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\themes\bootstrap3.2\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\themes\bootstrap3.2\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\themes\bootstrap3.2\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\themes\fonts\orange_juice_2.0-webfont.eot" />
     <Content Include="Content\themes\fonts\orange_juice_2.0-webfont.svg" />
     <Content Include="Content\themes\fonts\orange_juice_2.0-webfont.ttf" />
@@ -324,10 +318,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\AccountActivation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\bootstrap\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -368,10 +362,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>12925</DevelopmentServerPort>
           <DevelopmentServerVPath>/http://publieventos.com</DevelopmentServerVPath>
-          <IISUrl>http://localhost:14260/</IISUrl>
+          <IISUrl>http://localhost:12925/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://publieventos.com</CustomServerUrl>
+          <CustomServerUrl>http://localhost:12925/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

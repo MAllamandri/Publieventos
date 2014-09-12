@@ -13,5 +13,11 @@
         /// </summary>
         /// <returns>Lista de localidades.</returns>
         List<Locality> GetAllLocalities();
+
+        /// <summary>
+        /// Obtiene todas las provincias.
+        /// </summary>
+        /// <returns></returns>
+        List<Province> GetAllProvinces();
     }
 }

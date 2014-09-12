@@ -1,21 +1,20 @@
-﻿using System.Configuration;
-using System.Net;
-using System.Net.Mail;
-
-namespace PubliEventos.Web.Controllers
+﻿namespace PubliEventos.Web.Controllers
 {
     using System;
+    using System.Configuration;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
     using System.Web.Security;
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
-    using PubliEventos.Domain.Domain;
     using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models.AccountModels;
-    using User = PubliEventos.Contract.ContractClass.User;
+    using PubliEventos.Contract.Class;
 
     /// <summary>
     /// Controlador de cuentas.
@@ -48,7 +47,7 @@ namespace PubliEventos.Web.Controllers
             var model = new UserModel();
             model.IsLogin = true;
 
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name");
+            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name");
 
             return View(model);
         }
@@ -64,16 +63,15 @@ namespace PubliEventos.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (this.ValidateUser(model.UserName, model.Password))
+                if (this.ValidateUser(model))
                 {
                     return RedirectToAction("Index", "Home");
                 }
-
-                ModelState.AddModelError("UserNameOrPassword", "Usuario o ccntraseña Incorrecta.");
             }
 
+            ViewBag.isExpirate = true;
             model.IsLogin = true;
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", 0);
+            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", 0);
 
             return View(model);
         }
@@ -123,15 +121,30 @@ namespace PubliEventos.Web.Controllers
             }
 
             model.IsLogin = false;
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.SignUpModel.Locality.HasValue ? model.SignUpModel.Locality.Value : 0);
+            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.SignUpModel.Locality.HasValue ? model.SignUpModel.Locality.Value : 0);
 
             return View("Login", model);
         }
 
-        public void AccountActivation(string token)
+        /// <summary>
+        /// Activación de cuenta mediante el token.
+        /// </summary>
+        /// <param name="token">token de activación.</param>
+        public ActionResult AccountActivation(string token)
         {
-            // TODO > Activar cuenta.
+            if (!string.IsNullOrEmpty(token))
+            {
+                ViewBag.active = serviceAccounts.ActivateAccount(token);
+            }
+
+            return View();
         }
+
+        #region Public Methods
+
+
+
+        #endregion
 
         #region Private Methods
 
@@ -141,26 +154,33 @@ namespace PubliEventos.Web.Controllers
         /// <param name="userName">userName.</param>
         /// <param name="password">Password</param>
         /// <returns>True si es valido.</returns>
-        private bool ValidateUser(string userName, string password)
+        private bool ValidateUser(UserModel model)
         {
-            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
+            if (!string.IsNullOrEmpty(model.UserName) && !string.IsNullOrEmpty(model.Password))
             {
-                var user = serviceAccounts.GetUserByUserName(userName.ToLower().Trim());
+                var user = serviceAccounts.GetUserByUserName(model.UserName.ToLower().Trim());
 
-                if (user == null)
+                if (user != null)
                 {
-                    return false;
-                }
+                    if (!user.Active)
+                    {
+                        ModelState.AddModelError("Error", "Usuario no activo, por favor active su cuenta verificando su email.");
 
-                if (user.Password == Encryptor.Encrypt(password))
-                {
-                    // Inicializa el identity y crea la cookie.
-                    var custom = new CustomPrincipal(userName);
-                    this.CreateAuthenticationTicket(userName);
+                        return false;
+                    }
 
-                    return true;
+                    if (user.Password == Encryptor.Encrypt(model.Password))
+                    {
+                        // Inicializa el identity y crea la cookie.
+                        var custom = new CustomPrincipal(model.UserName);
+                        this.CreateAuthenticationTicket(model.UserName);
+
+                        return true;
+                    }
                 }
             }
+
+            ModelState.AddModelError("Error", "Usuario o ccntraseña Incorrecta.");
 
             return false;
         }
@@ -169,7 +189,7 @@ namespace PubliEventos.Web.Controllers
         /// Creao una cookie y la devuelve al usuario.
         /// </summary>
         /// <param name="userName">userName.</param>
-        public void CreateAuthenticationTicket(string userName)
+        private void CreateAuthenticationTicket(string userName)
         {
             var authUser = this.serviceAccounts.GetUserByUserName(userName);
 
@@ -204,11 +224,15 @@ namespace PubliEventos.Web.Controllers
             HttpContext.Response.Cookies.Add(cookie);
         }
 
-        public void SendEmailAccountConfirmation(string userName)
+        /// <summary>
+        /// Envia email de activación de cuenta.
+        /// </summary>
+        /// <param name="userName">Username del usuario.</param>
+        private void SendEmailAccountConfirmation(string userName)
         {
             var user = this.serviceAccounts.GetUserByUserName(userName);
 
-            var token = new Guid();
+            var token = Guid.NewGuid();
 
             var smtp = new SmtpClient
             {
@@ -223,16 +247,91 @@ namespace PubliEventos.Web.Controllers
             var toAddress = new MailAddress(user.Email);
             string subject = "PubliEventos - Activación de cuenta";
             string body = "Para activar su cuenta ingrese al link que figura a continuación: <br/>";
-            body += System.Web.HttpContext.Current.Server.MapPath("/Account/AccountActivation") + "?token=" + token.ToString();
+            body += string.Format("<a href='{0}://{1}/Account/AccountActivation?token={2}'>Activar mi cuenta</a>", System.Web.HttpContext.Current.Request.RequestContext.HttpContext.Request.Url.Scheme, System.Web.HttpContext.Current.Request.RequestContext.HttpContext.Request.Url.Authority, token);
 
-            using (var message = new MailMessage(fromAddress, toAddress)
+            try
             {
-                Subject = subject,
-                Body = body
-            })
-            {
-                smtp.Send(message);
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                })
+                {
+                    smtp.Send(message);
+                }
+
+                // Guarda el token de activación de cuenta.
+                serviceAccounts.SaveAccountActivationToken(token.ToString(), user.Id);
             }
+            catch (Exception)
+            {
+                throw new Exception("Ha ocurrido un error al enviar mail.");
+            }
+        }
+
+        #endregion
+
+        #region Json Methods
+
+        /// <summary>
+        /// Valida si el nombre de usuario ya existe.
+        /// </summary>
+        /// <param name="userName">nombre de usuario.</param>
+        /// <returns>True si existe, false caso contrario.</returns>
+        [HttpPost]
+        public JsonResult ValidateExistUserName(string userName)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var user = serviceAccounts.GetUserByUserName(userName.ToLower().Trim());
+
+                if (user != null)
+                {
+                    return Json(new { Exist = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(new { Exist = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Valida si ya existe un usuario con ese email.
+        /// </summary>
+        /// <param name="email">Email a validar.</param>
+        /// <returns>True si ya existe, false caso contrario.</returns>
+        [HttpPost]
+        public JsonResult ValidateExistEmail(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                var exist = serviceAccounts.UserExistsWithEmail(email);
+
+                return Json(new { Exist = exist }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Exist = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Obtiene las localidades filtradas por provincia.
+        /// </summary>
+        /// <param name="IdProvince">Identificador de la provincia.</param>
+        /// <returns>Localidades.</returns>
+        public JsonResult GetLocalitiesByProvince(string IdProvince)
+        {
+            if (!string.IsNullOrEmpty(IdProvince))
+            {
+                var localities =
+                    ServiceLocalities.GetAllLocalities()
+                        .Where(x => x.Province.Id == Convert.ToInt32(IdProvince))
+                        .Select(x => new { x.Id, x.Name })
+                        .ToList();
+
+                return Json(localities, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         #endregion

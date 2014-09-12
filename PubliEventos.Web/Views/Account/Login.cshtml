@@ -14,7 +14,8 @@
     <title>PubliEventos</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/themes/bootstrap3.2/css/bootstrap.min.css")
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
     @Styles.Render("~/Content/bootstrap-datetimepicker.min.css")
     @Styles.Render("/Content/Site.css")
     <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
@@ -50,12 +51,12 @@
                                                 <div class="row-fluid">
                                                     <div class="col-lg-12">
                                                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })
-                                                        @Html.ValidationMessage("UserNameOrPassword", new { @class = "field-validation-error" })
+                                                        @Html.ValidationMessage("Error", new { @class = "field-validation-error" })
                                                     </div>
                                                 </div>
                                                 <div class="row-fluid">
                                                     <div class="col-lg-12">
-                                                        @Html.EditorFor(m => m.RememberMe, new { @class = "form-control", @placeholder = "Contraseña" })
+                                                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-control", @placeholder = "Contraseña", @style = "margin-top: -1px; display: inline;" })
                                                         <span class="font-text">Recordarme</span>
                                                     </div>
                                                 </div>
@@ -67,6 +68,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            if (ViewBag.isExpirate != null && (bool)ViewBag.isExpirate)
+                                            {
+                                            <div id="Active" style="display: none">
+                                                <div class="alert alert-danger" style="width: auto" role="alert">
+                                                    <h2></h2>
+                                                    <span class="glyphicon glyphicon-earphone"></span>
+                                                    <strong>Su cuenta no fue activada a tiempo.</strong><br />
+                                                    <p>Para activar su cuenta reenvie el mail de activación haciendo click <a class="alert-success" href="../Home/Index">aqui</a> </p>
+                                                </div>
+                                            </div>
+                                            }
                                         }
                                     </div>
                                     <div class="tab-pane fade" id="create">
@@ -79,10 +91,12 @@
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.Email, new { @class = "form-control", @placeholder = "Email", @style = "height: 34px" })
                                                             @Html.ValidationMessage("SignUpModel.Email", new { @class = "field-validation-error" })
+                                                            <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-envelope"></span>El email ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.UserNameToRegister, new { @class = "form-control", @placeholder = "Usuario", @style = "height: 34px" })
                                                             @Html.ValidationMessage("SignUpModel.UserNameToRegister", new { @class = "field-validation-error" })
+                                                            <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-user"></span>El usuario ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.PasswordFor(m => m.SignUpModel.PasswordToRegister, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })
@@ -97,7 +111,10 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <div>
-                                                            @Html.DropDownList("SignUpModel.Locality", (SelectList)ViewBag.Localities, "[Seleccione Localidad]", new { @class = "form-control font-text" })
+                                                            @Html.DropDownList("Province", (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
+                                                        </div>
+                                                        <div>
+                                                            @Html.DropDownList("SignUpModel.Locality", new SelectList(""), "[Seleccione Localidad]", new { @class = "form-control font-text", @disabled = "disabled" })
                                                             @Html.ValidationMessage("SignUpModel.Locality", new { @class = "field-validation-error" })
                                                         </div>
                                                         <div class="input-group date">
@@ -111,7 +128,7 @@
                                             <div class="row-fluid">
                                                 <div class="form-group">
                                                     <div class="col-lg-6">
-                                                        <input type="submit" id="Register" value="Registrarse" class="btn btn-primary font-text" />
+                                                        <input type="button" id="Register" value="Registrarse" class="btn btn-primary font-text" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,7 +143,7 @@
             </div>
         </div>
     </div>
-    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/moment-with-locales.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.js"></script>

@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Activación de cuenta";
+    Layout = null;
+}
+
+@Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+@Styles.Render("/Content/Site.css")
+<link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
+
+<div class="container-fluid">
+    <div class="col-xs-12">
+        <div style="margin-top: 30px">
+            <a class="title" title="PubliEventos" href="../">publieventos</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-xs-12">
+            <div class="col-md-4">
+                @if (ViewBag.Active)
+                {
+                    <div class="col-md-4" style="margin-top: 30%; margin-left: 30%">
+                        <div class="alert alert-success" style="width: auto" role="alert">
+                            <h2>Activación de cuenta</h2>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <strong>Su cuenta ha sido activada con exito.</strong><br />
+                            <a class="alert-success" href="../Home/Index">Ingresar a publieventos</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <p class="font-text">Su activación ha caducado, para re activar su cuenta reenvie de nuevo el mail.</p>
+                        <a class="font-text" href="../Home/Index">Reenviar mail de activación.</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -14,9 +14,18 @@
         /// Obtiene todas las localidades.
         /// </summary>
         /// <returns>Lista de localidades.</returns>
-        public static List<Locality> GetAllLocalities()
+        public List<Locality> GetAllLocalities()
         {
             return new BaseQuery<Locality, int>().LoadAll().ToList();
+        }
+
+        /// <summary>
+        /// Obtiene todas las provincias.
+        /// </summary>
+        /// <returns>Lista de provincias.</returns>
+        public List<Province> GetAllProvinces()
+        {
+            return new BaseQuery<Province, int>().LoadAll().ToList();
         }
     }
 }

@@ -11,11 +11,37 @@ header, footer, nav, section
     display: block;
 }
 
+.body-modal
+{
+    background-image: url("/Content/themes/images/background_tile.jpg");
+}
+
 .table-event
 {
     background-color: #333333 !important;
 }
 
+.modal-lg
+{
+    max-width: 900px;
+    height: 350px;
+}
+
+@media (min-width: 768px)
+{
+    .modal-lg
+    {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px)
+{
+    .modal-lg
+    {
+        width: 900px;
+    }
+}
 
 .image-profile
 {

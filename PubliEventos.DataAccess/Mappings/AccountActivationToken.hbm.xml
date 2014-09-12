@@ -7,7 +7,7 @@
     <id name="Id">
       <generator class="identity" />
     </id>
-    <many-to-one name="User" class="User" column="IdUser" cascade="save-update"/>
+    <many-to-one name="User" class="User" column="IdUser"/>
     <property name="Token" type="AnsiString" />
     <property name="ExpirationDate" />
     <property name="EffectDate" />

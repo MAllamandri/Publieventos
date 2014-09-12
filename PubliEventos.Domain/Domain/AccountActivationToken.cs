@@ -28,6 +28,6 @@
         /// <summary>
         /// Fecha de baja.
         /// </summary>
-        public virtual DateTime NullDate { get; set; }
+        public virtual DateTime? NullDate { get; set; }
     }
 }

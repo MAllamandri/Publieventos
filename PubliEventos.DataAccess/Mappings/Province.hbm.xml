@@ -3,13 +3,14 @@
                    assembly="PubliEventos.Domain"
                    namespace="PubliEventos.Domain.Domain">
 
-  <class name="Locality" table="Localities" lazy="true">
+  <class name="Province" table="Provinces" lazy="true">
     <id name="Id">
       <generator class="identity" />
     </id>
     <property name="Name" />
-    <many-to-one name="Province" class="Province" column="IdProvince"/>
-    <property name="Latitude" />
-    <property name="Longitude" />
+    <bag name="Localities">
+      <key column="IdProvince"/>
+      <one-to-many class="Locality"/>
+    </bag>
   </class>
 </hibernate-mapping>

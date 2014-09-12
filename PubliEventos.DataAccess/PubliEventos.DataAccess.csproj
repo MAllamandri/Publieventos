@@ -54,12 +54,13 @@
     <Compile Include="Querys\BaseQuery.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mappings\AccountActivationToken.hbm.xml" />
-    <Content Include="Mappings\Comment.hbm.xml" />
-    <Content Include="Mappings\Event.hbm.xml" />
-    <Content Include="Mappings\EventType.hbm.xml" />
-    <Content Include="Mappings\MultimediaContent.hbm.xml" />
-    <Content Include="Mappings\User.hbm.xml" />
+    <EmbeddedResource Include="Mappings\AccountActivationToken.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Comment.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Event.hbm.xml" />
+    <EmbeddedResource Include="Mappings\EventType.hbm.xml" />
+    <EmbeddedResource Include="Mappings\MultimediaContent.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Province.hbm.xml" />
+    <EmbeddedResource Include="Mappings\User.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Locality.hbm.xml" />

@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.Contract.ContractClass
+﻿namespace PubliEventos.Contract.Class
 {
     using System;
     using PubliEventos.Domain.Domain;

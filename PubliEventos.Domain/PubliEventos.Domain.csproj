@@ -45,6 +45,7 @@
     <Compile Include="Domain\EventType.cs" />
     <Compile Include="Domain\Locality.cs" />
     <Compile Include="Domain\MultimediaContent.cs" />
+    <Compile Include="Domain\Province.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Enums\ContentTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

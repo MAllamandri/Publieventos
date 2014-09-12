@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContractClass\User.cs" />
+    <Compile Include="Class\Locality.cs" />
+    <Compile Include="Class\Province.cs" />
+    <Compile Include="Class\User.cs" />
     <Compile Include="Contracts\IServiceAccounts.cs" />
     <Compile Include="Contracts\IServiceEvents.cs" />
     <Compile Include="Contracts\IServiceLocalities.cs" />

@@ -8,7 +8,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("/Content/Site.css")
     @Styles.Render("/Content/bootstrap/css/bootstrap-responsive.css")
-    @Styles.Render("/Content/themes/bootstrap3.2/css/bootstrap.min.css")
+    @Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
     @Styles.Render("/Content/bootstrap/css/bootstrap-glyphicons.css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -18,7 +18,8 @@
 <body>
     <div class="container-index">
         <div class="affix" style="display: inline; z-index: 1;">
-            <a class="title" href="../">publieventos</a> </br>
+            <a class="title" href="../">publieventos</a>
+            <br />
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="row-fluid">
