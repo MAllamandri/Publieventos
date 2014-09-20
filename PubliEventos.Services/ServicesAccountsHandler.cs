@@ -56,5 +56,24 @@
         {
             return ServiceAccounts.UserExistsWithEmail(email);
         }
+
+        /// <summary>
+        /// Indica si el usuario tiene un token de activación de cuenta activo.
+        /// </summary>
+        /// <param name="idUser">Identificador del usuario.</param>
+        /// <returns>True si posee un token activo, false caso contrario.</returns>
+        public bool HasActiveActivationToken(int idUser)
+        {
+            return ServiceAccounts.HasActiveActivationToken(idUser);
+        }
+
+        /// <summary>
+        /// Doy de baja los token expirados del usuario.
+        /// </summary>
+        /// <param name="userName">Nombre de usuario.</param>
+        public void DeleteActivationToken(string userName)
+        {
+            ServiceAccounts.DeleteActivationToken(userName);
+        }
     }
 }

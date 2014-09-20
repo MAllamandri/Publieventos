@@ -8,37 +8,44 @@
 <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
 
 <div class="container-fluid">
-    <div class="col-xs-12">
-        <div style="margin-top: 30px">
-            <a class="title" title="PubliEventos" href="../">publieventos</a>
-        </div>
-    </div>
-</div>
 
-<div class="container-fluid">
     <div class="row-fluid">
         <div class="col-xs-12">
-            <div class="col-md-4">
-                @if (ViewBag.Active)
-                {
-                    <div class="col-md-4" style="margin-top: 30%; margin-left: 30%">
-                        <div class="alert alert-success" style="width: auto" role="alert">
-                            <h2>Activación de cuenta</h2>
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <strong>Su cuenta ha sido activada con exito.</strong><br />
-                            <a class="alert-success" href="../Home/Index">Ingresar a publieventos</a>
+            <div class="col-md-6">
+                <div style="margin-top: 30px">
+                    <a class="title" title="PubliEventos" href="../Account/ResendEmailActivation">publieventos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row-fluid">
+            <div class="row-fluid offset3">
+                <div class="col-xs-12">
+                    <div class="col-md-6" style="margin-top: 18%">
+                        <div class="span12">
+                            @if (ViewBag.Active)
+                            {
+                            
+                                <div class="alert alert-success" style="width: 440px" role="alert">
+                                    <h3><span class="glyphicon glyphicon-ok"></span>Activación de cuenta</h3>
+                                    <p>Su cuenta ha sido activada con exito.</p>
+                                    <p>Muchas gracias por registrarse. Disfrute de nuestro sitio.</p>
+                                    <a class="alert-link" href="../Account/Login">Ingresar a publieventos</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <h3><span class="glyphicon glyphicon-remove-circle"></span>Activación caducada</h3>
+                                    <strong>Su activación ha caducado, para re activar su cuenta ingrese con sus datos y reenvie el email de activacióm.</strong>
+                                </div>
+                            }
                         </div>
                     </div>
-                }
-                else
-                {
-                    <div class="alert alert-danger" role="alert">
-                        <p class="font-text">Su activación ha caducado, para re activar su cuenta reenvie de nuevo el mail.</p>
-                        <a class="font-text" href="../Home/Index">Reenviar mail de activación.</a>
-                    </div>
-                }
+                </div>
             </div>
         </div>
     </div>
 </div>
-

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Event.cs" />
     <Compile Include="Class\Locality.cs" />
     <Compile Include="Class\Province.cs" />
     <Compile Include="Class\User.cs" />
@@ -46,6 +47,8 @@
     <Compile Include="Contracts\IServiceEvents.cs" />
     <Compile Include="Contracts\IServiceLocalities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EventCreateRequest.cs" />
+    <Compile Include="Services\EventCreateResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">

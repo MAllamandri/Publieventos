@@ -69,7 +69,6 @@
                 }
             }
 
-            ViewBag.isExpirate = true;
             model.IsLogin = true;
             ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", 0);
 
@@ -93,7 +92,7 @@
         /// <returns>SignUp view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp(UserModel model)
+        public JsonResult SignUp(UserModel model)
         {
             if (ModelState.IsValid)
             {
@@ -117,13 +116,13 @@
                     this.SendEmailAccountConfirmation(user.UserName);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
 
             model.IsLogin = false;
-            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.SignUpModel.Locality.HasValue ? model.SignUpModel.Locality.Value : 0);
+            //  ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.SignUpModel.Locality.HasValue ? model.SignUpModel.Locality.Value : 0);
 
-            return View("Login", model);
+            return Json(new { Success = false, Keys = ModelState.Keys.ToArray(), Errors = ModelState.Values.Select(x => x.Errors) }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -149,11 +148,10 @@
         #region Private Methods
 
         /// <summary>
-        /// Valida usuario.
+        /// Valida lo datos del usuario.
         /// </summary>
-        /// <param name="userName">userName.</param>
-        /// <param name="password">Password</param>
-        /// <returns>True si es valido.</returns>
+        /// <param name="model">Modelo de login.</param>
+        /// <returns>True si es valido, false caso contrario.</returns>
         private bool ValidateUser(UserModel model)
         {
             if (!string.IsNullOrEmpty(model.UserName) && !string.IsNullOrEmpty(model.Password))
@@ -165,6 +163,8 @@
                     if (!user.Active)
                     {
                         ModelState.AddModelError("Error", "Usuario no activo, por favor active su cuenta verificando su email.");
+
+                        ViewBag.isExpirate = this.serviceAccounts.HasActiveActivationToken(user.Id);
 
                         return false;
                     }
@@ -332,6 +332,29 @@
             }
 
             return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Reenvia el email de activación de cuenta.
+        /// </summary>
+        /// <param name="userName">Nombre de usuario</param>
+        /// <returns>Json.</returns>
+        [HttpPost]
+        public JsonResult ResendEmailActivation(string userName)
+        {
+            try
+            {
+                this.SendEmailAccountConfirmation(userName);
+
+                // Doy de baja los token expirados y no eliminados del usuario.
+                this.serviceAccounts.DeleteActivationToken(userName);
+
+                return Json(new { isValid = true }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { isValid = false }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion

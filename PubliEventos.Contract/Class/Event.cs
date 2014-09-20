@@ -1,68 +1,63 @@
-﻿namespace PubliEventos.Domain.Domain
+﻿namespace PubliEventos.Contract.Class
 {
     using System;
-    using PubliEventos.DataAccess.Infrastructure;
-    using System.Collections.Generic;
 
-    /// <summary>
-    /// Representa un evento.
-    /// </summary>
-    public class Event : BaseIdentifier<int>
+    public class Event
     {
         /// <summary>
         /// Título del evento.
         /// </summary>
-        public virtual string Title { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Detalle del evento.
         /// </summary>
-        public virtual string Detail { get; set; }
+        public string Detail { get; set; }
 
         /// <summary>
         /// Descripcion del evento.
         /// </summary>
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Fecha de creación.
         /// </summary>
-        public virtual DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         /// <summary>
         /// Indica si es privado o público.
         /// </summary>
-        public virtual bool Private { get; set; }
+        public bool Private { get; set; }
 
         /// <summary>
         /// Fecha del evento.
         /// </summary>
-        public virtual DateTime EventDate { get; set; }
+        public DateTime EventDate { get; set; }
 
         /// <summary>
         /// Hora del evento.
         /// </summary>
-        public virtual string EventTime { get; set; }
+        public string EventTime { get; set; }
 
         /// <summary>
         /// Foto de portada.
         /// </summary>
-        public virtual string CoverPhoto { get; set; }
+        public string CoverPhoto { get; set; }
 
         /// <summary>
         /// Tipo de evento.
         /// </summary>
-        public virtual EventType EventType { get; set; }
+        //public virtual EventType EventType { get; set; }
 
         /// <summary>
         /// Comentarios del evento.
         /// </summary>
-        public virtual IList<Comment> Comments { get; set; }
+        //public virtual IList<Comment> Comments { get; set; }
 
         /// <summary>
         /// Contenidos multimedia relacionados al evento (imagenes o videos).
         /// </summary>
-        public virtual IList<MultimediaContent> MultimediaContents { get; set; }
+        //public virtual IList<MultimediaContent> MultimediaContents { get; set; }
 
         /// <summary>
         /// Localidad del evento.

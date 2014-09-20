@@ -150,5 +150,51 @@
                 }
             }
         }
+
+        /// <summary>
+        /// Indica si el usuario tiene un token de activación de cuenta activo.
+        /// </summary>
+        /// <param name="idUser">Identificador del usuario.</param>
+        /// <returns>True si posee un token activo, false caso contrario.</returns>
+        public static bool HasActiveActivationToken(int idUser)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var tokens = CurrentSession.Query<Domain.Domain.AccountActivationToken>()
+                    .Where(x => !x.NullDate.HasValue && x.User.Id == idUser && x.ExpirationDate < DateTime.Now).ToList();
+
+                if (tokens.Any())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Doy de baja los token expirados del usuario.
+        /// </summary>
+        /// <param name="userName">Nombre de usuario.</param>
+        public static void DeleteActivationToken(string userName)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var tokens = CurrentSession.Query<Domain.Domain.AccountActivationToken>()
+                    .Where(x => !x.NullDate.HasValue && x.User.UserName == userName && x.ExpirationDate < DateTime.Now).ToList();
+
+                if (tokens.Any())
+                {
+                    foreach (var accountActivationToken in tokens)
+                    {
+                        accountActivationToken.NullDate = DateTime.Now;
+                    }
+                }
+
+                transaction.Complete();
+            }
+        }
     }
 }

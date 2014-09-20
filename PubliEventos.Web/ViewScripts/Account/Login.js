@@ -51,8 +51,40 @@
     });
 
     $('#Register').click(function () {
-        if (!existEmail() && !existUser()) {
-            $('form').submit();
+        if ($('#SignUpModel_UserNameToRegister').val() != "" && !existEmail() && $('#SignUpModel_Email').val() != "" && !existUser()) {
+
+            $('#RegisterForm').ajaxForm({
+                url: "/Account/SignUp",
+                datatype: 'text/json',
+                //data: $('form').serializeArray(),
+                beforeSubmit: function (arr, $form, options) {
+                    $.blockUI({
+                        message: "<div style='font-size: 16px; padding-top: 11px;'><p>Registrando...</p><div>"
+                    });
+                },
+                complete: function (data) {
+                    if (data.Success) {
+                        $('.RegisterRow').hide();
+                        $('#RegisterSuccess').show();
+                    } else {
+                        //var validator = $("#RegisterForm").validate();
+
+                        $.each(data.responseJSON.Keys, function (index, item) {
+                            //var selector = $('input[name="' + item + '"]').val(data.responseJSON.Errors[index][0].ErrorMessage);
+                            //var property = item.toString();
+                            //var error = data.responseJSON.Errors[index][0].ErrorMessage.toString();
+                            if (data.responseJSON.Errors[index] != "") {
+                                $('span[name="' + item + '"]').text(data.responseJSON.Errors[index][0].ErrorMessage).show();
+                            }
+                            //validator.showErrors({ 'SignUpModel.RepeatPassword': 'error' });
+                        });
+                        //validator.settings.rules;
+                    }
+                    $.unblockUI();
+                }
+            });
+        } else {
+            return false;
         }
     });
 
@@ -74,6 +106,28 @@
 
     $("#myModal").click(function () {
         $("#Active").show();
+    });
+
+    $('#ResendEmail').click(function (e) {
+        var l = Ladda.create(this);
+        l.start();
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/ResendEmailActivation",
+            data: { userName: $('#ResendEmailUserName').val() }
+        }).done(function (data) {
+            if (data.isValid) {
+                l.stop();
+                $('#Success').show();
+            } else {
+                alert("Error al enviar email.")
+            }
+
+            $("#Active").hide();
+        }).error(function () {
+            alert("Error al enviar email.")
+        });
     });
 
     function existUser() {

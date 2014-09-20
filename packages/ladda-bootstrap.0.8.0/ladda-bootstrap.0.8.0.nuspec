@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ladda-bootstrap</id>
+    <version>0.8.0</version>
+    <title>Ladda for Bootstrap 3</title>
+    <authors>Maksim Surguy</authors>
+    <owners>Maksim Surguy</owners>
+    <licenseUrl>https://github.com/msurguy/ladda-bootstrap</licenseUrl>
+    <projectUrl>http://github.com/msurguy/ladda-bootstrap.git</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Buttons with built-in loading indicators, effectively bridging the gap between action and feedback.</description>
+    <copyright>Copyright (C) 2013 Hakim El Hattab</copyright>
+    <dependencies>
+      <dependency id="Spin.js" version="1.3" />
+    </dependencies>
+  </metadata>
+</package>

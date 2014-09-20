@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>bootbox</id>
+    <version>4.2.0</version>
+    <title>bootbox</title>
+    <authors>Nick Payne</authors>
+    <owners>Nick Payne</owners>
+    <projectUrl>http://bootboxjs.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>IMPORTANT!
+All versions of Bootbox stand on the shoulders of two great giants: Twitter’s Bootstrap framework and jQuery. The exact version of Bootstrap depends on the version of Bootbox you’re using. (for detailed dependeciey chart: http://bootboxjs.com/#dependencies)
+
+Bootbox.js is a small JavaScript library which allows you to create programmatic dialog boxes using Twitter's Bootstrap modals, without having to worry about creating, managing or removing any of the required DOM elements or JS event handlers.</description>
+    <summary>Bootbox.js—alert, confirm and flexible dialogs for Twitter's Bootstrap framework</summary>
+    <releaseNotes>Release: 4.2.0
+
+Version 4.x requires Bootstrap v3 (for detailed dependeciey chart: http://bootboxjs.com/#dependencies)
+
+- Add Swedish locale
+- Add Latvian locale
+- Add Turkish locale
+- Add Hebrew locale
+- Add password input type
+- Add textarea input type
+- Add date input type
+- Add time input type
+- Add number input type
+- Support DOM selectors for container argument
+- UMD support
+- Better support on mobile devices</releaseNotes>
+    <tags>jquery bootstrap dialog modal ui</tags>
+    <dependencies>
+      <dependency id="jQuery" version="1.8" />
+    </dependencies>
+  </metadata>
+</package>

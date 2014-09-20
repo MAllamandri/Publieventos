@@ -39,5 +39,18 @@
         /// <param name="token">Token.</param>
         /// <returns>True si se activo la cuenta, false caso contrario.</returns>
         bool ActivateAccount(string token);
+
+        /// <summary>
+        /// Indica si el usuario tiene un token de activación de cuenta activo.
+        /// </summary>
+        /// <param name="idUser">Identificador del usuario.</param>
+        /// <returns>True si posee un token activo, false caso contrario.</returns>
+        bool HasActiveActivationToken(int idUser);
+
+        /// <summary>
+        /// Doy de baja los token expirados del usuario.
+        /// </summary>
+        /// <param name="userName">Nombre de usuario.</param>
+        void DeleteActivationToken(string userName);
     }
 }
