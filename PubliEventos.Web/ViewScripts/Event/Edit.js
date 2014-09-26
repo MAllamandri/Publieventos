@@ -1,6 +1,13 @@
 ﻿$(function () {
-    $('#LocalityId').attr('disabled', 'disabled');
-    
+    if (data.Private) {
+        $('#Private').prop('checked', true);;
+    }
+
+    // Seteo el valor con los mismos formatos que los elementos.
+    $('#EventDate').val(data.EventDate.split("-")[2].split("T")[0] + "-" + data.EventDate.split("-")[1] + "-" + data.EventDate.split("-")[0]);
+    $('#EventStartTime').val(data.EventStartTime.split(":")[0] + ":" + data.EventStartTime.split(":")[1]);
+    $('#EventEndTime').val(data.EventEndTime.split(":")[0] + ":" + data.EventEndTime.split(":")[1]);
+
     $('#Description').keypress(function () {
         if ($('#Description').val().length > 140) {
             $('#Description').val($('#Description').val().substring(0, $('#Description').val().length - 1));

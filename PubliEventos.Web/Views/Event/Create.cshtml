@@ -1,45 +1,59 @@
-﻿@model PubliEventos.Contract.Services.EventCreateRequest
+﻿@model PubliEventos.Contract.Services.ServicesEvents.EventCreateOrUpdateParameters
 
 @{
-    ViewBag.Title = "Crear evento";
+    ViewBag.Title = "Alta Evento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Scripts.Render("/Scripts/moment.js")
+@Scripts.Render("/Scripts/moment-with-locales.js")
+@Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 
-
-@*@Scripts.Render("~/ViewScripts/Event/Create.js")*@
-@Scripts.Render("~/Scripts/moment.js")
-@Scripts.Render("~/Scripts/moment-with-locales.js")
-@Scripts.Render("~/Scripts/bootstrap-datetimepicker.js")
-@Styles.Render("~/Content/bootstrap-datetimepicker.min.css")
-                                             
+@Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
 
+@Scripts.Render("~/ViewScripts/Event/Create.js")
+
 <div class="row-fluid">
     <div class="col-md-10 offset1">
-        <div class="well-form" id="create">
+        <div style="margin-bottom: 25px" id="create">
             <div class="row-fluid">
                 <div class="col-md-12">
                     <h2 class="subtitle">Alta Evento</h2>
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="col-md-12">
-                    <div class="col-md-8">
-                        @Html.Label("Título")
-                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.Label("Fecha de Realización")
-                        <div class="input-group date">
-                            @Html.TextBoxFor(m => m.EventDate, new { @class = "form-control date" })
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            @using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                
+                @Html.Partial("Partial/_Form")
+               
+                <div class="row-fluid margin-bottom-normal">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label class="label-lobster">Foto de Portada</label>
+                            <input type="file" id="CoverPhoto" name="CoverPhoto" class="custom-file-input">
+                            <small>Extensiones permitidas (jpg, jpeg, gif y png)</small>
+                            @Html.ValidationMessage("ErrorCoverPhoto", new { @class = "field-validation-error", @name = "ErrorCoverPhoto" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Label("Tipo de evento", new { @class = "label-lobster" })
+                            @Html.DropDownListFor(m => m.EventTypeId, (SelectList)ViewBag.EventTypes, "[Seleccione Tipo Evento]", new { @class = "form-control font-text" })
+                            @Html.ValidationMessageFor(m => m.EventTypeId)
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="row-fluid">
+                    <div class="col-md-12">
+                        <div class="col-md-12 region-buttons">
+                            <input type="button" id="Save" class="btn btn-success button-submit" value="Guardar" />
+                            <a href="../Home/Index" class="btn btn-warning button-cancel" style="float: left;">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
-<script src="/ViewScripts/Event/Create.js" type="text/javascript"></script>

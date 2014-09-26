@@ -8,5 +8,7 @@
       <generator class="identity" />
     </id>
     <property name="Description" />
+    <property name="NullDate" />
+    <property name="EffectDate" />
   </class>
 </hibernate-mapping>

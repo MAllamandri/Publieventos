@@ -19,12 +19,12 @@
 <body>
     <div class="container-index">
         <div class="affix" style="display: inline; z-index: 1;">
-            <a class="title" href="../">publieventos</a>
+            <a class="title" href="/Home/Index">publieventos</a>
             <br />
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="row-fluid">
-                    <a class="sections-title" href="../Event/Create">Crear Evento</a><span class="sections-title">-</span>
+                    <a class="sections-title" href="/Event/Create">Crear Evento</a><span class="sections-title">-</span>
                     <a class="sections-title" href="#">Mis Eventos</a><span class="sections-title">-</span>
                     <a class="sections-title" href="#">Mis Grupos</a><span class="sections-title">-</span>
                     <a class="sections-title" href="#">Invitaciones</a>
@@ -54,9 +54,7 @@
             @RenderBody()
         </div>
     </div>
-   @* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>*@
     <script src="/Scripts/bootstrap.min.js"></script>
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>

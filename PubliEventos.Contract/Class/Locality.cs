@@ -1,12 +1,10 @@
 ﻿namespace PubliEventos.Contract.Class
 {
-    public class Locality
+    /// <summary>
+    /// Representa una localidad.
+    /// </summary>
+    public class Locality : BaseClass
     {
-        /// <summary>
-        /// Identificador de la localidad.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Nombre de la localidad.
         /// </summary>

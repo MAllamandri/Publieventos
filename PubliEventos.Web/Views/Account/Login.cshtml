@@ -3,7 +3,6 @@
 @using Newtonsoft.Json
 
 @{
-    ViewBag.Title = "Login";
     Layout = null;
 }
 
@@ -16,8 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
     @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
-    @Styles.Render("~/Content/bootstrap-datetimepicker.min.css")
-    @Styles.Render("/Content/ladda-themeless.min.css")
+    @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
+    @Styles.Render("/Content/ladda/ladda-themeless.min.css")
+    @Styles.Render("/Content/Site.css")
     <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
 </head>
 <body style="">
@@ -38,7 +38,7 @@
                                 </ul>
                                 <div id="myTabContent" class="tab-content">
                                     <div class="tab-pane active" id="login">
-                                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
                                         {
                                             @Html.AntiForgeryToken()
                                             @Html.HiddenFor(m => m.IsLogin)
@@ -100,21 +100,21 @@
                                                     <div class="form-group">
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.Email, new { @class = "form-control", @placeholder = "Email", @style = "height: 34px" })
-                                                            @Html.ValidationMessage("SignUpModel.Email", new { @class = "field-validation-error", name = "SignUpModel.Email" })
+                                                            @Html.ValidationMessage("SignUpModel.Email")
                                                             <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-envelope"></span>El email ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.UserNameToRegister, new { @class = "form-control", @placeholder = "Usuario", @style = "height: 34px" })
-                                                            @Html.ValidationMessage("SignUpModel.UserNameToRegister", new { @class = "field-validation-error", name = "SignUpModel.UserNameToRegister" })
+                                                            @Html.ValidationMessage("SignUpModel.UserNameToRegister")
                                                             <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-user"></span>El usuario ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.PasswordFor(m => m.SignUpModel.PasswordToRegister, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })
-                                                            @Html.ValidationMessage("SignUpModel.PasswordToRegister", new { @class = "field-validation-error", name = "SignUpModel.PasswordToRegister" })
+                                                            @Html.ValidationMessage("SignUpModel.PasswordToRegister")
                                                         </div>
                                                         <div>
                                                             @Html.PasswordFor(m => m.SignUpModel.RepeatPassword, new { @class = "form-control", @placeholder = "Repetir Contraseña", @style = "height: 34px" })
-                                                            @Html.ValidationMessage("SignUpModel.RepeatPassword", new { @class = "field-validation-error", name = "SignUpModel.RepeatPassword" })
+                                                            @Html.ValidationMessage("SignUpModel.RepeatPassword")
                                                         </div>
                                                     </div>
                                                 </div>
@@ -125,13 +125,13 @@
                                                         </div>
                                                         <div>
                                                             @Html.DropDownList("SignUpModel.Locality", new SelectList(""), "[Seleccione Localidad]", new { @class = "form-control font-text", @disabled = "disabled" })
-                                                            @Html.ValidationMessage("SignUpModel.Locality", new { @class = "field-validation-error", name = "SignUpModel.Locality" })
+                                                            @Html.ValidationMessage("SignUpModel.Locality")
                                                         </div>
                                                         <div class="input-group date">
-                                                            @Html.TextBoxFor(m => m.SignUpModel.BirthDate, new { @class = "form-control date font-text", @placeholder = "Fecha de Nacimiento", @style = "height: 34px" })
+                                                            @Html.TextBoxFor(m => m.SignUpModel.BirthDate, new { @class = "form-control font-text", @placeholder = "Fecha de Nacimiento", @style = "height: 34px" })
                                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                         </div>
-                                                        @Html.ValidationMessage("SignUpModel.BirthDate", new { @class = "field-validation-error", name = "SignUpModel.BirthDate" })
+                                                        @Html.ValidationMessage("SignUpModel.BirthDate")
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,7 +164,6 @@
     </div>
     <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="/Scripts/jquery.blockUI.js"></script>
-    <script src="/Scripts/jquery.validate.min.js"></script>
     <script src="/Scripts/jquery.form.js"></script>
     <script src="/Scripts/spin.js"></script>
     <script src="/Scripts/ladda.js"></script>
@@ -173,6 +172,7 @@
     <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
     <script src="/ViewScripts/Account/Login.js" type="text/javascript"></script>
+    <script src="/ViewScripts/Shared/Shared.js"></script>
     <script type="text/javascript">
         var data = @Html.Raw(JsonConvert.SerializeObject(this.Model));
     </script>

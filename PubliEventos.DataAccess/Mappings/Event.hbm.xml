@@ -13,12 +13,13 @@
     <property name="CreationDate" />
     <property name="Private" />
     <property name="EventDate" />
-    <property name="EventTime" />
-    <property name="CoverPhoto" />
-    <many-to-one name="EventType" class="EventType" column="IdEventType" cascade="save-update"/>
-    <many-to-one name="Locality" class="Locality" column="IdLocality" cascade="save-update"/>
+    <property name="EventStartTime" type="TimeAsTimeSpan" />
+    <property name="EventEndTime" type="TimeAsTimeSpan" />
+    <property name="FileName" column="CoverPhoto" />
+    <many-to-one name="EventType" class="EventType" column="IdEventType"/>
+    <many-to-one name="Locality" class="Locality" column="IdLocality"/>
     <property name="Active" />
-    <many-to-one name="User" class="User" column="IdUser" cascade="save-update"/>
+    <many-to-one name="User" class="User" column="IdUser"/>
     <bag name="Comments" cascade="save-update">
       <key column="IdEvent"/>
       <one-to-many class="Comment"/>

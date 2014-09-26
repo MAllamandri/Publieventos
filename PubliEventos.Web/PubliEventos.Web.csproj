@@ -154,6 +154,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Encryptor.cs" />
+    <Compile Include="Helpers\ModelErrors.cs" />
     <Compile Include="Models\AccountModels\LoginModel.cs" />
     <Compile Include="Models\AccountModels\SignUpModel.cs" />
     <Compile Include="Models\AccountModels\UserModel.cs" />
@@ -161,26 +162,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-datetimepicker.css" />
-    <Content Include="Content\bootstrap-datetimepicker.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap-glyphicons.css" />
     <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
-    <Content Include="Content\images\charla.jpg" />
-    <Content Include="Content\images\comedor.jpg" />
-    <Content Include="Content\images\maxi.jpg" />
-    <Content Include="Content\images\maxi.png" />
-    <Content Include="Content\images\teatro.jpg" />
-    <Content Include="Content\ladda-themeless.css" />
-    <Content Include="Content\ladda-themeless.min.css" />
-    <Content Include="Content\ladda.css" />
-    <Content Include="Content\ladda.min.css" />
+    <Content Include="Content\images\Covers\maxi.jpg" />
+    <Content Include="Content\ladda\ladda-themeless.css" />
+    <Content Include="Content\ladda\ladda-themeless.min.css" />
+    <Content Include="Content\ladda\ladda.css" />
+    <Content Include="Content\ladda\ladda.min.css" />
     <Content Include="Content\themes\base\docs.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -242,7 +235,6 @@
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Content\images\default-image-event.jpg" />
     <Content Include="Content\themes\images\background_tile.jpg" />
     <Content Include="Content\themes\images\cloud_1.png" />
     <Content Include="Content\themes\images\contact-default-image.jpg" />
@@ -315,6 +307,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\spin.min.js" />
     <Content Include="Scripts\unicorn.login.js" />
@@ -322,6 +315,7 @@
     <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="ViewScripts\Account\Login.js" />
     <Content Include="ViewScripts\Event\Create.js" />
+    <Content Include="ViewScripts\Event\Edit.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -339,9 +333,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\AccountActivation.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
+    <Content Include="Views\Event\Partial\_Form.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\EventsPictures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -4,15 +4,10 @@
     using PubliEventos.Domain.Domain;
 
     /// <summary>
-    /// Clase de contrato de un usuario.
+    /// Representa un usuario.
     /// </summary>
-    public class User
+    public class User : BaseClass
     {
-        /// <summary>
-        /// Identificador del usuario.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Usuario de la aplicación.
         /// </summary>

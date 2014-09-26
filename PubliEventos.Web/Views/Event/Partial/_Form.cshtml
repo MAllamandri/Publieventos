@@ -1,0 +1,77 @@
+﻿@model PubliEventos.Contract.Services.ServicesEvents.EventCreateOrUpdateParameters
+
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            @Html.Label("Título", new { @class = "label-lobster" })
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Title)
+        </div>
+    </div>
+</div>
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            @Html.Label("Descripción", new { @class = "label-lobster" })
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "2" })
+        </div>
+    </div>
+</div>
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            @Html.Label("Detalle", new { @class = "label-lobster" })
+            @Html.TextAreaFor(m => m.Detail, new { @class = "form-control", rows = "4" })
+        </div>
+    </div>
+</div>
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-2">
+            @Html.Label("Privacidad", new { @class = "label-lobster" })
+            <div>
+                @Html.Label("Público", new { @class = "label-lobster", style = "padding-right: 10px" })
+                <input type="radio" id="Public" name="Private" value="false" style="margin-right: 15px" checked="checked" />
+                @Html.Label("Privado", new { @class = "label-lobster", style = "padding-right: 10px" })
+                <input type="radio" id="Private" name="Private" value="true" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            @Html.Label("Fecha de Realización", new { @class = "label-lobster" })
+            <div class="input-group date">
+                @Html.TextBoxFor(m => m.EventDate, new { @class = "form-control" })
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            @Html.ValidationMessageFor(m => m.EventDate)
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Hora de Inicio", new { @class = "label-lobster" })
+            <div class="input-group time">
+                @Html.TextBoxFor(m => m.EventStartTime, new { @class = "form-control" })
+                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+            </div>
+            @Html.ValidationMessageFor(m => m.EventStartTime)
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Hora de Fin", new { @class = "label-lobster" })
+            <div class="input-group time">
+                @Html.TextBoxFor(m => m.EventEndTime, new { @class = "form-control" })
+                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+            </div>
+            @Html.ValidationMessageFor(m => m.EventEndTime)
+        </div>
+    </div>
+</div>
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="label-lobster">Localización</label>
+            @Html.DropDownList("ProvinceId", (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
+            @Html.ValidationMessageFor(m => m.ProvinceId)
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(m => m.LocalityId, (SelectList)ViewBag.Localities, "[Seleccione Localidad]", new { @class = "form-control font-text", style = "margin-top: 29px" })
+            @Html.ValidationMessageFor(m => m.LocalityId)
+        </div>
+    </div>
+</div>

@@ -31,7 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\BaseClass.cs" />
     <Compile Include="Class\Event.cs" />
+    <Compile Include="Class\EventType.cs" />
     <Compile Include="Class\Locality.cs" />
     <Compile Include="Class\Province.cs" />
     <Compile Include="Class\User.cs" />
@@ -47,8 +51,8 @@
     <Compile Include="Contracts\IServiceEvents.cs" />
     <Compile Include="Contracts\IServiceLocalities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\EventCreateRequest.cs" />
-    <Compile Include="Services\EventCreateResponse.cs" />
+    <Compile Include="Services\ServicesEvents\EventCreateOrUpdateParameters.cs" />
+    <Compile Include="Services\ServicesEvents\EventCreateOrUpdateResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">

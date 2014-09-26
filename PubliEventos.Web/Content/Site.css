@@ -11,6 +11,13 @@ p, strong, label
     font-family: 'MuseoSans-500';
 }
 
+.label-lobster
+{
+    font-family: 'Lobster 1.4';
+    color: #B89C83;
+    font-size: 17px;
+}
+
 header, footer, nav, section
 {
     display: block;
@@ -30,6 +37,32 @@ header, footer, nav, section
 {
     max-width: 900px;
     height: 350px;
+}
+
+.margin-bottom-normal
+{
+    margin-bottom: 10px;
+}
+
+.region-buttons
+{
+    margin-top: 15px;
+    color: #B89C83;
+    border-top: 1px solid #B89C83;
+}
+
+.button-submit
+{
+    float: right;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.button-cancel
+{
+    float: left;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
 }
 
 @media (min-width: 768px)
@@ -57,14 +90,79 @@ header, footer, nav, section
     margin-left: 3%;
 }
 
-.well-form {
+.well-form
+{
     background-color: #E9E6DA;
 }
 
-.subtitle {
+.btn-file
+{
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-file input[type=file]
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+
+.custom-file-input::-webkit-file-upload-button
+{
+    visibility: hidden;
+}
+
+.custom-file-input
+{
+    content: 'Seleccione Archivo';
+    display: inline-block;
+    font-family: 'MuseoSans-500';
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+    background-color: #DDD;
+    text-align: center !important;
+    position: relative;
+    min-width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    cursor: pointer;
+}
+
+    .custom-file-input:hover::before
+    {
+        border-color: black;
+    }
+
+    .custom-file-input:active::before
+    {
+        background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+
+.subtitle
+{
     font-family: 'Lobster 1.4';
     color: #B89C83;
-    border-bottom: 1px solid #B89C83; 
+    border-bottom: 1px solid #B89C83;
 }
 
 /*-- Tilte --*/
@@ -193,6 +291,7 @@ textarea
 -----------------------------------------------------------*/
 .field-validation-error
 {
+    background-color: transparent;
     color: #f00;
     font-size: 11px;
 }

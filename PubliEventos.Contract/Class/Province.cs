@@ -1,12 +1,10 @@
 ﻿namespace PubliEventos.Contract.Class
 {
-    public class Province
+    /// <summary>
+    /// Representa una provincia.
+    /// </summary>
+    public class Province : BaseClass
     {
-        /// <summary>
-        /// Identificador de la provincia.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Nombre.
         /// </summary>

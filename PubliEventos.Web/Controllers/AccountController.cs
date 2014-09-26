@@ -10,11 +10,11 @@
     using System.Web.Script.Serialization;
     using System.Web.Security;
     using Microsoft.Practices.Unity;
+    using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models.AccountModels;
-    using PubliEventos.Contract.Class;
 
     /// <summary>
     /// Controlador de cuentas.
@@ -59,13 +59,20 @@
         /// <returns>Index o Login view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(UserModel model)
+        public ActionResult Login(UserModel model, string ReturnUrl)
         {
             if (ModelState.IsValid)
             {
                 if (this.ValidateUser(model))
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (string.IsNullOrEmpty(ReturnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return Redirect(ReturnUrl);
+                    }
                 }
             }
 
@@ -120,9 +127,8 @@
             }
 
             model.IsLogin = false;
-            //  ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.SignUpModel.Locality.HasValue ? model.SignUpModel.Locality.Value : 0);
 
-            return Json(new { Success = false, Keys = ModelState.Keys.ToArray(), Errors = ModelState.Values.Select(x => x.Errors) }, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -164,7 +170,7 @@
                     {
                         ModelState.AddModelError("Error", "Usuario no activo, por favor active su cuenta verificando su email.");
 
-                        ViewBag.isExpirate = this.serviceAccounts.HasActiveActivationToken(user.Id);
+                        ViewBag.isExpirate = this.serviceAccounts.HasActiveActivationToken(user.Id.Value);
 
                         return false;
                     }
@@ -196,7 +202,7 @@
             // Datos a pasar al usuario en la cookie.
             var customPrincipalModel = new CustomPrincipalSerializeModel()
             {
-                Id = authUser.Id,
+                Id = authUser.Id.Value,
                 FirstName = authUser.FirstName,
                 LastName = authUser.LastName,
                 ImageProfile = authUser.ImageProfile
@@ -262,7 +268,7 @@
                 }
 
                 // Guarda el token de activación de cuenta.
-                serviceAccounts.SaveAccountActivationToken(token.ToString(), user.Id);
+                serviceAccounts.SaveAccountActivationToken(token.ToString(), user.Id.Value);
             }
             catch (Exception)
             {

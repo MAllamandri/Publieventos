@@ -40,14 +40,19 @@
         public virtual DateTime EventDate { get; set; }
 
         /// <summary>
-        /// Hora del evento.
+        /// Hora de comienzo del evento.
         /// </summary>
-        public virtual string EventTime { get; set; }
+        public virtual TimeSpan EventStartTime { get; set; }
+
+        /// <summary>
+        /// Hora de fin del evento.
+        /// </summary>
+        public virtual TimeSpan EventEndTime { get; set; }
 
         /// <summary>
         /// Foto de portada.
         /// </summary>
-        public virtual string CoverPhoto { get; set; }
+        public virtual string FileName { get; set; }
 
         /// <summary>
         /// Tipo de evento.
@@ -82,6 +87,6 @@
         /// <summary>
         /// Indica si está dado de baja.
         /// </summary>
-        public virtual DateTime NullDate { get; set; }
+        public virtual DateTime? NullDate { get; set; }
     }
 }

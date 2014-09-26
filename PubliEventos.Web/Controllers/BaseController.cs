@@ -7,6 +7,14 @@
     public class BaseController : Controller
     {
         /// <summary>
+        /// Path de almacenamiento de las fotos de portada.
+        /// </summary>
+        public string pathCoverPhoto
+        {
+            get { return "/Content/Images/Covers/"; }
+        }
+
+        /// <summary>
         /// Obtiene el usuario logueado.
         /// </summary>
         protected virtual new CustomPrincipal User

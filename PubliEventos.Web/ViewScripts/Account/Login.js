@@ -27,7 +27,7 @@
         $('#Second').attr('class', 'col-md-4');
     });
 
-    $('#SignUpModel_BirthDate').datetimepicker({
+    $('.date').datetimepicker({
         pickTime: false,
         format: "DD-MM-YYYY",
         language: 'es',
@@ -51,46 +51,44 @@
     });
 
     $('#Register').click(function () {
+        $('input[type= "text"]').hideMessageError();
+        $('input[type= "password"]').hideMessageError();
+        $('select').hideMessageError();
+
         if ($('#SignUpModel_UserNameToRegister').val() != "" && !existEmail() && $('#SignUpModel_Email').val() != "" && !existUser()) {
 
             $('#RegisterForm').ajaxForm({
                 url: "/Account/SignUp",
                 datatype: 'text/json',
-                //data: $('form').serializeArray(),
                 beforeSubmit: function (arr, $form, options) {
                     $.blockUI({
                         message: "<div style='font-size: 16px; padding-top: 11px;'><p>Registrando...</p><div>"
                     });
                 },
                 complete: function (data) {
-                    if (data.Success) {
+                    if (data.responseJSON.Success) {
                         $('.RegisterRow').hide();
                         $('#RegisterSuccess').show();
-                    } else {
-                        //var validator = $("#RegisterForm").validate();
 
-                        $.each(data.responseJSON.Keys, function (index, item) {
-                            //var selector = $('input[name="' + item + '"]').val(data.responseJSON.Errors[index][0].ErrorMessage);
-                            //var property = item.toString();
-                            //var error = data.responseJSON.Errors[index][0].ErrorMessage.toString();
-                            if (data.responseJSON.Errors[index] != "") {
-                                $('span[name="' + item + '"]').text(data.responseJSON.Errors[index][0].ErrorMessage).show();
-                            }
-                            //validator.showErrors({ 'SignUpModel.RepeatPassword': 'error' });
+                    } else {
+                        $.each(data.responseJSON.Errors, function (index, value) {
+                            var selector = "[name='" + index + "']";
+                            $(selector).showMessageError(value);
                         });
-                        //validator.settings.rules;
                     }
                     $.unblockUI();
                 }
             });
         } else {
+            $('#SignUpModel_UserNameToRegister').showMessageError("El campo usuario es obligatorio.");
+            $('#SignUpModel_Email').showMessageError("El campo email es obligatorio.");
             return false;
         }
     });
 
     $('#Province').change(function () {
         $.getJSON("/Account/GetLocalitiesByProvince", { idProvince: $('#Province').val() }, function (data) {
-            $('#SignUpModel_Locality').children().remove();
+            $('#SignUpModel_Locality option').remove();
 
             $('#SignUpModel_Locality').attr('disabled', 'disabled');
 
