@@ -27,40 +27,15 @@ header, footer, nav, section {
     background-color: #333333 !important;
 }
 
-/* Tabla general */
-
-.table-myEvents {
-    width: 100%;
+/* Mosaico */
+.mosaic {
+    background-color: #F6ECE7;
+    border-radius: 15px 15px 15px 15px;
+    border: 2px solid;
+    box-shadow: 10px 10px 5px #888888;
+    border-color: #B89C83;
+    margin-bottom: 1%;
 }
-
-    .table-myEvents th {
-        background-color: #B89C83;
-        height: 40px;
-        margin-bottom: 5px;
-        font-family: 'Lobster 1.4';
-        font-size: 19px;
-        text-align: center;
-    }
-
-        .table-myEvents th a:link {
-            text-decoration: none;
-            color: black;
-        }
-
-    .table-myEvents tr:hover {
-        background-color: #DDD;
-    }
-
-    .table-myEvents td {
-        padding: 5px;
-        font-family: 'MuseoSans-500';
-        font-size: 15px;
-        text-align: center;
-    }
-
-        .table-myEvents td a:link {
-            text-decoration: none;
-        }
 
 
 /* --------------------------------------------------------------------------*/

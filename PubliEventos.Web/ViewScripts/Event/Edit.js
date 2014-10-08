@@ -9,7 +9,7 @@
     $('#EventEndTime').val(data.EventEndTime.split(":")[0] + ":" + data.EventEndTime.split(":")[1]);
 
     $('#Description').keypress(function () {
-        if ($('#Description').val().length > 140) {
+        if ($('#Description').val().length > 139) {
             $('#Description').val($('#Description').val().substring(0, $('#Description').val().length - 1));
         }
     });
