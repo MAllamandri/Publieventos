@@ -307,6 +307,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\spin.min.js" />
@@ -335,6 +336,7 @@
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\Partial\_Form.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Event\MyEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

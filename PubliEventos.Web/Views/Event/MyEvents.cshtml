@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Mis Eventos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Newtonsoft.Json
+
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MyEvents.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.js")
+
+<div class="row-fluid">
+    <div class="col-md-10 offset1">
+        <div style="margin-bottom: 25px" id="create">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <h2 class="subtitle">Mis Eventos</h2>
+                    <table class="table-myEvents">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="width: 30%">Titulo</th>
+                                <th style="width: 20%"><a href="#" data-bind="click: SortByLocality">Fecha Evento</a></th>
+                                <th style="width: 20%">Hora</th>
+                                <th style="width: 10%">Localidad</th>
+                                <th style="width: 10%">Provincia</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: Events, visible: Events().length > 0">
+                            <tr>
+                                <td data-bind="html: FileName"></td>
+                                <td data-bind="text: Title"></td>
+                                <td data-bind="text: EventDate"></td>
+                                <td data-bind="text: EventTime"></td>
+                                <td data-bind="text: Locality"></td>
+                                <td data-bind="text: Province"></td>
+                                <td>
+                                    <a href="#" title="Editar Evento" data-bind="click: Edit" class="glyphicon glyphicon-pencil"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var data = @Html.Raw(JsonConvert.SerializeObject(this.ViewBag.myEvents))
+</script>

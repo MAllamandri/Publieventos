@@ -28,7 +28,7 @@
                 FileName = x.FileName,
                 CreationDate = x.CreationDate,
                 Description = x.Description,
-                EventDate = x.EventDate,
+                EventDate = x.EventDate.Date,
                 EventStartTime = x.EventStartTime,
                 EventEndTime = x.EventEndTime,
                 Locality = new Locality()

@@ -179,7 +179,7 @@
                     {
                         // Inicializa el identity y crea la cookie.
                         var custom = new CustomPrincipal(model.UserName);
-                        this.CreateAuthenticationTicket(model.UserName);
+                        this.CreateAuthenticationTicket(model.UserName, model.RememberMe);
 
                         return true;
                     }
@@ -195,7 +195,7 @@
         /// Creao una cookie y la devuelve al usuario.
         /// </summary>
         /// <param name="userName">userName.</param>
-        private void CreateAuthenticationTicket(string userName)
+        private void CreateAuthenticationTicket(string userName, bool rememberMe)
         {
             var authUser = this.serviceAccounts.GetUserByUserName(userName);
 
@@ -217,8 +217,9 @@
               userName,
               DateTime.Now,
               DateTime.Now.AddDays(90),
-              false,
-              userData);
+              rememberMe,
+              userData,
+              "/");
 
             // Encrypto el ticket.
             string encTicket = FormsAuthentication.Encrypt(authTicket);

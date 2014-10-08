@@ -132,6 +132,13 @@
             return View(model);
         }
 
+        public ActionResult MyEvents()
+        {
+            ViewBag.myEvents = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id).ToList();
+
+            return View();
+        }
+
         #region Private Methods
 
         /// <summary>
