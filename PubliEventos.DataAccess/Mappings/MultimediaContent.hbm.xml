@@ -10,6 +10,7 @@
     <property name="Name" />
     <property name="Active"/>
     <property name="NullDate"/>
+    <property name="EffectDate"/>
     <many-to-one name="Event" class="Event" column="IdEvent" cascade="save-update"/>
     <property name="ContentType" column="IdContentType" type="int"/>
   </class>

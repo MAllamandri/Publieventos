@@ -7,6 +7,7 @@
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Services.ServicesEvents;
     using PubliEventos.DataAccess.Querys;
+    using System.Transactions;
 
     /// <summary>
     /// Servicio de eventos.
@@ -164,6 +165,35 @@
             eventToSave.FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null;
 
             new BaseQuery<Domain.Domain.Event, int>().Update(eventToSave);
+        }
+
+        /// <summary>
+        /// Elimina un evento.
+        /// </summary>
+        /// <param name="idEvent">Identificador del evento.</param>
+        public static void DeleteEvent(int idEvent)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var eventToDelete = CurrentSession.Query<Domain.Domain.Event>().Where(x => x.Id == idEvent && !x.NullDate.HasValue && x.Active).Single();
+
+                // Doy de baja el evento.
+                eventToDelete.NullDate = DateTime.Now;
+
+                // Doy de baja los comentarios del evento.
+                foreach (var comment in eventToDelete.Comments)
+                {
+                    comment.NullDate = DateTime.Now;
+                }
+
+                // Doy de baja los contenidos multimedia que posea el evento.
+                foreach (var content in eventToDelete.MultimediaContents)
+                {
+                    content.NullDate = DateTime.Now;
+                }
+
+                transaction.Complete();
+            }
         }
     }
 }

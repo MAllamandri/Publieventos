@@ -39,5 +39,11 @@
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
         void EditEvent(EventCreateOrUpdateParameters request);
+
+        /// <summary>
+        /// Elimina un evento.
+        /// </summary>
+        /// <param name="idEvent">Identificador del evento.</param>
+        void DeleteEvent(int idEvent);
     }
 }

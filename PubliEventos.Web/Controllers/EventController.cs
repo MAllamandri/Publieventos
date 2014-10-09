@@ -132,9 +132,13 @@
             return View(model);
         }
 
+        /// <summary>
+        /// Vista mis eventos.
+        /// </summary>
+        /// <returns>MyEvents view.</returns>
         public ActionResult MyEvents()
         {
-            ViewBag.myEvents = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id).ToList();
+            ViewBag.myEvents = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id && x.EventDate >= DateTime.Now.Date).ToList();
 
             return View();
         }
@@ -165,6 +169,30 @@
                 UserId = eventToParse.User.Id.Value,
                 EventTypeId = eventToParse.EventType.Id.Value,
             };
+        }
+
+        #endregion
+
+        #region Json Methods
+
+        /// <summary>
+        /// Elimina un evento.
+        /// </summary>
+        /// <param name="idEvent">Identificador del evento.</param>
+        /// <returns>True si se realizo correctamente, false caso contrario.</returns>
+        public JsonResult DeleteEvent(int idEvent)
+        {
+            try
+            {
+                // Elimino el evento.
+                this.serviceEvents.DeleteEvent(idEvent);
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion

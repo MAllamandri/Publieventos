@@ -9,54 +9,58 @@
     <div class="col-xs-12">
         <div class="row-fluid">
             <div class="col-xs-12">
-                <img class="image-cloud" alt="nube" src="/Content/themes/images/cloud_1.png" />
+                <div class="row-fluid">
+                    <img class="image-cloud" alt="nube" src="/Content/themes/images/cloud_1.png" />
+                </div>
             </div>
         </div>
-        <ul class="timeline">
-            @for (int i = 0; i < Model.events.Count; i++)
-            {
-                <li>
-                    <div class="tldate">@DateTime.Now.ToShortDateString()</div>
-                </li>
-                <li style="margin-bottom: 40px;">
-                    <div class="tl-circ">
-                        <img src="/Content/images/Covers/@Model.events[i].FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
-                    </div>
-                    <div class="timeline-panel" style="margin-top: 1%;">
-                        <div class="tl-heading">
-                            <h4 class="font-text">@Model.events[i].Title</h4>
-                            <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
-                        </div>
-                        <div class="tl-body">
-                            <p class="font-text">@Model.events[i].Description</p>
-
-                            <p class="font-text">@Model.events[i].Detail</p>
-                        </div>
-                    </div>
-                </li>
-            
-                if ((i + 1) < Model.events.Count)
+        <div class="row-fluid">
+            <ul class="timeline">
+                @for (int i = 0; i < Model.events.Count; i++)
                 {
-                    i++;
-                <li class="timeline-inverted">
-                    <div class="tl-circ">
-                        <img src="/Content/images/Covers/@Model.events[i].FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
-                    </div>
-                    <div class="timeline-panel">
-                        <div class="tl-heading">
-                            <h4>@Model.events[i].Title</h4>
-                            <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
+                    <li>
+                        <div class="tldate">@DateTime.Now.ToShortDateString()</div>
+                    </li>
+                    <li style="margin-bottom: 40px;">
+                        <div class="tl-circ">
+                            <img src="/Content/images/Covers/@Model.events[i].FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
                         </div>
-                        <div class="tl-body">
-                            <p class="font-text">@Model.events[i].Description</p>
+                        <div class="timeline-panel" style="margin-top: 1%;">
+                            <div class="tl-heading">
+                                <h4 class="font-text">@Model.events[i].Title</h4>
+                                <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
+                            </div>
+                            <div class="tl-body">
+                                <p class="font-text">@Model.events[i].Description</p>
 
-                            <p class="font-text">@Model.events[i].Detail</p>
+                                <p class="font-text">@Model.events[i].Detail</p>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+            
+                    if ((i + 1) < Model.events.Count)
+                    {
+                        i++;
+                    <li class="timeline-inverted">
+                        <div class="tl-circ">
+                            <img src="/Content/images/Covers/@Model.events[i].FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="tl-heading">
+                                <h4>@Model.events[i].Title</h4>
+                                <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.events[i].EventDate.ToShortDateString()</small></p>
+                            </div>
+                            <div class="tl-body">
+                                <p class="font-text">@Model.events[i].Description</p>
+
+                                <p class="font-text">@Model.events[i].Detail</p>
+                            </div>
+                        </div>
+                    </li>
+                    }
                 }
-            }
-        </ul>
+            </ul>
+        </div>
         <nav class="navbar-fixed-bottom" style="margin-right: 20px">
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">

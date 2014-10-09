@@ -56,5 +56,14 @@
         {
             ServiceEvents.EditEvent(request);
         }
+
+        /// <summary>
+        /// Elimina un evento.
+        /// </summary>
+        /// <param name="idEvent">Identificador del evento.</param>
+        public void DeleteEvent(int idEvent)
+        {
+            ServiceEvents.DeleteEvent(idEvent);
+        }
     }
 }

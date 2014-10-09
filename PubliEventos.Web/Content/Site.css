@@ -38,8 +38,30 @@ header, footer, nav, section {
 }
 
 
+    .mosaic:hover nav {
+        display: block;
+    }
+
 /* --------------------------------------------------------------------------*/
 
+/* Vertical Menu */
+
+.verticaltabs-container {
+    display: none;
+}
+
+    .verticaltabs-container ul {
+        position: absolute;
+        padding-left: 97%;
+        list-style: none;
+        padding-top: 8px;
+    }
+
+.vertical-list-item a:focus {
+    background-color: none !important;
+}
+
+/*---------------------------------------------------------------------------*/
 .modal-lg {
     max-width: 900px;
     height: 350px;
@@ -344,7 +366,7 @@ img {
     z-index: 1;
     position: absolute;
     margin-top: -6%;
-    text-align: right;
+    text-align: center;
     display: inline;
 }
 

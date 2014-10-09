@@ -33,5 +33,10 @@
         /// Indica si está dado de baja.
         /// </summary>
         public virtual DateTime NullDate { get; set; }
+
+        /// <summary>
+        /// Fecha de alta del contenido.
+        /// </summary>
+        public virtual DateTime EffectDate { get; set; }
     }
 }

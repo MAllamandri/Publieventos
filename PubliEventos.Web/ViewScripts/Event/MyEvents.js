@@ -1,36 +1,37 @@
 ﻿$(function () {
-    var MyEventsModel = function () {
-        var self = this;
+    $('.deleteEvent').click(function (event) {
+        var idEvent = $(this).attr('rel');
 
-        self.Events = ko.observableArray();
+        bootbox.confirm({
+            title: "Eliminación de evento",
+            message: "Esta seguro que desea eliminar el evento?",
+            buttons: {
+                'cancel': {
+                    label: "Cancelar"
+                },
+                'confirm': {
+                    label: "Aceptar"
+                }
+            }, callback: function (result) {
+                if (result) {
+                    $.blockUI({ message: "" });
 
-        self.SortByLocality = function () {
-            this.Events.sort(function (a, b) {
-                return a.Locality < b.Locality ? -1 : 1;
-            });
-        };
-    }
+                    $.ajax({
+                        url: "/Event/DeleteEvent",
+                        data: { idEvent: idEvent }
+                    }).done(function (data) {
+                        if (data.Success) {
+                            bootbox.alert("El evento ha sido eliminado correctamente", function () {
+                                window.location.href = "/Event/MyEvents";
+                            });
+                        } else {
+                            bootbox.alert("Ha ocurrido un error al eliminar el registro");
+                        }
 
-    var viewModel = new MyEventsModel();
-
-    $.each(data, function (index, event) {
-        viewModel.Events.push(new Event(event));
+                        $.unblockUI();
+                    });
+                }
+            }
+        });
     });
-
-    ko.applyBindings(viewModel);
 });
-
-function Event(event) {
-    var self = this;
-
-    self.Title = event.Title;
-    self.FileName = "<img src='/Content/images/Covers/" + event.FileName + "' style='width: 80px; height: 80px;' class='img-circle' data-src='holder.js/80x80/auto'>";
-    self.EventDate = event.EventDate;
-    self.EventTime = event.EventStartTime + " a " + event.EventEndTime + " Hs.";
-    self.Locality = event.Locality.Name;
-    self.Province = event.Locality.Province.Name;
-
-    self.Edit = function () {
-        window.location.href = "/Event/Edit/" + event.Id;
-    }
-}

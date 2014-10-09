@@ -3,10 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using Newtonsoft.Json
-
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MyEvents.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 
 <div class="row-fluid">
     <div class="col-md-10 offset1">
@@ -14,10 +13,10 @@
             <div class="row-fluid">
                 <div class="col-md-12">
                     <h2 class="subtitle">Mis Eventos</h2>
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="margin-top: 20px;">
                         @foreach (var Event in (List<PubliEventos.Contract.Class.Event>)ViewBag.myEvents)
                         {
-                            <div class="col-md-6" style="margin-bottom:1%; height: 280px;">
+                            <div class="col-md-6" style="margin-bottom: 1%; height: 280px;">
                                 <div class="col-md-12 mosaic">
                                     <div class="row-fluid subtitle">
                                         <div class="span12">
@@ -26,6 +25,13 @@
                                                     <img src="/Content/images/Covers/@Event.FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
                                                 </div>
                                             </div>
+                                            <nav class="verticaltabs-container">
+                                                <ul>
+                                                    <li style="padding-bottom: 5px" class="vertical-list-item"><a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i style="color: #B89C83" class="glyphicon glyphicon-remove"></i></a></li>
+                                                    <li style="padding-bottom: 5px" class="vertical-list-item"><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i style="color: #B89C83" class="glyphicon glyphicon-pencil"></i></a></li>
+                                                    <li class="vertical-list-item"><a title="Ver Detalle" href="/Event/Detail/@Event.Id"><i style="color: #B89C83" class="glyphicon glyphicon-search"></i></a></li>
+                                                </ul>
+                                            </nav>
                                             <div class="span8">
                                                 <h4 class="font-text" style="color: #c25b4e">@Event.Title</h4>
                                                 <p>
@@ -34,7 +40,7 @@
                                                 </p>
                                                 <p>
                                                     <p class="font-text" style="display: inline;">Hora:</p>
-                                                    <strong class="font-text" style="display: inline;"> @Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</strong>
+                                                    <strong class="font-text" style="display: inline;">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</strong>
                                                 </p>
                                             </div>
                                         </div>
@@ -55,7 +61,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    var data = @Html.Raw(JsonConvert.SerializeObject(this.ViewBag.myEvents))
-</script>

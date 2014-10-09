@@ -1,6 +1,4 @@
 ﻿$(function () {
-    $('#LocalityId').attr('disabled', 'disabled');
-    
     $('#Description').keypress(function () {
         if ($('#Description').val().length > 139) {
             $('#Description').val($('#Description').val().substring(0, $('#Description').val().length - 1));
