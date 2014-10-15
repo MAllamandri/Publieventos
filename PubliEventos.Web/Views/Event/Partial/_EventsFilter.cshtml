@@ -1,0 +1,49 @@
+﻿@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Partial/_EventsFilter.js")
+
+@Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
+@Scripts.Render("/Scripts/moment.js")
+@Scripts.Render("/Scripts/moment-with-locales.js")
+@Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
+@Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+
+<div class="row-fluid filter-section">
+    <div class="col-md-12">
+        <div class="row-fluid">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label class="label-lobster">Localización</label>
+                    @Html.DropDownList("Provinces", (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
+                </div>
+                <div class="col-md-6">
+                    @Html.DropDownList("Localities", (SelectList)ViewBag.Localities, "[Seleccione Localidad]", new { @class = "form-control font-text", style = "margin-top: 29px" })
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label class="label-lobster">Tipo de Evento</label>
+                    @Html.DropDownList("EventTypes", (SelectList)ViewBag.EventTypes, "[Seleccione Tipo Evento]", new { @class = "form-control font-text" })
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    @Html.Label("Fecha Desde", new { @class = "label-lobster" })
+                    <div class="input-group date">
+                        @Html.TextBox("StartDate", null, new { @class = "form-control" })
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                     @Html.Label("Fecha Hasta", new { @class = "label-lobster" })
+                    <div class="input-group date">
+                        @Html.TextBox("EndDate", null, new { @class = "form-control" })
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

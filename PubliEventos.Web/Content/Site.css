@@ -27,6 +27,28 @@ header, footer, nav, section {
     background-color: #333333 !important;
 }
 
+/* Secciones dentro de una vista */
+
+.subtitle-sections {
+    list-style: none;
+    font-family: 'Lobster 1.4';
+    color: #B89C83;
+    font-size: 17px;
+    margin-left: -53px;
+}
+
+    .subtitle-sections li {
+        list-style-type: none;
+        display: inline;
+        padding-right: 10px;
+    }
+
+    .subtitle-sections a:hover {
+        text-decoration: none;
+    }
+
+/* --------------------------------------------------------------------------*/
+
 /* Mosaico */
 .mosaic {
     background-color: #F6ECE7;
@@ -248,6 +270,18 @@ header, footer, nav, section {
 }
 
 /*----------------------------------------------------------*/
+
+/* Filter */
+.filter-section {
+    background-color: #E9E6DA;
+    border-radius: 15px 15px 15px 15px;
+    border: 2px solid;
+    border-color: #B89C83;
+    margin-bottom: 1%;
+    padding-bottom: 25px;
+    padding-top: 10px;
+}
+
 
 /*---------------------------------------------------------*/
 .login-form {

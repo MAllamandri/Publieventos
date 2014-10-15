@@ -158,6 +158,7 @@
     <Compile Include="Models\AccountModels\LoginModel.cs" />
     <Compile Include="Models\AccountModels\SignUpModel.cs" />
     <Compile Include="Models\AccountModels\UserModel.cs" />
+    <Compile Include="Models\EventModels\FilterModel.cs" />
     <Compile Include="Models\EventsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -308,6 +309,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
+    <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\spin.min.js" />
@@ -337,6 +339,7 @@
     <Content Include="Views\Event\Partial\_Form.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\MyEvents.cshtml" />
+    <Content Include="Views\Event\Partial\_EventsFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

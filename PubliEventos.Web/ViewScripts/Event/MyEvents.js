@@ -34,4 +34,16 @@
             }
         });
     });
+
+    $('a .eventsSearch').click(function () {
+        $.blockUI({ message: '' });
+    });
+
+    $('#filter').click(function () {
+        if ($('#filterRegion').is(':visible')) {
+            $('#filterRegion').hide();
+        } else {
+            $('#filterRegion').show();
+        }
+    });
 });

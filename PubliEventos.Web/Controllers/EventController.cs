@@ -8,6 +8,7 @@
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.ServicesEvents;
+    using System.Collections.Generic;
 
     [Authorize]
     public class EventController : BaseController
@@ -135,10 +136,26 @@
         /// <summary>
         /// Vista mis eventos.
         /// </summary>
+        /// <param name="currentEvents">Indica si se obtienen los eventos actuales o los que ya pasaron.</param>
         /// <returns>MyEvents view.</returns>
-        public ActionResult MyEvents()
+        public ActionResult MyEvents(bool currentEvents)
         {
-            ViewBag.myEvents = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id && x.EventDate >= DateTime.Now.Date).ToList();
+            List<Event> events = new List<Event>();
+            
+            if (currentEvents)
+            {
+                events = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id && x.EventDate >= DateTime.Now.Date).ToList();
+            }
+            else
+            {
+                events = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id && x.EventDate < DateTime.Now.Date).ToList();
+            }
+
+            ViewBag.myEvents = events;
+            ViewBag.currentEvents = currentEvents;
+            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name");
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name");
+            ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
 
             return View();
         }
