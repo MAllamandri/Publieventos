@@ -45,5 +45,12 @@
         /// </summary>
         /// <param name="idEvent">Identificador del evento.</param>
         void DeleteEvent(int idEvent);
+
+        /// <summary>
+        /// Obtiene eventos por diferentes filtros.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        List<Event> SearchFilteredEvents(SearchFilteredEventsRequest request);
     }
 }

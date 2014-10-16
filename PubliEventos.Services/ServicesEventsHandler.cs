@@ -65,5 +65,15 @@
         {
             ServiceEvents.DeleteEvent(idEvent);
         }
+
+        /// <summary>
+        /// Obtiene eventos por diferentes filtros.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public List<Event> SearchFilteredEvents(SearchFilteredEventsRequest request)
+        {
+            return ServiceEvents.SearchFilteredEvents(request);
+        }
     }
 }

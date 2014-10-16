@@ -340,6 +340,7 @@
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\MyEvents.cshtml" />
     <Content Include="Views\Event\Partial\_EventsFilter.cshtml" />
+    <Content Include="Views\Event\Partial\_Mosaic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

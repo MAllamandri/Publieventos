@@ -141,7 +141,7 @@
         public ActionResult MyEvents(bool currentEvents)
         {
             List<Event> events = new List<Event>();
-            
+
             if (currentEvents)
             {
                 events = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id && x.EventDate >= DateTime.Now.Date).ToList();
@@ -186,6 +186,19 @@
                 UserId = eventToParse.User.Id.Value,
                 EventTypeId = eventToParse.EventType.Id.Value,
             };
+        }
+
+        /// <summary>
+        /// Vista parcial de eventos.
+        /// </summary>
+        /// <param name="model">modelo de filtros.</param>
+        /// <returns>Mosaic view.</returns>
+        [HttpPost]
+        public PartialViewResult GetEvents(SearchFilteredEventsRequest model)
+        {
+            var events = this.serviceEvents.SearchFilteredEvents(model);
+
+            return PartialView("Partial/_Mosaic", events);
         }
 
         #endregion

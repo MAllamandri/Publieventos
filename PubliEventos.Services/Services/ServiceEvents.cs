@@ -1,12 +1,13 @@
 ﻿namespace PubliEventos.Services.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using LinqKit;
     using NHibernate.Linq;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Services.ServicesEvents;
     using PubliEventos.DataAccess.Querys;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Transactions;
 
     /// <summary>
@@ -195,5 +196,88 @@
                 transaction.Complete();
             }
         }
+
+        /// <summary>
+        /// Obtiene eventos por diferentes filtros.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public static List<Event> SearchFilteredEvents(SearchFilteredEventsRequest request)
+        {
+            var predicate = PredicateBuilder.True<Domain.Domain.Event>();
+            predicate = predicate.And(x => !x.NullDate.HasValue && x.Active);
+
+            if (request.LocalityId.HasValue)
+            {
+                predicate = predicate.And(x => x.Locality.Id == request.LocalityId.Value);
+            }
+
+            if (request.EventTypeId.HasValue)
+            {
+                predicate = predicate.And(x => x.EventType.Id == request.EventTypeId.Value);
+            }
+
+            if (request.EndDate.HasValue && request.StartDate.HasValue)
+            {
+                predicate = predicate.And(x => x.EventDate.Date > request.StartDate.Value.Date && x.EventDate.Date <= request.EndDate.Value.Date);
+            }
+            else if (request.StartDate.HasValue)
+            {
+                predicate = predicate.And(x => x.EventDate.Date >= request.StartDate.Value.Date);
+            }
+            else if (request.EndDate.HasValue)
+            {
+                predicate = predicate.And(x => x.EventDate.Date <= request.EndDate.Value.Date);
+            }
+
+            return CurrentSession.Query<Domain.Domain.Event>().Where(predicate).Select(x => GetEventSummary(x)).ToList();
+        }
+
+        #region Private Methods
+
+        /// <summary>
+        /// Parsea un evento de dominio a un evento de contrato.
+        /// </summary>
+        /// <param name="eventToParse">Evento a parsear.</param>
+        /// <returns>Evento de contrato.</returns>
+        private static Event GetEventSummary(Domain.Domain.Event eventToParse)
+        {
+            return new Event()
+            {
+                Id = eventToParse.Id,
+                Title = eventToParse.Title,
+                Detail = eventToParse.Detail,
+                Active = eventToParse.Active,
+                FileName = eventToParse.FileName,
+                Description = eventToParse.Description,
+                EventDate = eventToParse.EventDate.Date,
+                EventStartTime = eventToParse.EventStartTime,
+                EventEndTime = eventToParse.EventEndTime,
+                Locality = new Locality()
+                         {
+                             Id = eventToParse.Locality.Id,
+                             Name = eventToParse.Locality.Name,
+                             Latitude = eventToParse.Locality.Latitude,
+                             Longitude = eventToParse.Locality.Longitude,
+                             Province = new Province()
+                             {
+                                 Id = eventToParse.Locality.Province.Id,
+                                 Name = eventToParse.Locality.Province.Name
+                             }
+                         },
+                Private = eventToParse.Private,
+                User = new User()
+                         {
+                             Id = eventToParse.User.Id
+                         },
+                EventType = new EventType()
+                        {
+                            Id = eventToParse.EventType.Id,
+                            Description = eventToParse.EventType.Description
+                        }
+            };
+        }
+
+        #endregion
     }
 }

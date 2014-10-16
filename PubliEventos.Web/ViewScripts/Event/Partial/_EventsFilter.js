@@ -1,17 +1,17 @@
 ﻿$(function () {
     $('#Provinces').change(function () {
         $.getJSON("/Account/GetLocalitiesByProvince", { idProvince: $('#Provinces').val() }, function (data) {
-            $('#Localities option').remove();
+            $('#LocalityId option').remove();
 
-            $('#Localities').attr('disabled', 'disabled');
+            $('#LocalityId').attr('disabled', 'disabled');
 
-            $('#Localities').append($("<option />").val("").text(['[Seleccione Localidad]']));
+            $('#LocalityId').append($("<option />").val("").text(['[Seleccione Localidad]']));
 
             $.each(data, function (index, item) {
-                $('#Localities').append($("<option />").val(item.Id).text(item.Name));
+                $('#LocalityId').append($("<option />").val(item.Id).text(item.Name));
             });
 
-            $('#Localities').removeAttr('disabled');
+            $('#LocalityId').removeAttr('disabled');
         });
     });
 
@@ -20,5 +20,21 @@
         format: "DD-MM-YYYY",
         language: 'es',
         autoclose: true,
+    });
+
+    $('#search').click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/Event/GetEvents",
+            data: {
+                LocalityId: $('#LocalityId').val(),
+                EventTypeId: $('#EventTypeId').val(),
+                StartDate: $('#StartDate').val(),
+                EndDate: $('#EndDate').val()
+            },
+            dataType: "html"
+        }).success(function (data) {
+            $('#regionEvents').html(data)
+        });
     });
 });
