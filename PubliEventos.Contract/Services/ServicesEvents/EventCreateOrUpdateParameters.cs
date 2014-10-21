@@ -1,13 +1,14 @@
 ﻿namespace PubliEventos.Contract.Services.ServicesEvents
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     /// <summary>
     /// Representa un los paramtros de entrada de la operación EventCreate.
     /// </summary>
-    public class EventCreateOrUpdateRequest
+    public class EventCreateOrUpdateRequest : IValidatableObject
     {
         /// <summary>
         /// Identificador del evento.
@@ -102,13 +103,37 @@
         /// <summary>
         /// Latitud de ubicación.
         /// </summary>
-        [Required]
         public string Latitude { get; set; }
 
         /// <summary>
         /// Longitud de ubicación.
         /// </summary>
-        [Required]
         public string Longitude { get; set; }
+
+        #region self-validation
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var errors = new List<ValidationResult>();
+
+            errors.AddRange(this.ValidateLocalization(this));
+
+            return errors;
+        }
+
+        /// <summary>
+        /// Valida la localización.
+        /// </summary>
+        /// <param name="request">EventCreateOrUpdateRequest request.</param>
+        /// <returns>Resultado de la validación.</returns>
+        private IEnumerable<ValidationResult> ValidateLocalization(EventCreateOrUpdateRequest request)
+        {
+            if (string.IsNullOrEmpty(this.Latitude) && string.IsNullOrEmpty(this.Longitude))
+            {
+                yield return new ValidationResult("Ingrese la localización.", new[] { "Localization" });
+            }
+        }
+
+        #endregion
     }
 }

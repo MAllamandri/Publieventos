@@ -9,6 +9,7 @@
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.ServicesEvents;
     using System.Collections.Generic;
+    using PubliEventos.Web.Helpers;
 
     [Authorize]
     public class EventController : BaseController
@@ -48,8 +49,7 @@
         /// <param name="model">Modelo de la vista.</param>
         /// <returns>Create View.</returns>
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(EventCreateOrUpdateRequest model)
+        public JsonResult Create(EventCreateOrUpdateRequest model)
         {
             if (ModelState.IsValid)
             {
@@ -69,14 +69,10 @@
                 // Doy de alta el evento.
                 this.serviceEvents.CreateEvent(model);
 
-                return RedirectToAction("Index", "Home");
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
 
-            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.ProvinceId);
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.LocalityId);
-            ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description", model.EventTypeId);
-
-            return View();
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

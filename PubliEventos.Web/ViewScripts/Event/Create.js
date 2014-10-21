@@ -45,12 +45,6 @@
         });
     });
 
-    $('form').submit(function () {
-        $.blockUI({
-            message: "<div style='font-size: 16px; padding-top: 11px;'><p>Guardando...</p><div>"
-        });
-    });
-
     $('#Save').click(function () {
         var val = $('#CoverPhoto').val();
 
@@ -60,7 +54,7 @@
                 case 'jpg':
                 case 'png':
                 case 'jpeg':
-                    $('form').submit();
+                    submitForm();
                     break;
                 default:
                     $('#CoverPhoto').val('');
@@ -68,7 +62,34 @@
                     break;
             }
         } else {
-            $('form').submit();
+            submitForm();
         }
     });
+
+    function submitForm() {
+        $('input[type="text"]').hideMessageError();
+        $('select').hideMessageError();
+
+        $('#CreateForm').ajaxForm({
+            url: "/Event/Create",
+            datatype: 'text/json',
+            beforeSubmit: function (arr, $form, options) {
+                $.blockUI({
+                    message: "<div style='font-size: 16px; padding-top: 11px;'><p>Guardando...</p><div>"
+                });
+            },
+            complete: function (data) {
+                if (data.responseJSON.Success) {
+                    window.location.href = "/Home/Index";
+                    $.blockUI({ message: "" });
+                } else {
+                    $.each(data.responseJSON.Errors, function (index, value) {
+                        var selector = "[name='" + index + "']";
+                        $(selector).showMessageError(value);
+                    });
+                }
+                $.unblockUI();
+            }
+        });
+    }
 });

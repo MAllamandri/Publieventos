@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Icing.LINQPad</name>
+    </assembly>
+    <members>
+        <member name="T:Icing.LINQPad.Diagnostics.Benchmark">
+            <summary>Helpers for benchmarking the performance of algorithms.</summary>
+        </member>
+        <member name="M:Icing.LINQPad.Diagnostics.Benchmark.CompareExecutionTime(System.Int32,System.Boolean,System.Collections.Generic.IList{Icing.Diagnostics.Algorithm})">
+            <summary>
+            Benchmarks and compares the execution time stats of the given algorithms.
+            </summary>
+            <param name="numberOfIterations">The number of iterations to run.</param>
+            <param name="reportIndividualIterations">
+            <para>If set to <c>true</c>, reports individual iteration stats; if <c>false</c>, reports average iteration stats.</para>
+            <para>If the algorithm runs really fast, the floating point calculations will come out to zero, so you will want to set this to <c>false</c>.</para>
+            </param>
+            <param name="algorithms">The algorithms to compare.</param>
+            <returns>The list of algorithms, sorted from fastest to slowest, with their <see cref="P:Icing.Diagnostics.Algorithm.ExecutionTime"/> property set.</returns>
+        </member>
+        <member name="M:Icing.LINQPad.Diagnostics.Benchmark.CompareExecutionTime(System.Int32,System.Boolean,Icing.Diagnostics.Algorithm[])">
+            <summary>
+            Benchmarks and compares the execution time stats of the given algorithms.
+            </summary>
+            <param name="numberOfIterations">The number of iterations to run.</param>
+            <param name="reportIndividualIterations">
+            <para>If set to <c>true</c>, reports individual iteration stats; if <c>false</c>, reports average iteration stats.</para>
+            <para>If the algorithm runs really fast, the floating point calculations will come out to zero, so you will want to set this to <c>false</c>.</para>
+            </param>
+            <param name="algorithms">The algorithms to compare.</param>
+            <returns>The list of algorithms, sorted from fastest to slowest, with their <see cref="P:Icing.Diagnostics.Algorithm.ExecutionTime"/> property set.</returns>
+        </member>
+        <member name="T:Icing.LINQPad.TestTools.LINQPadTestFramework`3">
+            <summary>A unit test framework for LINQPad.</summary>
+            <typeparam name="TTestClassAttribute">The attribute that defines a test class.</typeparam>
+            <typeparam name="TTestMethodAttribute">The attribute that defines a test method.</typeparam>
+            <typeparam name="TAssertFailedException">The type of exception that is thrown on failed asserts. Any other exception is considered <see cref="F:Icing.TestTools.TestFramework.TestResultStatus.Inconclusive"/>.</typeparam>
+        </member>
+        <member name="M:Icing.LINQPad.TestTools.LINQPadTestFramework`3.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Icing.LINQPad.TestTools.LINQPadTestFramework`3"/> class.
+            </summary>
+        </member>
+        <member name="M:Icing.LINQPad.TestTools.LINQPadTestFramework`3.RunTests">
+            <summary>
+            <para>Runs all tests in the assembly compiled from the current .linq file.</para>
+            <para>Test methods should be <c>public</c>, marked with <typeparamref name="TTestMethodAttribute"/>, and contained in a class marked with <typeparamref name="TTestClassAttribute"/>.</para>
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -69,10 +69,7 @@
               mapOptions);
 
             var input = (document.getElementById('pac-input'));
-
-            var types = document.getElementById('type-selector');
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
             var options = {
                 componentRestrictions: { country: 'AR' }//Argentina solamente.
@@ -119,6 +116,9 @@
                 if (place.geometry.location.B != undefined && place.geometry.location.k != undefined) {
                     $('#Latitude').val(place.geometry.location.k.toString());
                     $('#Longitude').val(place.geometry.location.B.toString());
+                } else {
+                    $('#Latitude').val("");
+                    $('#Longitude').val("");
                 }
 
                 marker.setVisible(true);
@@ -138,56 +138,71 @@
 
             function setPosition() {
                 if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
+                    debugger;
+                    geocoder = new google.maps.Geocoder();
                     var latitude = parseFloat($('#Latitude').val().replace(',', '.'));
                     var longitude = parseFloat($('#Longitude').val().replace(',', '.'));
                     cnt = new google.maps.LatLng(latitude, longitude);
 
+                    var infowindow = new google.maps.InfoWindow();
                     var mapOptions = {
                         zoom: 13,
                         center: cnt
                     }
+
+                    var input = (document.getElementById('pac-input'));
                     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-                    // Place a draggable marker on the map
-                    var marker = new google.maps.Marker({
-                        position: cnt,
-                        map: map,
-                        draggable: true,
-                        title: "",
-                        anchorPoint: new google.maps.Point(0, -29)
+                    var options = {
+                        componentRestrictions: { country: 'AR' }//Argentina solamente.
+                    };
+
+                    var autocomplete = new google.maps.places.Autocomplete(input, options);
+                    autocomplete.bindTo('bounds', map);
+                    
+                    infowindow.close();
+                   
+                    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                    geocoder.geocode({ 'latLng': cnt }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+
+                            var address = '';
+                            if (results.address_components) {
+                                address = [
+                                  (results.address_components[0] && results.address_components[0].short_name || ''),
+                                  (results.address_components[1] && results.address_components[1].short_name || ''),
+                                  (results.address_components[2] && results.address_components[2].short_name || '')
+                                ].join(' ');
+                            }
+
+                            infowindow.setContent('<div><strong>' + results[0].formatted_address + '</strong><br>');
+                            infowindow.open(map, marker);
+                        } else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                        }
                     });
 
-
-                    //marker.setIcon(({
-                    //    url: 'http://maps.google.com/mapfiles/kml/pal2/icon2.png',
-                    //    size: new google.maps.Size(71, 71),
-                    //    origin: new google.maps.Point(0, 0),
-                    //    anchor: new google.maps.Point(17, 34),
-                    //    scaledSize: new google.maps.Size(35, 35)
-                    //}));
+                    // Place a draggable marker on the map
+                    //var marker = new google.maps.Marker({
+                    //    position: cnt,
+                    //    map: map,
+                    //    title: "",
+                    //    anchorPoint: new google.maps.Point(0, -29)
+                    //});
 
                     // To add the marker to the map, call setMap();
-                    marker.setMap(map);
+                    //marker.setMap(map);
                 }
             }
-
-            // Sets a listener on a radio button to change the filter type on Places
-            // Autocomplete.
-            //function setupClickListener(id, types) {
-            //    var radioButton = document.getElementById(id);
-            //    google.maps.event.addDomListener(radioButton, 'click', function () {
-            //        autocomplete.setTypes(types);
-            //    });
-            //}
-
-            //setupClickListener('changetype-all', []);
-            //setupClickListener('changetype-address', ['address']);
-            //setupClickListener('changetype-establishment', ['establishment']);
-            //setupClickListener('changetype-geocode', ['geocode']);
         }
     });
 </script>
-<input id="pac-input" class="controls" type="text"
-    placeholder="Ingrese la dirección">
-<div id="type-selector" class="controls"></div>
+<input id="pac-input" class="controls" type="text" placeholder="Ingrese la dirección" />
 <div id="map-canvas" style="height: 400px; width: 100%;"></div>

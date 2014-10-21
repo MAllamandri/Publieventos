@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
 @Scripts.Render("/Scripts/moment.js")
 @Scripts.Render("/Scripts/moment-with-locales.js")
 @Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
@@ -24,12 +25,11 @@
                     <h2 class="subtitle">Alta Evento</h2>
                 </div>
             </div>
-            @using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-            {
+            <form id="CreateForm" method="post" enctype="multipart/form-data">
+
                 @Html.AntiForgeryToken()
-                
                 @Html.Partial("Partial/_Form")
-               
+
                 <div class="row-fluid margin-bottom-normal">
                     <div class="col-md-12">
                         <div class="col-md-6">
@@ -51,17 +51,18 @@
                     <div class="col-md-12">
                         <label class="label-lobster">Localización</label>
                         @Html.Partial("Partial/_Localization")
+                        @Html.ValidationMessage("Localization", new { @name = "Localization" })
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="col-md-12">
                         <div class="col-md-12 region-buttons">
-                            <input type="button" id="Save" class="btn-confirm pull-right" value="Guardar" />
+                            <input type="submit" id="Save" class="btn-confirm pull-right" value="Guardar" />
                             <input type="button" href="../Home/Index" value="Cancelar" class="btn-cancel pull-left" />
                         </div>
                     </div>
                 </div>
-            }
+            </form>
         </div>
     </div>
 </div>

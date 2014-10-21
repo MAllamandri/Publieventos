@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Icing.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Icing.Diagnostics.Algorithm">
+            <summary>Contains information about an algorithm and its performance.</summary>
+        </member>
+        <member name="M:Icing.Diagnostics.Algorithm.#ctor(System.Action)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Icing.Diagnostics.Algorithm"/> class.
+            </summary>
+            <param name="action">The action, or the code of the algorithm itself.</param>
+        </member>
+        <member name="M:Icing.Diagnostics.Algorithm.#ctor(System.String,System.Action)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Icing.Diagnostics.Algorithm"/> class.
+            </summary>
+            <param name="name">The name of the algorithm.</param>
+            <param name="action">The action, or the code of the algorithm itself.</param>
+        </member>
+        <member name="M:Icing.Diagnostics.Algorithm.BenchmarkAndCacheExecutionTime(System.Int32,System.Boolean)">
+            <summary>
+            Benchmarks and caches (in <see cref="P:Icing.Diagnostics.Algorithm.ExecutionTime"/>) the execution time stats of the algorithm.
+            </summary>
+            <param name="numberOfIterations">The number of iterations to run.</param>
+            <param name="reportIndividualIterations">
+            <para>If set to <c>true</c>, reports individual iteration stats; if <c>false</c>, reports average iteration stats.</para>
+            <para>If the algorithm runs really fast, the floating point calculations will come out to zero, so you will want to set this to <c>false</c>.</para>
+            </param>
+            <returns>The execution time stats of the algorithm.</returns>
+        </member>
+        <member name="P:Icing.Diagnostics.Algorithm.Name">
+            <summary>Gets or sets the name of the algorithm.</summary>
+            <value>The name of the algorithm.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Algorithm.Action">
+            <summary>Gets or sets the action, or the code of the algorithm itself.</summary>
+            <value>The action, or the code of the algorithm itself.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Algorithm.ExecutionTime">
+            <summary>Gets or sets the execution time stats of the algorithm.</summary>
+            <value>The execution time stats of the algorithm.</value>
+        </member>
+        <member name="T:Icing.Diagnostics.Stats">
+            <summary>Calculates and formats running totals, averages, etc, for an arbitrary statistic.</summary>
+        </member>
+        <member name="M:Icing.Diagnostics.Stats.#ctor(System.Int32,Icing.Diagnostics.Stats.Formatter,Icing.Diagnostics.Stats.Formatter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Icing.Diagnostics.Stats"/> class.
+            </summary>
+            <param name="expectedIterations">The number of expected iterations.</param>
+            <param name="formatter">The value formatter.</param>
+            <param name="averageFormatter">The average value formatter.</param>
+        </member>
+        <member name="M:Icing.Diagnostics.Stats.Report(System.Double)">
+            <summary>
+            Adds the current value to the statistics.
+            </summary>
+            <param name="current">The current value.</param>
+        </member>
+        <member name="M:Icing.Diagnostics.Stats.ReportAndGetSummary(System.Double)">
+            <summary>
+            Adds the current value to the statistics and returns a summary of the current state.
+            </summary>
+            <param name="current">The current value.</param>
+            <returns>A summary of the current state.</returns>
+        </member>
+        <member name="M:Icing.Diagnostics.Stats.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>A string that represents the current object.</returns>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.ExpectedIterations">
+            <summary>Gets or sets the number of expected iterations.</summary>
+            <value>The number of expected iterations.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.TotalIterations">
+            <summary>Gets or sets the total iterations.</summary>
+            <value>The total iterations.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.Total">
+            <summary>Gets or sets the total.</summary>
+            <value>The total.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.Min">
+            <summary>Gets or sets the smallest value reported so far.</summary>
+            <value>The smallest value reported so far.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.Max">
+            <summary>Gets or sets the largest value reported so far.</summary>
+            <value>The largest value reported so far.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.Average">
+            <summary>Gets the average.</summary>
+            <value>The average.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.Format">
+            <summary>Gets or sets the value formatter.</summary>
+            <value>The value formatter.</value>
+        </member>
+        <member name="P:Icing.Diagnostics.Stats.FormatAverage">
+            <summary>Gets or sets the average value formatter.</summary>
+            <value>The average value formatter.</value>
+        </member>
+        <member name="T:Icing.Diagnostics.Stats.Formatter">
+            <summary>A function that defines how a value should be formatted.</summary>
+            <param name="value">The value.</param>
+            <returns>The formatted value.</returns>
+        </member>
+        <member name="T:Icing.Int32Extensions">
+            <summary><see cref="T:System.Int32"/> extensions.</summary>
+        </member>
+        <member name="M:Icing.Int32Extensions.PadNumber(System.Int32,System.Int32,System.Char)">
+            <summary>
+            Returns a string that right-aligns the digits in this number by padding them on the left with a specified Unicode character,
+            for a total length equal to that of the length of the maximum number to match.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="maxNumberToMatch">The maximum number to match.</param>
+            <param name="paddingChar">A Unicode padding character.</param>
+            <returns>A string representation of this number, but right-aligned and padded on the left with as many paddingChar characters
+            as needed to create a length equal to that of the length of the maximum number to match. However, if the length of the maximum number
+            to match is less than the length of this instance, the method returns a reference to the existing instance. If the length of the
+            maximum number to match is equal to the length of this instance, the method returns a new string that is identical to this instance.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="source"/> is less than zero.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maxNumberToMatch"/> is less than zero.</exception>
+        </member>
+        <member name="T:Icing.Linq.Enumerable">
+            <summary>Provides a set of static (Shared in Visual Basic) methods for querying objects that implement <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</summary>
+        </member>
+        <member name="M:Icing.Linq.Enumerable.Union``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Produces the set union of two sequences according to a key.
+            </summary>
+            <typeparam name="TSource">The type of the elements of the input sequences.</typeparam>
+            <typeparam name="TKey">The type of the key returned by <paramref name="keySelector"/>.</typeparam>
+            <param name="first">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> whose distinct elements form the first set for the union.</param>
+            <param name="second">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> whose distinct elements form the second set for the union.</param>
+            <param name="keySelector">A function to extract a key from an element.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains the elements from both input sequences, excluding duplicates.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="first"/>, <paramref name="second"/>, or <paramref name="keySelector"/> is null</exception>
+        </member>
+        <member name="T:Icing.Linq.Enumerable.KeyEqualityComparer`2">
+            <summary>Defines methods to support the comparison of objects for equality.</summary>
+            <typeparam name="TSource">The type of objects from which to select a key.</typeparam>
+            <typeparam name="TKey">The type of objects to compare.</typeparam>
+        </member>
+        <member name="M:Icing.Linq.Enumerable.KeyEqualityComparer`2.#ctor(System.Func{`0,`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Icing.Linq.Enumerable.KeyEqualityComparer`2"/> class.
+            </summary>
+            <param name="keySelector">The key selector.</param>
+        </member>
+        <member name="M:Icing.Linq.Enumerable.KeyEqualityComparer`2.Equals(`0,`0)">
+            <summary>
+            Determines whether the specified objects are equal.
+            </summary>
+            <returns><c>true</c> if the specified objects are equal; otherwise, <c>false</c>.</returns>
+            <param name="x">The first object of type T to compare.</param>
+            <param name="y">The second object of type T to compare.</param>
+        </member>
+        <member name="M:Icing.Linq.Enumerable.KeyEqualityComparer`2.GetHashCode(`0)">
+            <summary>
+            Returns a hash code for the specified object.
+            </summary>
+            <returns>A hash code for the specified object.</returns>
+            <param name="obj">The <see cref="T:System.Object"/> for which a hash code is to be returned.</param>
+            <exception cref="T:System.ArgumentNullException">The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.</exception>
+        </member>
+        <member name="P:Icing.Linq.Enumerable.KeyEqualityComparer`2.KeySelector">
+            <summary>Gets or sets the key selector.</summary>
+            <value>The key selector.</value>
+        </member>
+        <member name="T:Icing.StringExtensions">
+            <summary><see cref="T:System.String"/> extensions.</summary>
+        </member>
+        <member name="F:Icing.StringExtensions.FormatTokenGroupName">
+            <summary>The group name for the replacement token used in FormatRegex.</summary>
+        </member>
+        <member name="F:Icing.StringExtensions.FormatRegex">
+            <summary>The regular expression used when calling Format.</summary>
+        </member>
+        <member name="M:Icing.StringExtensions.IsNullOrEmpty(System.String)">
+            <summary>
+            Indicates whether the current string is null or an System.String.Empty string.
+            </summary>
+            <param name="source">The string to test.</param>
+            <returns><c>true</c> if the current string is null or an System.String.Empty string; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.IsNotNullOrEmpty(System.String)">
+            <summary>
+            Indicates whether the current string is not null and not an System.String.Empty string.
+            </summary>
+            <param name="source">The string to test.</param>
+            <returns><c>true</c> if the current string is not null and not an System.String.Empty string; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.IsNullOrWhiteSpace(System.String)">
+            <summary>
+            Indicates whether the current string is null, empty, or consists only of white-space characters.
+            </summary>
+            <param name="source">The string to test.</param>
+            <returns><c>true</c> if the current string is null, empty, or consists only of white-space characters; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.IsNotNullOrWhiteSpace(System.String)">
+            <summary>
+            Indicates whether the current string is not null, not empty, and does not consist only of white-space characters.
+            </summary>
+            <param name="source">The string to test.</param>
+            <returns><c>true</c> if the current string is not null, not empty, and does not consist only of white-space characters; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.DoesNotEndWith(System.String,System.String)">
+            <summary>
+            Determines whether the end of this string instance does not match the specified string.
+            </summary>
+            <param name="source">The string to test.</param>
+            <param name="value">The string to compare to the substring at the end of this instance.</param>
+            <returns><c>true</c> if the end of this string instance does not match the specified string; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.EnsureEndsWith(System.String,System.String)">
+            <summary>
+            Returns the current string instance with the specified value appended, if the current string instance does not already end with the specified value.
+            </summary>
+            <param name="source">The source string.</param>
+            <param name="value">The value to append.</param>
+            <returns>The current string instance with the specified value appended, if the current string instance does not already end with the specified value.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.Format(System.String,System.Object)">
+            <summary>
+            <para>Returns a new string in which all occurrences of the specified tokens in the current instance are replaced with the provided replacement values.</para>
+            <para>A token is designated in a string by surrounding it with curly braces (example: {MyToken}).</para>
+            <para>A token must consist of one or more valid "word characters" (think valid variable name) and is case-sensitive.</para>
+            <para>Curly braces can be escaped by using double braces.  The double braces will be
+            	replaced with single braces (example: "{{something}}" becomes "{something}").</para>
+            <para>Any token without a replacement value specified will be untouched and appear in the returned string exactly as in the source.</para>
+            </summary>
+            <param name="source">The source string.</param>
+            <param name="replacements">The replacement values - must be an anonymous type.</param>
+            <returns>A new string in which all occurrences of the specified tokens in the current instance are replaced with the provided replacement values.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.Format(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            <para>Returns a new string in which all occurrences of the specified tokens in the current instance are replaced with the provided replacement values.</para>
+            <para>A token is designated in a string by surrounding it with curly braces (example: {MyToken}).</para>
+            <para>A token must consist of one or more valid "word characters" (think valid variable name) and is case-sensitive.</para>
+            <para>Curly braces can be escaped by using double braces.  The double braces will be
+            	replaced with single braces (example: "{{something}}" becomes "{something}").</para>
+            <para>Any token without a replacement value specified will be untouched and appear in the returned string exactly as in the source.</para>
+            </summary>
+            <param name="source">The source string.</param>
+            <param name="replacements">The replacement values.</param>
+            <returns>A new string in which all occurrences of the specified tokens in the current instance are replaced with the provided replacement values.</returns>
+        </member>
+        <member name="M:Icing.StringExtensions.PadNumber(System.String,System.Int32,System.Char)">
+            <summary>
+            Returns a new string that right-aligns the characters in this instance by padding them on the left with a specified Unicode character,
+            for a total length equal to that of the length of the maximum number to match.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="maxNumberToMatch">The maximum number to match.</param>
+            <param name="paddingChar">A Unicode padding character.</param>
+            <returns>A new string that is equivalent to this instance, but right-aligned and padded on the left with as many paddingChar characters
+            as needed to create a length equal to that of the length of the maximum number to match. However, if the length of the maximum number
+            to match is less than the length of this instance, the method returns a reference to the existing instance. If the length of the
+            maximum number to match is equal to the length of this instance, the method returns a new string that is identical to this instance.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maxNumberToMatch"/> is less than zero.</exception>
+        </member>
+        <member name="M:Icing.StringExtensions.ToInt32(System.String)">
+            <summary>
+            Converts the current string representation of a number to its 32-bit signed integer equivalent.
+            </summary>
+            <param name="source">The source containing a number to convert.</param>
+            <returns>A 32-bit signed integer equivalent to the number contained in <paramref name="source"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null.</exception>
+            <exception cref="T:System.FormatException"><paramref name="source"/> is not in the correct format.</exception>
+            <exception cref="T:System.OverflowException"><paramref name="source"/> represents a number less than <see cref="F:System.Int32.MinValue"/> or greater than <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:Icing.StringExtensions.Trim(System.String,System.String)">
+            <summary>
+            Removes all leading and trailing occurrences of the given string from the current <see cref="T:System.String"/> object.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="trim">The string to remove.</param>
+            <returns>The string that remains after all occurrences of the <paramref name="trim"/> parameter are removed
+            from the start and end of the current string.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="trim"/> is null or empty.</exception>
+        </member>
+        <member name="M:Icing.StringExtensions.Reverse(System.String)">
+            <summary>
+            Reverses the sequence of the characters in the entire string.
+            </summary>
+            <param name="source">The source.</param>
+            <returns>The reverse of the current string.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null.</exception>
+        </member>
+    </members>
+</doc>

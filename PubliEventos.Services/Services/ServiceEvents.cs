@@ -54,15 +54,14 @@
                 Description = request.Description,
                 CreationDate = DateTime.Now,
                 User = CurrentSession.Get<Domain.Domain.User>(request.UserId),
-                // Locality = CurrentSession.Get<Domain.Domain.Locality>(request.LocalityId),
                 EventType = CurrentSession.Get<Domain.Domain.EventType>(request.EventTypeId),
                 EventDate = request.EventDate,
                 Private = request.Private,
                 EventEndTime = request.EventEndTime,
                 EventStartTime = request.EventStartTime,
                 FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null,
-                Latitude = decimal.Parse(request.Latitude, System.Globalization.CultureInfo.InvariantCulture),
-                Longitude = decimal.Parse(request.Longitude, System.Globalization.CultureInfo.InvariantCulture)
+                Latitude = float.Parse(request.Latitude.Replace(".", ",")),
+                Longitude = float.Parse(request.Longitude.Replace(".", ","))
             };
 
             new BaseQuery<Domain.Domain.Event, int>().Create(eventToSave);
@@ -90,15 +89,14 @@
             eventToSave.Detail = request.Detail;
             eventToSave.Description = request.Description;
             eventToSave.User = CurrentSession.Get<Domain.Domain.User>(request.UserId);
-            // eventToSave.Locality = CurrentSession.Get<Domain.Domain.Locality>(request.LocalityId);
             eventToSave.EventType = CurrentSession.Get<Domain.Domain.EventType>(request.EventTypeId);
             eventToSave.EventDate = request.EventDate;
             eventToSave.Private = request.Private;
             eventToSave.EventEndTime = request.EventEndTime;
             eventToSave.EventStartTime = request.EventStartTime;
             eventToSave.FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null;
-            eventToSave.Latitude = decimal.Parse(request.Latitude, System.Globalization.CultureInfo.InvariantCulture);
-            eventToSave.Longitude = decimal.Parse(request.Longitude, System.Globalization.CultureInfo.InvariantCulture);
+            eventToSave.Latitude = float.Parse(request.Latitude.Replace(".", ","));
+            eventToSave.Longitude = float.Parse(request.Longitude.Replace(".", ","));
 
             new BaseQuery<Domain.Domain.Event, int>().Update(eventToSave);
         }
@@ -188,18 +186,6 @@
                 EventDate = eventToParse.EventDate.Date,
                 EventStartTime = eventToParse.EventStartTime,
                 EventEndTime = eventToParse.EventEndTime,
-                //Locality = new Locality()
-                //         {
-                //             Id = eventToParse.Locality.Id,
-                //             Name = eventToParse.Locality.Name,
-                //             Latitude = eventToParse.Locality.Latitude,
-                //             Longitude = eventToParse.Locality.Longitude,
-                //             Province = new Province()
-                //             {
-                //                 Id = eventToParse.Locality.Province.Id,
-                //                 Name = eventToParse.Locality.Province.Name
-                //             }
-                //         },
                 Private = eventToParse.Private,
                 User = new User()
                          {
