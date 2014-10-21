@@ -87,6 +87,16 @@ namespace PubliEventos.Contract.Class
         public User User { get; set; }
 
         /// <summary>
+        /// Latitud.
+        /// </summary>
+        public string Latitude { get; set; }
+
+        /// <summary>
+        /// Longitud.
+        /// </summary>
+        public string Longitude { get; set; }
+
+        /// <summary>
         /// Indica si está dado de baja.
         /// </summary>
         public DateTime NullDate { get; set; }

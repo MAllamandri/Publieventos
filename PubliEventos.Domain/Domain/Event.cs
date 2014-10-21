@@ -88,5 +88,15 @@
         /// Indica si está dado de baja.
         /// </summary>
         public virtual DateTime? NullDate { get; set; }
+
+        /// <summary>
+        /// Latitud.
+        /// </summary>
+        public virtual decimal Latitude { get; set; }
+
+        /// <summary>
+        /// Longitud.
+        /// </summary>
+        public virtual decimal Longitude { get; set; }
     }
 }

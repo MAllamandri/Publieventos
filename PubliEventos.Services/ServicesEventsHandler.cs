@@ -33,7 +33,7 @@
         /// Guarda un evento.
         /// </summary>
         /// <param name="parameters">Parametros de entrada.</param>
-        public void CreateEvent(EventCreateOrUpdateParameters parameters)
+        public void CreateEvent(EventCreateOrUpdateRequest parameters)
         {
             ServiceEvents.CreateEvent(parameters);
         }
@@ -52,7 +52,7 @@
         /// Edita un evento.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        public void EditEvent(EventCreateOrUpdateParameters request)
+        public void EditEvent(EventCreateOrUpdateRequest request)
         {
             ServiceEvents.EditEvent(request);
         }

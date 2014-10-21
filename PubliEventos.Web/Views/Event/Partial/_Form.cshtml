@@ -1,4 +1,4 @@
-﻿@model PubliEventos.Contract.Services.ServicesEvents.EventCreateOrUpdateParameters
+﻿@model PubliEventos.Contract.Services.ServicesEvents.EventCreateOrUpdateRequest
 
 <div class="row-fluid margin-bottom-normal">
     <div class="col-md-12">
@@ -30,10 +30,14 @@
         <div class="col-md-2">
             @Html.Label("Privacidad", new { @class = "label-lobster" })
             <div>
-                @Html.Label("Público", new { @class = "label-lobster", style = "padding-right: 10px" })
-                <input type="radio" id="Public" name="Private" value="false" style="margin-right: 15px" checked="checked" />
-                @Html.Label("Privado", new { @class = "label-lobster", style = "padding-right: 10px" })
-                <input type="radio" id="Private" name="Private" value="true" />
+                <div>
+                    @Html.Label("Público", new { @class = "label-lobster", style = "padding-right: 10px" })
+                    <input type="radio" id="Public" name="Private" value="false" style="margin-right: 15px" checked="checked" />
+                </div>
+                <div>
+                    @Html.Label("Privado", new { @class = "label-lobster", style = "padding-right: 10px" })
+                    <input type="radio" id="Private" name="Private" value="true" />
+                </div>
             </div>
         </div>
         <div class="col-md-4">
@@ -62,7 +66,7 @@
         </div>
     </div>
 </div>
-<div class="row-fluid margin-bottom-normal">
+@*<div class="row-fluid margin-bottom-normal">
     <div class="col-md-12">
         <div class="col-md-6">
             <label class="label-lobster">Localización</label>
@@ -74,4 +78,4 @@
             @Html.ValidationMessageFor(m => m.LocalityId)
         </div>
     </div>
-</div>
+</div>*@

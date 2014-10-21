@@ -25,7 +25,7 @@
         /// Guarda un evento.
         /// </summary>
         /// <param name="parameters">Parametros de entrada.</param>
-        void CreateEvent(EventCreateOrUpdateParameters request);
+        void CreateEvent(EventCreateOrUpdateRequest request);
 
         /// <summary>
         /// Recupera un evento por su id.
@@ -38,7 +38,7 @@
         /// Edita un evento.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        void EditEvent(EventCreateOrUpdateParameters request);
+        void EditEvent(EventCreateOrUpdateRequest request);
 
         /// <summary>
         /// Elimina un evento.

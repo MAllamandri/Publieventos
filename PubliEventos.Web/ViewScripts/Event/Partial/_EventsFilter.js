@@ -25,7 +25,7 @@
     $('#search').click(function () {
         $.ajax({
             type: "POST",
-            url: "/Event/GetEvents",
+            url: "/Event/GetFilteredEvents",
             data: {
                 LocalityId: $('#LocalityId').val(),
                 EventTypeId: $('#EventTypeId').val(),
@@ -36,5 +36,14 @@
         }).success(function (data) {
             $('#regionEvents').html(data)
         });
+    });
+
+    $('#reset').click(function () {
+        $('#LocalityId').val("");
+        $('#EventTypeId').val("");
+        $('#StartDate').val("");
+        $('#EndDate').val("");
+
+        $('#search').click();
     });
 });

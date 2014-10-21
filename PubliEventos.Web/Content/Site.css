@@ -27,6 +27,28 @@ header, footer, nav, section {
     background-color: #333333 !important;
 }
 
+.btn-confirm {
+    height: 40px;
+    min-width: 94px;
+    font-size: 15px;
+    background-color: #AAA172;
+    color: white;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    font-family: 'MuseoSans-500';
+}
+
+.btn-cancel {
+    height: 40px;
+    min-width: 94px;
+    font-size: 15px;
+    background-color: #AAA172;
+    color: white;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    font-family: 'MuseoSans-500';
+}
+
 /* Secciones dentro de una vista */
 
 .subtitle-sections {
@@ -97,18 +119,7 @@ header, footer, nav, section {
     margin-top: 15px;
     color: #B89C83;
     border-top: 1px solid #B89C83;
-}
-
-.button-submit {
-    float: right;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-}
-
-.button-cancel {
-    float: left;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+    padding-bottom: 15px;
 }
 
 @media (min-width: 768px) {

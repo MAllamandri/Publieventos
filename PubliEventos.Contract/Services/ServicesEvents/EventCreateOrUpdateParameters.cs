@@ -7,7 +7,7 @@
     /// <summary>
     /// Representa un los paramtros de entrada de la operación EventCreate.
     /// </summary>
-    public class EventCreateOrUpdateParameters
+    public class EventCreateOrUpdateRequest
     {
         /// <summary>
         /// Identificador del evento.
@@ -80,14 +80,12 @@
         /// <summary>
         /// Localidad del evento.
         /// </summary>
-        [Required]
         [Display(Name = "Localidad")]
         public int LocalityId { get; set; }
 
         /// <summary>
         /// Localidad del evento.
         /// </summary>
-        [Required]
         [Display(Name = "Provincia")]
         public int ProvinceId { get; set; }
 
@@ -100,5 +98,17 @@
         /// Usuario creador.
         /// </summary>
         public int UserId { get; set; }
+
+        /// <summary>
+        /// Latitud de ubicación.
+        /// </summary>
+        [Required]
+        public string Latitude { get; set; }
+
+        /// <summary>
+        /// Longitud de ubicación.
+        /// </summary>
+        [Required]
+        public string Longitude { get; set; }
     }
 }

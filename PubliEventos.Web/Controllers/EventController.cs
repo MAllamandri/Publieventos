@@ -49,7 +49,7 @@
         /// <returns>Create View.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(EventCreateOrUpdateParameters model)
+        public ActionResult Create(EventCreateOrUpdateRequest model)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +100,7 @@
         /// <returns>Edit view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EventCreateOrUpdateParameters model)
+        public ActionResult Edit(EventCreateOrUpdateRequest model)
         {
             if (ModelState.IsValid)
             {
@@ -160,6 +160,19 @@
             return View();
         }
 
+        /// <summary>
+        /// Vista parcial de eventos.
+        /// </summary>
+        /// <param name="model">modelo de filtros.</param>
+        /// <returns>Mosaic view.</returns>
+        [HttpPost]
+        public PartialViewResult GetFilteredEvents(SearchFilteredEventsRequest model)
+        {
+            var events = this.serviceEvents.SearchFilteredEvents(model);
+
+            return PartialView("Partial/_Mosaic", events);
+        }
+
         #region Private Methods
 
         /// <summary>
@@ -167,9 +180,9 @@
         /// </summary>
         /// <param name="eventToParse">Evento a parsear.</param>
         /// <returns>Modelo de la vista.</returns>
-        private EventCreateOrUpdateParameters GetEventSummary(Event eventToParse)
+        private EventCreateOrUpdateRequest GetEventSummary(Event eventToParse)
         {
-            return new EventCreateOrUpdateParameters()
+            return new EventCreateOrUpdateRequest()
             {
                 Id = eventToParse.Id,
                 Title = eventToParse.Title,
@@ -180,25 +193,14 @@
                 EventDate = eventToParse.EventDate.Date,
                 EventStartTime = eventToParse.EventStartTime,
                 EventEndTime = eventToParse.EventEndTime,
-                ProvinceId = eventToParse.Locality.Province.Id.Value,
-                LocalityId = eventToParse.Locality.Id.Value,
+                //ProvinceId = eventToParse.Locality.Province.Id.Value,
+                //LocalityId = eventToParse.Locality.Id.Value,
                 Private = eventToParse.Private,
                 UserId = eventToParse.User.Id.Value,
                 EventTypeId = eventToParse.EventType.Id.Value,
+                Latitude = eventToParse.Latitude.ToString(),
+                Longitude = eventToParse.Longitude.ToString()
             };
-        }
-
-        /// <summary>
-        /// Vista parcial de eventos.
-        /// </summary>
-        /// <param name="model">modelo de filtros.</param>
-        /// <returns>Mosaic view.</returns>
-        [HttpPost]
-        public PartialViewResult GetEvents(SearchFilteredEventsRequest model)
-        {
-            var events = this.serviceEvents.SearchFilteredEvents(model);
-
-            return PartialView("Partial/_Mosaic", events);
         }
 
         #endregion

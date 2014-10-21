@@ -25,6 +25,10 @@
         autoclose: true
     });
 
+    $('.btn-cancel').click(function () {
+        window.location.href = "/Home/Index";
+    });
+
     $('#ProvinceId').change(function () {
         $.getJSON("/Account/GetLocalitiesByProvince", { idProvince: $('#ProvinceId').val() }, function (data) {
             $('#LocalityId option').remove();
