@@ -92,11 +92,11 @@
         /// <summary>
         /// Latitud.
         /// </summary>
-        public virtual float Latitude { get; set; }
+        public virtual decimal Latitude { get; set; }
 
         /// <summary>
         /// Longitud.
         /// </summary>
-        public virtual float Longitude { get; set; }
+        public virtual decimal Longitude { get; set; }
     }
 }

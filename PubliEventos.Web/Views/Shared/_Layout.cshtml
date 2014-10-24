@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>Publieventos - @ViewBag.Title</title>
-    @Styles.Render("/Content/Site.css")
+
     @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @Styles.Render("/Content/bootstrap/css/bootstrap-responsive.css")
     @Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
@@ -14,6 +14,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("/ViewScripts/Shared/Shared.js")
 
+    <link rel="stylesheet" media="all" href="/Content/Site.css" />
     <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
     <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
 </head>

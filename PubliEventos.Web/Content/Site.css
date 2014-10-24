@@ -406,13 +406,26 @@ img {
     margin-top: 4%;
 }
 
-.image-cloud {
-    margin-left: 43.4%;
-    z-index: 1;
-    position: absolute;
-    margin-top: -6%;
-    text-align: center;
-    display: inline;
+@media all and (max-width:1400px) {
+    .image-cloud {
+        margin-left: 43.4%;
+        z-index: 1;
+        position: absolute;
+        margin-top: -6%;
+        text-align: center;
+        display: inline;
+    }
+}
+
+@media all and (max-width:1000px) {
+    .image-cloud {
+        margin-left: 40.4%;
+        z-index: 1;
+        position: absolute;
+        margin-top: -8%;
+        text-align: center;
+        display: inline;
+    }
 }
 
 /** timeline box structure **/
@@ -627,3 +640,46 @@ img {
     font-family: 'MuseoSans-500';
     color: #5f6364;
 }
+
+/* Estilo Mapas */
+
+#map-canvas {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.controls {
+    margin-top: 16px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #fff;
+    padding: 0 11px 0 13px;
+    width: 500px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+}
+
+    #pac-input:focus {
+        border-color: #4d90fe;
+        margin-left: -1px;
+        padding-left: 14px; /* Regular padding-left + 1. */
+        width: 501px;
+    }
+
+.pac-container {
+    font-family: Roboto;
+}
+
+/*-----------------------------------------------------------*/

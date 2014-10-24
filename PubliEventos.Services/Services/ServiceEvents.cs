@@ -60,8 +60,8 @@
                 EventEndTime = request.EventEndTime,
                 EventStartTime = request.EventStartTime,
                 FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null,
-                Latitude = float.Parse(request.Latitude.Replace(".", ",")),
-                Longitude = float.Parse(request.Longitude.Replace(".", ","))
+                Latitude = Convert.ToDecimal(request.Latitude.Replace(".", ",")),
+                Longitude = Convert.ToDecimal(request.Longitude.Replace(".", ","))
             };
 
             new BaseQuery<Domain.Domain.Event, int>().Create(eventToSave);
@@ -95,8 +95,8 @@
             eventToSave.EventEndTime = request.EventEndTime;
             eventToSave.EventStartTime = request.EventStartTime;
             eventToSave.FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null;
-            eventToSave.Latitude = float.Parse(request.Latitude.Replace(".", ","));
-            eventToSave.Longitude = float.Parse(request.Longitude.Replace(".", ","));
+            eventToSave.Latitude = Convert.ToDecimal(request.Latitude.Replace(".", ","));
+            eventToSave.Longitude = Convert.ToDecimal(request.Longitude.Replace(".", ","));
 
             new BaseQuery<Domain.Domain.Event, int>().Update(eventToSave);
         }

@@ -1,58 +1,5 @@
-﻿<style>
-    #map-canvas {
-        height: 100%;
-        width: 100%;
-        margin: 0px;
-        padding: 0px;
-    }
+﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 
-    .controls {
-        margin-top: 16px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    #pac-input {
-        background-color: #fff;
-        padding: 0 11px 0 13px;
-        width: 400px;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        text-overflow: ellipsis;
-    }
-
-        #pac-input:focus {
-            border-color: #4d90fe;
-            margin-left: -1px;
-            padding-left: 14px; /* Regular padding-left + 1. */
-            width: 401px;
-        }
-
-    .pac-container {
-        font-family: Roboto;
-    }
-
-    #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-    }
-
-        #type-selector label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-        }
-
-    }
-</style>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script type="text/javascript">
     $(function () {
         google.maps.event.addDomListener(window, 'load', initialize);
@@ -65,8 +12,7 @@
                 zoom: 13
             };
 
-            var map = new google.maps.Map(document.getElementById('map-canvas'),
-              mapOptions);
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
             var input = (document.getElementById('pac-input'));
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -84,10 +30,21 @@
                 anchorPoint: new google.maps.Point(0, -29)
             });
 
-            setPosition();
+            // Devuelve la dirección.
+            function setDirection(address_components) {
+                var address = '';
+                if (address_components != null) {
+                    address = [
+                        (address_components[1] && address_components[1].short_name || ''),
+                        (address_components[0] && address_components[0].short_name || ','),
+                        (address_components[2] && address_components[2].short_name || '')
+                    ].join(' ');
+                }
+
+                return address;
+            }
 
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                debugger;
                 infowindow.close();
                 marker.setVisible(false);
                 var place = autocomplete.getPlace();
@@ -102,20 +59,12 @@
                     map.setCenter(place.geometry.location);
                     map.setZoom(17);  // Why 17? Because it looks good.
                 }
-                marker.setIcon(({
-                    url: place.icon,
-                    size: new google.maps.Size(71, 71),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(17, 34),
-                    scaledSize: new google.maps.Size(35, 35)
-                }));
 
                 marker.setPosition(place.geometry.location);
 
                 // Seteo los hidden para guardar la posición.
                 if (place.geometry.location.B != undefined && place.geometry.location.k != undefined) {
-                    $('#Latitude').val(place.geometry.location.k.toString());
-                    $('#Longitude').val(place.geometry.location.B.toString());
+                    setLatLng(place.geometry.location.k, place.geometry.location.B);
                 } else {
                     $('#Latitude').val("");
                     $('#Longitude').val("");
@@ -123,86 +72,58 @@
 
                 marker.setVisible(true);
 
-                var address = '';
-                if (place.address_components) {
-                    address = [
-                      (place.address_components[0] && place.address_components[0].short_name || ''),
-                      (place.address_components[1] && place.address_components[1].short_name || ''),
-                      (place.address_components[2] && place.address_components[2].short_name || '')
-                    ].join(' ');
-                }
+                var address = setDirection(place.address_components);
 
-                infowindow.setContent('<div><strong>' + place.name + '</strong><br>');
+                infowindow.setContent('<div><strong>' + address + '</strong><br>');
                 infowindow.open(map, marker);
             });
 
-            function setPosition() {
-                if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
-                    debugger;
-                    geocoder = new google.maps.Geocoder();
-                    var latitude = parseFloat($('#Latitude').val().replace(',', '.'));
-                    var longitude = parseFloat($('#Longitude').val().replace(',', '.'));
-                    cnt = new google.maps.LatLng(latitude, longitude);
+            google.maps.event.addListener(map, 'click', function (event) {
+                $('#pac-input').val("");
+                infowindow.close();
+                marker.setVisible(false);
 
-                    var infowindow = new google.maps.InfoWindow();
-                    var mapOptions = {
-                        zoom: 13,
-                        center: cnt
-                    }
+                if (!event.latLng) {
+                    $('#Latitude').val("");
+                    $('#Longitude').val("");
 
-                    var input = (document.getElementById('pac-input'));
-                    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-                    var options = {
-                        componentRestrictions: { country: 'AR' }//Argentina solamente.
-                    };
-
-                    var autocomplete = new google.maps.places.Autocomplete(input, options);
-                    autocomplete.bindTo('bounds', map);
-                    
-                    infowindow.close();
-                   
-                    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-                    geocoder.geocode({ 'latLng': cnt }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            map.setCenter(results[0].geometry.location);
-
-                            var marker = new google.maps.Marker({
-                                map: map,
-                                position: results[0].geometry.location
-                            });
-
-                            var address = '';
-                            if (results.address_components) {
-                                address = [
-                                  (results.address_components[0] && results.address_components[0].short_name || ''),
-                                  (results.address_components[1] && results.address_components[1].short_name || ''),
-                                  (results.address_components[2] && results.address_components[2].short_name || '')
-                                ].join(' ');
-                            }
-
-                            infowindow.setContent('<div><strong>' + results[0].formatted_address + '</strong><br>');
-                            infowindow.open(map, marker);
-                        } else {
-                            alert("Geocode was not successful for the following reason: " + status);
-                        }
-                    });
-
-                    // Place a draggable marker on the map
-                    //var marker = new google.maps.Marker({
-                    //    position: cnt,
-                    //    map: map,
-                    //    title: "",
-                    //    anchorPoint: new google.maps.Point(0, -29)
-                    //});
-
-                    // To add the marker to the map, call setMap();
-                    //marker.setMap(map);
+                    return;
                 }
-            }
+
+                var geocoder = new google.maps.Geocoder();
+
+                marker.setPosition(event.latLng);
+
+                var myLatLng = event.latLng;
+                var lat = myLatLng.lat();
+                var lng = myLatLng.lng();
+                var latlng = new google.maps.LatLng(lat, lng);
+
+                setLatLng(lat, lng);
+                marker.setVisible(true);
+
+                //Code to reverse geocode follows
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            //Busco la dirección.
+                            var address = setDirection(results[0].address_components);
+
+                            infowindow.setContent('<div><strong>' + address + '</strong><br>');
+                            infowindow.open(map, marker);
+                        }
+                    } else {
+                        alert("Geocoder falló en la búsqueda: " + status);
+                    }
+                });
+            });
         }
     });
+
+    function setLatLng(latitude, longitude) {
+        $('#Latitude').val(latitude.toString());
+        $('#Longitude').val(longitude.toString());
+    }
 </script>
 <input id="pac-input" class="controls" type="text" placeholder="Ingrese la dirección" />
 <div id="map-canvas" style="height: 400px; width: 100%;"></div>
