@@ -1,4 +1,6 @@
-﻿namespace PubliEventos.Services.Services
+﻿using System.Globalization;
+
+namespace PubliEventos.Services.Services
 {
     using LinqKit;
     using NHibernate.Linq;
@@ -46,6 +48,11 @@
         /// <param name="request">Parametros de entrada.</param>
         public static void CreateEvent(EventCreateOrUpdateRequest request)
         {
+            var latitude = decimal.Parse(request.Latitude.Replace(".", ","),
+                NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
+            var longitude = decimal.Parse(request.Longitude.Replace(".", ","),
+                NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
+
             var eventToSave = new Domain.Domain.Event()
             {
                 Active = true,
@@ -60,8 +67,8 @@
                 EventEndTime = request.EventEndTime,
                 EventStartTime = request.EventStartTime,
                 FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null,
-                Latitude = Convert.ToDecimal(request.Latitude.Replace(".", ",")),
-                Longitude = Convert.ToDecimal(request.Longitude.Replace(".", ","))
+                Latitude = decimal.Parse(request.Latitude.Replace(".", ","), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign),
+                Longitude = decimal.Parse(request.Longitude.Replace(".", ","), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign)
             };
 
             new BaseQuery<Domain.Domain.Event, int>().Create(eventToSave);
@@ -95,8 +102,8 @@
             eventToSave.EventEndTime = request.EventEndTime;
             eventToSave.EventStartTime = request.EventStartTime;
             eventToSave.FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null;
-            eventToSave.Latitude = Convert.ToDecimal(request.Latitude.Replace(".", ","));
-            eventToSave.Longitude = Convert.ToDecimal(request.Longitude.Replace(".", ","));
+            eventToSave.Latitude = decimal.Parse(request.Latitude.Replace(".", ","), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
+            eventToSave.Longitude = decimal.Parse(request.Longitude.Replace(".", ","), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
 
             new BaseQuery<Domain.Domain.Event, int>().Update(eventToSave);
         }

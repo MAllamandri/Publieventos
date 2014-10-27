@@ -29,11 +29,11 @@
       <one-to-many class="MultimediaContent"/>
     </bag>
     <property name="NullDate" />
-    <property name="Latitude" type="decimal(4,15)" >
-      <column name="Latitude" sql-type="float"/>
+    <property name="Latitude" type="decimal" >
+      <column name="Latitude" sql-type="float" precision="25" scale="20"/>
     </property>
-    <property name="Longitude" type="decimal(4,15)">
-      <column name="Longitude" sql-type="float"  />
+    <property name="Longitude" type="decimal">
+      <column name="Longitude" sql-type="float" precision="25" scale="20"  />
     </property>
   </class>
 </hibernate-mapping>

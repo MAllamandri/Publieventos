@@ -30,8 +30,12 @@
                 anchorPoint: new google.maps.Point(0, -29)
             });
 
+            if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
+                setDirection(infowindow, marker, map);
+            }
+
             // Devuelve la dirección.
-            function setDirection(address_components) {
+            function getDirection(address_components) {
                 var address = '';
                 if (address_components != null) {
                     address = [
@@ -72,7 +76,7 @@
 
                 marker.setVisible(true);
 
-                var address = setDirection(place.address_components);
+                var address = getDirection(place.address_components);
 
                 infowindow.setContent('<div><strong>' + address + '</strong><br>');
                 infowindow.open(map, marker);
@@ -107,7 +111,7 @@
                     if (status == google.maps.GeocoderStatus.OK) {
                         if (results[1]) {
                             //Busco la dirección.
-                            var address = setDirection(results[0].address_components);
+                            var address = getDirection(results[0].address_components);
 
                             infowindow.setContent('<div><strong>' + address + '</strong><br>');
                             infowindow.open(map, marker);
@@ -117,6 +121,41 @@
                     }
                 });
             });
+
+            function setDirection(infowindow, marker, map) {
+                infowindow.close();
+                marker.setVisible(false);
+
+                var lat = parseFloat($('#Latitude').val().replace(",", "."));
+                var lng = parseFloat($('#Longitude').val().replace(",", "."));
+                var latlng = new google.maps.LatLng(lat, lng);
+
+                var geocoder = new google.maps.Geocoder();
+
+                marker.setPosition(latlng);
+                setLatLng(lat, lng);
+                marker.setVisible(true);
+
+                map.setCenter(latlng);
+                map.setZoom(17);
+
+                //Code to reverse geocode follows
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+
+
+                            //Busco la dirección.
+                            var address = getDirection(results[0].address_components);
+
+                            infowindow.setContent('<div><strong>' + address + '</strong><br>');
+                            infowindow.open(map, marker);
+                        }
+                    } else {
+                        alert("Geocoder falló en la búsqueda: " + status);
+                    }
+                });
+            }
         }
     });
 
