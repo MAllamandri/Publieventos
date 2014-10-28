@@ -25,10 +25,6 @@
         autoclose: true
     });
 
-    $('.btn-cancel').click(function () {
-        window.location.href = "/Home/Index";
-    });
-
     $('#ProvinceId').change(function () {
         $.getJSON("/Account/GetLocalitiesByProvince", { idProvince: $('#ProvinceId').val() }, function (data) {
             $('#LocalityId option').remove();
@@ -59,6 +55,7 @@
                 default:
                     $('#CoverPhoto').val('');
                     $('span[name = "ErrorCoverPhoto"]').text('La extension del archivo no es correcta.').show();
+                    return false;
                     break;
             }
         } else {
@@ -74,14 +71,12 @@
             url: "/Event/Create",
             datatype: 'text/json',
             beforeSubmit: function (arr, $form, options) {
-                $.blockUI({
-                    message: "<div style='font-size: 16px; padding-top: 11px;'><p>Guardando...</p><div>"
-                });
+                $.blockUI();
             },
             complete: function (data) {
                 if (data.responseJSON.Success) {
-                    window.location.href = "/Home/Index";
-                    $.blockUI({ message: "" });
+                    window.location.href = "/Event/MyEvents?currentEvents=true";
+                    $.blockUI();
                 } else {
                     $.each(data.responseJSON.Errors, function (index, value) {
                         var selector = "[name='" + index + "']";

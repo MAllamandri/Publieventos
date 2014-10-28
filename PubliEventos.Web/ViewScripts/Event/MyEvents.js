@@ -22,7 +22,7 @@
                     }).done(function (data) {
                         if (data.Success) {
                             bootbox.alert("El evento ha sido eliminado correctamente", function () {
-                                window.location.href = "/Event/MyEvents";
+                                window.location.href = "/Event/MyEvents?currentEvents=true";
                             });
                         } else {
                             bootbox.alert("Ha ocurrido un error al eliminar el registro");

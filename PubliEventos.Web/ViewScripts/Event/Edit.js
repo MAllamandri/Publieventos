@@ -50,12 +50,6 @@
         });
     });
 
-    $('form').submit(function () {
-        $.blockUI({
-            message: "<div style='font-size: 16px; padding-top: 11px;'><p>Guardando...</p><div>"
-        });
-    });
-
     $('#Save').click(function () {
         var val = $('#CoverPhoto').val();
 
@@ -65,15 +59,41 @@
                 case 'jpg':
                 case 'png':
                 case 'jpeg':
-                    $('form').submit();
+                    submitForm();
                     break;
                 default:
                     $('#CoverPhoto').val('');
                     $('span[name = "ErrorCoverPhoto"]').text('La extension del archivo no es correcta.').show();
+                    return false;
                     break;
             }
         } else {
-            $('form').submit();
+            submitForm();
         }
     });
+
+    function submitForm() {
+        $('input[type="text"]').hideMessageError();
+        $('select').hideMessageError();
+
+        $('#EditForm').ajaxForm({
+            url: "/Event/Edit",
+            datatype: 'text/json',
+            beforeSubmit: function (arr, $form, options) {
+                $.blockUI();
+            },
+            complete: function (data) {
+                if (data.responseJSON.Success) {
+                    window.location.href = "/Event/MyEvents?currentEvents=true";
+                    $.blockUI();
+                } else {
+                    $.each(data.responseJSON.Errors, function (index, value) {
+                        var selector = "[name='" + index + "']";
+                        $(selector).showMessageError(value);
+                    });
+                }
+                $.unblockUI();
+            }
+        });
+    }
 });

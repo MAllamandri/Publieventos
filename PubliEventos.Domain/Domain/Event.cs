@@ -1,4 +1,6 @@
-﻿namespace PubliEventos.Domain.Domain
+﻿using System.Data.Common;
+
+namespace PubliEventos.Domain.Domain
 {
     using System;
     using PubliEventos.DataAccess.Infrastructure;
@@ -68,11 +70,6 @@
         /// Contenidos multimedia relacionados al evento (imagenes o videos).
         /// </summary>
         public virtual IList<MultimediaContent> MultimediaContents { get; set; }
-
-        /// <summary>
-        /// Localidad del evento.
-        /// </summary>
-        public virtual Locality Locality { get; set; }
 
         /// <summary>
         /// Indica si esta activo.

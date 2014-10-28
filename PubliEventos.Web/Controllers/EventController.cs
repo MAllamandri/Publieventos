@@ -1,15 +1,15 @@
 ﻿namespace PubliEventos.Web.Controllers
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Web.Mvc;
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.ServicesEvents;
-    using System.Collections.Generic;
     using PubliEventos.Web.Helpers;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web.Mvc;
 
     [Authorize]
     public class EventController : BaseController
@@ -42,38 +42,6 @@
         }
 
         /// <summary>
-        /// Vista de creación de eventos.
-        /// </summary>
-        /// <param name="model">Modelo de la vista.</param>
-        /// <returns>Create View.</returns>
-        [HttpPost]
-        public JsonResult Create(EventCreateOrUpdateRequest model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Seteo el usuario creador.
-                model.UserId = User.Id;
-
-                if (model.CoverPhoto != null)
-                {
-                    // Renombro el archivo.
-                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
-                    model.FileName = fileName;
-                    var path = Path.Combine(HttpContext.Server.MapPath(pathCoverPhoto), Path.GetFileName(fileName));
-
-                    model.CoverPhoto.SaveAs(path);
-                }
-
-                // Doy de alta el evento.
-                this.serviceEvents.CreateEvent(model);
-
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         /// Vista de edición de eventos.
         /// </summary>
         /// <returns>Edit view.</returns>
@@ -81,48 +49,7 @@
         {
             var model = this.GetEventSummary(this.serviceEvents.GetEventById(id));
 
-            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name");
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities().Where(x => x.Province.Id == model.ProvinceId).ToList(), "Id", "Name");
             ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
-
-            return View(model);
-        }
-
-        /// <summary>
-        /// Vista de edición de eventos.
-        /// </summary>
-        /// <returns>Edit view.</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(EventCreateOrUpdateRequest model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (model.CoverPhoto != null)
-                {
-                    if (!string.IsNullOrEmpty(model.FileName))
-                    {
-                        // Elimino la portada anterior.
-                        System.IO.File.Delete(HttpContext.Server.MapPath(pathCoverPhoto + model.FileName));
-                    }
-
-                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
-                    model.FileName = fileName;
-                    var path = Path.Combine(HttpContext.Server.MapPath(pathCoverPhoto), Path.GetFileName(fileName));
-
-                    model.CoverPhoto.SaveAs(path);
-                }
-
-                // Edito el evento.
-                this.serviceEvents.EditEvent(model);
-
-                return RedirectToAction("Index", "Home");
-            }
-
-            model.CoverPhoto = null;
-            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.ProvinceId);
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities().Where(x => x.Province.Id == model.ProvinceId).ToList(), "Id", "Name");
-            ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description", model.EventTypeId);
 
             return View(model);
         }
@@ -200,6 +127,73 @@
         #endregion
 
         #region Json Methods
+
+        /// <summary>
+        /// Vista de creación de eventos.
+        /// </summary>
+        /// <param name="model">Modelo de la vista.</param>
+        /// <returns>Create View.</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Create(EventCreateOrUpdateRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Seteo el usuario creador.
+                model.UserId = User.Id;
+
+                if (model.CoverPhoto != null)
+                {
+                    // Renombro el archivo.
+                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
+                    model.FileName = fileName;
+                    var path = Path.Combine(HttpContext.Server.MapPath(pathCoverPhoto), Path.GetFileName(fileName));
+
+                    model.CoverPhoto.SaveAs(path);
+                }
+
+                // Doy de alta el evento.
+                this.serviceEvents.CreateEvent(model);
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Vista de edición de eventos.
+        /// </summary>
+        /// <returns>Edit view.</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Edit(EventCreateOrUpdateRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.CoverPhoto != null)
+                {
+                    if (!string.IsNullOrEmpty(model.FileName))
+                    {
+                        // Elimino la portada anterior.
+                        System.IO.File.Delete(HttpContext.Server.MapPath(pathCoverPhoto + model.FileName));
+                    }
+
+                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
+                    model.FileName = fileName;
+                    var path = Path.Combine(HttpContext.Server.MapPath(pathCoverPhoto), Path.GetFileName(fileName));
+
+                    model.CoverPhoto.SaveAs(path);
+                }
+
+                // Edito el evento.
+                this.serviceEvents.EditEvent(model);
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Elimina un evento.

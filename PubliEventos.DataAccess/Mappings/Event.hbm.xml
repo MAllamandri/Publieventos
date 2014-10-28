@@ -17,7 +17,6 @@
     <property name="EventEndTime" type="TimeAsTimeSpan" />
     <property name="FileName" column="CoverPhoto" />
     <many-to-one name="EventType" class="EventType" column="IdEventType"/>
-    <many-to-one name="Locality" class="Locality" column="IdLocality"/>
     <property name="Active" />
     <many-to-one name="User" class="User" column="IdUser"/>
     <bag name="Comments" cascade="save-update">
@@ -29,10 +28,10 @@
       <one-to-many class="MultimediaContent"/>
     </bag>
     <property name="NullDate" />
-    <property name="Latitude" type="decimal" >
+    <property name="Latitude" type="decimal" precision="25" scale="20">
       <column name="Latitude" sql-type="float" precision="25" scale="20"/>
     </property>
-    <property name="Longitude" type="decimal">
+    <property name="Longitude" type="decimal" precision="25" scale="20">
       <column name="Longitude" sql-type="float" precision="25" scale="20"  />
     </property>
   </class>

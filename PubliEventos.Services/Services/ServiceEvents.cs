@@ -147,11 +147,6 @@ namespace PubliEventos.Services.Services
             var predicate = PredicateBuilder.True<Domain.Domain.Event>();
             predicate = predicate.And(x => !x.NullDate.HasValue && x.Active);
 
-            if (request.LocalityId.HasValue)
-            {
-                predicate = predicate.And(x => x.Locality.Id == request.LocalityId.Value);
-            }
-
             if (request.EventTypeId.HasValue)
             {
                 predicate = predicate.And(x => x.EventType.Id == request.EventTypeId.Value);
