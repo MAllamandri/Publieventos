@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Detalle del Evento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Detail.js")
+@System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
+
+<div class="row-fluid">
+    <div class="col-md-10 offset1">
+        <div style="margin-bottom: 25px">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <h2 class="subtitle">Detalle del Evento</h2>
+                    <div class="row-fluid">
+                        <div class="col-md-12">
+                            <ul class="list-horizontal subtitle-sections">
+                                <li><a id="tabDetail" class="label-lobster active" href="#" data-toggle="tab">Detalle</a></li>
+                                <li><a id="tabLocalization" href="#" class="label-lobster" data-toggle="tab">Localización</a></li>
+                                <li><a id="tabContents" href="#" class="label-lobster" data-toggle="tab">Contenidos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid" style="margin-top: 25px">
+                <div class="row-fluid">
+                    <div id="regionDetail" class="tab-content">
+                        <div class="tab-pane active">
+                            @Html.Partial("Partial/_MosaicDetail", (PubliEventos.Contract.Class.Event)ViewBag.eventToDetail)
+                        </div>
+                    </div>
+                    <div id="regionLocalization" class="tab-content">
+                        <div class="tab-pane active">
+                        </div>
+                    </div>
+                    <div id="regionContents" class="tab-content">
+                        <div class="tab-pane active">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

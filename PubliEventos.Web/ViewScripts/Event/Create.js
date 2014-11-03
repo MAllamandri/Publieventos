@@ -76,14 +76,14 @@
             complete: function (data) {
                 if (data.responseJSON.Success) {
                     window.location.href = "/Event/MyEvents?currentEvents=true";
-                    $.blockUI();
+                    $.blockUI({ message: "" });
                 } else {
                     $.each(data.responseJSON.Errors, function (index, value) {
                         var selector = "[name='" + index + "']";
                         $(selector).showMessageError(value);
                     });
+                    $.unblockUI();
                 }
-                $.unblockUI();
             }
         });
     }

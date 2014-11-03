@@ -1,0 +1,12 @@
+﻿.list-horizontal li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 10px;
+    text-decoration: none;
+    float: left;
+    margin-bottom: -1px;
+}
+
+.active {
+    color: #2a6496;
+}

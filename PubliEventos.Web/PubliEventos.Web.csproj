@@ -170,6 +170,7 @@
     <Content Include="Content\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Content\EventsDetail.css" />
     <Content Include="Content\images\Covers\maxi.jpg" />
     <Content Include="Content\ladda\ladda-themeless.css" />
     <Content Include="Content\ladda\ladda-themeless.min.css" />
@@ -308,6 +309,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="ViewScripts\Event\Detail.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
@@ -342,6 +344,8 @@
     <Content Include="Views\Event\Partial\_EventsFilter.cshtml" />
     <Content Include="Views\Event\Partial\_Mosaic.cshtml" />
     <Content Include="Views\Event\Partial\_Localization.cshtml" />
+    <Content Include="Views\Event\Detail.cshtml" />
+    <Content Include="Views\Event\Partial\_MosaicDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

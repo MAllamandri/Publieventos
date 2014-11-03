@@ -54,6 +54,13 @@
             return View(model);
         }
 
+        public ActionResult Detail(int id)
+        {
+            ViewBag.eventToDetail = this.serviceEvents.GetEventById(id);
+
+            return View();
+        }
+
         /// <summary>
         /// Vista mis eventos.
         /// </summary>
@@ -114,8 +121,6 @@
                 EventDate = eventToParse.EventDate.Date,
                 EventStartTime = eventToParse.EventStartTime,
                 EventEndTime = eventToParse.EventEndTime,
-                //ProvinceId = eventToParse.Locality.Province.Id.Value,
-                //LocalityId = eventToParse.Locality.Id.Value,
                 Private = eventToParse.Private,
                 UserId = eventToParse.User.Id.Value,
                 EventTypeId = eventToParse.EventType.Id.Value,

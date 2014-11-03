@@ -79,18 +79,6 @@
         public virtual int EventTypeId { get; set; }
 
         /// <summary>
-        /// Localidad del evento.
-        /// </summary>
-        [Display(Name = "Localidad")]
-        public int LocalityId { get; set; }
-
-        /// <summary>
-        /// Localidad del evento.
-        /// </summary>
-        [Display(Name = "Provincia")]
-        public int ProvinceId { get; set; }
-
-        /// <summary>
         /// Indica si esta activo.
         /// </summary>
         public bool Active { get; set; }

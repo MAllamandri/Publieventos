@@ -1,0 +1,46 @@
+﻿@model PubliEventos.Contract.Class.Event
+
+<div class="col-md-12" style="margin-bottom: 1%; height: 280px;">
+    <div class="col-md-12 mosaic">
+        <div class="row-fluid subtitle">
+            <div class="span12">
+                <div class="span4">
+                    <div class="tl-circ" style="padding-top: 10px; padding-bottom: 10px;">
+                        <img src="/Content/images/Covers/@Model.FileName" style="width: 100%; height: 100%;" alt="" class="img-responsive" data-src="holder.js/1000x500">
+                    </div>
+                </div>
+                <div class="span8">
+                    <h4 class="font-text" style="color: #c25b4e">@Model.Title</h4>
+                    <p>
+                        <p class="font-text" style="display: inline; font-size: 15px">Fecha:</p>
+                        <strong class="font-text" style="display: inline; font-size: 15px;">@Model.EventDate.ToShortDateString()</strong>
+                    </p>
+                    <p>
+                        <p class="font-text" style="display: inline; font-size: 15px;">Hora:</p>
+                        <strong class="font-text" style="display: inline; font-size: 15px;">@Model.EventStartTime.ToString(@"hh\:mm") a @Model.EventEndTime.ToString(@"hh\:mm") Hs</strong>
+                    </p>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="span12">
+                                <p class="font-text" style="font-size: 15px">@Model.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="span12">
+                    <p class="font-text" style="font-size: 15px; margin-top: 5px;">@Model.Detail</p>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="col-md-12">
+                <a href="#" title="Ver Comentarios"><span class="icon-default glyphicon glyphicon-comment"></span></a>
+                <a style="padding-right: 10px" href="#" title="Invitar"><span class="icon-default glyphicon glyphicon-user"></span></a>
+            </div>
+        </div>
+    </div>
+</div>

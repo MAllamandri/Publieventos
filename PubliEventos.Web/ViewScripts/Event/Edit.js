@@ -84,15 +84,16 @@
             },
             complete: function (data) {
                 if (data.responseJSON.Success) {
+                    $.blockUI({ message: "" });
                     window.location.href = "/Event/MyEvents?currentEvents=true";
-                    $.blockUI();
                 } else {
                     $.each(data.responseJSON.Errors, function (index, value) {
                         var selector = "[name='" + index + "']";
                         $(selector).showMessageError(value);
                     });
+
+                    $.unblockUI();
                 }
-                $.unblockUI();
             }
         });
     }

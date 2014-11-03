@@ -6,16 +6,15 @@
 }
 
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
-@Scripts.Render("/Scripts/moment.js")
-@Scripts.Render("/Scripts/moment-with-locales.js")
-@Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment-with-locales.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("~/ViewScripts/Event/Create.js")
 
 @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
-
-@Scripts.Render("~/ViewScripts/Event/Create.js")
 
 <div class="row-fluid">
     <div class="col-md-10 offset1">

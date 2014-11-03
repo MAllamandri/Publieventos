@@ -27,6 +27,14 @@ header, footer, nav, section {
     background-color: #333333 !important;
 }
 
+.icon-default {
+    float: right;
+    height: 20px;
+    width: 20px;
+    font-size: 15px;
+    color: #B89C83;
+}
+
 .btn-confirm {
     height: 40px;
     min-width: 94px;

@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $('.deleteEvent').click(function (event) {
+    $('.deleteEvent').on("click", function (event) {
         var idEvent = $(this).attr('rel');
 
         bootbox.confirm({
