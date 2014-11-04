@@ -32,14 +32,19 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="span12">
-                    <p class="font-text" style="font-size: 15px; margin-top: 5px;">@Model.Detail</p>
+                    <p class="font-text" style="white-space: pre-line; font-size: 15px; margin-top: 5px;">@Model.Detail</p>
                 </div>
             </div>
         </div>
         <div class="row-fluid">
             <div class="col-md-12">
-                <a href="#" title="Ver Comentarios"><span class="icon-default glyphicon glyphicon-comment"></span></a>
-                <a style="padding-right: 10px" href="#" title="Invitar"><span class="icon-default glyphicon glyphicon-user"></span></a>
+                <div style="margin-bottom: 20px">
+                    <a href="#" title="Ver Comentarios"><span class="icon-default glyphicon glyphicon-comment"></span></a>
+                    @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == @Model.User.Id)
+                    {
+                        <a style="padding-right: 10px" href="#" title="Invitar"><span class="icon-default glyphicon glyphicon-user"></span></a>
+                    }
+                </div>
             </div>
         </div>
     </div>

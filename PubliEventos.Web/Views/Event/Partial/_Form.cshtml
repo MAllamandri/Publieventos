@@ -42,24 +42,24 @@
         </div>
         <div class="col-md-4">
             @Html.Label("Fecha de Realización", new { @class = "label-lobster" })
-            <div class="input-group date">
-                @Html.TextBoxFor(m => m.EventDate, new { @class = "form-control" })
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.EventDate, new { @class = "date form-control" })
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
             @Html.ValidationMessageFor(m => m.EventDate)
         </div>
         <div class="col-md-3">
             @Html.Label("Hora de Inicio", new { @class = "label-lobster" })
-            <div class="input-group time">
-                @Html.TextBoxFor(m => m.EventStartTime, new { @class = "form-control" })
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.EventStartTime, new { @class = "time form-control" })
                 <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
             </div>
             @Html.ValidationMessageFor(m => m.EventStartTime)
         </div>
         <div class="col-md-3">
             @Html.Label("Hora de Fin", new { @class = "label-lobster" })
-            <div class="input-group time">
-                @Html.TextBoxFor(m => m.EventEndTime, new { @class = "form-control" })
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.EventEndTime, new { @class = "time form-control" })
                 <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
             </div>
             @Html.ValidationMessageFor(m => m.EventEndTime)

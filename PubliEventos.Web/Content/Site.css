@@ -57,6 +57,10 @@ header, footer, nav, section {
     font-family: 'MuseoSans-500';
 }
 
+.active-link {
+    color: #2a6496;
+}
+
 /* Secciones dentro de una vista */
 
 .subtitle-sections {

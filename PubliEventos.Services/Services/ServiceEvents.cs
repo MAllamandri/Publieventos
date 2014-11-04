@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace PubliEventos.Services.Services
+﻿namespace PubliEventos.Services.Services
 {
     using LinqKit;
     using NHibernate.Linq;
@@ -9,6 +7,7 @@ namespace PubliEventos.Services.Services
     using PubliEventos.DataAccess.Querys;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Transactions;
 
@@ -48,11 +47,6 @@ namespace PubliEventos.Services.Services
         /// <param name="request">Parametros de entrada.</param>
         public static void CreateEvent(EventCreateOrUpdateRequest request)
         {
-            var latitude = decimal.Parse(request.Latitude.Replace(".", ","),
-                NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
-            var longitude = decimal.Parse(request.Longitude.Replace(".", ","),
-                NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
-
             var eventToSave = new Domain.Domain.Event()
             {
                 Active = true,
@@ -154,7 +148,7 @@ namespace PubliEventos.Services.Services
 
             if (request.EndDate.HasValue && request.StartDate.HasValue)
             {
-                predicate = predicate.And(x => x.EventDate.Date > request.StartDate.Value.Date && x.EventDate.Date <= request.EndDate.Value.Date);
+                predicate = predicate.And(x => x.EventDate.Date >= request.StartDate.Value.Date && x.EventDate.Date <= request.EndDate.Value.Date);
             }
             else if (request.StartDate.HasValue)
             {

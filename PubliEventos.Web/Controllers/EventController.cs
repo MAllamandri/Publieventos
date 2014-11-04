@@ -49,11 +49,22 @@
         {
             var model = this.GetEventSummary(this.serviceEvents.GetEventById(id));
 
+            // Si no es el usuario creador, lanzo error.
+            if (model.UserId != User.Id)
+            {
+                return RedirectToAction("UnauthorizedAccess", "Error");
+            }
+
             ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
 
             return View(model);
         }
 
+        /// <summary>
+        /// Vista detalle de eventos.
+        /// </summary>
+        /// <param name="id">Id del evento.</param>
+        /// <returns>Detail view.</returns>
         public ActionResult Detail(int id)
         {
             ViewBag.eventToDetail = this.serviceEvents.GetEventById(id);
@@ -80,7 +91,7 @@
             }
 
             ViewBag.myEvents = events;
-            ViewBag.currentEvents = currentEvents;
+            ViewBag.currentsEvents = currentEvents;
             ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name");
             ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name");
             ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");

@@ -23,6 +23,7 @@
     });
 
     $('#search').click(function () {
+        $.blockUI({ message: "<div style='font-size: 16px; padding-top: 11px;'><p>Buscando...</p><div>" });
         $.ajax({
             type: "POST",
             url: "/Event/GetFilteredEvents",
@@ -34,7 +35,8 @@
             },
             dataType: "html"
         }).success(function (data) {
-            $('#regionEvents').html(data)
+            $('#regionEvents').html(data);
+            $.unblockUI();
         });
     });
 

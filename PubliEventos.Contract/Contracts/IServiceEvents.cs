@@ -1,8 +1,8 @@
 ﻿namespace PubliEventos.Contract.Contracts
 {
+    using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Services.ServicesEvents;
     using System.Collections.Generic;
-    using PubliEventos.Contract.Class;
 
     /// <summary>
     /// Interface del servicio de eventos.

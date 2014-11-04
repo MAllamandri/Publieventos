@@ -1,5 +1,13 @@
 ﻿$(function () {
-    $('.deleteEvent').on("click", function (event) {
+    if ($('#CurrentsEvents').val() == "True") {
+        $('#tabCurrents').addClass("active-link");
+        $('#tabPrevious').removeClass("active-link");
+    } else {
+        $('#tabPrevious').addClass("active-link");
+        $('#tabCurrents').removeClass("active-link");
+    }
+
+    $(document).on("click", '.deleteEvent', function (event) {
         var idEvent = $(this).attr('rel');
 
         bootbox.confirm({
@@ -35,10 +43,6 @@
         });
     });
 
-    $('a .eventsSearch').click(function () {
-        $.blockUI({ message: '' });
-    });
-
     $('#filter').click(function () {
         if ($('#filterRegion').is(':visible')) {
             $('#filterRegion').hide();
@@ -46,6 +50,4 @@
             $('#filterRegion').show();
         }
     });
-
-
 });

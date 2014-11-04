@@ -4,7 +4,7 @@
         $('#regionDetail').show();
         $('#regionLocalization').hide();
         $('#regionContents').hide();
-        $(this).addClass("active");
+        $(this).addClass("active-link");
     });
 
     $('#tabLocalization').click(function () {
@@ -12,7 +12,7 @@
         $('#regionLocalization').show();
         $('#regionDetail').hide();
         $('#regionContents').hide();
-        $(this).addClass("active");
+        $(this).addClass("active-link");
     });
 
     $('#tabContents').click(function () {
@@ -20,12 +20,12 @@
         $('#regionContents').show();
         $('#regionDetail').hide();
         $('#regionLocalization').hide();
-        $(this).addClass("active");
+        $(this).addClass("active-link");
     });
 
     function removeActiveClass() {
-        $('#tabContents').removeClass("active");
-        $('#tabLocalization').removeClass("active");
-        $('#tabDetail').removeClass("active");
+        $('#tabContents').removeClass("active-link");
+        $('#tabLocalization').removeClass("active-link");
+        $('#tabDetail').removeClass("active-link");
     }
 });
