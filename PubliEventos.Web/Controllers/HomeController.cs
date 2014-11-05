@@ -1,4 +1,9 @@
-﻿namespace PubliEventos.Web.Controllers
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using PubliEventos.Contract.Class;
+
+namespace PubliEventos.Web.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
@@ -21,10 +26,13 @@
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var events = new EventsModel();
-            events.events = serviceEvents.GetAllEvents().OrderBy(x => x.EventDate).ToList();
+            ViewBag.events = serviceEvents.GetAllEvents()
+                .Where(x => x.EventDate >= DateTime.Now.AddMonths(-3) && x.EventDate <= DateTime.Now.AddMonths(6))
+                .GroupBy(x => x.EventDate)
+                .ToList();
 
-            return View(events);
+
+            return View();
         }
     }
 }

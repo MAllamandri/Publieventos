@@ -1,0 +1,22 @@
+﻿@model PubliEventos.Contract.Class.Event
+
+<li class="timeline-inverted">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <div class="tl-circ">
+                <img src="/Content/images/Covers/@Model.FileName"  alt="" class="img-circle img-cover" data-src="holder.js/120x120/auto">
+            </div>
+            <div class="timeline-panel">
+                <div class="tl-heading">
+                    <h4>@Model.Title</h4>
+                    <p class="font-text"><small class="text-muted"><i class="glyphicon glyphicon-time"></i>@Model.EventDate.ToShortDateString()</small></p>
+                </div>
+                <div class="tl-body">
+                    <p class="font-text">@Model.Description</p>
+
+                    <p class="font-text">@Model.Detail</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

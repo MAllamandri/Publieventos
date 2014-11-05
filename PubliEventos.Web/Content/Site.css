@@ -418,7 +418,7 @@ img {
     margin-top: 4%;
 }
 
-@media all and (max-width:1400px) {
+@media all and (max-width:1480px) and (min-width: 1000px) {
     .image-cloud {
         margin-left: 43.4%;
         z-index: 1;
@@ -429,9 +429,20 @@ img {
     }
 }
 
+@media all and (max-width:1920px) and (min-width: 1480px) {
+    .image-cloud {
+        margin-left: 45.4%;
+        z-index: 1;
+        position: absolute;
+        margin-top: -4%;
+        text-align: center;
+        display: inline;
+    }
+}
+
 @media all and (max-width:1000px) {
     .image-cloud {
-        margin-left: 40.4%;
+        margin-left: 40%;
         z-index: 1;
         position: absolute;
         margin-top: -8%;
@@ -469,6 +480,7 @@ img {
     font-weight: bold;
     text-align: center;
     -webkit-box-shadow: 0 0 11px rgba(0,0,0,0.35);
+    margin-top: 25px;
 }
 
 .timeline li {
@@ -577,6 +589,46 @@ img {
         z-index: 99999;
     }
 
+@media all and (max-width:900px) {
+    .img-cover {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .tl-circ {
+        margin-left: -1% !important;
+    }
+}
+
+@media all and ( max-width:1100px) and (min-width: 900px) {
+    .img-cover {
+        width: 90px !important;
+        height: 90px !important;
+    }
+
+    .tl-circ {
+        margin-left: -1.5% !important;
+    }
+}
+
+@media all and ( max-width:1420px) and (min-width: 1100px) {
+    .tl-circ {
+        margin-left: -1% !important;
+    }
+}
+
+@media all and ( max-width:1920px) and (min-width: 1420px) {
+    .tl-circ {
+        margin-left: 0.5% !important;
+    }
+}
+
+@media all and ( max-width:1920px) and (min-width: 1100px) {
+    .img-cover {
+        width: 120px !important;
+        height: 120px !important;
+    }
+}
 
 /** timeline content **/
 
@@ -651,6 +703,11 @@ img {
 .font-text {
     font-family: 'MuseoSans-500';
     color: #5f6364;
+    font-size: 14px;
+}
+
+h4.font-text {
+    font-size: 17px !important;
 }
 
 /* Estilo Mapas */
