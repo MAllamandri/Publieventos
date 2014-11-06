@@ -4,7 +4,8 @@
 }
 
 @using PubliEventos.Contract.Class
-@Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
 
 <div class="row-fluid" style="margin-top: 3%">
     <div class="col-md-12">
@@ -17,15 +18,25 @@
         </div>
         <div class="row-fluid">
             <ul class="timeline">
-                @foreach (var EventGroup in ViewBag.events)
+                @foreach (var eventGroup in ViewBag.events)
                 {
                     <li>
-                        <div class="tldate">@EventGroup</div>
+                        <div class="tldate"></div>
                     </li>
-                    
-                    foreach (var EventSingle in EventGroup)
+                    var indice = true;
+
+                    foreach (var eventSingle in eventGroup)
                     {
-                    @Html.Partial("Partial/_LeftBubble", (Event)EventSingle)
+                        if (indice)
+                        {
+                    @Html.Partial("Partial/_LeftBubble", (Event)eventSingle)
+                            indice = false;
+                        }
+                        else
+                        {
+                    @Html.Partial("Partial/_RightBubble", (Event)eventSingle)
+                            indice = true;
+                        }
                     }
                 }
             </ul>

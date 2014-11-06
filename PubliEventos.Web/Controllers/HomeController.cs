@@ -28,9 +28,7 @@ namespace PubliEventos.Web.Controllers
         {
             ViewBag.events = serviceEvents.GetAllEvents()
                 .Where(x => x.EventDate >= DateTime.Now.AddMonths(-3) && x.EventDate <= DateTime.Now.AddMonths(6))
-                .GroupBy(x => x.EventDate)
-                .ToList();
-
+                .GroupBy(x => x.EventDate).ToList();
 
             return View();
         }
