@@ -67,9 +67,9 @@
         /// <returns>Detail view.</returns>
         public ActionResult Detail(int id)
         {
-            ViewBag.eventToDetail = this.serviceEvents.GetEventById(id);
+            var model = this.serviceEvents.GetEventById(id);
 
-            return View();
+            return View(model);
         }
 
         /// <summary>

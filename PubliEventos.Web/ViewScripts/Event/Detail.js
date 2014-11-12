@@ -1,27 +1,29 @@
 ﻿$(function () {
     $('#tabDetail').click(function () {
         removeActiveClass();
-        $('#regionDetail').show();
         $('#regionLocalization').hide();
         $('#regionContents').hide();
         $(this).addClass("active-link");
+        $('#regionDetail').show();
     });
 
     $('#tabLocalization').click(function () {
         removeActiveClass();
-        $('#regionLocalization').show();
         $('#regionDetail').hide();
         $('#regionContents').hide();
+        $('#regionLocalization').show();
         $(this).addClass("active-link");
     });
 
     $('#tabContents').click(function () {
         removeActiveClass();
-        $('#regionContents').show();
         $('#regionDetail').hide();
         $('#regionLocalization').hide();
+        $('#regionContents').show();
         $(this).addClass("active-link");
     });
+
+    //$('#tabDetail').click();
 
     function removeActiveClass() {
         $('#tabContents').removeClass("active-link");

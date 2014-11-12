@@ -18,10 +18,10 @@
         </div>
         <div class="row-fluid">
             <ul class="timeline">
-                @foreach (var eventGroup in ViewBag.events)
+                @foreach (var eventGroup in (List<List<Event>>)ViewBag.events)
                 {
                     <li>
-                        <div class="tldate"></div>
+                        <div class="tldate">@eventGroup.First().EventDate.ToShortDateString()</div>
                     </li>
                     var indice = true;
 

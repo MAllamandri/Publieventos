@@ -1,0 +1,202 @@
+﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
+
+<script type="text/javascript">
+    $(function () {
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        function initialize() {
+            var pos = new google.maps.LatLng(-34.921091, -57.954029);
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+            var directionsService = new google.maps.DirectionsService();
+
+            var mapOptions = {
+                center: pos,
+                zoom: 13
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            var input = (document.getElementById('pac-input'));
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            var options = {
+                componentRestrictions: { country: 'AR' }//Argentina solamente.
+            };
+
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+            autocomplete.bindTo('bounds', map);
+
+            var infowindow = new google.maps.InfoWindow();
+            var marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
+
+            var destinationInfowindow = new google.maps.InfoWindow();
+            var destinationMarker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
+
+            directionsDisplay.setMap(map);
+            directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+            directionsDisplay.setOptions({
+                draggable: true
+            });
+
+            if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
+                setDirection(infowindow, marker, map, parseFloat($('#Latitude').val().replace(",", ".")), parseFloat($('#Longitude').val().replace(",", ".")));
+            }
+
+            // Devuelve la dirección.
+            function getDirection(address_components) {
+                var address = '';
+                if (address_components != null) {
+                    address = [
+                        (address_components[1] && address_components[1].short_name || ''),
+                        (address_components[0] && address_components[0].short_name || ','),
+                        (address_components[2] && address_components[2].short_name || '')
+                    ].join(' ');
+                }
+
+                return address;
+            }
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                //destinationInfowindow.close();
+
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    return;
+                }
+
+                // If the place has a geometry, then present it on a map.
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                }
+
+                destinationMarker.setPosition(place.geometry.location);
+
+                // Seteo los hidden para guardar la posición.
+                if (place.geometry.location.B != undefined && place.geometry.location.k != undefined) {
+                    setLatLng(place.geometry.location.k, place.geometry.location.B);
+
+                    destinationMarker.setVisible(true);
+
+                    var address = getDirection(place.address_components);
+
+                    //destinationInfowindow.setContent('<div><strong>' + address + '</strong><br>');
+                    //destinationInfowindow.open(map, marker);
+                    calcRoute(place.geometry.location.k, place.geometry.location.B);
+                } else {
+                    $('#DestinationLatitude').val("");
+                    $('#DestinationLongitude').val("");
+                }
+            });
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                $('#pac-input').val("");
+                //destinationInfowindow.close();
+                destinationMarker.setVisible(false);
+
+                if (!event.latLng) {
+                    $('#DestinationLatitude').val("");
+                    $('#DestinationLongitude').val("");
+
+                    return;
+                }
+
+                setDirection(destinationInfowindow, destinationMarker, map, event.latLng.lat(), event.latLng.lng());
+            });
+
+            function setDirection(infowindow, marker, map, lat, lng) {
+                //infowindow.close();
+                //marker.setVisible(false);
+
+                var latlng = new google.maps.LatLng(lat, lng);
+                var geocoder = new google.maps.Geocoder();
+
+                if (marker != null) {
+                    marker.setPosition(latlng);
+                    marker.setVisible(true);
+                }
+
+                setLatLng(lat, lng);
+                map.setCenter(latlng);
+                map.setZoom(7);
+
+                //Code to reverse geocode follows
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            //Busco la dirección.
+                            var address = getDirection(results[0].address_components);
+
+                            //infowindow.setContent('<div><strong>' + address + '</strong><br>');
+                            //infowindow.open(map, marker);
+
+                            calcRoute(lat, lng);
+                        }
+                    } else {
+                        alert("Geocoder falló en la búsqueda: " + status);
+                    }
+                });
+            }
+
+            function calcRoute(latDestination, lngDestination) {
+                var lat = parseFloat($('#Latitude').val().replace(",", "."));
+                var lng = parseFloat($('#Longitude').val().replace(",", "."));
+
+                var start = new google.maps.LatLng(lat, lng);
+                var end = new google.maps.LatLng(latDestination, lngDestination);
+
+                if (lat != latDestination || lng != lngDestination) {
+                    marker.setPosition(null);
+
+                    var selectedMode = document.getElementById("mode").value;
+                    var request = {
+                        origin: start,
+                        destination: end,
+                        travelMode: google.maps.TravelMode[selectedMode],
+                        unitSystem: google.maps.UnitSystem.METRIC,
+                        provideRouteAlternatives: true
+                    };
+                    directionsService.route(request, function (result, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setDirections(result);
+                        }
+                    });
+                }
+            }
+
+            $('#mode').change(function () {
+                calcRoute($('#DestinationLatitude').val(), $('#DestinationLongitude').val());
+            });
+        }
+    });
+
+    function setLatLng(latitude, longitude) {
+        $('#DestinationLatitude').val(latitude.toString());
+        $('#DestinationLongitude').val(longitude.toString());
+    }
+</script>
+<div class="row-fluid">
+    <div class="col-md-8">
+        <input id="pac-input" class="controls" type="text" placeholder="Ingrese la dirección" />
+        <div id="map-canvas" style="height: 400px; width: 700px;"></div>
+        <div style="position: absolute; top: 90%;">
+            <p class="label-lobster" style="display: inline;">Medio de Transporte </p>
+            <select class="form-control" style="width: 250px; display: inline;" id="mode">
+                <option class="font-text" value="DRIVING">Auto</option>
+                <option value="WALKING">Caminando</option>
+                <option value="BICYCLING">Bicicleta</option>
+                <option value="TRANSIT">Transit</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div id="directionsPanel" style="float: right; width: 300px; height: 100%;"></div>
+    </div>
+</div>

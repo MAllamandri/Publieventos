@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using PubliEventos.Contract.Class;
-
-namespace PubliEventos.Web.Controllers
+﻿namespace PubliEventos.Web.Controllers
 {
-    using System.Linq;
-    using System.Web.Mvc;
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
-    using PubliEventos.Web.Models;
+    using PubliEventos.Contract.Services.ServicesEvents;
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public class HomeController : Controller
     {
@@ -26,9 +22,10 @@ namespace PubliEventos.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            ViewBag.events = serviceEvents.GetAllEvents()
-                .Where(x => x.EventDate >= DateTime.Now.AddMonths(-3) && x.EventDate <= DateTime.Now.AddMonths(6))
-                .GroupBy(x => x.EventDate).ToList();
+            ViewBag.events = serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { StartDate = DateTime.Now.AddMonths(-3), EndDate = DateTime.Now.AddMonths(6) })
+                .GroupBy(x => x.EventDate)
+                .Select(grp => grp.ToList())
+                .ToList();
 
             return View();
         }

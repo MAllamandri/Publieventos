@@ -350,6 +350,7 @@
     <Content Include="Views\Error\UnauthorizedAccess.cshtml" />
     <Content Include="Views\Home\Partial\_LeftBubble.cshtml" />
     <Content Include="Views\Home\Partial\_RightBubble.cshtml" />
+    <Content Include="Views\Event\Partial\_LocalizationDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

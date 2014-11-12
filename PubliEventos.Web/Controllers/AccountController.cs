@@ -94,44 +94,6 @@
         }
 
         /// <summary>
-        /// Vista de registración.
-        /// </summary>
-        /// <returns>SignUp view.</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult SignUp(UserModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new User()
-                {
-                    Email = model.SignUpModel.Email,
-                    UserName = model.SignUpModel.UserNameToRegister,
-                    Password = Encryptor.Encrypt(model.SignUpModel.PasswordToRegister),
-                    Locality = new Locality()
-                    {
-                        Id = model.SignUpModel.Locality.Value
-                    },
-                    EffectDate = DateTime.Now,
-                    BirthDate = model.SignUpModel.BirthDate
-                };
-
-                var idUser = serviceAccounts.RegisterUser(user);
-
-                if (idUser != 0)
-                {
-                    this.SendEmailAccountConfirmation(user.UserName);
-                }
-
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
-            }
-
-            model.IsLogin = false;
-
-            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
         /// Activación de cuenta mediante el token.
         /// </summary>
         /// <param name="token">token de activación.</param>
@@ -280,6 +242,44 @@
         #endregion
 
         #region Json Methods
+
+        /// <summary>
+        /// Vista de registración.
+        /// </summary>
+        /// <returns>SignUp view.</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult SignUp(UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User()
+                {
+                    Email = model.SignUpModel.Email,
+                    UserName = model.SignUpModel.UserNameToRegister,
+                    Password = Encryptor.Encrypt(model.SignUpModel.PasswordToRegister),
+                    Locality = new Locality()
+                    {
+                        Id = model.SignUpModel.Locality.Value
+                    },
+                    EffectDate = DateTime.Now,
+                    BirthDate = model.SignUpModel.BirthDate
+                };
+
+                var idUser = serviceAccounts.RegisterUser(user);
+
+                if (idUser != 0)
+                {
+                    this.SendEmailAccountConfirmation(user.UserName);
+                }
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            model.IsLogin = false;
+
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Valida si el nombre de usuario ya existe.
