@@ -13,6 +13,10 @@
         $('#regionContents').hide();
         $('#regionLocalization').show();
         $(this).addClass("active-link");
+
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
     });
 
     $('#tabContents').click(function () {
