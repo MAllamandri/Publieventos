@@ -6,7 +6,13 @@
 }
 
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Detail.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MapStyles.js")
 @System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
+@System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
+
+<!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
 <div class="row-fluid">
     <div class="col-md-10 offset1">
@@ -16,7 +22,7 @@
                     <h2 class="subtitle">Detalle del Evento</h2>
                     <div class="row-fluid">
                         <div class="col-md-12">
-                            <ul class="list-horizontal subtitle-sections">
+                            <ul class="list-horizontal subtitle-sections" style="margin-left: -15px">
                                 <li><a id="tabDetail" class="label-lobster active-link" href="#" data-toggle="tab">Detalle</a></li>
                                 <li><a id="tabLocalization" href="#" class="label-lobster" data-toggle="tab">Localización</a></li>
                                 <li><a id="tabContents" href="#" class="label-lobster" data-toggle="tab">Contenidos</a></li>

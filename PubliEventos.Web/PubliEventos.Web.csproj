@@ -172,6 +172,7 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\EventsDetail.css" />
+    <Content Include="Content\fonts\css\font-awesome.css" />
     <Content Include="Content\images\Covers\maxi.jpg" />
     <Content Include="Content\ladda\ladda-themeless.css" />
     <Content Include="Content\ladda\ladda-themeless.min.css" />
@@ -270,6 +271,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\themes\fonts\Delicious-SmallCaps.ttf" />
     <Content Include="Content\themes\fonts\Lobster 1.4.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -311,6 +316,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="ViewScripts\Event\Detail.js" />
+    <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />

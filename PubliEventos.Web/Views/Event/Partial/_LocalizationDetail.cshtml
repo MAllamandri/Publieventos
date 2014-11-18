@@ -1,17 +1,20 @@
-﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=spanish"></script>
+﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
 
 <script type="text/javascript">
     $(function () {
         google.maps.event.addDomListener(window, 'load', initialize);
 
         function initialize() {
-            var pos = new google.maps.LatLng(-34.921091, -57.954029);
-            var directionsDisplay = new google.maps.DirectionsRenderer();
+            var latlng = new google.maps.LatLng(parseFloat($('#Latitude').val().replace(",", ".")), parseFloat($('#Longitude').val().replace(",", ".")));
+
+            var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: false });
             var directionsService = new google.maps.DirectionsService();
 
             var mapOptions = {
-                center: pos,
-                zoom: 7
+                center: latlng,
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                styles: stylesMap[0]
             };
 
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -26,7 +29,6 @@
             var autocomplete = new google.maps.places.Autocomplete(input, options);
             autocomplete.bindTo('bounds', map);
 
-            var infowindow = new google.maps.InfoWindow();
             var marker = new google.maps.Marker({
                 map: map,
                 anchorPoint: new google.maps.Point(0, -29)
@@ -39,8 +41,6 @@
             });
 
             if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
-                var latlng = new google.maps.LatLng(parseFloat($('#Latitude').val().replace(",", ".")), parseFloat($('#Longitude').val().replace(",", ".")));
-
                 if (marker != null) {
                     marker.setPosition(latlng);
                     marker.setVisible(true);
@@ -132,6 +132,15 @@
             $('#mode').change(function () {
                 calcRoute($('#DestinationLatitude').val(), $('#DestinationLongitude').val());
             });
+
+            $(document).on('click', '.mapStyle', function () {
+                var mapOptions = {
+                    styles: stylesMap[$(this).attr('rel')]
+                };
+
+                map.setOptions(mapOptions);
+                return false;
+            });
         }
     });
 
@@ -141,9 +150,9 @@
     }
 </script>
 <div class="row-fluid">
-    <div class="col-md-8">
+    <div class="span8">
         <input id="pac-input" class="controls" type="text" placeholder="Ingrese la dirección" />
-        <div id="map-canvas" style="height: 600px; width: 700px;"></div>
+        <div id="map-canvas" style="height: 600px; width: auto"></div>
         <div style="position: absolute; top: 90%;">
             <p class="label-lobster" style="display: inline;">Medio de Transporte </p>
             <select class="form-control" style="width: 250px; display: inline;" id="mode">
@@ -153,8 +162,20 @@
                 <option class="font-text" value="TRANSIT">Transporte Público</option>
             </select>
         </div>
+        <nav id="colorNav">
+            <ul>
+                <li class="red">
+                    <a href="#" class="icon-cogs"></a>
+                    <ul>
+                        <li><a class="mapStyle" rel="1" href="#">Gris</a></li>
+                        <li><a class="mapStyle" rel="2" href="#">Gris Claro</a></li>
+                        <li><a class="mapStyle" rel="0" href="#">Azul</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </div>
-    <div class="col-md-4">
-        <div id="directionsPanel" style="float: right; overflow: auto; font-size: 12px; height: 600px;"></div>
+    <div class="span4">
+        <div id="directionsPanel" style="overflow: auto; font-size: 12px; height: 600px;"></div>
     </div>
 </div>
