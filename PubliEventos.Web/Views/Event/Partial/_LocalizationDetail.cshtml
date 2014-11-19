@@ -7,7 +7,16 @@
         function initialize() {
             var latlng = new google.maps.LatLng(parseFloat($('#Latitude').val().replace(",", ".")), parseFloat($('#Longitude').val().replace(",", ".")));
 
-            var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: false });
+            var icons = {
+                start: new google.maps.MarkerImage(
+                 "/Content/themes/images/star.png"
+                ),
+                end: new google.maps.MarkerImage(
+                 '/Content/themes/images/star-gray.png'
+                )
+            };
+            var markersArray = [];
+            var directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true, suppressInfoWindows: true });
             var directionsService = new google.maps.DirectionsService();
 
             var mapOptions = {
@@ -31,7 +40,9 @@
 
             var marker = new google.maps.Marker({
                 map: map,
-                anchorPoint: new google.maps.Point(0, -29)
+                animation: google.maps.Animation.DROP,
+                anchorPoint: new google.maps.Point(0, -29),
+                icon: "/Content/themes/images/star.png"
             });
 
             directionsDisplay.setMap(map);
@@ -114,6 +125,11 @@
                     var selectedMode = document.getElementById("mode").value;
                     marker.setVisible(false);
 
+                    // Limpio los markers anteriores.
+                    for (i in markersArray) {
+                        markersArray[i].setMap(null);
+                    }
+
                     var request = {
                         origin: start,
                         destination: end,
@@ -121,12 +137,33 @@
                         unitSystem: google.maps.UnitSystem.METRIC,
                         provideRouteAlternatives: true
                     };
+
                     directionsService.route(request, function (result, status) {
                         if (status == google.maps.DirectionsStatus.OK) {
                             directionsDisplay.setDirections(result);
+                            var leg = result.routes[0].legs[0];
+                            makeMarker(leg.start_location, icons.start, result.routes[0].legs[0].start_address);
+                            makeMarker(leg.end_location, icons.end, result.routes[0].legs[0].end_address);
                         }
                     });
                 }
+            }
+
+            function makeMarker(position, icon, address) {
+                var info = new google.maps.InfoWindow();
+                info.setOptions({
+                    content: address,
+                });
+
+                var markerEnd = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    icon: icon,
+                    title: "Icono"
+                });
+
+                info.open(map, markerEnd);
+                markersArray.push(markerEnd);
             }
 
             $('#mode').change(function () {

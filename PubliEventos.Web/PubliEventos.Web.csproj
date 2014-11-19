@@ -244,6 +244,8 @@
     <Content Include="Content\themes\images\contact-default-image.jpg" />
     <Content Include="Content\themes\images\door-open-icon.png" />
     <Content Include="Content\themes\images\log-out.jpg" />
+    <Content Include="Content\themes\images\star-gray.png" />
+    <Content Include="Content\themes\images\star.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />
