@@ -1,4 +1,26 @@
 ﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<style>
+    .infoWindow {
+        padding-top: 5px;
+        background: #333;
+        color: #FFF;
+        font-family: 'MuseoSans-500';
+        font-size: 12px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        text-shadow: 0 -1px #000000;
+        -webkit-box-shadow: 0 0 8px #000;
+        box-shadow: 0 0 8px #000;
+        width: 200px;
+        height: auto;
+    }
+
+    .startStreet {
+        text-decoration: underline;
+    }
+</style>
 
 <script type="text/javascript">
     $(function () {
@@ -15,6 +37,8 @@
                  '/Content/themes/images/star-gray.png'
                 )
             };
+
+            var infoBoxs = [];
             var markersArray = [];
             var directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true, suppressInfoWindows: true });
             var directionsService = new google.maps.DirectionsService();
@@ -22,7 +46,6 @@
             var mapOptions = {
                 center: latlng,
                 zoom: 15,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
                 styles: stylesMap[0]
             };
 
@@ -41,8 +64,7 @@
             var marker = new google.maps.Marker({
                 map: map,
                 animation: google.maps.Animation.DROP,
-                anchorPoint: new google.maps.Point(0, -29),
-                icon: "/Content/themes/images/star.png"
+                icon: icons.start
             });
 
             directionsDisplay.setMap(map);
@@ -53,6 +75,18 @@
 
             if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
                 if (marker != null) {
+                    var content = "<div style='font-size: 12px; width: auto; height: auto;' class='alert alert-warning' role='alert'>";
+                    content += "<strong>Lugar del Evento: ";
+
+                    var geocoder = new google.maps.Geocoder();
+
+                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            content += results[0].formatted_address;
+                            content += "</strong></div>";
+                        }
+                    });
+
                     marker.setPosition(latlng);
                     marker.setVisible(true);
                 }
@@ -95,7 +129,6 @@
             });
 
             function setDirection(map, lat, lng) {
-                //var latlng = new google.maps.LatLng(lat, lng);
                 var geocoder = new google.maps.Geocoder();
 
                 setLatLng(lat, lng);
@@ -122,12 +155,18 @@
                 var end = new google.maps.LatLng(latDestination, lngDestination);
 
                 if ((lat != latDestination || lng != lngDestination) && lngDestination != "" && latDestination != "") {
+                    $('#infoRoutes').hide();
+
                     var selectedMode = document.getElementById("mode").value;
                     marker.setVisible(false);
 
                     // Limpio los markers anteriores.
                     for (i in markersArray) {
                         markersArray[i].setMap(null);
+                    }
+
+                    for (i in infoBoxs) {
+                        infoBoxs[i].close();
                     }
 
                     var request = {
@@ -142,7 +181,7 @@
                         if (status == google.maps.DirectionsStatus.OK) {
                             directionsDisplay.setDirections(result);
                             var leg = result.routes[0].legs[0];
-                            makeMarker(leg.start_location, icons.start, result.routes[0].legs[0].start_address);
+                            makeMarker(leg.start_location, icons.start,"<strong id='startStreet'>Lugar del Evento: </strong><br/>" + result.routes[0].legs[0].start_address);
                             makeMarker(leg.end_location, icons.end, result.routes[0].legs[0].end_address);
                         }
                     });
@@ -150,20 +189,21 @@
             }
 
             function makeMarker(position, icon, address) {
-                var info = new google.maps.InfoWindow();
-                info.setOptions({
-                    content: address,
+                var infobox = new InfoBox({
+                    content: "<div class='infoWindow'>" + address + "</div>",
+                    disableAutoPan: false,
+                    zIndex: null,
                 });
 
                 var markerEnd = new google.maps.Marker({
                     position: position,
                     map: map,
-                    icon: icon,
-                    title: "Icono"
+                    icon: icon
                 });
 
-                info.open(map, markerEnd);
+                infobox.open(map, markerEnd);
                 markersArray.push(markerEnd);
+                infoBoxs.push(infobox);
             }
 
             $('#mode').change(function () {
@@ -213,6 +253,11 @@
         </nav>
     </div>
     <div class="span4">
+        <div id="infoRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute;" class="alert alert-warning" role="alert">
+            <i class="glyphicon glyphicon-info-sign"></i><strong> Seleccione un lugar
+                                                             <br />
+                para marcar su recorrido al evento...</strong>
+        </div>
         <div id="directionsPanel" style="overflow: auto; font-size: 12px; height: 600px;"></div>
     </div>
 </div>

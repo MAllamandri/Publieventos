@@ -27,8 +27,6 @@
         $(this).addClass("active-link");
     });
 
-    //$('#tabDetail').click();
-
     function removeActiveClass() {
         $('#tabContents').removeClass("active-link");
         $('#tabLocalization').removeClass("active-link");
