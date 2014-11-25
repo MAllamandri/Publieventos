@@ -1,5 +1,6 @@
 ﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+
 <style>
     .infoWindow {
         padding-top: 5px;
@@ -15,10 +16,6 @@
         box-shadow: 0 0 8px #000;
         width: 200px;
         height: auto;
-    }
-
-    .startStreet {
-        text-decoration: underline;
     }
 </style>
 
@@ -37,6 +34,12 @@
                  '/Content/themes/images/star-gray.png'
                 )
             };
+
+            //var line = new google.maps.Polyline({
+            //    strokeColor: '#FF0000',
+            //    strokeOpacity: 0.5,
+            //    strokeWeight: 4
+            //});
 
             var infoBoxs = [];
             var markersArray = [];
@@ -61,12 +64,6 @@
             var autocomplete = new google.maps.places.Autocomplete(input, options);
             autocomplete.bindTo('bounds', map);
 
-            var marker = new google.maps.Marker({
-                map: map,
-                animation: google.maps.Animation.DROP,
-                icon: icons.start
-            });
-
             directionsDisplay.setMap(map);
             directionsDisplay.setPanel(document.getElementById("directionsPanel"));
             directionsDisplay.setOptions({
@@ -74,22 +71,7 @@
             });
 
             if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
-                if (marker != null) {
-                    var content = "<div style='font-size: 12px; width: auto; height: auto;' class='alert alert-warning' role='alert'>";
-                    content += "<strong>Lugar del Evento: ";
-
-                    var geocoder = new google.maps.Geocoder();
-
-                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            content += results[0].formatted_address;
-                            content += "</strong></div>";
-                        }
-                    });
-
-                    marker.setPosition(latlng);
-                    marker.setVisible(true);
-                }
+                makeMarker(latlng, icons.start);
             }
 
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -108,7 +90,8 @@
                 // Seteo los hidden para guardar la posición.
                 if (place.geometry.location.B != undefined && place.geometry.location.k != undefined) {
                     // Armo el recorrido.
-                    setDirection(map, place.geometry.location.k, place.geometry.location.B);
+                    calcRoute(place.geometry.location.k, place.geometry.location.B);
+                    setLatLng(place.geometry.location.k, place.geometry.location.B);
                 } else {
                     $('#DestinationLatitude').val("");
                     $('#DestinationLongitude').val("");
@@ -125,27 +108,9 @@
                     return;
                 }
 
-                setDirection(map, event.latLng.lat(), event.latLng.lng());
+                calcRoute(event.latLng.lat(), event.latLng.lng());
+                setLatLng(event.latLng.lat(), event.latLng.lng());
             });
-
-            function setDirection(map, lat, lng) {
-                var geocoder = new google.maps.Geocoder();
-
-                setLatLng(lat, lng);
-                map.setCenter(latlng);
-                map.setZoom(7);
-
-                //Code to reverse geocode follows
-                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                            calcRoute(lat, lng);
-                        }
-                    } else {
-                        alert("Geocoder falló en la búsqueda: " + status);
-                    }
-                });
-            }
 
             function calcRoute(latDestination, lngDestination) {
                 var lat = parseFloat($('#Latitude').val().replace(",", "."));
@@ -158,7 +123,6 @@
                     $('#infoRoutes').hide();
 
                     var selectedMode = document.getElementById("mode").value;
-                    marker.setVisible(false);
 
                     // Limpio los markers anteriores.
                     for (i in markersArray) {
@@ -168,6 +132,8 @@
                     for (i in infoBoxs) {
                         infoBoxs[i].close();
                     }
+
+                    //line.setMap(null);
 
                     var request = {
                         origin: start,
@@ -180,30 +146,48 @@
                     directionsService.route(request, function (result, status) {
                         if (status == google.maps.DirectionsStatus.OK) {
                             directionsDisplay.setDirections(result);
+
+                            //var options = {
+                            //    path: result.routes[0].overview_path
+                            //}
+                            //line.setOptions(options);
+                            //line.setMap(map);
+
                             var leg = result.routes[0].legs[0];
-                            makeMarker(leg.start_location, icons.start,"<strong id='startStreet'>Lugar del Evento: </strong><br/>" + result.routes[0].legs[0].start_address);
-                            makeMarker(leg.end_location, icons.end, result.routes[0].legs[0].end_address);
+
+                            makeMarker(leg.start_location, icons.start);
+                            makeMarker(leg.end_location, icons.end);
+                        } else {
+                            makeMarker(start, icons.start);
                         }
                     });
                 }
             }
 
-            function makeMarker(position, icon, address) {
-                var infobox = new InfoBox({
-                    content: "<div class='infoWindow'>" + address + "</div>",
-                    disableAutoPan: false,
-                    zIndex: null,
-                });
+            function makeMarker(position, icon) {
+                var geocoder = new google.maps.Geocoder();
 
-                var markerEnd = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    icon: icon
-                });
+                geocoder.geocode({ 'latLng': position }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        address = results[0].formatted_address;
 
-                infobox.open(map, markerEnd);
-                markersArray.push(markerEnd);
-                infoBoxs.push(infobox);
+                        var infobox = new InfoBox({
+                            content: "<div class='infoWindow'>" + address + "</div>",
+                            disableAutoPan: false,
+                            zIndex: null,
+                        });
+
+                        var markerEnd = new google.maps.Marker({
+                            position: position,
+                            map: map,
+                            icon: icon
+                        });
+
+                        infobox.open(map, markerEnd);
+                        markersArray.push(markerEnd);
+                        infoBoxs.push(infobox);
+                    }
+                });
             }
 
             $('#mode').change(function () {
@@ -254,7 +238,7 @@
     </div>
     <div class="span4">
         <div id="infoRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute;" class="alert alert-warning" role="alert">
-            <i class="glyphicon glyphicon-info-sign"></i><strong> Seleccione un lugar
+            <i class="glyphicon glyphicon-info-sign"></i><strong>Seleccione un lugar
                                                              <br />
                 para marcar su recorrido al evento...</strong>
         </div>
