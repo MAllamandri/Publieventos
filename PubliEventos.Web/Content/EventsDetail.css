@@ -8,6 +8,38 @@
 }
 
 /*-------------------------
+	Directions panel
+--------------------------*/
+
+.directions-panel {
+    overflow: auto;
+    font-size: 12px;
+    height: 600px;
+}
+
+    .directions-panel img, .adp-legal {
+        display: none;
+    }
+
+#adp-placemark {
+    font-weight: bold;
+    padding: 10px 10px 10px 30px;
+    background: white url(themes/images/star.png) no-repeat left center;
+    height: 45px;
+}
+
+.adp-text {
+    padding-left: 35px;
+}
+
+.adp-placemark {
+    font-weight: bold !important;
+    padding: 10px 10px 10px 30px;
+    background: white url(themes/images/star-gray.png) no-repeat left center;
+    height: 45px;
+}
+
+/*-------------------------
 	Simple reset
 --------------------------*/
 * {
@@ -16,7 +48,7 @@
 }
 
 /*----------------------------
-	The Navigation Menu
+	Color Menu
 -----------------------------*/
 #colorNav {
     position: absolute;
