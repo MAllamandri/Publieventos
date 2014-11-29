@@ -16,6 +16,11 @@
         box-shadow: 0 0 8px #000;
         width: 200px;
         height: auto;
+        cursor: pointer;
+    }
+
+    .infoBox {
+        width: 200px !important;
     }
 </style>
 
@@ -43,7 +48,8 @@
             var mapOptions = {
                 center: latlng,
                 zoom: 15,
-                navigationControl: true,
+                mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
+                draggableCursor: 'pointer',
                 mapTypeControl: true,
                 streetViewControl: true,
                 styles: stylesMap[0]
@@ -136,6 +142,7 @@
                         provideRouteAlternatives: true
                     };
 
+                    $.blockUI({ message: "<div style='font-size: 16px; padding-top: 11px;'><p>Marcando recorrido...</p><div>" });
                     directionsService.route(request, function (result, status) {
                         if (status == google.maps.DirectionsStatus.OK) {
                             $('#NotFoundRoutes').hide();
@@ -157,6 +164,8 @@
 
                             makeMarker(start, icons.start);
                         }
+
+                        $.unblockUI();
                     });
                 }
             }
@@ -181,6 +190,10 @@
                         infobox.open(map, markerEnd);
                         markersArray.push(markerEnd);
                         infoBoxs.push(infobox);
+
+                        google.maps.event.addListener(markerEnd, 'click', function (e) {
+                            infobox.open(map, markerEnd);
+                        });
                     }
                 });
             }
@@ -233,12 +246,12 @@
     </div>
     <div class="span4">
         <div id="infoRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute;" class="alert alert-warning" role="alert">
-            <i class="glyphicon glyphicon-info-sign"></i><strong>Seleccione un lugar
+            <i class="glyphicon glyphicon-info-sign"></i><strong> Seleccione un lugar
                                                              <br />
                 para marcar su recorrido al evento...</strong>
         </div>
         <div id="NotFoundRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute; display: none;" class="alert alert-danger" role="alert">
-            <i class="glyphicon glyphicon-ban-circle"></i><strong>No se ha podido encontrar
+            <i class="glyphicon glyphicon-ban-circle"></i><strong> No se ha podido encontrar
                                                              <br />
                 la ruta, intente cambiando los parámetros de busqueda...</strong>
         </div>

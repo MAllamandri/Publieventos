@@ -138,6 +138,7 @@
                 cursor: 'wait',
                 '-webkit-border-radius': '10px',
                 '-moz-border-radius': '10px',
+                'border-radius': '10px'
             },
 
             // minimal style set used when themes are used

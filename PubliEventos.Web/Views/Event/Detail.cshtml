@@ -9,6 +9,7 @@
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MapStyles.js")
 @System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
 @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -35,7 +36,7 @@
                 <div class="row-fluid">
                     <div id="regionDetail" class="tab-content">
                         <div>
-                            @Html.Partial("Partial/_MosaicDetail", @Model)
+                            @Html.Partial("Partial/_MosaicDetail", Model)
                         </div>
                     </div>
                     <div id="regionLocalization" class="tab-content" style="display: none">

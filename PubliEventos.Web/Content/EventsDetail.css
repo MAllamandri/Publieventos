@@ -25,11 +25,12 @@
     font-weight: bold;
     padding: 10px 10px 10px 30px;
     background: white url(themes/images/star.png) no-repeat left center;
+    background-position: 5px;
     height: 45px;
 }
 
 .adp-text {
-    padding-left: 35px;
+    padding-left: 39px;
 }
 
 .adp-placemark {
@@ -37,6 +38,7 @@
     padding: 10px 10px 10px 30px;
     background: white url(themes/images/star-gray.png) no-repeat left center;
     height: 45px;
+    background-position: 5px;
 }
 
 /*-------------------------
@@ -52,8 +54,8 @@
 -----------------------------*/
 #colorNav {
     position: absolute;
-    margin-top: -582px;
-    margin-left: 63.7%;
+    margin-top: -576px;
+    margin-left: 60.7%;
     width: 50px;
 }
 
