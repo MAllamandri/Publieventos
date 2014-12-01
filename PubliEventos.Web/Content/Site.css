@@ -35,6 +35,10 @@ header, footer, nav, section {
     color: #B89C83;
 }
 
+    .icon-default:hover {
+        text-decoration: none;
+    }
+
 .btn-confirm {
     height: 40px;
     min-width: 94px;
@@ -93,7 +97,7 @@ header, footer, nav, section {
 }
 
 
-    .mosaic:hover nav {
+    .mosaic:hover .verticaltabs-container {
         display: block;
     }
 
@@ -107,7 +111,7 @@ header, footer, nav, section {
 
     .verticaltabs-container ul {
         position: absolute;
-        padding-left: 97%;
+        padding-left: 4%;
         list-style: none;
         padding-top: 8px;
     }
@@ -176,6 +180,7 @@ header, footer, nav, section {
         background: white;
         cursor: inherit;
         display: block;
+        overflow: hidden;
     }
 
 .custom-file-input::-webkit-file-upload-button {
@@ -184,15 +189,17 @@ header, footer, nav, section {
 
 .custom-file-input {
     content: 'Seleccione Archivo';
-    display: inline-block;
+    display: inline-block !important;
     font-family: 'MuseoSans-500';
     background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    background: -moz-linear-gradient(top, #f9f9f9, #e3e3e3);
     border: 1px solid #999;
     border-radius: 3px;
     padding: 5px 8px;
     outline: none;
     white-space: nowrap;
     -webkit-user-select: none;
+    -moz-user-select: none;
     cursor: pointer;
     text-shadow: 1px 1px #fff;
     font-weight: 700;
@@ -203,7 +210,7 @@ header, footer, nav, section {
     min-width: 100%;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    cursor: pointer;
+    display:none;
 }
 
     .custom-file-input:hover::before {
@@ -212,6 +219,7 @@ header, footer, nav, section {
 
     .custom-file-input:active::before {
         background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        background: -moz-linear-gradient(top, #e3e3e3, #f9f9f9);
     }
 
 .subtitle {
