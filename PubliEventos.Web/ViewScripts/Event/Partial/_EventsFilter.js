@@ -31,7 +31,8 @@
                 LocalityId: $('#LocalityId').val(),
                 EventTypeId: $('#EventTypeId').val(),
                 StartDate: $('#StartDate').val(),
-                EndDate: $('#EndDate').val()
+                EndDate: $('#EndDate').val(),
+                MyEvents: true
             },
             dataType: "html"
         }).success(function (data) {

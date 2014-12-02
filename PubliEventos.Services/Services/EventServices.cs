@@ -3,7 +3,7 @@
     using LinqKit;
     using NHibernate.Linq;
     using PubliEventos.Contract.Class;
-    using PubliEventos.Contract.Services.ServicesEvents;
+    using PubliEventos.Contract.Services.Event;
     using PubliEventos.DataAccess.Querys;
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@
     /// <summary>
     /// Servicio de eventos.
     /// </summary>
-    public class ServiceEvents : BaseService
+    public class EventServices : BaseService
     {
         /// <summary>
         /// Obtiene todos los eventos.
@@ -140,6 +140,11 @@
         {
             var predicate = PredicateBuilder.True<Domain.Domain.Event>();
             predicate = predicate.And(x => !x.NullDate.HasValue && x.Active);
+
+            if (request.MyEvents)
+            {
+                predicate = predicate.And(x => x.User.Id == request.IdUser);
+            }
 
             if (request.EventTypeId.HasValue)
             {

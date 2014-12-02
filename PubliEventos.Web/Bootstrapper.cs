@@ -1,11 +1,11 @@
-using System.Web.Mvc;
-using Microsoft.Practices.Unity;
-using PubliEventos.Contract.Contracts;
-using PubliEventos.Services;
-using Unity.Mvc4;
-
 namespace PubliEventos.Web
 {
+    using Microsoft.Practices.Unity;
+    using PubliEventos.Contract.Contracts;
+    using PubliEventos.Services;
+    using System.Web.Mvc;
+    using Unity.Mvc4;
+
     public static class Bootstrapper
     {
         public static IUnityContainer Initialise()
@@ -20,15 +20,10 @@ namespace PubliEventos.Web
         private static IUnityContainer BuildUnityContainer()
         {
             var container = new UnityContainer();
-            container.RegisterType<IServiceLocalities, ServicesLocalitiesHandler>(
-                    new HierarchicalLifetimeManager()
-                );
-            container.RegisterType<IServiceEvents, ServicesEventsHandler>(
-                    new HierarchicalLifetimeManager()
-                );
-            container.RegisterType<IServiceAccounts, ServicesAccountsHandler>(
-                    new HierarchicalLifetimeManager()
-                );
+            container.RegisterType<ILocalityServices, LocalityServicesHandler>(new HierarchicalLifetimeManager());
+            container.RegisterType<IEventServices, EventServicesHandler>(new HierarchicalLifetimeManager());
+            container.RegisterType<IAccountServices, AccountServicesHandler>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICommentServices, CommentServicesHandler>(new HierarchicalLifetimeManager());
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers

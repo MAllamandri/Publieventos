@@ -7,10 +7,10 @@
     <id name="Id">
       <generator class="identity" />
     </id>
-    <many-to-one name="Event" class="Event" column="IdEvent" cascade="save-update"/>
-    <many-to-one name="User" class="User" column="IdUser" cascade="save-update"/>
+    <many-to-one name="Event" class="Event" column="IdEvent"/>
+    <many-to-one name="User" class="User" column="IdUser" />
     <property name="Detail" />
-    <property name="CreationDate" />
+    <property name="EffectDate" />
     <property name="Active" />
     <property name="NullDate" />
   </class>

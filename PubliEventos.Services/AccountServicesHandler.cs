@@ -7,7 +7,7 @@
     /// <summary>
     /// Manejador de cuentas.
     /// </summary>
-    public class ServicesAccountsHandler : IServiceAccounts
+    public class AccountServicesHandler : IAccountServices
     {
         /// <summary>
         /// Obtiene usuario por userName.
@@ -16,7 +16,7 @@
         /// <returns></returns>
         public User GetUserByUserName(string userName)
         {
-            return ServiceAccounts.GetUserByUserName(userName);
+            return AccountServices.GetUserByUserName(userName);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
         /// <param name="user">Usuario.</param>
         public int RegisterUser(User user)
         {
-            return ServiceAccounts.RegisterUser(user);
+            return AccountServices.RegisterUser(user);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@
         /// <param name="token">Token.</param>
         public void SaveAccountActivationToken(string token, int idUser)
         {
-            ServiceAccounts.SaveAccountActivationToken(token, idUser);
+            AccountServices.SaveAccountActivationToken(token, idUser);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@
         /// <returns>True si se activo la cuenta, false caso contrario.</returns>
         public bool ActivateAccount(string token)
         {
-            return ServiceAccounts.ActivateAccount(token);
+            return AccountServices.ActivateAccount(token);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@
         /// <returns>True si existe uno, false caso contrario.</returns>
         public bool UserExistsWithEmail(string email)
         {
-            return ServiceAccounts.UserExistsWithEmail(email);
+            return AccountServices.UserExistsWithEmail(email);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@
         /// <returns>True si posee un token activo, false caso contrario.</returns>
         public bool HasActiveActivationToken(int idUser)
         {
-            return ServiceAccounts.HasActiveActivationToken(idUser);
+            return AccountServices.HasActiveActivationToken(idUser);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@
         /// <param name="userName">Nombre de usuario.</param>
         public void DeleteActivationToken(string userName)
         {
-            ServiceAccounts.DeleteActivationToken(userName);
+            AccountServices.DeleteActivationToken(userName);
         }
     }
 }

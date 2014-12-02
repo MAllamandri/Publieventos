@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.Contract.Services.ServicesEvents
+﻿namespace PubliEventos.Contract.Services.Event
 {
     using PubliEventos.Contract.Class;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.Contract.Services.ServicesEvents
+﻿namespace PubliEventos.Contract.Services.Event
 {
     /// <summary>
     /// Representa la salida de la operación EventCreate.

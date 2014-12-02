@@ -28,13 +28,13 @@
         /// Servicio de localidades.
         /// </summary>
         [Dependency]
-        public IServiceAccounts serviceAccounts { get; set; }
+        public IAccountServices serviceAccounts { get; set; }
 
         /// <summary>
         /// Servicio de localidades.
         /// </summary>
         [Dependency]
-        public IServiceLocalities ServiceLocalities { get; set; }
+        public ILocalityServices ServiceLocalities { get; set; }
 
         #endregion
 

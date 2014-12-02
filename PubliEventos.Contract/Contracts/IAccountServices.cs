@@ -5,7 +5,7 @@
     /// <summary>
     /// Interface del servicio de cuentas.
     /// </summary>
-    public interface IServiceAccounts
+    public interface IAccountServices
     {
         /// <summary>
         /// Obtiene usuario por userName.

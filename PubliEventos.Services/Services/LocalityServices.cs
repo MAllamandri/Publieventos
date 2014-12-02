@@ -8,7 +8,7 @@
     /// <summary>
     /// Servicio de localidades.
     /// </summary>
-    public class ServiceLocalities
+    public class LocalityServices
     {
         /// <summary>
         /// Obtiene todas las localidades.

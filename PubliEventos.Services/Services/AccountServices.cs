@@ -10,7 +10,7 @@
     /// <summary>
     /// Servicio de cuentas.
     /// </summary>
-    public class ServiceAccounts : BaseService
+    public class AccountServices : BaseService
     {
         /// <summary>
         /// Obtiene usuario por userName.

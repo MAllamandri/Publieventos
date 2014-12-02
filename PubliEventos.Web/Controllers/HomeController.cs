@@ -2,7 +2,7 @@
 {
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
-    using PubliEventos.Contract.Services.ServicesEvents;
+    using PubliEventos.Contract.Services.Event;
     using System;
     using System.Linq;
     using System.Web.Mvc;
@@ -13,7 +13,7 @@
         /// Servicio de eventos.
         /// </summary>
         [Dependency]
-        public IServiceEvents serviceEvents { get; set; }
+        public IEventServices serviceEvents { get; set; }
 
         /// <summary>
         /// Vista index.

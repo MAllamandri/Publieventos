@@ -159,8 +159,6 @@
     <Compile Include="Models\AccountModels\LoginModel.cs" />
     <Compile Include="Models\AccountModels\SignUpModel.cs" />
     <Compile Include="Models\AccountModels\UserModel.cs" />
-    <Compile Include="Models\EventModels\FilterModel.cs" />
-    <Compile Include="Models\EventsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,7 +324,6 @@
     <Content Include="Scripts\spin.min.js" />
     <Content Include="Scripts\unicorn.login.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="ViewScripts\Account\Login.js" />
     <Content Include="ViewScripts\Event\Create.js" />
     <Content Include="ViewScripts\Event\Edit.js" />
@@ -363,6 +360,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\EventsPictures\" />
+    <Folder Include="Models\EventModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,4 +1,4 @@
-﻿@model PubliEventos.Contract.Services.ServicesEvents.EventCreateOrUpdateRequest
+﻿@model PubliEventos.Contract.Services.Event.EventCreateOrUpdateRequest
 
 <div class="row-fluid margin-bottom-normal">
     <div class="col-md-12">
@@ -66,16 +66,3 @@
         </div>
     </div>
 </div>
-@*<div class="row-fluid margin-bottom-normal">
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <label class="label-lobster">Localización</label>
-            @Html.DropDownList("ProvinceId", (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
-            @Html.ValidationMessageFor(m => m.ProvinceId)
-        </div>
-        <div class="col-md-6">
-            @Html.DropDownListFor(m => m.LocalityId, (SelectList)ViewBag.Localities, "[Seleccione Localidad]", new { @class = "form-control font-text", style = "margin-top: 29px" })
-            @Html.ValidationMessageFor(m => m.LocalityId)
-        </div>
-    </div>
-</div>*@

@@ -1,13 +1,13 @@
 ﻿namespace PubliEventos.Contract.Contracts
 {
     using PubliEventos.Contract.Class;
-    using PubliEventos.Contract.Services.ServicesEvents;
+    using PubliEventos.Contract.Services.Event;
     using System.Collections.Generic;
 
     /// <summary>
     /// Interface del servicio de eventos.
     /// </summary>
-    public interface IServiceEvents
+    public interface IEventServices
     {
         /// <summary>
         /// Obtengo todos los usuarios.

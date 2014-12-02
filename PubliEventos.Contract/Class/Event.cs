@@ -1,8 +1,7 @@
-﻿using System.Timers;
-
-namespace PubliEventos.Contract.Class
+﻿namespace PubliEventos.Contract.Class
 {
     using System;
+    using System.Collections.Generic;
 
     public class Event
     {
@@ -64,7 +63,7 @@ namespace PubliEventos.Contract.Class
         /// <summary>
         /// Comentarios del evento.
         /// </summary>
-        //public virtual IList<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
 
         /// <summary>
         /// Contenidos multimedia relacionados al evento (imagenes o videos).

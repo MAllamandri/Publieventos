@@ -6,7 +6,7 @@
     /// <summary>
     /// Interface del servicio de localidades.
     /// </summary>
-    public interface IServiceLocalities
+    public interface ILocalityServices
     {
         /// <summary>
         /// Obtiene todas las localidades.

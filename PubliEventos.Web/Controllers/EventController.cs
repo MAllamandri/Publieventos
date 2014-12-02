@@ -3,7 +3,7 @@
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
-    using PubliEventos.Contract.Services.ServicesEvents;
+    using PubliEventos.Contract.Services.Event;
     using PubliEventos.Web.Helpers;
     using System;
     using System.Collections.Generic;
@@ -20,13 +20,13 @@
         /// Servicio de localidades.
         /// </summary>
         [Dependency]
-        public IServiceLocalities ServiceLocalities { get; set; }
+        public ILocalityServices ServiceLocalities { get; set; }
 
         /// <summary>
         /// Servicio de localidades.
         /// </summary>
         [Dependency]
-        public IServiceEvents serviceEvents { get; set; }
+        public IEventServices serviceEvents { get; set; }
 
         #endregion
 
@@ -107,6 +107,9 @@
         [HttpPost]
         public PartialViewResult GetFilteredEvents(SearchFilteredEventsRequest model)
         {
+            // filtro por mis eventos.
+            model.IdUser = model.MyEvents ? User.Id : (int?)null;
+
             var events = this.serviceEvents.SearchFilteredEvents(model);
 
             return PartialView("Partial/_Mosaic", events);

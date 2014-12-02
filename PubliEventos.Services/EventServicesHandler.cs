@@ -3,13 +3,13 @@
     using System.Collections.Generic;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
-    using PubliEventos.Contract.Services.ServicesEvents;
+    using PubliEventos.Contract.Services.Event;
     using PubliEventos.Services.Services;
 
     /// <summary>
     /// Manejador de eventos.
     /// </summary>
-    public class ServicesEventsHandler : IServiceEvents
+    public class EventServicesHandler : IEventServices
     {
         /// <summary>
         /// Obtengo todas los eventos.
@@ -17,7 +17,7 @@
         /// <returns></returns>
         public List<Event> GetAllEvents()
         {
-            return ServiceEvents.GatAllEvents();
+            return EventServices.GatAllEvents();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@
         /// <returns>Lista de tipos de evetnos.</returns>
         public List<EventType> GetAllEventTypes()
         {
-            return ServiceEvents.GetAllEventTypes();
+            return EventServices.GetAllEventTypes();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@
         /// <param name="parameters">Parametros de entrada.</param>
         public void CreateEvent(EventCreateOrUpdateRequest parameters)
         {
-            ServiceEvents.CreateEvent(parameters);
+            EventServices.CreateEvent(parameters);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@
         /// <returns>Evento.</returns>
         public Event GetEventById(int id)
         {
-            return ServiceEvents.GetEventById(id);
+            return EventServices.GetEventById(id);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@
         /// <param name="request">Parámetros de entrada.</param>
         public void EditEvent(EventCreateOrUpdateRequest request)
         {
-            ServiceEvents.EditEvent(request);
+            EventServices.EditEvent(request);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@
         /// <param name="idEvent">Identificador del evento.</param>
         public void DeleteEvent(int idEvent)
         {
-            ServiceEvents.DeleteEvent(idEvent);
+            EventServices.DeleteEvent(idEvent);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@
         /// <returns>Lista de eventos filtrados.</returns>
         public List<Event> SearchFilteredEvents(SearchFilteredEventsRequest request)
         {
-            return ServiceEvents.SearchFilteredEvents(request);
+            return EventServices.SearchFilteredEvents(request);
         }
     }
 }

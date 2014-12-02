@@ -8,7 +8,7 @@
     /// <summary>
     /// Manejador de servicios.
     /// </summary>
-    public class ServicesLocalitiesHandler : IServiceLocalities
+    public class LocalityServicesHandler : ILocalityServices
     {
         /// <summary>
         /// Obtiene todas las localidades.
@@ -16,7 +16,7 @@
         /// <returns>Lista de localidades.</returns>
         public List<Locality> GetAllLocalities()
         {
-            return new ServiceLocalities().GetAllLocalities();
+            return new LocalityServices().GetAllLocalities();
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
         /// <returns>Lista de provincias.</returns>
         public List<Province> GetAllProvinces()
         {
-            return new ServiceLocalities().GetAllProvinces();
+            return new LocalityServices().GetAllProvinces();
         }
     }
 }

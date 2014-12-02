@@ -26,7 +26,7 @@
         /// <summary>
         /// Fecha de creación.
         /// </summary>
-        public virtual DateTime CreationDate { get; set; }
+        public virtual DateTime EffectDate { get; set; }
 
         /// <summary>
         /// Indica si está activo.
