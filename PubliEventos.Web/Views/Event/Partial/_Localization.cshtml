@@ -1,4 +1,28 @@
 ﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+
+<style>
+    .infoWindow {
+        padding-top: 5px;
+        background: #333;
+        color: #FFF;
+        font-family: 'MuseoSans-500';
+        font-size: 12px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        text-shadow: 0 -1px #000000;
+        -webkit-box-shadow: 0 0 8px #000;
+        box-shadow: 0 0 8px #000;
+        width: 200px;
+        height: auto;
+        cursor: pointer;
+    }
+
+    .infoBox {
+        width: 200px !important;
+    }
+</style>
 
 <script type="text/javascript">
     $(function () {
@@ -9,9 +33,10 @@
 
             var mapOptions = {
                 center: pos,
-                zoom: 13
+                zoom: 15
             };
 
+            var geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
             var input = (document.getElementById('pac-input'));
@@ -24,33 +49,14 @@
             var autocomplete = new google.maps.places.Autocomplete(input, options);
             autocomplete.bindTo('bounds', map);
 
-            var infowindow = new google.maps.InfoWindow();
-            var marker = new google.maps.Marker({
-                map: map,
-                anchorPoint: new google.maps.Point(0, -29)
-            });
+            var infoBoxs = [];
+            var markersArray = [];
 
             if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
-                setDirection(infowindow, marker, map);
-            }
-
-            // Devuelve la dirección.
-            function getDirection(address_components) {
-                var address = '';
-                if (address_components != null) {
-                    address = [
-                        (address_components[1] && address_components[1].short_name || ''),
-                        (address_components[0] && address_components[0].short_name || ','),
-                        (address_components[2] && address_components[2].short_name || '')
-                    ].join(' ');
-                }
-
-                return address;
+                makeMarker(new google.maps.LatLng(parseFloat($('#Latitude').val()), parseFloat($('#Longitude').val())));
             }
 
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                infowindow.close();
-                marker.setVisible(false);
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
                     return;
@@ -61,31 +67,20 @@
                     map.fitBounds(place.geometry.viewport);
                 } else {
                     map.setCenter(place.geometry.location);
-                    map.setZoom(17);  // Why 17? Because it looks good.
                 }
-
-                marker.setPosition(place.geometry.location);
 
                 // Seteo los hidden para guardar la posición.
                 if (place.geometry.location.B != undefined && place.geometry.location.k != undefined) {
                     setLatLng(place.geometry.location.k, place.geometry.location.B);
+                    makeMarker(new google.maps.LatLng(place.geometry.location.k, place.geometry.location.B));
                 } else {
                     $('#Latitude').val("");
                     $('#Longitude').val("");
                 }
-
-                marker.setVisible(true);
-
-                var address = getDirection(place.address_components);
-
-                infowindow.setContent('<div><strong>' + address + '</strong><br>');
-                infowindow.open(map, marker);
             });
 
             google.maps.event.addListener(map, 'click', function (event) {
                 $('#pac-input').val("");
-                infowindow.close();
-                marker.setVisible(false);
 
                 if (!event.latLng) {
                     $('#Latitude').val("");
@@ -94,63 +89,49 @@
                     return;
                 }
 
-                var geocoder = new google.maps.Geocoder();
-
-                marker.setPosition(event.latLng);
-
                 var myLatLng = event.latLng;
                 var lat = myLatLng.lat();
                 var lng = myLatLng.lng();
                 var latlng = new google.maps.LatLng(lat, lng);
 
                 setLatLng(lat, lng);
-                marker.setVisible(true);
-
-                //Code to reverse geocode follows
-                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                            //Busco la dirección.
-                            var address = getDirection(results[0].address_components);
-
-                            infowindow.setContent('<div><strong>' + address + '</strong><br>');
-                            infowindow.open(map, marker);
-                        }
-                    } else {
-                        alert("Geocoder falló en la búsqueda: " + status);
-                    }
-                });
+                makeMarker(latlng);
             });
 
-            function setDirection(infowindow, marker, map) {
-                infowindow.close();
-                marker.setVisible(false);
+            function makeMarker(position) {
+                for (i in markersArray) {
+                    markersArray[i].setMap(null);
+                }
 
-                var lat = parseFloat($('#Latitude').val().replace(",", "."));
-                var lng = parseFloat($('#Longitude').val().replace(",", "."));
-                var latlng = new google.maps.LatLng(lat, lng);
+                for (i in infoBoxs) {
+                    infoBoxs[i].close();
+                }
 
-                var geocoder = new google.maps.Geocoder();
-
-                marker.setPosition(latlng);
-                setLatLng(lat, lng);
-                marker.setVisible(true);
-
-                map.setCenter(latlng);
-                map.setZoom(17);
-
-                //Code to reverse geocode follows
-                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                geocoder.geocode({ 'latLng': position }, function (results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                            //Busco la dirección.
-                            var address = getDirection(results[0].address_components);
+                        address = results[0].formatted_address;
 
-                            infowindow.setContent('<div><strong>' + address + '</strong><br>');
-                            infowindow.open(map, marker);
-                        }
+                        var infobox = new InfoBox({
+                            content: "<div class='infoWindow'>" + address + "</div>",
+                            disableAutoPan: false,
+                            zIndex: null,
+                        });
+
+                        var markerEnd = new google.maps.Marker({
+                            position: position,
+                            map: map,
+                            icon: "/Content/themes/images/star.png"
+                        });
+
+                        infobox.open(map, markerEnd);
+                        markersArray.push(markerEnd);
+                        infoBoxs.push(infobox);
+
+                        google.maps.event.addListener(markerEnd, 'click', function (e) {
+                            infobox.open(map, markerEnd);
+                        });
                     } else {
-                        alert("Geocoder falló en la búsqueda: " + status);
+                        setLatLng("", "");
                     }
                 });
             }

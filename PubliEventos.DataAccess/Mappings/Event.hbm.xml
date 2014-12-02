@@ -28,11 +28,7 @@
       <one-to-many class="MultimediaContent"/>
     </bag>
     <property name="NullDate" />
-    <property name="Latitude" type="decimal" precision="25" scale="20">
-      <column name="Latitude" sql-type="float" precision="25" scale="20"/>
-    </property>
-    <property name="Longitude" type="decimal" precision="25" scale="20">
-      <column name="Longitude" sql-type="float" precision="25" scale="20"  />
-    </property>
+    <property name="Latitude" />
+    <property name="Longitude" />
   </class>
 </hibernate-mapping>

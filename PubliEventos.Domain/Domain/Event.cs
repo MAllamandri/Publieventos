@@ -1,9 +1,7 @@
-﻿using System.Data.Common;
-
-namespace PubliEventos.Domain.Domain
+﻿namespace PubliEventos.Domain.Domain
 {
-    using System;
     using PubliEventos.DataAccess.Infrastructure;
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -89,11 +87,11 @@ namespace PubliEventos.Domain.Domain
         /// <summary>
         /// Latitud.
         /// </summary>
-        public virtual decimal Latitude { get; set; }
+        public virtual string Latitude { get; set; }
 
         /// <summary>
         /// Longitud.
         /// </summary>
-        public virtual decimal Longitude { get; set; }
+        public virtual string Longitude { get; set; }
     }
 }
