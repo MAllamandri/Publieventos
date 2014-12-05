@@ -7,7 +7,6 @@
     using PubliEventos.DataAccess.Querys;
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Transactions;
 
@@ -22,7 +21,7 @@
         /// <returns>Lista de eventos.</returns>
         public static List<Event> GatAllEvents()
         {
-            return new BaseQuery<Domain.Domain.Event, int>().LoadAll().Where(x => !x.NullDate.HasValue && x.Active).Select(x => GetEventSummary(x)).ToList();
+            return new BaseQuery<Domain.Domain.Event, int>().LoadAll().Where(x => !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetEventSummary(x)).ToList();
         }
 
         /// <summary>
@@ -75,7 +74,7 @@
         /// <returns>Evento.</returns>
         public static Event GetEventById(int id)
         {
-            return CurrentSession.Query<Domain.Domain.Event>().Where(x => x.Id == id && !x.NullDate.HasValue && x.Active).Select(x => GetEventSummary(x)).SingleOrDefault();
+            return CurrentSession.Query<Domain.Domain.Event>().Where(x => x.Id == id && !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetEventSummary(x)).SingleOrDefault();
         }
 
         /// <summary>
@@ -164,44 +163,7 @@
                 predicate = predicate.And(x => x.EventDate.Date <= request.EndDate.Value.Date);
             }
 
-            return CurrentSession.Query<Domain.Domain.Event>().Where(predicate).Select(x => GetEventSummary(x)).ToList();
+            return CurrentSession.Query<Domain.Domain.Event>().Where(predicate).Select(x => InternalServices.GetEventSummary(x)).ToList();
         }
-
-        #region Private Methods
-
-        /// <summary>
-        /// Parsea un evento de dominio a un evento de contrato.
-        /// </summary>
-        /// <param name="eventToParse">Evento a parsear.</param>
-        /// <returns>Evento de contrato.</returns>
-        private static Event GetEventSummary(Domain.Domain.Event eventToParse)
-        {
-            return new Event()
-            {
-                Id = eventToParse.Id,
-                Title = eventToParse.Title,
-                Detail = eventToParse.Detail,
-                Active = eventToParse.Active,
-                FileName = eventToParse.FileName,
-                Description = eventToParse.Description,
-                EventDate = eventToParse.EventDate.Date,
-                EventStartTime = eventToParse.EventStartTime,
-                EventEndTime = eventToParse.EventEndTime,
-                Private = eventToParse.Private,
-                User = new User()
-                         {
-                             Id = eventToParse.User.Id
-                         },
-                EventType = new EventType()
-                        {
-                            Id = eventToParse.EventType.Id,
-                            Description = eventToParse.EventType.Description
-                        },
-                Latitude = eventToParse.Latitude,
-                Longitude = eventToParse.Longitude
-            };
-        }
-
-        #endregion
     }
 }

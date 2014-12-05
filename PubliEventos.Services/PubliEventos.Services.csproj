@@ -65,7 +65,9 @@
     <Compile Include="EventServicesHandler.cs" />
     <Compile Include="LocalityServicesHandler.cs" />
     <Compile Include="Services\AccountServices.cs" />
+    <Compile Include="Services\CommentServices.cs" />
     <Compile Include="Services\EventServices.cs" />
+    <Compile Include="Services\InternalServices.cs" />
     <Compile Include="Services\LocalityServices.cs" />
   </ItemGroup>
   <ItemGroup>

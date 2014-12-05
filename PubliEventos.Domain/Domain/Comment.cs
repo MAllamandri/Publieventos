@@ -36,6 +36,6 @@
         /// <summary>
         /// Indica si está dado de baja.
         /// </summary>
-        public virtual DateTime NullDate { get; set; }
+        public virtual DateTime? NullDate { get; set; }
     }
 }
