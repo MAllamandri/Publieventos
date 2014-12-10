@@ -148,6 +148,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -356,10 +357,12 @@
     <Content Include="Views\Home\Partial\_LeftBubble.cshtml" />
     <Content Include="Views\Home\Partial\_RightBubble.cshtml" />
     <Content Include="Views\Event\Partial\_LocalizationDetail.cshtml" />
+    <Content Include="Views\Comment\Partial\_CommentBubble.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\EventsPictures\" />
+    <Folder Include="Content\images\Profiles\" />
     <Folder Include="Models\EventModels\" />
   </ItemGroup>
   <ItemGroup>

@@ -8,11 +8,6 @@
     public class SearchFilteredEventsRequest
     {
         /// <summary>
-        /// Identificador de la localidad.
-        /// </summary>
-        public int? LocalityId { get; set; }
-
-        /// <summary>
         /// Identificador del tipo de evento.
         /// </summary>
         public int? EventTypeId { get; set; }

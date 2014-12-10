@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using PubliEventos.Contract.Class;
+
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Detail.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MapStyles.js")
 @System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
@@ -35,8 +37,16 @@
             <div class="row-fluid" style="margin-top: 25px">
                 <div class="row-fluid">
                     <div id="regionDetail" class="tab-content">
-                        <div>
+                        <div class="row-fluid">
                             @Html.Partial("Partial/_MosaicDetail", Model)
+                        </div>
+                        <div class="row-fluid" style="margin-top: 50px">
+                            <div class="col-md-12">
+                                @foreach (var comment in (List<Comment>)ViewBag.comments)
+                                {
+                                    @Html.Partial("../Comment/Partial/_CommentBubble", comment)
+                                }
+                            </div>
                         </div>
                     </div>
                     <div id="regionLocalization" class="tab-content" style="display: none">

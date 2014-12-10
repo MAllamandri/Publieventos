@@ -16,9 +16,14 @@
         /// </summary>
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
-        public static List<Comment> GetCommentsByEvent(GetCommentsByEventRequest request)
+        public static GetCommentsByEventResponse GetCommentsByEvent(GetCommentsByEventRequest request)
         {
-            return CurrentSession.Query<Domain.Domain.Comment>().Where(x => x.Event.Id == request.EventId && !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetCommentSummary(x)).ToList();
+            var comments = CurrentSession.Query<Domain.Domain.Comment>().Where(x => x.Event.Id == request.EventId && !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetCommentSummary(x)).ToList();
+
+            return new GetCommentsByEventResponse()
+            {
+                Comments = comments
+            };
         }
     }
 }

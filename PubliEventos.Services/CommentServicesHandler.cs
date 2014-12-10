@@ -2,6 +2,7 @@
 {
     using PubliEventos.Contract.Contracts;
     using Contract.Services.Comment;
+    using PubliEventos.Services.Services;
 
     /// <summary>
     /// Manejador de servicios de comentarios.
@@ -15,7 +16,7 @@
         /// <returns>El resultado de la operación.</returns>
         public GetCommentsByEventResponse GetCommentsByEvent(GetCommentsByEventRequest request)
         {
-            throw new System.NotImplementedException();
+            return CommentServices.GetCommentsByEvent(request);
         }
     }
 }

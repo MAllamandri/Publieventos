@@ -3,6 +3,7 @@
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
+    using PubliEventos.Contract.Services.Comment;
     using PubliEventos.Contract.Services.Event;
     using PubliEventos.Web.Helpers;
     using System;
@@ -27,6 +28,12 @@
         /// </summary>
         [Dependency]
         public IEventServices serviceEvents { get; set; }
+
+        /// <summary>
+        /// Servicio de comentarios.
+        /// </summary>
+        [Dependency]
+        public ICommentServices serviceComments { get; set; }
 
         #endregion
 
@@ -68,6 +75,7 @@
         public ActionResult Detail(int id)
         {
             var model = this.serviceEvents.GetEventById(id);
+            ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments;
 
             return View(model);
         }

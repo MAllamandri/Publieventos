@@ -1,0 +1,18 @@
+﻿@model PubliEventos.Contract.Class.Comment
+
+@{
+    var imageProfile = Model.Event.User.ImageProfile != null ? "/Content/images/Profiles/" + Model.Event.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+}
+
+<div class="row-fluid" style="margin-bottom: 20px">
+    <div class="col-md-1" style="margin-right: 15px">
+        <img src="@imageProfile" alt="Perfil del usuario" class="image-comment img-circle right" data-src="holder.js/70x70">
+    </div>
+    <div class="col-md-10 bubble-comment">
+        <p class="font-comment">@Model.Detail</p>
+        <div style="display: block">
+            <a class="actions-comment" title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>
+            <a class="actions-comment" title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
+        </div>
+    </div>
+</div>

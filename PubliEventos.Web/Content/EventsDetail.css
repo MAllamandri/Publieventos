@@ -140,3 +140,48 @@
     #colorNav li:hover ul {
         max-height: 200px; /* Increase when adding more dropdown items */
     }
+
+
+/*#region Comentarios detalle */
+
+.bubble-comment {
+    background-color: white;
+    border-radius: 20px 20px 20px 20px;
+    border: 2px solid;
+    box-shadow: 10px 10px 5px #888888;
+    border-color: #B89C83;
+    margin-bottom: 1%;
+    min-height: 70px;
+    padding-bottom: 10px;
+    vertical-align: middle;
+    display: table;
+}
+
+    .bubble-comment > p {
+        vertical-align: middle;
+        display: table-cell;
+    }
+
+    .bubble-comment:hover .actions-comment {
+        display: block;
+    }
+
+.image-comment {
+    height: 70px;
+    width: 70px;
+}
+
+.font-comment {
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.actions-comment {
+    display: none;
+    list-style: none;
+    height: 20px;
+    width: 20px;
+    float: right;
+}
+
+/*#endregion*/
