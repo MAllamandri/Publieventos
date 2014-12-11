@@ -1,4 +1,7 @@
-﻿body {
+﻿
+/*#region Generales */
+
+body {
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     background-image: url("/Content/themes/images/background_tile.jpg");
@@ -13,6 +16,16 @@ p, strong, label {
     font-family: 'Lobster 1.4';
     color: #B89C83;
     font-size: 17px;
+}
+
+.font-text {
+    font-family: 'MuseoSans-500';
+    color: #5f6364;
+    font-size: 14px;
+}
+
+h4.font-text {
+    font-size: 17px !important;
 }
 
 header, footer, nav, section {
@@ -64,6 +77,126 @@ header, footer, nav, section {
 .active-link {
     color: #2a6496;
 }
+
+.margin-bottom-normal {
+    margin-bottom: 10px;
+}
+
+.region-buttons {
+    margin-top: 15px;
+    color: #B89C83;
+    border-top: 1px solid #B89C83;
+    padding-bottom: 15px;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+    header h1 {
+        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    header a {
+        color: orange;
+    }
+
+.modal {
+    color: #333;
+}
+
+.subtitle {
+    font-family: 'Lobster 1.4';
+    color: #B89C83;
+    border-bottom: 1px solid #B89C83;
+}
+
+.image-profile {
+    width: 50px;
+    height: 50px !important;
+    position: relative;
+    float: right;
+    margin-left: 3%;
+}
+
+.well-form {
+    background-color: #E9E6DA;
+}
+
+.login-form {
+    margin-top: 5%;
+}
+
+.modal-lg {
+    max-width: 900px;
+    height: 350px;
+}
+
+@media (min-width: 768px) {
+    .modal-lg {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 900px;
+    }
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+@font-face {
+    font-family: 'orange_juiceregular';
+    src: url('/Content/themes/fonts/orange_juice_2.0-webfont.eot'), url('/Content/themes/fonts/orange_juice_2.0-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/themes/fonts/orange_juice_2.0-webfont.woff') format('woff'), url('/Content/themes/fonts/orange_juice_2.0-webfont.ttf') format('truetype'), url('/Content/themes/fonts/orange_juice_2.0-webfont.svg#orange_juiceregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Delicious SmallCaps';
+    src: url('/Content/themes/fonts/Delicious-SmallCaps.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lobster 1.4';
+    src: url('/Content/themes/fonts/Lobster 1.4.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MuseoSans-500';
+    src: url('/Content/themes/fonts/2BC051_0_0.eot');
+    src: url('webfonts/2BC051_0_0.eot?#iefix') format('embedded-opentype'), url('/Content/themes/fonts/2BC051_0_0.woff') format('woff'), url('/Content/themes/fonts//2BC051_0_0.ttf') format('truetype');
+}
+
+/*#endregion */
 
 /*#region Secciones dentro de una vista */
 
@@ -122,45 +255,7 @@ header, footer, nav, section {
 
 /*#endregion */
 
-.modal-lg {
-    max-width: 900px;
-    height: 350px;
-}
-
-.margin-bottom-normal {
-    margin-bottom: 10px;
-}
-
-.region-buttons {
-    margin-top: 15px;
-    color: #B89C83;
-    border-top: 1px solid #B89C83;
-    padding-bottom: 15px;
-}
-
-@media (min-width: 768px) {
-    .modal-lg {
-        width: 100%;
-    }
-}
-
-@media (min-width: 992px) {
-    .modal-lg {
-        width: 900px;
-    }
-}
-
-.image-profile {
-    width: 50px;
-    height: 50px !important;
-    position: relative;
-    float: right;
-    margin-left: 3%;
-}
-
-.well-form {
-    background-color: #E9E6DA;
-}
+/*#region Boton file */
 
 .btn-file {
     position: relative;
@@ -223,13 +318,10 @@ header, footer, nav, section {
         background: -moz-linear-gradient(top, #e3e3e3, #f9f9f9);
     }
 
-.subtitle {
-    font-family: 'Lobster 1.4';
-    color: #B89C83;
-    border-bottom: 1px solid #B89C83;
-}
+/*#endregion */
 
-/*-- Tilte --*/
+/*#region  Title */
+
 .title {
     color: #a69567;
     font-family: orange_juiceregular;
@@ -253,29 +345,9 @@ header, footer, nav, section {
         text-decoration: none;
     }
 
-@font-face {
-    font-family: 'orange_juiceregular';
-    src: url('/Content/themes/fonts/orange_juice_2.0-webfont.eot'), url('/Content/themes/fonts/orange_juice_2.0-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/themes/fonts/orange_juice_2.0-webfont.woff') format('woff'), url('/Content/themes/fonts/orange_juice_2.0-webfont.ttf') format('truetype'), url('/Content/themes/fonts/orange_juice_2.0-webfont.svg#orange_juiceregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+/*#endregion */
 
-@font-face {
-    font-family: 'Delicious SmallCaps';
-    src: url('/Content/themes/fonts/Delicious-SmallCaps.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Lobster 1.4';
-    src: url('/Content/themes/fonts/Lobster 1.4.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-/*----------------------------------------------------------*/
-
-/*#region Barra superior --*/
+/*#region Barra superior */
 
 .username {
     font-family: 'orange_juiceregular';
@@ -302,7 +374,8 @@ header, footer, nav, section {
 
 /*#endregion */
 
-/* Filter */
+/*#region Filter */
+
 .filter-section {
     background-color: #E9E6DA;
     border-radius: 15px 15px 15px 15px;
@@ -314,40 +387,10 @@ header, footer, nav, section {
 }
 
 
-/*---------------------------------------------------------*/
-.login-form {
-    margin-top: 5%;
-}
+/*#endregion */
 
-/*----------------------------------------------------------*/
-/* Styles for basic forms
------------------------------------------------------------*/
-fieldset {
-    border: 1px solid #ddd;
-    padding: 0 1.4em 1.4em 1.4em;
-    margin: 0 0 1.5em 0;
-}
+/* #region Validaciones */
 
-legend {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
-textarea {
-    min-height: 75px;
-}
-
-.editor-label {
-    margin: 1em 0 0 0;
-}
-
-.editor-field {
-    margin: 0.5em 0 0 0;
-}
-
-
-/* Styles for validation helpers
------------------------------------------------------------*/
 .field-validation-error {
     background-color: transparent;
     color: #f00;
@@ -376,32 +419,9 @@ textarea {
     text-align: left;
 }
 
+/*#endregion */
 
-header {
-    margin-bottom: 30px;
-}
-
-    header h1 {
-        font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
-        color: #fff;
-        margin-bottom: 10px;
-    }
-
-    header a {
-        color: orange;
-    }
-
-.modal {
-    color: #333;
-}
-
-/*------------------------------ Index ------------------------------------*/
-@font-face {
-    font-family: 'MuseoSans-500';
-    src: url('/Content/themes/fonts/2BC051_0_0.eot');
-    src: url('webfonts/2BC051_0_0.eot?#iefix') format('embedded-opentype'), url('/Content/themes/fonts/2BC051_0_0.woff') format('woff'), url('/Content/themes/fonts//2BC051_0_0.ttf') format('truetype');
-}
-
+/*#region  Index */
 img {
     border: 0;
 }
@@ -425,37 +445,12 @@ img {
     margin-top: 4%;
 }
 
-@media all and (max-width:1480px) and (min-width: 1000px) {
-    .image-cloud {
-        margin-left: 43.4%;
-        z-index: 1;
-        position: absolute;
-        margin-top: -6%;
-        text-align: center;
-        display: inline;
-    }
-}
-
-@media all and (max-width:1920px) and (min-width: 1480px) {
-    .image-cloud {
-        margin-left: 45.4%;
-        z-index: 1;
-        position: absolute;
-        margin-top: -4%;
-        text-align: center;
-        display: inline;
-    }
-}
-
-@media all and (max-width:1000px) {
-    .image-cloud {
-        margin-left: 40%;
-        z-index: 1;
-        position: absolute;
-        margin-top: -8%;
-        text-align: center;
-        display: inline;
-    }
+.image-cloud {
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    z-index: 1;
+    position: absolute;
 }
 
 /** timeline box structure **/
@@ -583,58 +578,23 @@ img {
     /** timeline circle icons **/
     .timeline li .tl-circ {
         position: absolute;
-        top: 5px;
-        left: 46.3%;
+        top: 65px;
         text-align: center;
         line-height: 35px;
-        margin-left: -16px;
         border: 3px solid #a69567;
         border-top-right-radius: 50%;
         border-top-left-radius: 50%;
         border-bottom-right-radius: 50%;
         border-bottom-left-radius: 50%;
-        z-index: 99999;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        z-index: 1;
     }
 
-@media all and (max-width:900px) {
-    .img-cover {
-        width: 70px !important;
-        height: 70px !important;
-    }
-
-    .tl-circ {
-        margin-left: -1% !important;
-    }
-}
-
-@media all and ( max-width:1100px) and (min-width: 900px) {
-    .img-cover {
-        width: 90px !important;
-        height: 90px !important;
-    }
-
-    .tl-circ {
-        margin-left: -1.5% !important;
-    }
-}
-
-@media all and ( max-width:1420px) and (min-width: 1100px) {
-    .tl-circ {
-        margin-left: -1% !important;
-    }
-}
-
-@media all and ( max-width:1920px) and (min-width: 1420px) {
-    .tl-circ {
-        margin-left: 0.5% !important;
-    }
-}
-
-@media all and ( max-width:1920px) and (min-width: 1100px) {
-    .img-cover {
-        width: 120px !important;
-        height: 120px !important;
-    }
+.img-cover {
+    width: 120px !important;
+    height: 120px !important;
 }
 
 /** timeline content **/
@@ -707,15 +667,7 @@ img {
         }
 }
 
-.font-text {
-    font-family: 'MuseoSans-500';
-    color: #5f6364;
-    font-size: 14px;
-}
-
-h4.font-text {
-    font-size: 17px !important;
-}
+/* #endregion */
 
 /*#region Estilo Mapas */
 

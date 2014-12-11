@@ -1,6 +1,6 @@
 ﻿@model PubliEventos.Contract.Class.Event
 
-<div class="col-md-12" style="margin-bottom: 1%; height: 280px;">
+<div class="col-md-12" style="margin-bottom: 1%;">
     <div class="col-md-12 mosaic">
         <div class="row-fluid subtitle">
             <div class="span12">
@@ -39,7 +39,7 @@
         <div class="row-fluid">
             <div class="col-md-12">
                 <div style="margin-bottom: 20px">
-                    <a href="#" title="Ver Comentarios"><span class="icon-default icon-comments"></span></a>
+                    <a href="#" title="Comentar"><span class="icon-default icon-comments"></span></a>
                     @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == @Model.User.Id)
                     {
                         <a style="padding-right: 10px" href="#" title="Invitar"><span class="icon-default icon-user"></span></a>
