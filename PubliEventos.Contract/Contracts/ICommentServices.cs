@@ -13,5 +13,19 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         GetCommentsByEventResponse GetCommentsByEvent(GetCommentsByEventRequest request);
+
+        /// <summary>
+        /// Crea un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        CreateCommentResponse CreateComment(CreateCommentRequest request);
+
+        /// <summary>
+        /// Edita un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        EditCommentResponse EditComment(EditCommentRequest request);
     }
 }

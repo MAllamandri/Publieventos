@@ -1,7 +1,7 @@
 ﻿@model PubliEventos.Contract.Class.Comment
 
 @{
-    var imageProfile = Model.Event.User.ImageProfile != null ? "/Content/images/Profiles/" + Model.Event.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+    var imageProfile = Model.Event.User.ImageProfile != null ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.Event.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
 }
 
 <div class="row-fluid" style="margin-bottom: 20px">
@@ -12,12 +12,13 @@
         <div class="col-md-10 bubble-comment">
             <div class="comment-detail">
                 <p class="font-comment">@Model.Detail</p>
+                <input type="hidden" value="@Model.Id"/>
             </div>
             <div class="actions-comment">
-                 <a title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
+                <a title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
                 @if (Model.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id)
                 {
-                    <a title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>
+                    <a title="Editar" href="#"><i class="edit-comment icon-default icon-pencil"></i></a>
                 }
             </div>
         </div>

@@ -156,7 +156,7 @@
     box-shadow: 10px 10px 5px #888888;
     border-color: #B89C83;
     margin-bottom: 1%;
-    min-height: 90px;
+    min-height: 100px;
     padding-bottom: 10px;
     display: block;
 }
@@ -179,12 +179,13 @@
     font-size: 14px;
     display: block;
     width: 95%;
+    margin-bottom: 0px;
 }
 
 .actions-comment {
     list-style: none;
     width: 100%;
-    padding-top: 65px;
+    padding-top: 75px;
     display: none;
 }
 

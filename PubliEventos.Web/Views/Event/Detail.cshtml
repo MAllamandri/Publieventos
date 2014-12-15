@@ -8,6 +8,7 @@
 @using PubliEventos.Contract.Class;
 
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Detail.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Comment/Partial/_CommentBubble.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MapStyles.js")
 @System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
 @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
@@ -34,6 +35,8 @@
                     </div>
                 </div>
             </div>
+            @Html.Hidden("EventId", Model.Id)
+            @Html.Hidden("CommentId")
             <div class="row-fluid" style="margin-top: 25px">
                 <div class="col-md-12">
                     <div id="regionDetail" class="tab-content">
@@ -68,3 +71,20 @@
     </div>
 </div>
 
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+                <h4 class="title-modal" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <textarea style="max-width: 565px; width: 565px;" class="font-text form-control" name="detailComment" rows="4" id="detailComment"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="saveComment" class="btn-confirm">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

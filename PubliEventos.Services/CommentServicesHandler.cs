@@ -18,5 +18,25 @@
         {
             return CommentServices.GetCommentsByEvent(request);
         }
+
+        /// <summary>
+        /// Crea un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public CreateCommentResponse CreateComment(CreateCommentRequest request)
+        {
+            return CommentServices.CreateComment(request);
+        }
+
+        /// <summary>
+        /// Edita un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public EditCommentResponse EditComment(EditCommentRequest request)
+        {
+            return CommentServices.EditComment(request);
+        }
     }
 }

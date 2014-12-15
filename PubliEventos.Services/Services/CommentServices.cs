@@ -1,9 +1,9 @@
 ﻿namespace PubliEventos.Services.Services
 {
     using NHibernate.Linq;
-    using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Services.Comment;
-    using System.Collections.Generic;
+    using PubliEventos.DataAccess.Querys;
+    using System;
     using System.Linq;
 
     /// <summary>
@@ -24,6 +24,43 @@
             {
                 Comments = comments
             };
+        }
+
+        /// <summary>
+        /// Crea un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static CreateCommentResponse CreateComment(CreateCommentRequest request)
+        {
+            var comment = new Domain.Domain.Comment()
+            {
+                Active = true,
+                Detail = request.Detail,
+                EffectDate = DateTime.Now,
+                Event = CurrentSession.Get<Domain.Domain.Event>(request.EventId),
+                User = CurrentSession.Get<Domain.Domain.User>(request.UserId)
+            };
+
+            new BaseQuery<Domain.Domain.Comment, int>().Create(comment);
+
+            return new CreateCommentResponse();
+        }
+
+        /// <summary>
+        /// Edita un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static EditCommentResponse EditComment(EditCommentRequest request)
+        {
+            var comment = CurrentSession.Get<Domain.Domain.Comment>(request.CommentId);
+
+            comment.Detail = request.Detail;
+
+            new BaseQuery<Domain.Domain.Comment, int>().Update(comment);
+
+            return new EditCommentResponse();
         }
     }
 }

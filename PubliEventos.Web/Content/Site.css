@@ -53,7 +53,7 @@ header, footer, nav, section {
     }
 
 .btn-confirm {
-    height: 40px;
+    height: 35px;
     min-width: 94px;
     font-size: 15px;
     background-color: #AAA172;
@@ -64,7 +64,7 @@ header, footer, nav, section {
 }
 
 .btn-cancel {
-    height: 40px;
+    height: 35px;
     min-width: 94px;
     font-size: 15px;
     background-color: #AAA172;
@@ -80,6 +80,14 @@ header, footer, nav, section {
 
 .margin-bottom-normal {
     margin-bottom: 10px;
+}
+
+.title-modal {
+    font-family: 'Lobster 1.4';
+    color: #B89C83;
+    font-size: 25px;
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 .region-buttons {

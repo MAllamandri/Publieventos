@@ -75,7 +75,7 @@
         public ActionResult Detail(int id)
         {
             var model = this.serviceEvents.GetEventById(id);
-            ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments;
+            ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments.OrderByDescending(x => x.EffectDate).ToList();
 
             return View(model);
         }
