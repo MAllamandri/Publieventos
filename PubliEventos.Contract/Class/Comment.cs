@@ -36,5 +36,10 @@
         /// Fecha de baja.
         /// </summary>
         public DateTime? NullDate { get; set; }
+
+        /// <summary>
+        /// Tiempo transcurrido desde que fue creado.
+        /// </summary>
+        public string ElapsedTime { get; set; }
     }
 }

@@ -3,6 +3,8 @@
         $('#commentModal').modal('show');
     });
 
+    CharactersQuantity($('#detailComment'), 200);
+
     $('#commentModal').on('hidden.bs.modal', function () {
         $('#detailComment').hideMessageError();
         $('#detailComment').val("");
@@ -60,4 +62,12 @@
         $('#detailComment').val(comment);
         $('#commentModal').modal('show');
     });
+
+    function CharactersQuantity(element, count) {
+        element.keypress(function () {
+            if (element.val().length > count) {
+                element.val(element.val().substring(0, element.val().length - 1));
+            }
+        });
+    }
 });

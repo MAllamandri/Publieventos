@@ -49,7 +49,8 @@
                 Id = comment.Id,
                 NullDate = comment.NullDate,
                 Event = GetEventSummary(comment.Event),
-                User = GetUserSummary(comment.User)
+                User = GetUserSummary(comment.User),
+                ElapsedTime = comment.ElapsedTime
             };
         }
 
