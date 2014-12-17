@@ -38,6 +38,7 @@
                     configuration.AddFile(mappingPath + "MultimediaContent.hbm.xml");
                     configuration.AddFile(mappingPath + "AccountActivationToken.hbm.xml");
                     configuration.AddFile(mappingPath + "Province.hbm.xml");
+                    configuration.AddFile(mappingPath + "Groups.hbm.xml");
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;

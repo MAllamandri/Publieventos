@@ -8,17 +8,8 @@
     $('#EventStartTime').val(data.EventStartTime.split(":")[0] + ":" + data.EventStartTime.split(":")[1]);
     $('#EventEndTime').val(data.EventEndTime.split(":")[0] + ":" + data.EventEndTime.split(":")[1]);
 
-    $('#Description').keypress(function () {
-        if ($('#Description').val().length > 139) {
-            $('#Description').val($('#Description').val().substring(0, $('#Description').val().length - 1));
-        }
-    });
-
-    $('#Title').keypress(function () {
-        if ($('#Title').val().length > 100) {
-            $('#Title').val($('#Title').val().substring(0, $('#Title').val().length - 1));
-        }
-    });
+    $('#Description').charactersQuantity(139);
+    $('#Title').charactersQuantity(100);
 
     $('.date').datetimepicker({
         pickTime: false,
@@ -32,22 +23,6 @@
         pickDate: false,
         language: 'es',
         autoclose: true
-    });
-
-    $('#ProvinceId').change(function () {
-        $.getJSON("/Account/GetLocalitiesByProvince", { idProvince: $('#ProvinceId').val() }, function (data) {
-            $('#LocalityId option').remove();
-
-            $('#LocalityId').attr('disabled', 'disabled');
-
-            $('#LocalityId').append($("<option />").val("").text(['[Seleccione Localidad]']));
-
-            $.each(data, function (index, item) {
-                $('#LocalityId').append($("<option />").val(item.Id).text(item.Name));
-            });
-
-            $('#LocalityId').removeAttr('disabled');
-        });
     });
 
     $('#Save').click(function () {

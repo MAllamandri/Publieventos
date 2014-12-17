@@ -151,6 +151,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -359,12 +360,14 @@
     <Content Include="Views\Home\Partial\_RightBubble.cshtml" />
     <Content Include="Views\Event\Partial\_LocalizationDetail.cshtml" />
     <Content Include="Views\Comment\Partial\_CommentBubble.cshtml" />
+    <Content Include="Views\Group\MyGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\EventsPictures\" />
     <Folder Include="Content\images\Profiles\" />
     <Folder Include="Models\EventModels\" />
+    <Folder Include="Views\Group\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

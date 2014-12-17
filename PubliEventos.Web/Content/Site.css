@@ -719,3 +719,22 @@ img {
 }
 
 /*#endregion */
+
+/*#region Groups */
+
+.div-group-name {
+    min-height: 200px !important;
+}
+
+.group-name-text {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    font-size: 30px;
+    position: absolute;
+    text-align: center;
+}
+
+
+/*#endregion */

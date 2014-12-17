@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="PubliEventos.Domain"
+                   namespace="PubliEventos.Domain.Domain">
+
+  <class name="Group" table="Groups" lazy="true">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="Name" type="AnsiString" />
+    <bag name="Users" table="UsersGroup" lazy="true" cascade="save-update">
+      <key column="GroupId"/>
+      <many-to-many class="User" column="UserId"/>
+    </bag>
+    <many-to-one name="User" class="User" column="UserId"/>
+    <property name="EffectDate" />
+    <property name="NullDate" not-null="false"/>
+  </class>
+</hibernate-mapping>

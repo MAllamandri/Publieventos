@@ -11,14 +11,16 @@
         var idEvent = $(this).attr('rel');
 
         bootbox.confirm({
-            title: "Eliminación de evento",
+            title: "<h4 class='title-modal'>Eliminación de Evento</h4>",
             message: "Esta seguro que desea eliminar el evento?",
             buttons: {
                 'cancel': {
-                    label: "Cancelar"
+                    label: "Cancelar",
+                    className: "btn-cancel pull-left",
                 },
                 'confirm': {
-                    label: "Aceptar"
+                    label: "Aceptar",
+                    className: "btn-confirm"
                 }
             }, callback: function (result) {
                 if (result) {
@@ -29,14 +31,12 @@
                         data: { idEvent: idEvent }
                     }).done(function (data) {
                         if (data.Success) {
-                            bootbox.alert("El evento ha sido eliminado correctamente", function () {
-                                window.location.href = "/Event/MyEvents?currentEvents=true";
-                            });
+                            window.location.href = "/Event/MyEvents?currentEvents=true";
+                            $.blockUI({ message: "" });
                         } else {
                             bootbox.alert("Ha ocurrido un error al eliminar el registro");
+                            $.unblockUI();
                         }
-
-                        $.unblockUI();
                     });
                 }
             }

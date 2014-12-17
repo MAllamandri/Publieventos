@@ -8,6 +8,7 @@
     /// <summary>
     /// Controlador de comentarios.
     /// </summary>
+    [Authorize]
     public class CommentController : BaseController
     {
         #region Properties

@@ -48,10 +48,12 @@
     <Compile Include="Class\Locality.cs" />
     <Compile Include="Class\Province.cs" />
     <Compile Include="Class\User.cs" />
+    <Compile Include="Class\Group.cs" />
     <Compile Include="Contracts\IAccountServices.cs" />
     <Compile Include="Contracts\ICommentServices.cs" />
     <Compile Include="Contracts\IEventServices.cs" />
     <Compile Include="Contracts\ILocalityServices.cs" />
+    <Compile Include="Contracts\IUsersGroupServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Comment\CreateCommentRequest.cs" />
     <Compile Include="Services\Comment\CreateCommentResponse.cs" />
@@ -63,6 +65,8 @@
     <Compile Include="Services\Event\EventCreateOrUpdateResponse.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsRequest.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsResponse.cs" />
+    <Compile Include="Services\UsersGroup\GetUsersGroupByUserRequest.cs" />
+    <Compile Include="Services\UsersGroup\GetUsersGroupByUserResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">

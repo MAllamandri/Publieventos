@@ -47,6 +47,7 @@
     <Compile Include="Domain\MultimediaContent.cs" />
     <Compile Include="Domain\Province.cs" />
     <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\Group.cs" />
     <Compile Include="Enums\ContentTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

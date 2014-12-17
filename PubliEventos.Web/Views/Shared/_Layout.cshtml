@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>Publieventos - @ViewBag.Title</title>
 
-    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @Styles.Render("/Content/bootstrap/css/bootstrap-responsive.css")
     @Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
     @Styles.Render("/Content/bootstrap/css/bootstrap-glyphicons.css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("/ViewScripts/Shared/Shared.js")
+    @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Shared.js")
 
     <link rel="stylesheet" media="all" href="/Content/Site.css" />
     <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
@@ -28,7 +28,7 @@
                 <div class="row-fluid">
                     <a class="sections-title" href="/Event/Create">Crear Evento</a><span class="sections-title">-</span>
                     <a class="sections-title" href="/Event/MyEvents?currentEvents=true">Mis Eventos</a><span class="sections-title">-</span>
-                    <a class="sections-title" href="#">Mis Grupos</a><span class="sections-title">-</span>
+                    <a class="sections-title" href="/Group/MyGroups">Mis Grupos</a><span class="sections-title">-</span>
                     <a class="sections-title" href="#">Invitaciones</a>
                 </div>
             }

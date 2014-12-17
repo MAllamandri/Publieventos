@@ -69,6 +69,8 @@
     <Compile Include="Services\EventServices.cs" />
     <Compile Include="Services\InternalServices.cs" />
     <Compile Include="Services\LocalityServices.cs" />
+    <Compile Include="Services\UsersGroupServices.cs" />
+    <Compile Include="UsersGroupServicesHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.Contract\PubliEventos.Contract.csproj">

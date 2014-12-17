@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "MyGroups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row-fluid">
+    <div class="col-md-10 offset1">
+        <div style="margin-bottom: 25px" id="create">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <h2 class="subtitle">Mis Grupos</h2>
+                    <div class="col-md-6" style="margin-bottom: 1%; height: 280px;">
+                        <div class="col-md-12 mosaic" style="min-height: 200px; margin-top: 30px;">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="span11 div-group-name">
+                                        <strong class="font-text group-name-text">Familia</strong>
+                                    </div>
+                                    <div id="#nav-action" class="span1">
+                                        <nav class="verticaltabs-container">
+                                            <ul>
+                                                <li class="vertical-list-item"><a style="padding-bottom: 7px" class="deleteEvent" title="Eliminar Evento" rel="" href="#"><i class="icon-default glyphicon glyphicon-remove"></i></a></li>
+                                                <li style="padding-bottom: 7px" class="vertical-list-item"><a title="Editar Evento" href="/Event/Edit/"><i class="icon-default glyphicon glyphicon-pencil"></i></a></li>
+                                                <li class="vertical-list-item"><a title="Ver Detalle" href="/Event/Detail/"><i class="icon-default glyphicon glyphicon-search"></i></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

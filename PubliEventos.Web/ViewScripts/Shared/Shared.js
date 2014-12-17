@@ -1,4 +1,18 @@
 ﻿$(function () {
+    $.fn.charactersQuantity = function (count) {
+        $(this).blur(function () {
+            if ($(this).val().length > count) {
+                $(this).val($(this).val().substr(0, count + 1));
+            }
+        });
+
+        $(this).keypress(function () {
+            if ($(this).val().length > count) {
+                $(this).val($(this).val().substring(0, $(this).val().length - 1));
+            }
+        });
+    }
+
     //<sumary>Setea estilos y mensaje de error a un elemento del DOM.</sumary>
     $.fn.showMessageError = function (message) {
         var elementSelector = "[name='" + $(this).attr('name') + "']";

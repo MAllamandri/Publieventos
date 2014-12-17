@@ -140,6 +140,11 @@
             var predicate = PredicateBuilder.True<Domain.Domain.Event>();
             predicate = predicate.And(x => !x.NullDate.HasValue && x.Active);
 
+            if (request.SearchPublics)
+            {
+                predicate = predicate.And(x => x.Private == false);
+            }
+
             if (request.MyEvents)
             {
                 predicate = predicate.And(x => x.User.Id == request.IdUser);

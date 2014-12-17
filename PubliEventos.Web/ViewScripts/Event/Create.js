@@ -1,6 +1,6 @@
 ﻿$(function () {
-    CharactersQuantity($('#Description'), 139);
-    CharactersQuantity($('#Title'), 100);
+    $('#Description').charactersQuantity(139);
+    $('#Title').charactersQuantity(100);
 
     $('.date').datetimepicker({
         pickTime: false,
@@ -59,14 +59,6 @@
                     });
                     $.unblockUI();
                 }
-            }
-        });
-    }
-
-    function CharactersQuantity(element, count) {
-        element.keypress(function () {
-            if (element.val().length > count) {
-                element.val(element.val().substring(0, element.val().length - 1));
             }
         });
     }

@@ -21,12 +21,6 @@
         /// Servicio de localidades.
         /// </summary>
         [Dependency]
-        public ILocalityServices ServiceLocalities { get; set; }
-
-        /// <summary>
-        /// Servicio de localidades.
-        /// </summary>
-        [Dependency]
         public IEventServices serviceEvents { get; set; }
 
         /// <summary>
@@ -100,8 +94,6 @@
 
             ViewBag.myEvents = events;
             ViewBag.currentsEvents = currentEvents;
-            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name");
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name");
             ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
 
             return View();

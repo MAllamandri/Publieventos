@@ -3,13 +3,8 @@
     using System;
     using System.Collections.Generic;
 
-    public class Event
+    public class Event : BaseClass
     {
-        /// <summary>
-        /// Identificador del evento.
-        /// </summary>
-        public int? Id { get; set; }
-
         /// <summary>
         /// Título del evento.
         /// </summary>

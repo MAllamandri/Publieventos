@@ -31,5 +31,10 @@
         /// Identificador del usuario para filtrar eventos.
         /// </summary>
         public int? IdUser { get; set; }
+
+        /// <summary>
+        /// Indica que busca los eventos publicos.
+        /// </summary>
+        public bool SearchPublics { get; set; }
     }
 }
