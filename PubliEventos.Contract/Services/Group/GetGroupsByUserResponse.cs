@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.Contract.Services.UsersGroup
+﻿namespace PubliEventos.Contract.Services.Group
 {
     using System.Collections.Generic;
     using PubliEventos.Contract.Class;
@@ -6,7 +6,7 @@
     /// <summary>
     /// Representa la salida de la operación GetUsersGroupByUser.
     /// </summary>
-    public class GetUsersGroupByUserResponse
+    public class GetGroupsByUserResponse
     {
         /// <summary>
         /// Grupos del usuario.

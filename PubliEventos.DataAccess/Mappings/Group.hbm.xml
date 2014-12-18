@@ -8,12 +8,12 @@
       <generator class="identity" />
     </id>
     <property name="Name" type="AnsiString" />
-    <bag name="Users" table="UsersGroup" lazy="true" cascade="save-update">
+    <bag name="Users" table="UsersGroups" lazy="true" cascade="save-update" where="NullDate IS NULL">
       <key column="GroupId"/>
-      <many-to-many class="User" column="UserId"/>
+      <many-to-many class="User" column="UserId" />
     </bag>
-    <many-to-one name="User" class="User" column="UserId"/>
+    <many-to-one name="Administrator" class="User" column="UserAdministratorId"/>
     <property name="EffectDate" />
-    <property name="NullDate" not-null="false"/>
+    <property name="NullDate" />
   </class>
 </hibernate-mapping>

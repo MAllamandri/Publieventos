@@ -1,6 +1,7 @@
 ﻿namespace PubliEventos.Services.Services
 {
     using PubliEventos.Contract.Class;
+    using System.Linq;
 
     public class InternalServices
     {
@@ -74,6 +75,22 @@
                 NullDate = user.NullDate,
                 Password = user.Password,
                 UserName = user.UserName
+            };
+        }
+
+        /// <summary>
+        /// Parsea un grupo.
+        /// </summary>
+        /// <param name="group">Grupo.</param>
+        /// <returns>Grupo de contrato.</returns>
+        public Group GetGroupSummary(Domain.Domain.Group group)
+        {
+            return new Group()
+            {
+                Administrator = this.GetUserSummary(group.Administrator),
+                Id = group.Id,
+                Name = group.Name,
+                Users = group.Users.Select(x => this.GetUserSummary(x)).ToList()
             };
         }
     }

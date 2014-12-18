@@ -1,9 +1,9 @@
-﻿namespace PubliEventos.Contract.Services.UsersGroup
+﻿namespace PubliEventos.Contract.Services.Group
 {
     /// <summary>
     /// Representa un los paramtros de entrada de la operación GetUsersGroupByUser.
     /// </summary>
-    public class GetUsersGroupByUserRequest
+    public class GetGroupsByUserRequest
     {
         /// <summary>
         /// Identificador del usuario.

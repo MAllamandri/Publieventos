@@ -65,8 +65,8 @@
     <Compile Include="Services\Event\EventCreateOrUpdateResponse.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsRequest.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsResponse.cs" />
-    <Compile Include="Services\UsersGroup\GetUsersGroupByUserRequest.cs" />
-    <Compile Include="Services\UsersGroup\GetUsersGroupByUserResponse.cs" />
+    <Compile Include="Services\Group\GetGroupsByUserRequest.cs" />
+    <Compile Include="Services\Group\GetGroupsByUserResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">
