@@ -1,13 +1,13 @@
 ﻿@model PubliEventos.Contract.Class.Comment
 
 @{
-    var imageProfile = Model.Event.User.ImageProfile != null ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.Event.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+    var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
 }
 
 <div class="row-fluid" style="margin-bottom: 20px">
     <div class="col-md-12">
         <div class="col-md-1" style="margin-right: 15px">
-            <img src="@imageProfile" alt="Perfil del usuario" class="profile-comment img-circle right" data-src="holder.js/70x70">
+            <img src="@imageProfile" title="@Model.User.UserName" alt="Perfil del usuario" class="profile-comment img-circle right" data-src="holder.js/70x70">
         </div>
         <div class="col-md-10 bubble-comment">
             <div class="comment-detail">

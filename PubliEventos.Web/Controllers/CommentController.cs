@@ -4,6 +4,9 @@
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.Comment;
     using System.Web.Mvc;
+    using System.Linq;
+    using PubliEventos.Contract.Class;
+    using PubliEventos.Web.Hubs;
 
     /// <summary>
     /// Controlador de comentarios.
@@ -33,9 +36,9 @@
 
             if (ModelState.IsValid)
             {
-                this.commentService.CreateComment(model);
+                var response = this.commentService.CreateComment(model);
 
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, Comment = response.Comment }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
@@ -51,12 +54,36 @@
         {
             if (ModelState.IsValid)
             {
-                this.commentService.EditComment(model);
+                var response = this.commentService.EditComment(model);
 
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, Comment = response.Comment }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Busca los comentarios de un evento.
+        /// </summary>
+        /// <param name="eventId">Identificador del evento.</param>
+        /// <returns>Comentarios.</returns>
+        [HttpPost]
+        public PartialViewResult GetComment(string detail, int commentId, string imageProfile, string elapsedTime, int userId, string userName)
+        {
+            var comment = new Comment
+            {
+                Detail = detail,
+                Id = commentId,
+                User = new User
+                {
+                    ImageProfile = imageProfile,
+                    Id = userId,
+                    UserName = userName
+                },
+                ElapsedTime = elapsedTime
+            };
+
+            return PartialView("Partial/_CommentBubble", comment);
         }
     }
 }

@@ -44,7 +44,10 @@
 
             new BaseQuery<Domain.Domain.Comment, int>().Create(comment);
 
-            return new CreateCommentResponse();
+            return new CreateCommentResponse()
+            {
+                Comment = InternalServices.GetCommentSummary(comment)
+            };
         }
 
         /// <summary>
@@ -60,7 +63,10 @@
 
             new BaseQuery<Domain.Domain.Comment, int>().Update(comment);
 
-            return new EditCommentResponse();
+            return new EditCommentResponse()
+            {
+                Comment = InternalServices.GetCommentSummary(comment)
+            };
         }
     }
 }
