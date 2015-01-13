@@ -1,7 +1,11 @@
 ﻿@{
-    ViewBag.Title = "MyGroups";
+    ViewBag.Title = "Mis Grupos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Group/MyGroups.js")
 
 @using PubliEventos.Contract.Class;
 @using PubliEventos.Web.App_Start;
@@ -12,6 +16,13 @@
             <div class="row-fluid">
                 <div class="col-md-12">
                     <h2 class="subtitle">Mis Grupos</h2>
+                    <div class="row-fluid" style="padding-bottom: -5px">
+                        <div class="col-md-12">
+                            <ul class="subtitle-sections" style="margin-left: -53px">
+                                <li><a href="/Group/Create" title="Nuevo Grupo" class="label-lobster">Crear Grupo</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     @foreach (var group in (List<Group>)ViewBag.groups)
                     {
                         <div class="col-md-6" style="margin-bottom: 1%; height: 280px;">
@@ -32,8 +43,12 @@
                                                 <ul>
                                                     @if (group.Administrator.Id == (User as CustomPrincipal).Id)
                                                     {
-                                                        <li class="vertical-list-item"><a style="padding-bottom: 7px" class="deleteEvent" title="Eliminar Grupo" rel="" href="#"><i class="icon-default glyphicon glyphicon-remove"></i></a></li>
+                                                        <li class="vertical-list-item"><a style="padding-bottom: 7px" class="deleteGroup" title="Eliminar Grupo" rel="@group.Id" href="#"><i class="icon-default glyphicon glyphicon-remove"></i></a></li>
                                                         <li style="padding-bottom: 7px" class="vertical-list-item"><a title="Editar Grupo" href="#"><i class="icon-default glyphicon glyphicon-pencil"></i></a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="vertical-list-item"><a title="Dejar Grupo" class="leaveGroup" rel="@group.Id" href="#"><i class="icon-default glyphicon glyphicon-hand-down"></i></a></li>
                                                     }
                                                     <li class="vertical-list-item"><a title="Ver Miembros" href="#"><i class="icon-default glyphicon glyphicon-search"></i></a></li>
                                                 </ul>

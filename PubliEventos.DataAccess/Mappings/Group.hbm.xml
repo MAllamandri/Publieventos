@@ -12,6 +12,10 @@
       <key column="GroupId"/>
       <many-to-many class="User" column="UserId" />
     </bag>
+    <bag name="UsersGroup" table="UsersGroups" lazy="true" cascade="save-update" where="NullDate IS NULL">
+      <key column="GroupId"/>
+      <many-to-many class="UsersGroup" column="Id"/>
+    </bag>
     <many-to-one name="Administrator" class="User" column="UserAdministratorId"/>
     <property name="EffectDate" />
     <property name="NullDate" />

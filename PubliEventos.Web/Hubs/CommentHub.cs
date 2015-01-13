@@ -71,11 +71,33 @@
 
         #endregion
 
+        /// <summary>
+        /// Agrega un nuevo comentario a todos los usuarios.
+        /// </summary>
+        /// <param name="detail">Detalle del comentario.</param>
+        /// <param name="commentId">Identificador del comentario.</param>
+        /// <param name="imageProfile">Imagen de perfil del usuario.</param>
+        /// <param name="elapsedTime">Tiempo transcurrido de creacion del comentario.</param>
+        /// <param name="userId">Identificador del usuario.</param>
+        /// <param name="userName">Nombre de usuario.</param>
         public void AddNewComment(string detail, int commentId, string imageProfile, string elapsedTime, int userId, string userName)
         {
             Clients.All.addNewCommentToPage(detail, commentId, imageProfile, elapsedTime, userId, userName);
         }
 
+        /// <summary>
+        /// Refresca los comentarios a todos los clientes.
+        /// </summary>
+        public void RefreshComments()
+        {
+            Clients.All.refreshCommentsInPage();
+        }
+
+        /// <summary>
+        /// Busca la lista de comentarios de un evento.
+        /// </summary>
+        /// <param name="eventId">Identificador del evento.</param>
+        /// <returns>Lista de comentarios.</returns>
         public List<Comment> GetComments(int eventId)
         {
             var comments = this._commentService.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = eventId }).Comments.OrderByDescending(x => x.EffectDate).ToList();

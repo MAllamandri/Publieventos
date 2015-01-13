@@ -18,5 +18,25 @@
         {
             return GroupServices.GetGroupsByUser(request);
         }
+
+        /// <summary>
+        /// Elimina un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public DeleteGroupResponse DeleteGroup(DeleteGroupRequest request)
+        {
+            return GroupServices.DeleteGroup(request);
+        }
+
+        /// <summary>
+        /// Da de baja a un usuario de un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public LeaveGroupResponse LeaveGroup(LeaveGroupRequest request)
+        {
+            return GroupServices.LeaveGroup(request);
+        }
     }
 }

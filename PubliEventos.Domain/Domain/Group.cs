@@ -25,6 +25,11 @@
         public virtual IList<User> Users { get; set; }
 
         /// <summary>
+        /// Identificadores de usuarios del grupo.
+        /// </summary>
+        public virtual IList<UsersGroup> UsersGroup { get; set; }
+
+        /// <summary>
         /// Fecha de alta.
         /// </summary>
         public virtual DateTime EffectDate { get; set; }

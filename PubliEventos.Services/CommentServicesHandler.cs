@@ -38,5 +38,15 @@
         {
             return CommentServices.EditComment(request);
         }
+
+        /// <summary>
+        /// Elimina un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public DeleteCommentResponse DeleteComment(DeleteCommentRequest request)
+        {
+            return CommentServices.DeleteComment(request);
+        }
     }
 }

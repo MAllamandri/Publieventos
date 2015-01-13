@@ -68,5 +68,21 @@
                 Comment = InternalServices.GetCommentSummary(comment)
             };
         }
+
+        /// <summary>
+        /// Elimina un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static DeleteCommentResponse DeleteComment(DeleteCommentRequest request)
+        {
+            var comment = CurrentSession.Get<Domain.Domain.Comment>(request.CommentId);
+
+            comment.NullDate = DateTime.Now;
+
+            new BaseQuery<Domain.Domain.Comment, int>().Update(comment);
+
+            return new DeleteCommentResponse();
+        }
     }
 }

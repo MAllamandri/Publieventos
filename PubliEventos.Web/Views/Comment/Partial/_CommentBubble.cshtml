@@ -23,6 +23,7 @@
                 @if (Model.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id)
                 {
                     <a title="Editar" href="#"><i class="edit-comment icon-default icon-pencil"></i></a>
+                    <a style="padding-left: 7px" class="deleteComment" title="Eliminar" rel="@Model.Id" href="#"><i class="icon-default icon-remove"></i></a>
                 }
             </div>
         </div>

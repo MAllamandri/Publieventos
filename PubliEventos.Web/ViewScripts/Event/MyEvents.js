@@ -12,7 +12,7 @@
 
         bootbox.confirm({
             title: "<h4 class='title-modal'>Eliminación de Evento</h4>",
-            message: "Esta seguro que desea eliminar el evento?",
+            message: "<p class='font-text'>Esta seguro que desea eliminar el evento?</p>",
             buttons: {
                 'cancel': {
                     label: "Cancelar",

@@ -335,11 +335,11 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="ViewScripts\Comment\Partial\_CommentBubble.js" />
     <Content Include="ViewScripts\Event\Detail.js" />
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
+    <Content Include="ViewScripts\Group\MyGroups.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\spin.min.js" />
@@ -379,12 +379,14 @@
     <Content Include="Views\Event\Partial\_LocalizationDetail.cshtml" />
     <Content Include="Views\Comment\Partial\_CommentBubble.cshtml" />
     <Content Include="Views\Group\MyGroups.cshtml" />
+    <Content Include="Views\Group\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\EventsPictures\" />
     <Folder Include="Content\images\Profiles\" />
     <Folder Include="Models\EventModels\" />
+    <Folder Include="ViewScripts\Comment\Partial\" />
     <Folder Include="Views\Group\Partial\" />
   </ItemGroup>
   <ItemGroup>

@@ -13,5 +13,19 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         GetGroupsByUserResponse GetGroupsByUser(GetGroupsByUserRequest request);
+
+        /// <summary>
+        /// Elimina un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        DeleteGroupResponse DeleteGroup(DeleteGroupRequest request);
+
+        /// <summary>
+        /// Da de baja a un usuario de un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        LeaveGroupResponse LeaveGroup(LeaveGroupRequest request);
     }
 }

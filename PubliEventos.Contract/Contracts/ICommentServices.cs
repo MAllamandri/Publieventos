@@ -27,5 +27,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         EditCommentResponse EditComment(EditCommentRequest request);
+
+        /// <summary>
+        /// Elimina un comentario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        DeleteCommentResponse DeleteComment(DeleteCommentRequest request);
     }
 }
