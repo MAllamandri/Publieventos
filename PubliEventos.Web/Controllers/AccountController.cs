@@ -15,6 +15,9 @@
     using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models.AccountModels;
+    using PubliEventos.Web.Models;
+    using System.Collections.Generic;
+    using PubliEventos.Contract.Services.Account;
 
     /// <summary>
     /// Controlador de cuentas.
@@ -362,6 +365,31 @@
             {
                 return Json(new { isValid = false }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// Busca usuario por autocompletado de nombre de usuario.
+        /// </summary>
+        /// <param name="userName">Nombre de usuario.</param>
+        /// <param name="pageNumber">Número de página.</param>
+        /// <param name="pageSize">Tamaño de página.</param>
+        /// <returns>Usuarios encontrados.</returns>
+        public JsonResult SearchUsersByUserName(string userName, int pageNumber, int pageSize)
+        {
+            List<Select2UserResult> Users = new List<Select2UserResult>();
+
+            var response = this.serviceAccounts.SearchUsersByPartialUserName(new SearchUsersByPartialUserNameRequest() { UserName = userName, PageNumber = pageNumber, PageSize = pageSize });
+
+            foreach (var user in response.Users)
+            {
+                var userResult = new Select2UserResult();
+                userResult.Id = user.Id.Value;
+                userResult.Text = user.UserName;
+
+                Users.Add(userResult);
+            }
+
+            return Json(new { Users = Users, Quantity = response.Quantity }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

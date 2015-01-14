@@ -6,6 +6,7 @@
     using NHibernate.Linq;
     using PubliEventos.Contract.Class;
     using PubliEventos.DataAccess.Querys;
+    using PubliEventos.Contract.Services.Account;
 
     /// <summary>
     /// Servicio de cuentas.
@@ -194,6 +195,32 @@
                 }
 
                 transaction.Complete();
+            }
+        }
+
+        /// <summary>
+        /// Busca usuarios por autocompletado de nombre de usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de la búsqueda.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchUsersByPartialUserNameResponse SearchUsersByPartialUserName(SearchUsersByPartialUserNameRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var total = CurrentSession.Query<Domain.Domain.User>().
+                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue).Count();
+
+                var users = CurrentSession.Query<Domain.Domain.User>().
+                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue)
+                     .Skip(request.PageNumber - 1)
+                     .Take(request.PageSize)
+                     .Select(u => InternalServices.GetUserSummary(u)).ToList();
+
+                return new SearchUsersByPartialUserNameResponse()
+                {
+                    Users = users,
+                    Quantity = total
+                };
             }
         }
     }

@@ -3,6 +3,7 @@
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Class;
     using PubliEventos.Services.Services;
+    using PubliEventos.Contract.Services.Account;
 
     /// <summary>
     /// Manejador de cuentas.
@@ -74,6 +75,16 @@
         public void DeleteActivationToken(string userName)
         {
             AccountServices.DeleteActivationToken(userName);
+        }
+
+        /// <summary>
+        /// Busca usuarios por autocompletado de nombre de usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de la búsqueda.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchUsersByPartialUserNameResponse SearchUsersByPartialUserName(SearchUsersByPartialUserNameRequest request)
+        {
+            return AccountServices.SearchUsersByPartialUserName(request);
         }
     }
 }

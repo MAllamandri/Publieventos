@@ -177,6 +177,7 @@
     <Compile Include="Models\AccountModels\LoginModel.cs" />
     <Compile Include="Models\AccountModels\SignUpModel.cs" />
     <Compile Include="Models\AccountModels\UserModel.cs" />
+    <Compile Include="Models\Select2UserResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +195,13 @@
     <Content Include="Content\ladda\ladda-themeless.min.css" />
     <Content Include="Content\ladda\ladda.css" />
     <Content Include="Content\ladda\ladda.min.css" />
+    <Content Include="Content\Select2\select2-bootstrap.css" />
+    <Content Include="Content\Select2\select2-spinner.gif" />
+    <Content Include="Content\Select2\select2.css" />
+    <Content Include="Scripts\select2_locale_es.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Content\Select2\select2.png" />
     <Content Include="Content\themes\base\docs.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -339,6 +347,7 @@
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
+    <Content Include="ViewScripts\Group\Create.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />

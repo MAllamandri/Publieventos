@@ -1,6 +1,7 @@
 ﻿namespace PubliEventos.Contract.Contracts
 {
     using PubliEventos.Contract.Class;
+    using PubliEventos.Contract.Services.Account;
 
     /// <summary>
     /// Interface del servicio de cuentas.
@@ -52,5 +53,12 @@
         /// </summary>
         /// <param name="userName">Nombre de usuario.</param>
         void DeleteActivationToken(string userName);
+
+        /// <summary>
+        /// Busca usuarios por autocompletado de nombre de usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de la búsqueda.</param>
+        /// <returns>El resultado de la operación.</returns>
+        SearchUsersByPartialUserNameResponse SearchUsersByPartialUserName(SearchUsersByPartialUserNameRequest request);
     }
 }
