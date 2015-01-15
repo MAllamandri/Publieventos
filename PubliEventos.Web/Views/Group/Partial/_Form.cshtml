@@ -1,0 +1,29 @@
+﻿@model PubliEventos.Contract.Services.Group.GroupBaseRequest
+
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            @Html.Label("Nombre del Grupo", new { @class = "label-lobster" })
+            @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.GroupName)
+        </div>
+    </div>
+</div>
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            @Html.Label("Mensaje al Grupo", new { @class = "label-lobster" })
+            @Html.TextBoxFor(m => m.Message, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Message)
+        </div>
+    </div>
+</div>
+<div class="row-fluid margin-bottom-normal">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <label class="label-lobster">Agregar Usuarios</label>
+            @Html.TextBoxFor(m => m.UserIds, new { @class = "font-text select2-remote" })
+            @Html.ValidationMessageFor(m => m.UserIds)
+        </div>
+    </div>
+</div>

@@ -27,5 +27,26 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         LeaveGroupResponse LeaveGroup(LeaveGroupRequest request);
+
+        /// <summary>
+        /// Crea un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        CreateGroupResponse CreateGroup(CreateGroupRequest request);
+
+        /// <summary>
+        /// Obtiene un grupo por Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        GetGroupByIdResponse GetGroupById(GetGroupByIdRequest request);
+
+        /// <summary>
+        /// Edita un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        EditGroupResponse EditGroup(EditGroupRequest request);
     }
 }

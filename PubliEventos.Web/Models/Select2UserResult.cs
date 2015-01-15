@@ -8,11 +8,11 @@
         /// <summary>
         /// Identificador del usuario.
         /// </summary>
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Nombre de usuario.
         /// </summary>
-        public string Text { get; set; }
+        public string text { get; set; }
     }
 }

@@ -13,6 +13,11 @@
         public string Name { get; set; }
 
         /// <summary>
+        /// Mensaje al grupo.
+        /// </summary>
+        public string Message { get; set; }
+
+        /// <summary>
         /// Usuarios administrador.
         /// </summary>
         public User Administrator { get; set; }

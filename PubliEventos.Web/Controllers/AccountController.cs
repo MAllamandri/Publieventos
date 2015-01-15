@@ -383,8 +383,8 @@
             foreach (var user in response.Users)
             {
                 var userResult = new Select2UserResult();
-                userResult.Id = user.Id.Value;
-                userResult.Text = user.UserName;
+                userResult.id = user.Id.Value;
+                userResult.text = user.UserName;
 
                 Users.Add(userResult);
             }

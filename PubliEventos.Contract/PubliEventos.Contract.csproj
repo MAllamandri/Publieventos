@@ -69,10 +69,17 @@
     <Compile Include="Services\Event\EventCreateOrUpdateResponse.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsRequest.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsResponse.cs" />
+    <Compile Include="Services\Group\CreateGroupRequest.cs" />
+    <Compile Include="Services\Group\CreateGroupResponse.cs" />
     <Compile Include="Services\Group\DeleteGroupRequest.cs" />
     <Compile Include="Services\Group\DeleteGroupResponse.cs" />
+    <Compile Include="Services\Group\EditGroupRequest.cs" />
+    <Compile Include="Services\Group\EditGroupResponse.cs" />
+    <Compile Include="Services\Group\GetGroupByIdRequest.cs" />
+    <Compile Include="Services\Group\GetGroupByIdResponse.cs" />
     <Compile Include="Services\Group\GetGroupsByUserRequest.cs" />
     <Compile Include="Services\Group\GetGroupsByUserResponse.cs" />
+    <Compile Include="Services\Group\GroupBaseRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupResponse.cs" />
   </ItemGroup>

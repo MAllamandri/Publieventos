@@ -1,7 +1,7 @@
-﻿@model PubliEventos.Contract.Services.Group.CreateGroupRequest
+﻿@model PubliEventos.Contract.Services.Group.EditGroupRequest
 
 @{
-    ViewBag.Title = "Nuevo Grupo";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,14 +20,16 @@
         <div style="margin-bottom: 25px">
             <div class="row-fluid">
                 <div class="col-md-12">
-                    <h2 class="subtitle">Crear Grupo</h2>
+                    <h2 class="subtitle">Editar Grupo</h2>
                 </div>
             </div>
             <div class="row-fluid">
                 <form id="Form" method="post">
 
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.GroupId)
                     @Html.HiddenFor(m => m.AdministratorId)
+                    @Html.HiddenFor(m => m.UserNames)
 
                     @Html.Partial("Partial/_Form", Model)
 

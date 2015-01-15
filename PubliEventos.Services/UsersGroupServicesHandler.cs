@@ -38,5 +38,35 @@
         {
             return GroupServices.LeaveGroup(request);
         }
+
+        /// <summary>
+        /// Crea un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public CreateGroupResponse CreateGroup(CreateGroupRequest request)
+        {
+            return GroupServices.CreateGroup(request);
+        }
+
+        /// <summary>
+        /// Obtiene un grupo por Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public GetGroupByIdResponse GetGroupById(GetGroupByIdRequest request)
+        {
+            return GroupServices.GetGroupById(request);
+        }
+
+        /// <summary>
+        /// Edita un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public EditGroupResponse EditGroup(EditGroupRequest request)
+        {
+            return GroupServices.EditGroup(request);
+        }
     }
 }

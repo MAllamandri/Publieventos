@@ -90,6 +90,7 @@
                 Administrator = this.GetUserSummary(group.Administrator),
                 Id = group.Id,
                 Name = group.Name,
+                Message = group.Message,
                 Users = group.Users.Select(x => this.GetUserSummary(x)).ToList()
             };
         }

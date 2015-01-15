@@ -347,7 +347,7 @@
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
-    <Content Include="ViewScripts\Group\Create.js" />
+    <Content Include="ViewScripts\Group\Base.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />
@@ -389,6 +389,8 @@
     <Content Include="Views\Comment\Partial\_CommentBubble.cshtml" />
     <Content Include="Views\Group\MyGroups.cshtml" />
     <Content Include="Views\Group\Create.cshtml" />
+    <Content Include="Views\Group\Partial\_Form.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -396,7 +398,6 @@
     <Folder Include="Content\images\Profiles\" />
     <Folder Include="Models\EventModels\" />
     <Folder Include="ViewScripts\Comment\Partial\" />
-    <Folder Include="Views\Group\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

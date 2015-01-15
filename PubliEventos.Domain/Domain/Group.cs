@@ -30,6 +30,11 @@
         public virtual IList<UsersGroup> UsersGroup { get; set; }
 
         /// <summary>
+        /// Mensaje al grupo.
+        /// </summary>
+        public virtual string Message { get; set; }
+
+        /// <summary>
         /// Fecha de alta.
         /// </summary>
         public virtual DateTime EffectDate { get; set; }

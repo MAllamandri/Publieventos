@@ -44,7 +44,7 @@
                                                     @if (group.Administrator.Id == (User as CustomPrincipal).Id)
                                                     {
                                                         <li class="vertical-list-item"><a style="padding-bottom: 7px" class="deleteGroup" title="Eliminar Grupo" rel="@group.Id" href="#"><i class="icon-default glyphicon glyphicon-remove"></i></a></li>
-                                                        <li style="padding-bottom: 7px" class="vertical-list-item"><a title="Editar Grupo" href="#"><i class="icon-default glyphicon glyphicon-pencil"></i></a></li>
+                                                        <li style="padding-bottom: 7px" class="vertical-list-item"><a title="Editar Grupo" href="/Group/Edit/@group.Id"><i class="icon-default glyphicon glyphicon-pencil"></i></a></li>
                                                     }
                                                     else
                                                     {

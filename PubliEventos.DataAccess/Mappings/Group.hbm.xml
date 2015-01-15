@@ -8,6 +8,7 @@
       <generator class="identity" />
     </id>
     <property name="Name" type="AnsiString" />
+    <property name="Message" type="AnsiString" />
     <bag name="Users" table="UsersGroups" lazy="true" cascade="save-update" where="NullDate IS NULL">
       <key column="GroupId"/>
       <many-to-many class="User" column="UserId" />

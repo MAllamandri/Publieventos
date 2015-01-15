@@ -3,8 +3,10 @@
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.Group;
+    using PubliEventos.Web.Helpers;
     using System;
     using System.Web.Mvc;
+    using System.Linq;
 
     /// <summary>
     /// Controlador de grupos.
@@ -41,11 +43,84 @@
         /// <returns>Create View.</returns>
         public ActionResult Create()
         {
-            return View();
+            var model = new CreateGroupRequest() { AdministratorId = User.Id };
+
+            return View(model);
         }
+
+        /// <summary>
+        /// Vista de edición de grupos.
+        /// </summary>
+        /// <param name="groupId">Identificador del grupo.</param>
+        /// <returns>Edit View.</returns>
+        public ActionResult Edit(int id)
+        {
+            var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;
+
+            // Si no es el usuario creador, lo llevo a la página de error.
+            if (group.Administrator.Id != User.Id)
+            {
+                return RedirectToAction("UnauthorizedAccess", "Error");
+            }
+
+            var model = new EditGroupRequest()
+            {
+                GroupId = group.Id.Value,
+                AdministratorId = group.Administrator.Id.Value,
+                GroupName = group.Name,
+                Message = group.Message,
+                UserIds = string.Join(",", group.Users.Select(x => x.Id).ToArray()),
+                UserNames = string.Join(",", group.Users.Select(x => x.UserName).ToArray())
+            };
+
+            return View(model);
+        }
+
         #endregion
 
         #region Json Methods
+
+        /// <summary>
+        /// Vista de creación de grupos.
+        /// </summary>
+        /// <param name="model">CreateGroupRequest model.</param>
+        /// <returns>Create o MyGroups view.</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Create(CreateGroupRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                // TO DO > Enviar invitaciones.
+
+                this.serviceGroups.CreateGroup(model);
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Edita un grupo.
+        /// </summary>
+        /// <param name="model">EditGroupRequest model.</param>
+        /// <returns>Edit view.</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Edit(EditGroupRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                // TO DO > enviar invitaciones.
+
+                this.serviceGroups.EditGroup(model);
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// Elimina un grupo.
