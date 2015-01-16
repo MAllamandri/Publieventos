@@ -96,19 +96,25 @@
 
                 foreach (var user in request.UserIds.Split(','))
                 {
-                    var userGroup = new Domain.Domain.UsersGroup();
-                    userGroup.GroupId = group.Id;
-                    userGroup.UserId = Convert.ToInt32(user);
-                    userGroup.EffectDate = DateTime.Now;
-                    userGroup.GroupId = group.Id;
+                    if (request.AdministratorId != Convert.ToInt32(user))
+                    {
+                        var userGroup = new Domain.Domain.UsersGroup();
+                        userGroup.GroupId = group.Id;
+                        userGroup.UserId = Convert.ToInt32(user);
+                        userGroup.EffectDate = DateTime.Now;
+                        userGroup.GroupId = group.Id;
 
-                    new BaseQuery<Domain.Domain.UsersGroup, int>().Create(userGroup);
+                        new BaseQuery<Domain.Domain.UsersGroup, int>().Create(userGroup);
+                    }
                 }
 
                 transaction.Complete();
-            }
 
-            return new CreateGroupResponse();
+                return new CreateGroupResponse()
+                {
+                    GroupId = group.Id
+                };
+            }
         }
 
         /// <summary>
@@ -153,13 +159,16 @@
 
                 foreach (var user in request.UserIds.Split(','))
                 {
-                    var userGroup = new Domain.Domain.UsersGroup();
-                    userGroup.GroupId = group.Id;
-                    userGroup.UserId = Convert.ToInt32(user);
-                    userGroup.EffectDate = DateTime.Now;
-                    userGroup.GroupId = group.Id;
+                    if (group.Administrator.Id != Convert.ToInt32(user))
+                    {
+                        var userGroup = new Domain.Domain.UsersGroup();
+                        userGroup.GroupId = group.Id;
+                        userGroup.UserId = Convert.ToInt32(user);
+                        userGroup.EffectDate = DateTime.Now;
+                        userGroup.GroupId = group.Id;
 
-                    new BaseQuery<Domain.Domain.UsersGroup, int>().Create(userGroup);
+                        new BaseQuery<Domain.Domain.UsersGroup, int>().Create(userGroup);
+                    }
                 }
 
                 transaction.Complete();

@@ -744,5 +744,9 @@ img {
     text-align: center;
 }
 
+.message-group {
+    font-size: 30px;
+    text-align: center !important;
+}
 
 /*#endregion */

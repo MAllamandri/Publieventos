@@ -43,6 +43,7 @@
     <Compile Include="Domain\Comment.cs" />
     <Compile Include="Domain\Event.cs" />
     <Compile Include="Domain\EventType.cs" />
+    <Compile Include="Domain\Invitation.cs" />
     <Compile Include="Domain\Locality.cs" />
     <Compile Include="Domain\MultimediaContent.cs" />
     <Compile Include="Domain\Province.cs" />

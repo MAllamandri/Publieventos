@@ -5,5 +5,9 @@
     /// </summary>
     public class CreateGroupResponse
     {
+        /// <summary>
+        /// Identificador del grupo.
+        /// </summary>
+        public int GroupId { get; set; }
     }
 }

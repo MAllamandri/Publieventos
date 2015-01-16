@@ -69,6 +69,7 @@
     <EmbeddedResource Include="Mappings\Group.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Mappings\Invitation.hbm.xml" />
     <Content Include="Mappings\UsersGroup.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

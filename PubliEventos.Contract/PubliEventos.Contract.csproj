@@ -45,6 +45,7 @@
     <Compile Include="Class\Comment.cs" />
     <Compile Include="Class\Event.cs" />
     <Compile Include="Class\EventType.cs" />
+    <Compile Include="Class\Invitation.cs" />
     <Compile Include="Class\Locality.cs" />
     <Compile Include="Class\Province.cs" />
     <Compile Include="Class\User.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Contracts\IAccountServices.cs" />
     <Compile Include="Contracts\ICommentServices.cs" />
     <Compile Include="Contracts\IEventServices.cs" />
+    <Compile Include="Contracts\IInvitationServices.cs" />
     <Compile Include="Contracts\ILocalityServices.cs" />
     <Compile Include="Contracts\IUsersGroupServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +84,8 @@
     <Compile Include="Services\Group\GroupBaseRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupResponse.cs" />
+    <Compile Include="Services\Invitation\CreateInvitationRequest.cs" />
+    <Compile Include="Services\Invitation\CreateInvitationResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">

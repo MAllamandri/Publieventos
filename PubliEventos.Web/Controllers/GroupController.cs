@@ -7,6 +7,7 @@
     using System;
     using System.Web.Mvc;
     using System.Linq;
+    using PubliEventos.Contract.Services.Invitation;
 
     /// <summary>
     /// Controlador de grupos.
@@ -17,10 +18,16 @@
         #region Properties
 
         /// <summary>
-        /// Servicio de localidades.
+        /// Servicio de grupos.
         /// </summary>
         [Dependency]
         public IGroupServices serviceGroups { get; set; }
+
+        /// <summary>
+        /// Servicio de invitaciones.
+        /// </summary>
+        [Dependency]
+        public IInvitationServices servicesInvitations { get; set; }
 
         #endregion
 
@@ -76,6 +83,18 @@
             return View(model);
         }
 
+        /// <summary>
+        /// Detalle del grupo.
+        /// </summary>
+        /// <param name="id">Identificador del grupo.</param>
+        /// <returns>Detail view.</returns>
+        public ActionResult Detail(int id)
+        {
+            var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;
+
+            return View(group);
+        }
+
         #endregion
 
         #region Json Methods
@@ -91,9 +110,20 @@
         {
             if (ModelState.IsValid)
             {
-                // TO DO > Enviar invitaciones.
+                var response = this.serviceGroups.CreateGroup(model);
 
-                this.serviceGroups.CreateGroup(model);
+                //Mando las invitaciones.
+                foreach (var user in model.UserIds.Split(','))
+                {
+                    if (model.AdministratorId != Convert.ToInt32(user))
+                    {
+                        this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
+                        {
+                            GroupId = response.GroupId,
+                            UserId = Convert.ToInt32(user)
+                        });
+                    }
+                }
 
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -112,9 +142,22 @@
         {
             if (ModelState.IsValid)
             {
-                // TO DO > enviar invitaciones.
+                var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = model.GroupId }).Group;
 
                 this.serviceGroups.EditGroup(model);
+
+                //Mando las invitaciones a los nuevos usuarios.
+                foreach (var user in model.UserIds.Split(','))
+                {
+                    if (model.AdministratorId != Convert.ToInt32(user) && !group.Users.Select(x => x.Id).ToArray().Contains(Convert.ToInt32(user)))
+                    {
+                        this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
+                        {
+                            GroupId = model.GroupId,
+                            UserId = Convert.ToInt32(user)
+                        });
+                    }
+                }
 
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }

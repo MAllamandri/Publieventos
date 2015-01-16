@@ -168,6 +168,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvitationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -391,6 +392,8 @@
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Group\Partial\_Form.cshtml" />
     <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\Group\Detail.cshtml" />
+    <Content Include="Views\Invitation\MyInvitations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

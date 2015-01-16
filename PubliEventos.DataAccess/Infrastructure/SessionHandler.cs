@@ -40,6 +40,7 @@
                     configuration.AddFile(mappingPath + "Province.hbm.xml");
                     configuration.AddFile(mappingPath + "Group.hbm.xml");
                     configuration.AddFile(mappingPath + "UsersGroup.hbm.xml");
+                    configuration.AddFile(mappingPath + "Invitation.hbm.xml");
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;
