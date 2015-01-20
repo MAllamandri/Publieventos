@@ -74,8 +74,8 @@
             },
             complete: function (data) {
                 if (data.responseJSON.Success) {
-                    window.location.href = "/Group/MyGroups";
                     $.blockUI({ message: "" });
+                    window.location.href = "/Group/MyGroups";
                 } else {
                     $.each(data.responseJSON.Errors, function (index, value) {
                         var selector = "[name='" + index + "']";

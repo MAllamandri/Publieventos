@@ -26,5 +26,10 @@
         /// Usuarios del grupo.
         /// </summary>
         public List<User> Users { get; set; }
+
+        /// <summary>
+        /// Usuarios del grupo.
+        /// </summary>
+        public List<UserGroup> UsersGroup { get; set; }
     }
 }

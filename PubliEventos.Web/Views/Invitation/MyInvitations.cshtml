@@ -3,4 +3,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>MyInvitations</h2>
+@using PubliEventos.Contract.Class;
+
+<div class="row-fluid">
+    <div class="col-md-10 offset1">
+        <div style="margin-bottom: 25px" id="create">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <h2 class="subtitle">Mis Invitaciones</h2>
+                    @foreach (var invitation in (List<Invitation>)ViewBag.invitations)
+                    {
+
+                        var imageProfile = !string.IsNullOrEmpty(invitation.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + invitation.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+                        
+                        <div class="col-md-6 mosaic-invitation" style="margin-bottom: 140px; height: 180px;">
+                            <div class="col-md-12 mosaic" style="min-height: 170px; margin-top: 30px;">
+                                <div class="row-fluid">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="col-md-12" style="margin-top: 30px">
+                                                <div class="col-md-1" style="margin-right: 10px; display: inline;">
+                                                    <img src="@imageProfile" title="@invitation.User.UserName" alt="Perfil del usuario" class="profile-invitation img-circle right" data-src="holder.js/70x70">
+                                                </div>
+                                                <strong class="invitation-user">@invitation.User.UserName</strong>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 30px">
+                                                @if (invitation.Group != null)
+                                                {
+                                                    <div style="text-align: center">Te ha invitado a participar de su grupo:</div>
+                                                    <br />
+                                                    <div style="text-align: center; margin-bottom: 15px;">
+                                                        <strong class="invitation-title">@invitation.Group.Name</strong>
+                                                    </div>
+                                                }
+
+                                                @if (invitation.Event != null)
+                                                {
+                                                    <div style="text-align: center">Te ha invitado a participar de su evento:</div>
+                                                    <br />
+                                                    <div style="text-align: center; margin-bottom: 15px;">
+                                                        <a href="/Event/Detail/@invitation.Event.Id"><strong style="display: inline" class="invitation-title">@invitation.Event.Title.Substring(0, invitation.Event.Title.Length >= 50 ? 47 : invitation.Event.Title.Length)...</strong></a>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="col-md-12 invitation-actions" style="margin-bottom: 15px">
+                                                <a href="#" title="Aceptar Invitación" style="margin-right: 10px;"><i style="font-size: 20px;" class="icon-default glyphicon glyphicon-ok"></i></a>
+                                                <a href="#" title="Cancelar Invitación"><i style="font-size: 20px; margin-right: 10px;" class="icon-default glyphicon glyphicon-remove"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -18,5 +18,15 @@
         {
             return InvitationServices.CreateInvitation(request);
         }
+
+        /// <summary>
+        /// Obtiene las invitaciones de un usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchInvitationsByUserResponse SearchInvitationsByUser(SearchInvitationsByUserRequest request)
+        {
+            return InvitationServices.SearchInvitationsByUser(request);
+        }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Class\Province.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Class\Group.cs" />
+    <Compile Include="Class\UserGroup.cs" />
     <Compile Include="Contracts\IAccountServices.cs" />
     <Compile Include="Contracts\ICommentServices.cs" />
     <Compile Include="Contracts\IEventServices.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="Services\Group\LeaveGroupResponse.cs" />
     <Compile Include="Services\Invitation\CreateInvitationRequest.cs" />
     <Compile Include="Services\Invitation\CreateInvitationResponse.cs" />
+    <Compile Include="Services\Invitation\SearchInvitationsByUserRequest.cs" />
+    <Compile Include="Services\Invitation\SearchInvitationsByUserResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">

@@ -3,6 +3,8 @@
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.DataAccess.Querys;
     using System;
+    using NHibernate.Linq;
+    using System.Linq;
 
     /// <summary>
     /// Servicios de invitaciones.
@@ -27,6 +29,21 @@
             new BaseQuery<Domain.Domain.Invitation, int>().Create(invitation);
 
             return new CreateInvitationResponse();
+        }
+
+        /// <summary>
+        /// Obtiene las invitaciones de un usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchInvitationsByUserResponse SearchInvitationsByUser(SearchInvitationsByUserRequest request)
+        {
+            var invitations = CurrentSession.Query<Domain.Domain.Invitation>().Where(x => !x.NullDate.HasValue && !x.Confirmed.HasValue && x.User.Id == request.UserId).Select(x => InternalServices.GetInvitationSummary(x)).ToList();
+
+            return new SearchInvitationsByUserResponse()
+            {
+                Invitations = invitations
+            };
         }
     }
 }

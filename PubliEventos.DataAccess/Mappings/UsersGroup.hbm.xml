@@ -9,6 +9,7 @@
     </id>
     <property name="GroupId" />
     <property name="UserId" />
+    <property name="Active" />
     <property name="EffectDate" />
     <property name="NullDate" />
   </class>

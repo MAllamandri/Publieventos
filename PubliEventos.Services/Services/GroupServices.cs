@@ -21,7 +21,7 @@
         public static GetGroupsByUserResponse GetGroupsByUser(GetGroupsByUserRequest request)
         {
             var groups = CurrentSession.Query<Domain.Domain.Group>().Where(x => (x.Administrator.Id == request.UserId
-                                                                           || x.Users.Where(u => !u.NullDate.HasValue).Select(u => u.Id).Contains(request.UserId))
+                                                                           || x.UsersGroup.Where(u => u.UserId == request.UserId && u.Active.HasValue && u.Active.Value == true).Any())
                                                                            && !x.NullDate.HasValue).Select(x => InternalServices.GetGroupSummary(x)).ToList();
 
             return new GetGroupsByUserResponse()

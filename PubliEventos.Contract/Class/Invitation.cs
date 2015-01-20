@@ -3,7 +3,7 @@
     /// <summary>
     /// Representa una invitación.
     /// </summary>
-    public class Invitation
+    public class Invitation : BaseClass
     {
         /// <summary>
         /// Grupo.

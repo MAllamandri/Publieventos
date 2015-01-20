@@ -750,3 +750,37 @@ img {
 }
 
 /*#endregion */
+
+/*#region Invitations */
+
+.invitation-user {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    font-size: 30px;
+    position: absolute;
+    text-align: center;
+    color: #c25b4e;
+}
+
+.invitation-title {
+    font-family: 'Comic Sans MS';
+    font-size: medium;
+    text-align: center;
+    color: #2a6496;
+}
+
+.profile-invitation {
+    height: 70px;
+    width: 70px;
+}
+
+.mosaic-invitation:hover .invitation-actions {
+    display: block;
+}
+
+.invitation-actions {
+    display: none;
+}
+/*#endregion*/

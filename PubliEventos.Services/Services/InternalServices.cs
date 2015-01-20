@@ -91,7 +91,30 @@
                 Id = group.Id,
                 Name = group.Name,
                 Message = group.Message,
-                Users = group.Users.Select(x => this.GetUserSummary(x)).ToList()
+                Users = group.Users.Select(x => this.GetUserSummary(x)).ToList(),
+                UsersGroup = group.UsersGroup.Select(x => new UserGroup()
+                {
+                    GroupId = x.GroupId,
+                    UserId = x.UserId,
+                    Active = x.Active
+                }).ToList()
+            };
+        }
+
+        /// <summary>
+        /// Parsea una invitación.
+        /// </summary>
+        /// <param name="invitation">Invitación.</param>
+        /// <returns>Retorna una invitación de contrato.</returns>
+        public Invitation GetInvitationSummary(Domain.Domain.Invitation invitation)
+        {
+            return new Invitation()
+            {
+                Id = invitation.Id,
+                Confirmed = invitation.Confirmed,
+                Event = invitation.Event != null ? this.GetEventSummary(invitation.Event) : null,
+                Group = invitation.Group != null ? this.GetGroupSummary(invitation.Group) : null,
+                User = this.GetUserSummary(invitation.User)
             };
         }
     }

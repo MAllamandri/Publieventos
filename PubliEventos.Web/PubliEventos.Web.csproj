@@ -350,6 +350,7 @@
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
     <Content Include="ViewScripts\Group\Base.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
+    <Content Include="ViewScripts\Invitation\MyInvitations.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\spin.min.js" />

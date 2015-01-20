@@ -19,6 +19,11 @@
         public virtual int UserId { get; set; }
 
         /// <summary>
+        /// Indica si el usuario esta activo en el grupo.
+        /// </summary>
+        public virtual bool? Active { get; set; }
+
+        /// <summary>
         /// Fecha de alta.
         /// </summary>
         public virtual DateTime EffectDate { get; set; }
