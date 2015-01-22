@@ -74,7 +74,9 @@
         /// <returns>Evento.</returns>
         public static Event GetEventById(int id)
         {
-            return CurrentSession.Query<Domain.Domain.Event>().Where(x => x.Id == id && !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetEventSummary(x)).SingleOrDefault();
+            var _event = CurrentSession.Query<Domain.Domain.Event>().Where(x => x.Id == id && !x.NullDate.HasValue && x.Active).SingleOrDefault();
+
+            return InternalServices.GetEventSummary(_event);
         }
 
         /// <summary>

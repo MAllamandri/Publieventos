@@ -20,5 +20,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         SearchInvitationsByUserResponse SearchInvitationsByUser(SearchInvitationsByUserRequest request);
+
+        /// <summary>
+        /// Registra la respuesta a la invitación.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        ReplyInvitationResponse ReplyInvitation(ReplyInvitationRequest request);
     }
 }

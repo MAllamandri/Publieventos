@@ -5,6 +5,7 @@
     using System;
     using NHibernate.Linq;
     using System.Linq;
+    using System.Transactions;
 
     /// <summary>
     /// Servicios de invitaciones.
@@ -44,6 +45,33 @@
             {
                 Invitations = invitations
             };
+        }
+
+        /// <summary>
+        /// Registra la respuesta a la invitación.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static ReplyInvitationResponse ReplyInvitation(ReplyInvitationRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var invitation = CurrentSession.Query<Domain.Domain.Invitation>().Where(x => !x.NullDate.HasValue && x.Id == request.InvitationId).FirstOrDefault();
+
+                invitation.Confirmed = request.Reply;
+
+                // Si la invitación fue a un grupo, activo el usuario.
+                if (invitation.Group != null && !invitation.Group.NullDate.HasValue)
+                {
+                    var userGroup = invitation.Group.UsersGroup.Where(x => x.UserId == invitation.User.Id && !x.NullDate.HasValue && !x.Active.HasValue).SingleOrDefault();
+
+                    userGroup.Active = request.Reply;
+                }
+
+                transaction.Complete();
+
+                return new ReplyInvitationResponse();
+            }
         }
     }
 }

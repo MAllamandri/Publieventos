@@ -3,13 +3,16 @@
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
+    using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Comment;
     using PubliEventos.Contract.Services.Event;
+    using PubliEventos.Web.Filters;
     using PubliEventos.Web.Helpers;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
 
     [Authorize]
@@ -46,15 +49,10 @@
         /// Vista de edición de eventos.
         /// </summary>
         /// <returns>Edit view.</returns>
+        [UserActionRestriction(ElementTypesConstraintValidations.Event)]
         public ActionResult Edit(int id)
         {
             var model = this.GetEventSummary(this.serviceEvents.GetEventById(id));
-
-            // Si no es el usuario creador, lanzo error.
-            if (model.UserId != User.Id)
-            {
-                return RedirectToAction("UnauthorizedAccess", "Error");
-            }
 
             ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
 
@@ -69,7 +67,11 @@
         public ActionResult Detail(int id)
         {
             var model = this.serviceEvents.GetEventById(id);
-            ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments.OrderByDescending(x => x.EffectDate).ToList();
+
+            if (model != null)
+            {
+                ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments.OrderByDescending(x => x.EffectDate).ToList();
+            }
 
             return View(model);
         }

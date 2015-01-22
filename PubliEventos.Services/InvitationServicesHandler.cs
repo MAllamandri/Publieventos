@@ -28,5 +28,15 @@
         {
             return InvitationServices.SearchInvitationsByUser(request);
         }
+
+        /// <summary>
+        /// Registra la respuesta a la invitación.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public ReplyInvitationResponse ReplyInvitation(ReplyInvitationRequest request)
+        {
+            return InvitationServices.ReplyInvitation(request);
+        }
     }
 }

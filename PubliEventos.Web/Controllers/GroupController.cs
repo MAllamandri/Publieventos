@@ -8,6 +8,8 @@
     using System.Web.Mvc;
     using System.Linq;
     using PubliEventos.Contract.Services.Invitation;
+    using PubliEventos.Web.Filters;
+    using PubliEventos.Contract.Enums;
 
     /// <summary>
     /// Controlador de grupos.
@@ -60,6 +62,7 @@
         /// </summary>
         /// <param name="groupId">Identificador del grupo.</param>
         /// <returns>Edit View.</returns>
+        [UserActionRestriction(ElementTypesConstraintValidations.Group)]
         public ActionResult Edit(int id)
         {
             var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;
@@ -88,6 +91,7 @@
         /// </summary>
         /// <param name="id">Identificador del grupo.</param>
         /// <returns>Detail view.</returns>
+        [UserActionRestriction(ElementTypesConstraintValidations.Group)]
         public ActionResult Detail(int id)
         {
             var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;

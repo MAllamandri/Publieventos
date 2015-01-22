@@ -1,4 +1,6 @@
 ﻿$(function () {
+    $('#SignUpModel_UserNameToRegister').charactersQuantity(30);
+
     if (data.IsLogin === true) {
         $('#login').attr('class', 'tab-pane active');
         $('#create').attr('class', 'tab-pane fane');
@@ -36,6 +38,8 @@
 
     $('#SignUpModel_UserNameToRegister').blur(function () {
         $('#alertUserExist').hide();
+
+        $(this).val($(this).val().replace(" ", ""));
 
         if (existUser()) {
             $('#alertUserExist').show();

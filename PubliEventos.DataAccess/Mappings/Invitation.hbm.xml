@@ -8,9 +8,9 @@
       <generator class="identity" />
     </id>
     <property name="Confirmed" />
-    <many-to-one name="User" class="User" column="UserId"/>
-    <many-to-one name="Event" class="Event" column="EventId"/>
-    <many-to-one name="Group" class="Group" column="GroupId"/>
+    <many-to-one name="User" class="User" column="UserId" />
+    <many-to-one name="Event" class="Event" column="EventId" />
+    <many-to-one name="Group" class="Group" column="GroupId" />
     <property name="EffectDate" />
     <property name="NullDate" />
   </class>

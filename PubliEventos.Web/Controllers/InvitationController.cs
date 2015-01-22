@@ -39,5 +39,30 @@
         }
 
         #endregion
+
+        #region Json Methods
+
+        /// <summary>
+        /// Registra la respuesta a una invitación.
+        /// </summary>
+        /// <param name="invitationId">Identificador de la invitación.</param>
+        /// <param name="reply">Respuesta a la invitación.</param>
+        /// <returns>True si se registro correctamente, false caso contrario.</returns>
+        public JsonResult ReplyInvitation(int invitationId, bool reply)
+        {
+            try
+            {
+                this.servicesInvitations.ReplyInvitation(new ReplyInvitationRequest() { InvitationId = invitationId, Reply = reply });
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        #endregion
     }
 }

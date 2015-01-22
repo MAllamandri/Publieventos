@@ -3,6 +3,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Invitation/MyInvitations.js")
+
 @using PubliEventos.Contract.Class;
 
 <div class="row-fluid">
@@ -47,8 +51,8 @@
                                                 }
                                             </div>
                                             <div class="col-md-12 invitation-actions" style="margin-bottom: 15px">
-                                                <a href="#" title="Aceptar Invitación" style="margin-right: 10px;"><i style="font-size: 20px;" class="icon-default glyphicon glyphicon-ok"></i></a>
-                                                <a href="#" title="Cancelar Invitación"><i style="font-size: 20px; margin-right: 10px;" class="icon-default glyphicon glyphicon-remove"></i></a>
+                                                <a href="#" title="Aceptar Invitación" class="replyInvitation confirm" rel="@invitation.Id" style="margin-right: 10px;"><i style="font-size: 20px;" class="icon-default glyphicon glyphicon-ok"></i></a>
+                                                <a href="#" title="Cancelar Invitación" class="replyInvitation cancel" rel="@invitation.Id"><i style="font-size: 20px; margin-right: 10px;" class="icon-default glyphicon glyphicon-remove"></i></a>
                                             </div>
                                         </div>
                                     </div>

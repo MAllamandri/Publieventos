@@ -169,12 +169,14 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvitationController.cs" />
+    <Compile Include="Filters\UserActionRestriction.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Encryptor.cs" />
     <Compile Include="Helpers\ModelErrors.cs" />
     <Compile Include="Hubs\CommentHub.cs" />
+    <Compile Include="Infrastructure\DependencyInjection.cs" />
     <Compile Include="Models\AccountModels\LoginModel.cs" />
     <Compile Include="Models\AccountModels\SignUpModel.cs" />
     <Compile Include="Models\AccountModels\UserModel.cs" />
@@ -440,7 +442,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>12925</DevelopmentServerPort>
+          <DevelopmentServerPort>3072</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -12,6 +12,11 @@
         /// <returns>Evento de contrato.</returns>
         public Event GetEventSummary(Domain.Domain.Event eventToParse)
         {
+            if (eventToParse == null)
+            {
+                return null;
+            }
+
             return new Event()
             {
                 Id = eventToParse.Id,
