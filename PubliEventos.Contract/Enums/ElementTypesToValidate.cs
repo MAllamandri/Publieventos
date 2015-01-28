@@ -3,7 +3,7 @@
     /// <summary>
     /// Representa los elementos a aplicar validaciones de restricción.
     /// </summary>
-    public enum ElementTypesConstraintValidations
+    public enum ElementTypesToValidate
     {
         Event = 1,
         Group = 2

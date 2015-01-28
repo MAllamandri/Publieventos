@@ -49,7 +49,7 @@
         /// Vista de edición de eventos.
         /// </summary>
         /// <returns>Edit view.</returns>
-        [UserActionRestriction(ElementTypesConstraintValidations.Event)]
+        [UserActionRestriction(ElementTypesToValidate.Event)]
         public ActionResult Edit(int id)
         {
             var model = this.GetEventSummary(this.serviceEvents.GetEventById(id));
@@ -64,6 +64,7 @@
         /// </summary>
         /// <param name="id">Id del evento.</param>
         /// <returns>Detail view.</returns>
+        [UserActionRestriction(ElementTypesToValidate.Event)]
         public ActionResult Detail(int id)
         {
             var model = this.serviceEvents.GetEventById(id);
@@ -116,6 +117,7 @@
 
             return PartialView("Partial/_Mosaic", events);
         }
+
 
         #region Private Methods
 

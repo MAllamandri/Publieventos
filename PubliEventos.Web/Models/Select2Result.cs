@@ -3,7 +3,7 @@
     /// <summary>
     /// Representa el resultado en el componente select2.
     /// </summary>
-    public class Select2UserResult
+    public class Select2Result
     {
         /// <summary>
         /// Identificador del usuario.

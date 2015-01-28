@@ -176,5 +176,31 @@
                 return new EditGroupResponse();
             }
         }
+
+        /// <summary>
+        /// Obtiene grupos por su nombre.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchGroupsByPartialNameResponse SearchGroupsByPartialName(SearchGroupsByPartialNameRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var total = CurrentSession.Query<Domain.Domain.Group>().
+                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue).Count();
+
+                var groups = CurrentSession.Query<Domain.Domain.Group>().
+                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue)
+                     .Skip(request.PageNumber - 1)
+                     .Take(request.PageSize)
+                     .Select(u => InternalServices.GetGroupSummary(u)).ToList();
+
+                return new SearchGroupsByPartialNameResponse()
+                {
+                    Groups = groups,
+                    Quantity = total
+                };
+            }
+        }
     }
 }

@@ -76,6 +76,11 @@
         {
             var _event = CurrentSession.Query<Domain.Domain.Event>().Where(x => x.Id == id && !x.NullDate.HasValue && x.Active).SingleOrDefault();
 
+            if (_event == null)
+            {
+                throw new Exception("El evento no existe o fue dado de baja");
+            }
+
             return InternalServices.GetEventSummary(_event);
         }
 

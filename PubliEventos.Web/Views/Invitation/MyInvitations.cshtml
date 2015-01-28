@@ -17,9 +17,9 @@
                     <h2 class="subtitle">Mis Invitaciones</h2>
                     @foreach (var invitation in (List<Invitation>)ViewBag.invitations)
                     {
-
-                        var imageProfile = !string.IsNullOrEmpty(invitation.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + invitation.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
-                        
+                        var userAdministrator = invitation.Event != null ? invitation.Event.User : invitation.Group.Administrator;
+                        var imageProfile = !string.IsNullOrEmpty(userAdministrator.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + userAdministrator.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+                            
                         <div class="col-md-6 mosaic-invitation" style="margin-bottom: 140px; height: 180px;">
                             <div class="col-md-12 mosaic" style="min-height: 170px; margin-top: 30px;">
                                 <div class="row-fluid">
@@ -27,9 +27,9 @@
                                         <div class="col-md-12">
                                             <div class="col-md-12" style="margin-top: 30px">
                                                 <div class="col-md-1" style="margin-right: 10px; display: inline;">
-                                                    <img src="@imageProfile" title="@invitation.User.UserName" alt="Perfil del usuario" class="profile-invitation img-circle right" data-src="holder.js/70x70">
+                                                    <img src="@imageProfile" title="@userAdministrator.UserName" alt="Perfil del usuario" class="profile-invitation img-circle right" data-src="holder.js/70x70">
                                                 </div>
-                                                <strong class="invitation-user">@invitation.User.UserName</strong>
+                                                <strong class="invitation-user">@userAdministrator.UserName</strong>
                                             </div>
                                             <div class="col-md-12" style="margin-top: 30px">
                                                 @if (invitation.Group != null)

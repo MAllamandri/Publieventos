@@ -48,5 +48,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         EditGroupResponse EditGroup(EditGroupRequest request);
+
+        /// <summary>
+        /// Obtiene grupos por su nombre.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        SearchGroupsByPartialNameResponse SearchGroupsByPartialName(SearchGroupsByPartialNameRequest request);
     }
 }

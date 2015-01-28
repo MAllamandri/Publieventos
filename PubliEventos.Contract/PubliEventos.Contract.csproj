@@ -57,7 +57,7 @@
     <Compile Include="Contracts\IInvitationServices.cs" />
     <Compile Include="Contracts\ILocalityServices.cs" />
     <Compile Include="Contracts\IUsersGroupServices.cs" />
-    <Compile Include="Enums\ElementTypesConstraintValidations.cs" />
+    <Compile Include="Enums\ElementTypesToValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameRequest.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameResponse.cs" />
@@ -86,10 +86,14 @@
     <Compile Include="Services\Group\GroupBaseRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupResponse.cs" />
+    <Compile Include="Services\Group\SearchGroupsByPartialNameRequest.cs" />
+    <Compile Include="Services\Group\SearchGroupsByPartialNameResponse.cs" />
     <Compile Include="Services\Invitation\CreateInvitationRequest.cs" />
     <Compile Include="Services\Invitation\CreateInvitationResponse.cs" />
     <Compile Include="Services\Invitation\ReplyInvitationRequest.cs" />
     <Compile Include="Services\Invitation\ReplyInvitationResponse.cs" />
+    <Compile Include="Services\Invitation\SearchInvitationsByEventRequest.cs" />
+    <Compile Include="Services\Invitation\SearchInvitationsByEventResponse.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByUserRequest.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByUserResponse.cs" />
   </ItemGroup>

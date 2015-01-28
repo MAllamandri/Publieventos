@@ -2,14 +2,16 @@
 {
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
+    using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Group;
-    using PubliEventos.Web.Helpers;
-    using System;
-    using System.Web.Mvc;
-    using System.Linq;
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.Filters;
-    using PubliEventos.Contract.Enums;
+    using PubliEventos.Web.Helpers;
+    using PubliEventos.Web.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Controlador de grupos.
@@ -62,16 +64,10 @@
         /// </summary>
         /// <param name="groupId">Identificador del grupo.</param>
         /// <returns>Edit View.</returns>
-        [UserActionRestriction(ElementTypesConstraintValidations.Group)]
+        [UserActionRestriction(ElementTypesToValidate.Group)]
         public ActionResult Edit(int id)
         {
             var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;
-
-            // Si no es el usuario creador, lo llevo a la página de error.
-            if (group.Administrator.Id != User.Id)
-            {
-                return RedirectToAction("UnauthorizedAccess", "Error");
-            }
 
             var model = new EditGroupRequest()
             {
@@ -91,7 +87,7 @@
         /// </summary>
         /// <param name="id">Identificador del grupo.</param>
         /// <returns>Detail view.</returns>
-        [UserActionRestriction(ElementTypesConstraintValidations.Group)]
+        [UserActionRestriction(ElementTypesToValidate.Group)]
         public ActionResult Detail(int id)
         {
             var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;
@@ -206,6 +202,31 @@
             {
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// Busca grupo por autocompletado de su nombre.
+        /// </summary>
+        /// <param name="groupName">Nombre de grupo.</param>
+        /// <param name="pageNumber">Número de página.</param>
+        /// <param name="pageSize">Tamaño de página.</param>
+        /// <returns>Grupos encontrados.</returns>
+        public JsonResult SearchGroupsByName(string groupName, int pageNumber, int pageSize)
+        {
+            List<Select2Result> Groups = new List<Select2Result>();
+
+            var response = this.serviceGroups.SearchGroupsByPartialName(new SearchGroupsByPartialNameRequest() { Name = groupName, PageNumber = pageNumber, PageSize = pageSize });
+
+            foreach (var group in response.Groups)
+            {
+                var groupResult = new Select2Result();
+                groupResult.id = group.Id.Value;
+                groupResult.text = group.Name;
+
+                Groups.Add(groupResult);
+            }
+
+            return Json(new { Groups = Groups, Quantity = response.Quantity }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

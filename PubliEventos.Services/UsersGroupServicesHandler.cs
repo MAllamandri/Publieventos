@@ -68,5 +68,15 @@
         {
             return GroupServices.EditGroup(request);
         }
+
+        /// <summary>
+        /// Obtiene grupos por su nombre.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchGroupsByPartialNameResponse SearchGroupsByPartialName(SearchGroupsByPartialNameRequest request)
+        {
+            return GroupServices.SearchGroupsByPartialName(request);
+        }
     }
 }

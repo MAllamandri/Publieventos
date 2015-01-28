@@ -18,12 +18,21 @@ namespace PubliEventos.Web
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/Select2").Include(
+                "~/Scripts/Select2.js",
+                "~/Scripts/select2_locale_es.js",
+                "~/ViewScripts/Shared/Select2.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/Select2-css").Include(
+                "~/Content/Select2/select2-bootstrap.css",
+                "~/Content/Select2/select2.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

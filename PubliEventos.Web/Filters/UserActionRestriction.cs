@@ -5,6 +5,7 @@
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.Group;
+    using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.App_Start;
     using System;
     using System.Linq;
@@ -30,6 +31,12 @@
         public IGroupServices serviceGroups { get; set; }
 
         /// <summary>
+        /// Servicio de invitaciones.
+        /// </summary>
+        [Dependency]
+        public IInvitationServices serviceInvitations { get; set; }
+
+        /// <summary>
         /// Tipo de elemento a validar.
         /// </summary>
         private int ElementType { get; set; }
@@ -42,12 +49,13 @@
         /// Constructor.
         /// </summary>
         /// <param name="elementType">Tipo de objeto a validar.</param>
-        public UserActionRestriction(ElementTypesConstraintValidations elementType)
+        public UserActionRestriction(ElementTypesToValidate elementType)
         {
             this.ElementType = (int)elementType;
 
             this.serviceEvents = DependencyResolver.Current.GetService<IEventServices>();
             this.serviceGroups = DependencyResolver.Current.GetService<IGroupServices>();
+            this.serviceInvitations = DependencyResolver.Current.GetService<IInvitationServices>();
         }
 
         #endregion
@@ -73,7 +81,7 @@
             var element = this.GetElement(id, this.ElementType);
             var valid = true;
 
-            if (this.ElementType == (int)ElementTypesConstraintValidations.Event)
+            if (this.ElementType == (int)ElementTypesToValidate.Event)
             {
                 Event _event = (Event)element;
 
@@ -82,12 +90,22 @@
                     throw new Exception("El evento no existe o fue dado de baja.");
                 }
 
-                if (_event.User.Id != user.Id)
+                if (filterContext.ActionDescriptor.ActionName == "Edit" && _event.User.Id != user.Id)
+                {
+                    valid = false;
+                }
+
+                var invitations = this.serviceInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = _event.Id.Value }).Invitations;
+
+                if (filterContext.ActionDescriptor.ActionName == "Detail" &&
+                    _event.Private &&
+                    !invitations.Where(x => x.User.Id == user.Id && x.Confirmed != false).Any() &&
+                    _event.User.Id != user.Id)
                 {
                     valid = false;
                 }
             }
-            else if (this.ElementType == (int)ElementTypesConstraintValidations.Group)
+            else if (this.ElementType == (int)ElementTypesToValidate.Group)
             {
                 Group group = (Group)element;
 
@@ -101,7 +119,9 @@
                     valid = false;
                 }
 
-                if (filterContext.ActionDescriptor.ActionName == "Detail" && !group.UsersGroup.Where(x => x.Active.HasValue && x.Active.Value == true).Select(x => x.UserId).Contains(user.Id))
+                if (filterContext.ActionDescriptor.ActionName == "Detail" &&
+                    !group.UsersGroup.Where(x => x.Active.HasValue && x.Active.Value == true).Select(x => x.UserId).Contains(user.Id) &&
+                    group.Administrator.Id != user.Id)
                 {
                     valid = false;
                 }
@@ -162,11 +182,11 @@
         {
             if (elementId.HasValue)
             {
-                if (elementType == (int)ElementTypesConstraintValidations.Event)
+                if (elementType == (int)ElementTypesToValidate.Event)
                 {
                     return this.serviceEvents.GetEventById(elementId.Value);
                 }
-                else if (elementType == (int)ElementTypesConstraintValidations.Group)
+                else if (elementType == (int)ElementTypesToValidate.Group)
                 {
                     return this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = elementId.Value }).Group;
                 }

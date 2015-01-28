@@ -1,6 +1,15 @@
 ﻿namespace PubliEventos.Web.Controllers
 {
+    using Microsoft.Practices.Unity;
+    using PubliEventos.Contract.Class;
+    using PubliEventos.Contract.Contracts;
+    using PubliEventos.Contract.Services.Account;
+    using PubliEventos.Web.App_Start;
+    using PubliEventos.Web.Helpers;
+    using PubliEventos.Web.Models;
+    using PubliEventos.Web.Models.AccountModels;
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
     using System.Net;
@@ -9,15 +18,6 @@
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
     using System.Web.Security;
-    using Microsoft.Practices.Unity;
-    using PubliEventos.Contract.Class;
-    using PubliEventos.Contract.Contracts;
-    using PubliEventos.Web.App_Start;
-    using PubliEventos.Web.Helpers;
-    using PubliEventos.Web.Models.AccountModels;
-    using PubliEventos.Web.Models;
-    using System.Collections.Generic;
-    using PubliEventos.Contract.Services.Account;
 
     /// <summary>
     /// Controlador de cuentas.
@@ -376,13 +376,13 @@
         /// <returns>Usuarios encontrados.</returns>
         public JsonResult SearchUsersByUserName(string userName, int pageNumber, int pageSize)
         {
-            List<Select2UserResult> Users = new List<Select2UserResult>();
+            List<Select2Result> Users = new List<Select2Result>();
 
             var response = this.serviceAccounts.SearchUsersByPartialUserName(new SearchUsersByPartialUserNameRequest() { UserName = userName, PageNumber = pageNumber, PageSize = pageSize });
 
             foreach (var user in response.Users)
             {
-                var userResult = new Select2UserResult();
+                var userResult = new Select2Result();
                 userResult.id = user.Id.Value;
                 userResult.text = user.UserName;
 

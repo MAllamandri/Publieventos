@@ -176,11 +176,10 @@
     <Compile Include="Helpers\Encryptor.cs" />
     <Compile Include="Helpers\ModelErrors.cs" />
     <Compile Include="Hubs\CommentHub.cs" />
-    <Compile Include="Infrastructure\DependencyInjection.cs" />
     <Compile Include="Models\AccountModels\LoginModel.cs" />
     <Compile Include="Models\AccountModels\SignUpModel.cs" />
     <Compile Include="Models\AccountModels\UserModel.cs" />
-    <Compile Include="Models\Select2UserResult.cs" />
+    <Compile Include="Models\Select2Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -352,7 +351,9 @@
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
     <Content Include="ViewScripts\Group\Base.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
+    <Content Include="ViewScripts\Invitation\InviteToEvent.js" />
     <Content Include="ViewScripts\Invitation\MyInvitations.js" />
+    <Content Include="ViewScripts\Shared\Select2.js" />
     <Content Include="ViewScripts\Shared\Shared.js" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\spin.min.js" />
@@ -397,11 +398,13 @@
     <Content Include="Views\Group\Edit.cshtml" />
     <Content Include="Views\Group\Detail.cshtml" />
     <Content Include="Views\Invitation\MyInvitations.cshtml" />
+    <Content Include="Views\Invitation\InviteToEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\EventsPictures\" />
     <Folder Include="Content\images\Profiles\" />
+    <Folder Include="Infrastructure\" />
     <Folder Include="Models\EventModels\" />
     <Folder Include="ViewScripts\Comment\Partial\" />
   </ItemGroup>

@@ -27,5 +27,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         ReplyInvitationResponse ReplyInvitation(ReplyInvitationRequest request);
+
+        /// <summary>
+        /// Obtiene invitaciones de un evento.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        SearchInvitationsByEventResponse SearchInvitationsByEvent(SearchInvitationsByEventRequest request);
     }
 }

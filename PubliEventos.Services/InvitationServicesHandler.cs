@@ -38,5 +38,15 @@
         {
             return InvitationServices.ReplyInvitation(request);
         }
+
+        /// <summary>
+        /// Obtiene invitaciones de un evento.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchInvitationsByEventResponse SearchInvitationsByEvent(SearchInvitationsByEventRequest request)
+        {
+            return InvitationServices.SearchInvitationsByEvent(request);
+        }
     }
 }

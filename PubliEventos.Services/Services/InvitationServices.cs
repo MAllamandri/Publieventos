@@ -1,9 +1,9 @@
 ﻿namespace PubliEventos.Services.Services
 {
+    using NHibernate.Linq;
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.DataAccess.Querys;
     using System;
-    using NHibernate.Linq;
     using System.Linq;
     using System.Transactions;
 
@@ -72,6 +72,21 @@
 
                 return new ReplyInvitationResponse();
             }
+        }
+
+        /// <summary>
+        /// Obtiene invitaciones de un evento.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchInvitationsByEventResponse SearchInvitationsByEvent(SearchInvitationsByEventRequest request)
+        {
+            var invitations = CurrentSession.Query<Domain.Domain.Invitation>().Where(x => !x.NullDate.HasValue && x.Event.Id == request.EventId).Select(x => InternalServices.GetInvitationSummary(x)).ToList();
+
+            return new SearchInvitationsByEventResponse()
+            {
+                Invitations = invitations
+            };
         }
     }
 }
