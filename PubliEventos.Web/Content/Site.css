@@ -783,4 +783,27 @@ img {
 .invitation-actions {
     display: none;
 }
+
+.participants-image-profile {
+    height: 40px;
+    width: 40px;
+}
+
+.participants-user {
+    padding-top: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: #c25b4e;
+    min-height: 40px;
+}
+
+.partipants-panel {
+    width: 350px !important;
+    height: 400px !important;
+    border-radius: 15px 15px 15px 15px;
+    border: 2px solid;
+    box-shadow: 10px 10px 10px 10px #888888;
+    border-color: #B89C83;
+}
+
 /*#endregion*/

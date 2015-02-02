@@ -105,7 +105,8 @@
                     valid = false;
                 }
             }
-            else if (this.ElementType == (int)ElementTypesToValidate.Group)
+
+            if (this.ElementType == (int)ElementTypesToValidate.Group)
             {
                 Group group = (Group)element;
 
@@ -122,6 +123,21 @@
                 if (filterContext.ActionDescriptor.ActionName == "Detail" &&
                     !group.UsersGroup.Where(x => x.Active.HasValue && x.Active.Value == true).Select(x => x.UserId).Contains(user.Id) &&
                     group.Administrator.Id != user.Id)
+                {
+                    valid = false;
+                }
+            }
+
+            if (this.ElementType == (int)ElementTypesToValidate.InvitationToEvent)
+            {
+                Event _event = (Event)element;
+
+                if (_event == null)
+                {
+                    throw new Exception("El evento no existe o fue dado de baja.");
+                }
+
+                if (filterContext.ActionDescriptor.ActionName == "InviteToEvent" && _event.User.Id != user.Id)
                 {
                     valid = false;
                 }
@@ -182,11 +198,12 @@
         {
             if (elementId.HasValue)
             {
-                if (elementType == (int)ElementTypesToValidate.Event)
+                if (elementType == (int)ElementTypesToValidate.Event || elementType == (int)ElementTypesToValidate.InvitationToEvent)
                 {
                     return this.serviceEvents.GetEventById(elementId.Value);
                 }
-                else if (elementType == (int)ElementTypesToValidate.Group)
+
+                if (elementType == (int)ElementTypesToValidate.Group)
                 {
                     return this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = elementId.Value }).Group;
                 }

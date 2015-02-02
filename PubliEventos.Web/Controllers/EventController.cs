@@ -6,6 +6,7 @@
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Comment;
     using PubliEventos.Contract.Services.Event;
+    using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.Filters;
     using PubliEventos.Web.Helpers;
     using System;
@@ -31,6 +32,12 @@
         /// </summary>
         [Dependency]
         public ICommentServices serviceComments { get; set; }
+
+        /// <summary>
+        /// Servicio de invitaciones.
+        /// </summary>
+        [Dependency]
+        public IInvitationServices servicesInvitations { get; set; }
 
         #endregion
 
@@ -71,6 +78,10 @@
 
             if (model != null)
             {
+                var invitations = this.servicesInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = id }).Invitations;
+
+                ViewBag.participants = invitations.Where(x => x.Confirmed == true).Select(x => x.User).ToList();
+                ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
                 ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments.OrderByDescending(x => x.EffectDate).ToList();
             }
 

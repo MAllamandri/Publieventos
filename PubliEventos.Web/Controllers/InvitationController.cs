@@ -2,8 +2,10 @@
 {
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Contracts;
+    using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Group;
     using PubliEventos.Contract.Services.Invitation;
+    using PubliEventos.Web.Filters;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -56,9 +58,15 @@
         /// </summary>
         /// <param name="id">Identificador del evento.</param>
         /// <returns>InviteToEvent view.</returns>
+        [UserActionRestriction(ElementTypesToValidate.InvitationToEvent)]
         public ActionResult InviteToEvent(int id)
         {
             var model = this.serviceEvents.GetEventById(id);
+
+            var invitations = this.servicesInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = id }).Invitations;
+
+            ViewBag.participants = invitations.Where(x => x.Confirmed == true).Select(x => x.User).ToList();
+            ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
 
             return View(model);
         }

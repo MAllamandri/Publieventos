@@ -1,4 +1,8 @@
 ﻿$(function () {
+    $('.nano').nanoScroller({
+        flash: true
+    });
+
     $(document).on("click", '#comment', function (event) {
         $('#commentModal').modal('show');
     });
@@ -186,6 +190,4 @@
             });
         }
     });
-
-
 });

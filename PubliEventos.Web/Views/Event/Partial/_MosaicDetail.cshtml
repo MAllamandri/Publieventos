@@ -41,10 +41,10 @@
                 <div style="margin-bottom: 20px">
                     @if (ViewData["IsInvitation"] == null || (bool)ViewData["IsInvitation"] == false)
                     {
-                        <a href="#" id="comment" title="Comentar"><span class="icon-default icon-comments"></span></a>
+                        <a href="#" id="comment" title="Comentar"><span style="font-size: 20px" class="icon-default icon-comments"></span></a>
                         if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == @Model.User.Id)
                         {
-                        <a style="padding-right: 10px" href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span class="icon-default icon-user"></span></a>
+                        <a style="padding-right: 10px" href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span style="font-size: 20px" class="icon-default icon-user"></span></a>
                         }
                     }
                 </div>

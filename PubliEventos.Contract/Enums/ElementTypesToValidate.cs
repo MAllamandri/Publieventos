@@ -6,6 +6,7 @@
     public enum ElementTypesToValidate
     {
         Event = 1,
-        Group = 2
+        Group = 2,
+        InvitationToEvent = 3
     }
 }

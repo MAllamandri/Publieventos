@@ -1,4 +1,8 @@
 ﻿$(function () {
+    $('.nano').nanoScroller({
+        flash: true
+    });
+
     $('#Send').click(function () {
         $('#SendForm').ajaxForm({
             url: '/Invitation/InviteToEvent',
