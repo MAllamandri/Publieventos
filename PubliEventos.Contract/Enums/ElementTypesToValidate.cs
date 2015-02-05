@@ -7,6 +7,7 @@
     {
         Event = 1,
         Group = 2,
-        InvitationToEvent = 3
+        InvitationToEvent = 3,
+        Profile = 4
     }
 }

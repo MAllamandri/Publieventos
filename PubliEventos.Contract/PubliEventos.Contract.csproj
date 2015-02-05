@@ -59,6 +59,12 @@
     <Compile Include="Contracts\IUsersGroupServices.cs" />
     <Compile Include="Enums\ElementTypesToValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account\EditProfileRequest.cs" />
+    <Compile Include="Services\Account\EditProfileResponse.cs" />
+    <Compile Include="Services\Account\ExistsEmailRequest.cs" />
+    <Compile Include="Services\Account\ExistsEmailResponse.cs" />
+    <Compile Include="Services\Account\GetUserByIdRequest.cs" />
+    <Compile Include="Services\Account\GetUserByIdResponse.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameRequest.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameResponse.cs" />
     <Compile Include="Services\Comment\CreateCommentRequest.cs" />

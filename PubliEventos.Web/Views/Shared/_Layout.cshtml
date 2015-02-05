@@ -44,8 +44,8 @@
                     {
                         <a title="Salir" href="/Account/LogOut">
                             <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
-                        <img src="@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-circle right" data-src="holder.js/50x50">
-                        <a title="Editar Perfil" href="#"><span class="username">@User.Identity.Name</span></a>
+                        <img src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-circle right" data-src="holder.js/50x50">
+                        <a title="Ver mi Perfil" href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><span class="username">@User.Identity.Name</span></a>
                     }
                 </div>
             </div>

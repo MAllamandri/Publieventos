@@ -8,6 +8,7 @@
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Invitation/MyInvitations.js")
 
 @using PubliEventos.Contract.Class;
+@using System.Linq;
 
 <div class="row-fluid">
     <div class="col-md-10 offset1">
@@ -15,6 +16,16 @@
             <div class="row-fluid">
                 <div class="col-md-12">
                     <h2 class="subtitle">Mis Invitaciones</h2>
+                    @if (((List<Invitation>)ViewBag.invitations).Count == 0)
+                    {
+                        <div class="row-fluid">
+                            <div class="col-md-6 offset3">
+                                <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Tiene Invitaciones Pendientes</p>
+                            </div>
+                        </div>
+
+                    }
+
                     @foreach (var invitation in (List<Invitation>)ViewBag.invitations)
                     {
                         var userAdministrator = invitation.Event != null ? invitation.Event.User : invitation.Group.Administrator;

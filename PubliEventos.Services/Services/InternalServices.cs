@@ -79,7 +79,29 @@
                 LastName = user.LastName,
                 NullDate = user.NullDate,
                 Password = user.Password,
-                UserName = user.UserName
+                UserName = user.UserName,
+                Locality = this.GetLocalitySummary(user.Locality)
+            };
+        }
+
+        /// <summary>
+        /// Parsea una localidad.
+        /// </summary>
+        /// <param name="locality">Localidad.</param>
+        /// <returns>Localidad.</returns>
+        public Locality GetLocalitySummary(Domain.Domain.Locality locality)
+        {
+            return new Locality()
+            {
+                Id = locality.Id,
+                Name = locality.Name,
+                Latitude = locality.Latitude,
+                Longitude = locality.Longitude,
+                Province = new Province()
+                {
+                    Id = locality.Province.Id,
+                    Name = locality.Province.Name
+                }
             };
         }
 

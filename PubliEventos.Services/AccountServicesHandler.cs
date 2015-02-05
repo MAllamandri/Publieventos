@@ -51,11 +51,11 @@
         /// <summary>
         /// Verifica si ya existe un usuario con ese email.
         /// </summary>
-        /// <param name="email">Email del usuario.</param>
-        /// <returns>True si existe uno, false caso contrario.</returns>
-        public bool UserExistsWithEmail(string email)
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public ExistsEmailResponse ExistsEmail(ExistsEmailRequest request)
         {
-            return AccountServices.UserExistsWithEmail(email);
+            return AccountServices.ExistsEmail(request);
         }
 
         /// <summary>
@@ -80,11 +80,31 @@
         /// <summary>
         /// Busca usuarios por autocompletado de nombre de usuario.
         /// </summary>
-        /// <param name="request">Los parámetros de la búsqueda.</param>
+        /// <param name="request">Los parámetros de la operación.</param>
         /// <returns>El resultado de la operación.</returns>
         public SearchUsersByPartialUserNameResponse SearchUsersByPartialUserName(SearchUsersByPartialUserNameRequest request)
         {
             return AccountServices.SearchUsersByPartialUserName(request);
+        }
+
+        /// <summary>
+        /// Recupera un usuario por su Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public GetUserByIdResponse GetUserById(GetUserByIdRequest request)
+        {
+            return AccountServices.GetUserById(request);
+        }
+
+        /// <summary>
+        /// Edita el perfil de un usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public EditProfileResponse EditProfile(EditProfileRequest request)
+        {
+            return AccountServices.EditProfile(request);
         }
     }
 }

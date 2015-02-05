@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Transactions;
+    using LinqKit;
     using NHibernate.Linq;
     using PubliEventos.Contract.Class;
     using PubliEventos.DataAccess.Querys;
@@ -54,15 +55,30 @@
         /// <summary>
         /// Verifica si ya existe un usuario con ese email.
         /// </summary>
-        /// <param name="email">Email del usuario.</param>
-        /// <returns>True si existe uno, false caso contrario.</returns>
-        public static bool UserExistsWithEmail(string email)
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static ExistsEmailResponse ExistsEmail(ExistsEmailRequest request)
         {
-            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            var predicate = PredicateBuilder.True<Domain.Domain.User>();
+
+            predicate = predicate.And(x => !x.NullDate.HasValue);
+
+            if (!string.IsNullOrEmpty(request.Email))
             {
-                return CurrentSession.Query<Domain.Domain.User>().
-                    Where(u => u.Email.ToLower() == email.ToLower() && !u.NullDate.HasValue).Any();
+                predicate = predicate.And(x => x.Email.ToLower() == request.Email.ToLower());
             }
+
+            if (request.UserId.HasValue)
+            {
+                predicate = predicate.And(x => x.Id != request.UserId.Value);
+            }
+
+            var exists = CurrentSession.Query<Domain.Domain.User>().Where(predicate).Any();
+
+            return new ExistsEmailResponse()
+            {
+                Exists = exists
+            };
         }
 
         /// <summary>
@@ -201,7 +217,7 @@
         /// <summary>
         /// Busca usuarios por autocompletado de nombre de usuario.
         /// </summary>
-        /// <param name="request">Los parámetros de la búsqueda.</param>
+        /// <param name="request">Los parámetros de la operación.</param>
         /// <returns>El resultado de la operación.</returns>
         public static SearchUsersByPartialUserNameResponse SearchUsersByPartialUserName(SearchUsersByPartialUserNameRequest request)
         {
@@ -222,6 +238,53 @@
                     Quantity = total
                 };
             }
+        }
+
+        /// <summary>
+        /// Recupera un usuario por su Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static GetUserByIdResponse GetUserById(GetUserByIdRequest request)
+        {
+            var user = CurrentSession.Query<Domain.Domain.User>().Where(x => x.Id == request.UserId && !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetUserSummary(x)).Single();
+
+            return new GetUserByIdResponse()
+            {
+                User = user
+            };
+        }
+
+        /// <summary>
+        /// Edita el perfil de un usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static EditProfileResponse EditProfile(EditProfileRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var user = CurrentSession.Query<Domain.Domain.User>().Where(u => u.Id == request.UserId).SingleOrDefault();
+
+                if (user == null)
+                {
+                    throw new Exception("El usuario no existe o fue dado de baja");
+                }
+
+                user.UserName = request.UserName;
+                user.LastName = request.LastName;
+                user.FirstName = request.FirstName;
+                user.ImageProfile = request.ImageProfile;
+                user.Locality = CurrentSession.Get<Domain.Domain.Locality>(request.LocalityId);
+                user.Email = request.Email;
+                user.BirthDate = request.BirthDate;
+
+                new BaseQuery<Domain.Domain.User, int>().Update(user);
+
+                transaction.Complete();
+            }
+
+            return new EditProfileResponse();
         }
     }
 }

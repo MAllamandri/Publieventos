@@ -1,5 +1,9 @@
 ﻿@model PubliEventos.Contract.Class.Event
 
+@{
+    var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+}
+
 <div class="col-md-12" style="margin-bottom: 1%;">
     <div class="col-md-12 mosaic">
         <div class="row-fluid subtitle">
@@ -26,6 +30,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row-fluid" style="margin-bottom: 10px">
+                        <div class="span12">
+                            <strong style="color: black">Administrador</strong>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/Account/Profile/@Model.User.Id" style="display: inline; margin-right: 15px;">
+                                <img src="@imageProfile" title="@Model.User.UserName" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
+                            </a>
+                            <p style="display: inline" class="participants-user">@Model.User.UserName</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,7 +53,7 @@
         </div>
         <div class="row-fluid">
             <div class="col-md-12">
-                <div style="margin-bottom: 20px">
+                <div style="margin-bottom: 30px">
                     @if (ViewData["IsInvitation"] == null || (bool)ViewData["IsInvitation"] == false)
                     {
                         <a href="#" id="comment" title="Comentar"><span style="font-size: 20px" class="icon-default icon-comments"></span></a>

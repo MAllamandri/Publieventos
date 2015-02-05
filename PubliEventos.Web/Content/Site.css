@@ -142,6 +142,12 @@ header {
     height: 350px;
 }
 
+.not-found-message {
+    font-family: 'MuseoSans-500';
+    color: #6f6e6e;
+    text-align: center;
+}
+
 /*#region Select2 styles */
 
 .select2-search-choice-close {
@@ -805,5 +811,16 @@ img {
     box-shadow: 10px 10px 10px 10px #888888;
     border-color: #B89C83;
 }
+
+/*#endregion*/
+
+/*#region Profile */
+
+.user-description {
+    font-family: MuseoSans-500;
+    color: #c25b4e;
+    font-size: 20px;
+}
+
 
 /*#endregion*/

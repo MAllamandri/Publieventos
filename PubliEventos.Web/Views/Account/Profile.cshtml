@@ -1,0 +1,85 @@
+﻿@model PubliEventos.Contract.Class.User
+
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var imageProfile = !string.IsNullOrEmpty(Model.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+}
+
+<div class="row-fluid">
+    <div class="col-md-10 offset1">
+        <div style="margin-bottom: 25px">
+            <div class="row-fluid" style="margin-top: 30px">
+                <div class="col-md-4">
+                    <div class="tl-circ">
+                        <img src="@imageProfile" style="width: 300px; height: 300px;" alt="" class="img-responsive" data-src="holder.js/300x300">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row-fluid">
+                        <div class="col-md-6">
+                            <strong>Nombre de Usuario</strong>
+                            <p class="user-description">@Model.UserName</p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Email</strong>
+                            <p class="user-description">@Model.Email</p>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row-fluid">
+                        <div class="col-md-6">
+                            <strong>Nombre</strong>
+                            @if (!string.IsNullOrEmpty(Model.FirstName))
+                            {
+                                <p class="user-description">@Model.FirstName </p>
+                            }
+                            else
+                            {
+                                <p class="user-description">-</p>
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Localidad</strong>
+                            <p class="user-description">@Model.Locality.Name</p>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row-fluid">
+                        <div class="col-md-6">
+                            <strong>Apellido</strong>
+                            @if (!string.IsNullOrEmpty(Model.LastName))
+                            {
+                                <p class="user-description">@Model.LastName </p>
+                            }
+                            else
+                            {
+                                <p class="user-description">-</p>
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Provincia</strong>
+                            <p class="user-description">@Model.Locality.Province.Name</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="col-md-12">
+                <div class="col-md-12 region-buttons">
+                    <a type="button" href="/">
+                        <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
+                    @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == Model.Id)
+                    {
+                        <a type="button" href="/Account/EditProfile/@Model.Id">
+                            <input type="button" value="Editar" class="btn-cancel pull-right" /></a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,14 +3,17 @@
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
+    using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Account;
     using PubliEventos.Web.App_Start;
+    using PubliEventos.Web.Filters;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models;
     using PubliEventos.Web.Models.AccountModels;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
@@ -22,7 +25,7 @@
     /// <summary>
     /// Controlador de cuentas.
     /// </summary>
-    [AllowAnonymous]
+
     public class AccountController : BaseController
     {
         #region Properties
@@ -45,6 +48,7 @@
         /// Vista de login.
         /// </summary>
         /// <returns>Login view.</returns>
+        [AllowAnonymous]
         public ActionResult Login()
         {
             var model = new UserModel();
@@ -60,6 +64,7 @@
         /// </summary>
         /// <param name="model">LoginModel.</param>
         /// <returns>Index o Login view.</returns>
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserModel model, string ReturnUrl)
@@ -89,6 +94,7 @@
         /// Vista de LogOut.
         /// </summary>
         /// <returns>Index View.</returns>
+        [AllowAnonymous]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
@@ -100,6 +106,7 @@
         /// Activación de cuenta mediante el token.
         /// </summary>
         /// <param name="token">token de activación.</param>
+        [AllowAnonymous]
         public ActionResult AccountActivation(string token)
         {
             if (!string.IsNullOrEmpty(token))
@@ -110,11 +117,48 @@
             return View();
         }
 
-        #region Public Methods
+        /// <summary>
+        /// Perfil del usuario.
+        /// </summary>
+        /// <param name="id">Identificador del usuario.</param>
+        /// <returns>Profile view.</returns>
+        [AllowAnonymous]
+        public ActionResult Profile(int id)
+        {
+            var model = this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = id }).User;
 
+            return View(model);
+        }
 
+        /// <summary>
+        /// Vista de edición del perfil de usuario.
+        /// </summary>
+        /// <param name="id">Identificador del usuario.</param>
+        /// <returns>EditProfile view.</returns>
+        [Authorize]
+        [UserActionRestriction(ElementTypesToValidate.Profile)]
+        public ActionResult EditProfile(int id)
+        {
+            var user = this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = id }).User;
 
-        #endregion
+            var model = new EditProfileRequest()
+            {
+                UserId = user.Id.Value,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                LocalityId = user.Locality.Id.Value,
+                ProvinceId = user.Locality.Province.Id.Value,
+                UserName = user.UserName,
+                BirthDate = user.BirthDate.HasValue ? user.BirthDate.Value : DateTime.Now,
+                ImageProfile = user.ImageProfile,
+            };
+
+            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.ProvinceId);
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.LocalityId);
+
+            return View(model);
+        }
 
         #region Private Methods
 
@@ -290,19 +334,11 @@
         /// <param name="userName">nombre de usuario.</param>
         /// <returns>True si existe, false caso contrario.</returns>
         [HttpPost]
-        public JsonResult ValidateExistUserName(string userName)
+        public JsonResult ValidateExistUserName(string userName, int? userIdToExclude)
         {
-            if (!string.IsNullOrEmpty(userName))
-            {
-                var user = serviceAccounts.GetUserByUserName(userName.ToLower().Trim());
+            var valid = this.ValidateExistsUserName(userName, userIdToExclude);
 
-                if (user != null)
-                {
-                    return Json(new { Exist = true }, JsonRequestBehavior.AllowGet);
-                }
-            }
-
-            return Json(new { Exist = false }, JsonRequestBehavior.AllowGet);
+            return Json(new { Exist = valid }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -311,11 +347,11 @@
         /// <param name="email">Email a validar.</param>
         /// <returns>True si ya existe, false caso contrario.</returns>
         [HttpPost]
-        public JsonResult ValidateExistEmail(string email)
+        public JsonResult ValidateExistEmail(string email, int? userId)
         {
             if (!string.IsNullOrEmpty(email))
             {
-                var exist = serviceAccounts.UserExistsWithEmail(email);
+                var exist = serviceAccounts.ExistsEmail(new ExistsEmailRequest() { Email = email, UserId = userId }).Exists;
 
                 return Json(new { Exist = exist }, JsonRequestBehavior.AllowGet);
             }
@@ -392,6 +428,81 @@
             return Json(new { Users = Users, Quantity = response.Quantity }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Edita el perfil de un usuario.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult EditProfile(EditProfileRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Valido la existencia del email y nombre de usuario.
+                var existEmail = serviceAccounts.ExistsEmail(new ExistsEmailRequest() { Email = model.Email, UserId = model.UserId }).Exists;
+                var existUserName = this.ValidateExistsUserName(model.UserName, model.UserId);
+
+                if (!existEmail && !existUserName)
+                {
+                    if (model.ImageFile != null)
+                    {
+                        if (!string.IsNullOrEmpty(model.ImageProfile))
+                        {
+                            // Elimino la portada anterior.
+                            System.IO.File.Delete(HttpContext.Server.MapPath(pathImageProfile + model.ImageProfile));
+                        }
+
+                        // Renombro el archivo.
+                        model.ImageProfile = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.ImageFile.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.ImageFile.FileName));
+
+                        var path = Path.Combine(HttpContext.Server.MapPath(pathImageProfile), Path.GetFileName(model.ImageProfile));
+
+                        model.ImageFile.SaveAs(path);
+                    }
+
+                    this.serviceAccounts.EditProfile(model);
+
+                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ModelState.AddModelError("UserName", "El Usuario o Email ya existe");
+                }
+            }
+
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Valida la si el nombre de usuario ya existe.
+        /// </summary>
+        /// <param name="userName">Nombre de usuario.</param>
+        /// <param name="userIdToExclude">Id de usuario a excluir en la validación.</param>
+        /// <returns>True si no existe, false si ya esta usado.</returns>
+        private bool ValidateExistsUserName(string userName, int? userIdToExclude)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var user = serviceAccounts.GetUserByUserName(userName.ToLower().Trim());
+
+                if (user != null && userIdToExclude.HasValue && user.Id != userIdToExclude)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+                if (user != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         #endregion
     }
 }

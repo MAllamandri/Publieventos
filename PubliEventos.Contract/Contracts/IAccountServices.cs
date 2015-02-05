@@ -18,9 +18,9 @@
         /// <summary>
         /// Verifica si ya existe un usuario con ese email.
         /// </summary>
-        /// <param name="email">Email del usuario.</param>
-        /// <returns>True si existe uno, false caso contrario.</returns>
-        bool UserExistsWithEmail(string email);
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        ExistsEmailResponse ExistsEmail(ExistsEmailRequest request);
 
         /// <summary>
         /// Da de alta un usuario.
@@ -57,8 +57,22 @@
         /// <summary>
         /// Busca usuarios por autocompletado de nombre de usuario.
         /// </summary>
-        /// <param name="request">Los parámetros de la búsqueda.</param>
+        /// <param name="request">Los parámetros de la operación.</param>
         /// <returns>El resultado de la operación.</returns>
         SearchUsersByPartialUserNameResponse SearchUsersByPartialUserName(SearchUsersByPartialUserNameRequest request);
+
+        /// <summary>
+        /// Recupera un usuario por su Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        GetUserByIdResponse GetUserById(GetUserByIdRequest request);
+
+        /// <summary>
+        /// Edita el perfil de un usuario.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        EditProfileResponse EditProfile(EditProfileRequest request);
     }
 }

@@ -4,6 +4,7 @@
     using Microsoft.Practices.Unity;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
+    using PubliEventos.Contract.Services.Account;
     using PubliEventos.Contract.Services.Group;
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.App_Start;
@@ -37,6 +38,12 @@
         public IInvitationServices serviceInvitations { get; set; }
 
         /// <summary>
+        /// Servicio de cuentas.
+        /// </summary>
+        [Dependency]
+        public IAccountServices serviceAccounts { get; set; }
+
+        /// <summary>
         /// Tipo de elemento a validar.
         /// </summary>
         private int ElementType { get; set; }
@@ -56,6 +63,7 @@
             this.serviceEvents = DependencyResolver.Current.GetService<IEventServices>();
             this.serviceGroups = DependencyResolver.Current.GetService<IGroupServices>();
             this.serviceInvitations = DependencyResolver.Current.GetService<IInvitationServices>();
+            this.serviceAccounts = DependencyResolver.Current.GetService<IAccountServices>();
         }
 
         #endregion
@@ -79,16 +87,17 @@
 
             // Elemento.
             var element = this.GetElement(id, this.ElementType);
+
+            if (element == null)
+            {
+                throw new Exception("Ha ocurrido un error");
+            }
+
             var valid = true;
 
             if (this.ElementType == (int)ElementTypesToValidate.Event)
             {
                 Event _event = (Event)element;
-
-                if (_event == null)
-                {
-                    throw new Exception("El evento no existe o fue dado de baja.");
-                }
 
                 if (filterContext.ActionDescriptor.ActionName == "Edit" && _event.User.Id != user.Id)
                 {
@@ -110,11 +119,6 @@
             {
                 Group group = (Group)element;
 
-                if (group == null)
-                {
-                    throw new Exception("El grupo no existe o fue dado de baja.");
-                }
-
                 if (filterContext.ActionDescriptor.ActionName == "Edit" && group.Administrator.Id != user.Id)
                 {
                     valid = false;
@@ -132,12 +136,17 @@
             {
                 Event _event = (Event)element;
 
-                if (_event == null)
-                {
-                    throw new Exception("El evento no existe o fue dado de baja.");
-                }
-
                 if (filterContext.ActionDescriptor.ActionName == "InviteToEvent" && _event.User.Id != user.Id)
+                {
+                    valid = false;
+                }
+            }
+
+            if (this.ElementType == (int)ElementTypesToValidate.Profile)
+            {
+                User _user = (User)element;
+
+                if (filterContext.ActionDescriptor.ActionName == "EditProfile" && _user.Id != user.Id)
                 {
                     valid = false;
                 }
@@ -206,6 +215,11 @@
                 if (elementType == (int)ElementTypesToValidate.Group)
                 {
                     return this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = elementId.Value }).Group;
+                }
+
+                if (elementType == (int)ElementTypesToValidate.Profile)
+                {
+                    return this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = elementId.Value }).User;
                 }
             }
 

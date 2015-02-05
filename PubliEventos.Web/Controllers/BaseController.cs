@@ -15,6 +15,14 @@
         }
 
         /// <summary>
+        /// Path de almacenamiento de las foto de perfil.
+        /// </summary>
+        public string pathImageProfile
+        {
+            get { return "/Content/images/Profiles/"; }
+        }
+
+        /// <summary>
         /// Obtiene el usuario logueado.
         /// </summary>
         protected virtual new CustomPrincipal User
