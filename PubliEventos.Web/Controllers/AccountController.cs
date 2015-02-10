@@ -5,6 +5,7 @@
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Account;
+    using PubliEventos.Contract.Services.Event;
     using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Filters;
     using PubliEventos.Web.Helpers;
@@ -17,6 +18,8 @@
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
@@ -41,6 +44,12 @@
         /// </summary>
         [Dependency]
         public ILocalityServices ServiceLocalities { get; set; }
+
+        /// <summary>
+        /// Servicio de eventos.
+        /// </summary>
+        [Dependency]
+        public IEventServices serviceEvents { get; set; }
 
         #endregion
 
@@ -127,6 +136,11 @@
         {
             var model = this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = id }).User;
 
+            var events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { SearchPublics = true, IdUser = id });
+
+            // Obtengo los ultimos tres eventos del usuario.
+            ViewBag.events = events.OrderByDescending(x => x.EventDate).Take(3).ToList();
+
             return View(model);
         }
 
@@ -152,6 +166,7 @@
                 UserName = user.UserName,
                 BirthDate = user.BirthDate.HasValue ? user.BirthDate.Value : DateTime.Now,
                 ImageProfile = user.ImageProfile,
+                Password = Encryptor.Decrypt(user.Password)
             };
 
             ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.ProvinceId);
@@ -435,7 +450,7 @@
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult EditProfile(EditProfileRequest model)
+        public JsonResult EditProfile(EditProfileRequest model, FileModel fileModel)
         {
             if (ModelState.IsValid)
             {
@@ -445,7 +460,7 @@
 
                 if (!existEmail && !existUserName)
                 {
-                    if (model.ImageFile != null)
+                    if (fileModel.File != null)
                     {
                         if (!string.IsNullOrEmpty(model.ImageProfile))
                         {
@@ -454,21 +469,42 @@
                         }
 
                         // Renombro el archivo.
-                        model.ImageProfile = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.ImageFile.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.ImageFile.FileName));
+                        model.ImageProfile = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileModel.File.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(fileModel.File.FileName));
 
                         var path = Path.Combine(HttpContext.Server.MapPath(pathImageProfile), Path.GetFileName(model.ImageProfile));
 
-                        model.ImageFile.SaveAs(path);
+                        fileModel.File.SaveAs(path);
                     }
 
                     this.serviceAccounts.EditProfile(model);
 
-                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = true, ImageProfile = User.ImageProfile }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     ModelState.AddModelError("UserName", "El Usuario o Email ya existe");
                 }
+            }
+
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Edita el password del usuario actual.
+        /// </summary>
+        /// <param name="model">EditPasswordRequest model.</param>
+        /// <returns>True o false.</returns>
+        [HttpPost]
+        public JsonResult EditPassword(EditPasswordRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Encrypto la contraseña.
+                model.NewPassword = Encryptor.Encrypt(model.NewPassword);
+
+                this.serviceAccounts.EditPassword(model);
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
@@ -503,6 +539,7 @@
 
             return false;
         }
+
         #endregion
     }
 }

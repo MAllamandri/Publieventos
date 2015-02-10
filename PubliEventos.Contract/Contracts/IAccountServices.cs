@@ -74,5 +74,12 @@
         /// <param name="request">Los parámetros de la operación..</param>
         /// <returns>El resultado de la operación.</returns>
         EditProfileResponse EditProfile(EditProfileRequest request);
+
+        /// <summary>
+        /// Edita el password del usuario actual.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        EditPasswordResponse EditPassword(EditPasswordRequest request);
     }
 }

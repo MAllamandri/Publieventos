@@ -152,9 +152,9 @@
                 predicate = predicate.And(x => x.Private == false);
             }
 
-            if (request.MyEvents)
+            if (request.IdUser.HasValue)
             {
-                predicate = predicate.And(x => x.User.Id == request.IdUser);
+                predicate = predicate.And(x => x.User.Id == request.IdUser.Value);
             }
 
             if (request.EventTypeId.HasValue)

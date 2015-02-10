@@ -15,7 +15,7 @@
                 EventTypeId: $('#EventTypeId').val(),
                 StartDate: $('#StartDate').val(),
                 EndDate: $('#EndDate').val(),
-                MyEvents: true
+                myEvents: true
             },
             dataType: "html"
         }).success(function (data) {

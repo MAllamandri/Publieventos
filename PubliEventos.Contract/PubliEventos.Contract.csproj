@@ -59,6 +59,8 @@
     <Compile Include="Contracts\IUsersGroupServices.cs" />
     <Compile Include="Enums\ElementTypesToValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account\EditPasswordRequest.cs" />
+    <Compile Include="Services\Account\EditPasswordResponse.cs" />
     <Compile Include="Services\Account\EditProfileRequest.cs" />
     <Compile Include="Services\Account\EditProfileResponse.cs" />
     <Compile Include="Services\Account\ExistsEmailRequest.cs" />

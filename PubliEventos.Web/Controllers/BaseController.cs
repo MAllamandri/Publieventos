@@ -27,7 +27,7 @@
         /// </summary>
         protected virtual new CustomPrincipal User
         {
-            get { return HttpContext.User as CustomPrincipal; }
+            get { return System.Web.HttpContext.Current.User as CustomPrincipal; }
         }
     }
 }

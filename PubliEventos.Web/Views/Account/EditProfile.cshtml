@@ -11,6 +11,7 @@
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("~/ViewScripts/Account/EditProfile.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 
 @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
@@ -29,10 +30,10 @@
                         <img src="@imageProfile" style="width: 300px; height: 300px;" alt="" class="img-responsive" data-src="holder.js/300x300">
                     </div>
                 </div>
-                <form id="form" method="post">
+                <form id="form" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.UserId)
-                    @Html.HiddenFor(m=> m.ImageProfile)
+                    @Html.HiddenFor(m => m.ImageProfile)
 
                     @Html.Hidden("IsValid", true)
 
@@ -40,13 +41,13 @@
                         <div class="row-fluid">
                             <div class="col-md-6">
                                 <strong>Nombre de Usuario</strong>
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control font-text" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "replaceBlank form-control font-text" })
                                 @Html.ValidationMessage("UserName")
                                 <div class="alert alert-danger" id="alertUserExist" style="display: none; margin-top: 15px; margin-bottom: 0px;" role="alert"><span class="glyphicon glyphicon-user"></span>&nbspEl usuario ya existe</div>
                             </div>
                             <div class="col-md-6">
                                 <strong>Email</strong>
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control font-text" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "replaceBlank form-control font-text" })
                                 @Html.ValidationMessage("Email")
                                 <div class="alert alert-danger" id="alertEmailExist" style="display: none; margin-top: 15px; margin-bottom: 0px;" role="alert"><span class="glyphicon glyphicon-envelope"></span>&nbspEl email ya existe</div>
                             </div>
@@ -78,8 +79,8 @@
                         <div class="row-fluid">
                             <div class="col-md-6" style="margin-top: 23px;">
                                 <strong>Foto de Perfil</strong>
-                                <input type="file" id="ImageFile" style="text-align: center" name="Imagefile" class="custom-file-input btn-file" />
-                                @Html.ValidationMessage("ImageFile", new { @class = "field-validation-error", @name = "ImageFile" })
+                                <input type="file" id="File" style="text-align: center" name="File" class="custom-file-input btn-file" />
+                                @Html.ValidationMessage("File", new { @class = "field-validation-error", @name = "ImageFile" })
                                 <small>Archivos permitidos (jpg, jpeg, gif y png)</small>
                             </div>
                             <div class="col-md-6" style="margin-top: 23px;">
@@ -89,6 +90,8 @@
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                 </div>
                                 @Html.ValidationMessage("BirthDate")
+                                <br />
+                                <a href="#" id="EditPassword" style="float: right">Modificar Contraseña </a>
                             </div>
                         </div>
                     </div>
@@ -102,6 +105,35 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+                <h4 class="title-modal" id="myModalLabel">Modificar Contraseña</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("CurrentPassword", Model.Password)
+                <strong>Contraseña Actual</strong>
+                @Html.Password("OldPassword", null, new { @class = "form-control" })
+                @Html.ValidationMessage("OldPassword")
+                <br />
+                <strong>Nueva Contraseña</strong>
+                @Html.Password("NewPassword", null, new { @class = "form-control" })
+                @Html.ValidationMessage("NewPassword")
+                <br />
+                <strong>Repetir Contraseña</strong>
+                @Html.Password("RepeatPassword", null, new { @class = "form-control" })
+                @Html.ValidationMessage("RepeatPassword")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="savePassword" class="btn-confirm">Guardar</button>
             </div>
         </div>
     </div>

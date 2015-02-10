@@ -90,6 +90,7 @@
             }).done(function (data) {
                 if (data.Success) {
                     $('#commentModal').modal('hide');
+                    $('.not-found-message').hide();
 
                     // Si no es una edición agrego el nuevo comentario.
                     if (!isEdition) {
@@ -168,6 +169,7 @@
     };
 
     chat.client.refreshCommentsInPage = function () {
+        $('#commentArea').html('<p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios</p>');
         chat.server.getComments($('#EventId').val());
     };
 

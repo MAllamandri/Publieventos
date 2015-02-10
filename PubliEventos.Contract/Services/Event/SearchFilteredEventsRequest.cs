@@ -23,11 +23,6 @@
         public DateTime? EndDate { get; set; }
 
         /// <summary>
-        /// Indica si debo fltrar mis eventos o todos.
-        /// </summary>
-        public bool MyEvents { get; set; }
-
-        /// <summary>
         /// Identificador del usuario para filtrar eventos.
         /// </summary>
         public int? IdUser { get; set; }

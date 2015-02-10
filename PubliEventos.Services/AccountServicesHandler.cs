@@ -106,5 +106,15 @@
         {
             return AccountServices.EditProfile(request);
         }
+
+        /// <summary>
+        /// Edita el password del usuario actual.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        public EditPasswordResponse EditPassword(EditPasswordRequest request)
+        {
+            return AccountServices.EditPassword(request);
+        }
     }
 }

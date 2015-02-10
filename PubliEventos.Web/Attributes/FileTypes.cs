@@ -35,5 +35,15 @@
 
             return _types.Contains(fileExt, StringComparer.OrdinalIgnoreCase);
         }
+
+        /// <summary>
+        /// Mensaje de error.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Mensaje.</returns>
+        public override string FormatErrorMessage(string name)
+        {
+            return string.Format("Formato de archivo no permitido");
+        }
     }
 }

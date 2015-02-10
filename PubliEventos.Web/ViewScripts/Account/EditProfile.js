@@ -1,11 +1,21 @@
 ﻿$(function () {
     $('#UserName').charactersQuantity(30);
 
+    $('.replaceBlank').blur(function () {
+        $(this).val($(this).val().replace(/ /gi, ""));
+    });
+
     $('.date').datetimepicker({
         pickTime: false,
         format: "DD/MM/YYYY",
         language: 'es',
         autoclose: true
+    });
+
+    $('#EditPassword').click(function () {
+        $('#EditPassModal').modal('show');
+        $('input[type="password"]').hideMessageError();
+        $('input[type="password"]').val("");
     });
 
     $('#ProvinceId').change(function () {
@@ -20,30 +30,46 @@
         });
     });
 
-    $('#Save').click(function () {
-        var val = $('#ImageFile').val();
+    $('#savePassword').click(function () {
+        $.blockUI({ message: "" });
+        $('input[type="password"]').hideMessageError();
 
-        if (val != "") {
-            switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
-                case 'gif':
-                case 'jpg':
-                case 'png':
-                case 'jpeg':
-                    submitForm();
-                    break;
-                default:
-                    $('#ImageFile').val('');
-                    var selector = "[name='ImageFile']";
-                    $("[name='ImageFile']").showMessageError("Tipo de archivo no permitido.");
-                    return false;
-                    break;
+        $.ajax({
+            type: 'POST',
+            url: "/Account/EditPassword",
+            data: {
+                UserId: $('#UserId').val(),
+                CurrentPassword: $('#CurrentPassword').val(),
+                OldPassword: $('#OldPassword').val(),
+                NewPassword: $('#NewPassword').val(),
+                RepeatPassword: $('#RepeatPassword').val()
             }
-        } else {
-            submitForm();
-        }
+        }).done(function (data) {
+            if (data.Success) {
+                $('#EditPassModal').modal('hide');
+                $.unblockUI();
+
+                bootbox.dialog({
+                    title: "<h4 class='title-modal'>Modificar Contraseña</h4>",
+                    message: "<p class='font-text'>La contraseña ha sido modificada con exito</p>",
+                    buttons: {
+                        success: {
+                            label: "Aceptar",
+                            className: "btn-confirm"
+                        }
+                    }
+                });
+            } else {
+                $.each(data.Errors, function (index, value) {
+                    var selector = "[name='" + index + "']";
+                    $(selector).showMessageError(value);
+                });
+                $.unblockUI();
+            }
+        });
     });
 
-    function submitForm() {
+    $('#Save').click(function () {
         $('input[type="text"]').hideMessageError();
         $('select').hideMessageError();
 
@@ -55,6 +81,8 @@
             },
             complete: function (data) {
                 if (data.responseJSON.Success) {
+                    $('#imageCurrentUser').attr('src', '/Content/images/Profiles/' + data.responseJSON.ImageProfile);
+
                     $.blockUI({ message: "" });
 
                     window.location.href = "/Account/Profile/" + $("#UserId").val();
@@ -67,7 +95,7 @@
                 }
             }
         });
-    }
+    });
 
     $('#UserName').blur(function () {
         $('#alertUserExist').hide();

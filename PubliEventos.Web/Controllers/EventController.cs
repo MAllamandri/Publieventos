@@ -22,7 +22,7 @@
         #region Properties
 
         /// <summary>
-        /// Servicio de localidades.
+        /// Servicio de eventos.
         /// </summary>
         [Dependency]
         public IEventServices serviceEvents { get; set; }
@@ -119,10 +119,10 @@
         /// <param name="model">modelo de filtros.</param>
         /// <returns>Mosaic view.</returns>
         [HttpPost]
-        public PartialViewResult GetFilteredEvents(SearchFilteredEventsRequest model)
+        public PartialViewResult GetFilteredEvents(SearchFilteredEventsRequest model, bool myEvents)
         {
             // filtro por mis eventos.
-            model.IdUser = model.MyEvents ? User.Id : (int?)null;
+            model.IdUser = myEvents ? User.Id : (int?)null;
 
             var events = this.serviceEvents.SearchFilteredEvents(model);
 

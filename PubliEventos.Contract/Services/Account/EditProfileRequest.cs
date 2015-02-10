@@ -68,8 +68,8 @@
         public string ImageProfile { get; set; }
 
         /// <summary>
-        /// Foto de portada.
+        /// Contraseña.
         /// </summary>
-        public HttpPostedFileBase ImageFile { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -286,5 +286,25 @@
 
             return new EditProfileResponse();
         }
+
+        /// <summary>
+        /// Edita el password del usuario actual.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static EditPasswordResponse EditPassword(EditPasswordRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var user = CurrentSession.Get<Domain.Domain.User>(request.UserId);
+
+                //Actualizo el password.
+                user.Password = request.NewPassword;
+
+                transaction.Complete();
+
+                return new EditPasswordResponse();
+            }
+        }
     }
 }
