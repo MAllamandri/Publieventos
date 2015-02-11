@@ -23,6 +23,9 @@ namespace PubliEventos.Web
                 "~/Scripts/select2_locale_es.js",
                 "~/ViewScripts/Shared/Select2.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/dropzone").Include(
+                     "~/Scripts/dropzone/dropzone.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -33,6 +36,10 @@ namespace PubliEventos.Web
             bundles.Add(new StyleBundle("~/bundles/Select2-css").Include(
                 "~/Content/Select2/select2-bootstrap.css",
                 "~/Content/Select2/select2.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/dropzone-css").Include(
+                     "~/Scripts/dropzone/css/basic.css",
+                     "~/Scripts/dropzone/css/dropzone.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

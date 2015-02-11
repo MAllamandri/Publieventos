@@ -7,10 +7,10 @@
     using PubliEventos.Contract.Services.Account;
     using PubliEventos.Contract.Services.Event;
     using PubliEventos.Web.App_Start;
-    using PubliEventos.Web.Filters;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models;
     using PubliEventos.Web.Models.AccountModels;
+    using PubliEventos.Web.Mvc.Filters;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -18,8 +18,6 @@
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
@@ -170,7 +168,7 @@
             };
 
             ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.ProvinceId);
-            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities(), "Id", "Name", model.LocalityId);
+            ViewBag.Localities = new SelectList(ServiceLocalities.GetAllLocalities().Where(x => x.Province.Id == model.ProvinceId).ToList(), "Id", "Name", model.LocalityId);
 
             return View(model);
         }
@@ -478,7 +476,19 @@
 
                     this.serviceAccounts.EditProfile(model);
 
-                    return Json(new { Success = true, ImageProfile = User.ImageProfile }, JsonRequestBehavior.AllowGet);
+                    if (fileModel.File != null)
+                    {
+                        //Obtengo la cookie y la desencripto.
+                        HttpCookie cookie = (HttpCookie)(Request.Cookies[FormsAuthentication.FormsCookieName]);
+                        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+
+                        // Deslogueo y creo el identity nuevamente.
+                        FormsAuthentication.SignOut();
+                        var custom = new CustomPrincipal(model.UserName);
+                        this.CreateAuthenticationTicket(model.UserName, ticket.IsPersistent);
+                    }
+
+                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

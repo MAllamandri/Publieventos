@@ -34,16 +34,14 @@
 
     $('#tabDetail').click(function () {
         removeActiveClass();
-        $('#regionLocalization').hide();
-        $('#regionContents').hide();
+        HideRegions();
         $(this).addClass("active-link");
         $('#regionDetail').show();
     });
 
     $('#tabLocalization').click(function () {
         removeActiveClass();
-        $('#regionDetail').hide();
-        $('#regionContents').hide();
+        HideRegions();
         $('#regionLocalization').show();
         $(this).addClass("active-link");
 
@@ -53,9 +51,8 @@
     });
 
     $('#tabContents').click(function () {
+        HideRegions();
         removeActiveClass();
-        $('#regionDetail').hide();
-        $('#regionLocalization').hide();
         $('#regionContents').show();
         $(this).addClass("active-link");
     });
@@ -64,6 +61,12 @@
         $('#tabContents').removeClass("active-link");
         $('#tabLocalization').removeClass("active-link");
         $('#tabDetail').removeClass("active-link");
+    }
+
+    function HideRegions() {
+        $('#regionLocalization').hide();
+        $('#regionContents').hide();
+        $('#regionDetail').hide();
     }
 
     $('#saveComment').click(function () {

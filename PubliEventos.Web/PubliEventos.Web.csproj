@@ -160,7 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Attributes\FileTypes.cs" />
+    <Compile Include="Mvc\Attributes\FileTypes.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -170,7 +170,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvitationController.cs" />
-    <Compile Include="Filters\UserActionRestriction.cs" />
+    <Compile Include="Mvc\Filters\UserActionRestriction.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +203,14 @@
     <Content Include="Content\Select2\select2-bootstrap.css" />
     <Content Include="Content\Select2\select2-spinner.gif" />
     <Content Include="Content\Select2\select2.css" />
+    <Content Include="Scripts\dropzone\basic.css" />
+    <Content Include="Scripts\dropzone\basic.min.css" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.min.js" />
+    <Content Include="Scripts\dropzone\dropzone.css" />
+    <Content Include="Scripts\dropzone\dropzone.js" />
+    <Content Include="Scripts\dropzone\dropzone.min.css" />
+    <Content Include="Scripts\dropzone\dropzone.min.js" />
     <Content Include="Scripts\jquery.nanoscroller.min.js" />
     <Content Include="Scripts\select2_locale_es.js" />
     <Content Include="Scripts\select2.js" />
@@ -307,6 +315,9 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\dropzone\dropzone.min.js.map">
+      <DependentUpon>dropzone.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -355,6 +366,7 @@
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
+    <Content Include="ViewScripts\Event\UploadPictures.js" />
     <Content Include="ViewScripts\Group\Base.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
     <Content Include="ViewScripts\Invitation\InviteToEvent.js" />
@@ -409,6 +421,8 @@
     <Content Include="Views\Invitation\Partial\_PendingConfirmation.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Event\Partial\_FilesForm.cshtml" />
+    <Content Include="Views\Event\UploadPictures.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -455,7 +469,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3072</DevelopmentServerPort>
+          <DevelopmentServerPort>4929</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

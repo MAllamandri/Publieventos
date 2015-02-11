@@ -23,10 +23,13 @@
                         buttons: {
                             success: {
                                 label: "Aceptar",
-                                className: "btn-confirm"
+                                className: "btn-confirm",
+                                callback: function () { window.location.href = "/Invitation/InviteToEvent/" + $('#eventId').val() }
                             }
                         }
                     });
+
+
                 } else {
                     $('[name="RequiredUsers"]').showMessageError(data.responseJSON.Errors);
                 }

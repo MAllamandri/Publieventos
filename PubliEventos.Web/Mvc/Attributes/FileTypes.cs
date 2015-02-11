@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.Web.Attributes
+﻿namespace PubliEventos.Web.Mvc.Attributes
 {
     using System;
     using System.Collections.Generic;

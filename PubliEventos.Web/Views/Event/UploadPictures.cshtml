@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Subir Contenidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@System.Web.Optimization.Scripts.Render("~/bundles/dropzone")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/UploadPictures.js")
+
+@Styles.Render("~/bundles/dropzone-css")
+
+<style>
+    #dropzoneForm {
+        background: #a49f9f;
+        border: black dashed 3px;
+        width: 100%;
+        padding: 50px;
+        text-align: center;
+        min-height: 450px;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+<div class="row-fluid">
+    <div class="col-md-10 offset1">
+        <div style="margin-bottom: 25px">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <h2 class="subtitle">Subir Contenidos</h2>
+                </div>
+                <div class="row-fluid">
+                    <div class="col-md-12">
+                        <form action="/Event/UploadPictures" class="dropzone dz-clickable dz-started" method="post" enctype="multipart/form-data" id="dropzoneForm">
+                            <div id="preview-template" style="display: none;"></div>
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                                <input type="submit" value="Subir" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

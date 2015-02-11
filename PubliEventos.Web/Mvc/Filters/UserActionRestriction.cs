@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.Web.Filters
+﻿namespace PubliEventos.Web.Mvc.Filters
 {
     using Contract.Enums;
     using Microsoft.Practices.Unity;

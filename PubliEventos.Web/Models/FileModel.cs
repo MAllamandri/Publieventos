@@ -1,6 +1,6 @@
 ﻿namespace PubliEventos.Web.Models
 {
-    using PubliEventos.Web.Attributes;
+    using PubliEventos.Web.Mvc.Attributes;
     using System.Web;
 
     /// <summary>

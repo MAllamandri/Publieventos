@@ -7,8 +7,8 @@
     using PubliEventos.Contract.Services.Comment;
     using PubliEventos.Contract.Services.Event;
     using PubliEventos.Contract.Services.Invitation;
-    using PubliEventos.Web.Filters;
     using PubliEventos.Web.Helpers;
+    using PubliEventos.Web.Mvc.Filters;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -111,6 +111,34 @@
             ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
 
             return View();
+        }
+
+        public ActionResult UploadPictures(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult UploadPictures()
+        {
+            bool isSavedSuccessfully = true;
+
+            foreach (string fileName in Request.Files)
+            {
+                HttpPostedFileBase file = Request.Files[fileName];
+                //Save file content goes here
+            }
+
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = "File saved" });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

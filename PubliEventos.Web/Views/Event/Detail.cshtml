@@ -16,6 +16,7 @@
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.nanoscroller.min.js")
 
+
 @Styles.Render("~/Content/Extensions/nanoscroller.css")
 
 <script src="~/signalr/hubs"></script>
@@ -79,6 +80,7 @@
                         </div>
                         <div id="regionContents" class="tab-content">
                             <div class="tab-pane active">
+                                @Html.Partial("Partial/_FilesForm")
                             </div>
                         </div>
                     </div>

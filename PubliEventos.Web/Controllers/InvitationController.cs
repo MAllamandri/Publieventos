@@ -5,11 +5,9 @@
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Group;
     using PubliEventos.Contract.Services.Invitation;
-    using PubliEventos.Web.Filters;
+    using PubliEventos.Web.Mvc.Filters;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
 
     /// <summary>
@@ -101,7 +99,7 @@
                     //Mando las invitaciones.
                     foreach (var user in users)
                     {
-                        if (_event.User.Id != Convert.ToInt32(user) && !invitations.Where(x => x.User.Id == Convert.ToInt32(user) && !x.Confirmed.HasValue).Any())
+                        if (_event.User.Id != Convert.ToInt32(user) && (invitations.Where(x => x.User.Id == Convert.ToInt32(user) && x.Confirmed.HasValue && !x.Confirmed.Value).Any() || !invitations.Select(x => x.User.Id).Contains(Convert.ToInt32(user))))
                         {
                             this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
                             {
@@ -126,7 +124,7 @@
                         foreach (var userId in group.UsersGroup.Select(x => x.UserId))
                         {
                             // Si ya se le mando la invitación, o es el administrador o tiene una invitación al evento pendiente, no le envio.
-                            if (!users.Contains(userId.ToString()) && _event.User.Id != Convert.ToInt32(userId) && !invitations.Where(x => x.User.Id == userId && !x.Confirmed.HasValue).Any())
+                            if (!users.Contains(userId.ToString()) && _event.User.Id != Convert.ToInt32(userId) && (invitations.Where(x => x.User.Id == userId && x.Confirmed.HasValue && !x.Confirmed.Value).Any() || !invitations.Select(x => x.User.Id).Contains(userId)))
                             {
                                 this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
                                 {

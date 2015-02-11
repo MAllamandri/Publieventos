@@ -5,9 +5,9 @@
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Group;
     using PubliEventos.Contract.Services.Invitation;
-    using PubliEventos.Web.Filters;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models;
+    using PubliEventos.Web.Mvc.Filters;
     using System;
     using System.Collections.Generic;
     using System.Linq;

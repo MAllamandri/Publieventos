@@ -81,8 +81,6 @@
             },
             complete: function (data) {
                 if (data.responseJSON.Success) {
-                    $('#imageCurrentUser').attr('src', '/Content/images/Profiles/' + data.responseJSON.ImageProfile);
-
                     $.blockUI({ message: "" });
 
                     window.location.href = "/Account/Profile/" + $("#UserId").val();
