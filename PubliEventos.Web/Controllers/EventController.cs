@@ -122,23 +122,27 @@
         public JsonResult UploadPictures()
         {
             bool isSavedSuccessfully = true;
-
-            foreach (string fileName in Request.Files)
+            try
             {
-                HttpPostedFileBase file = Request.Files[fileName];
-                //Save file content goes here
+                foreach (string file in Request.Files)
+                {
+                    HttpPostedFileBase fileToSave = Request.Files[file];
+
+                    // Renombro el archivo.
+                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(fileToSave.FileName));
+                    var path = Path.Combine(HttpContext.Server.MapPath(pathEventsPictures), Path.GetFileName(fileName));
+
+                    fileToSave.SaveAs(path);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                isSavedSuccessfully = false;
             }
 
-            if (isSavedSuccessfully)
-            {
-                return Json(new { Message = "File saved" });
-            }
-            else
-            {
-                return Json(new { Message = "Error in saving file" });
-            }
-
-            return Json(new { }, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = isSavedSuccessfully });
         }
 
         /// <summary>

@@ -23,6 +23,14 @@
         }
 
         /// <summary>
+        /// Paht de almacenamiento de fotos y videos de los eventos.
+        /// </summary>
+        public string pathEventsPictures
+        {
+            get { return "/Content/images/EventsPictures/"; }
+        }
+
+        /// <summary>
         /// Obtiene el usuario logueado.
         /// </summary>
         protected virtual new CustomPrincipal User

@@ -203,6 +203,8 @@
     <Content Include="Content\Select2\select2-bootstrap.css" />
     <Content Include="Content\Select2\select2-spinner.gif" />
     <Content Include="Content\Select2\select2.css" />
+    <Content Include="Content\themes\images\check.png" />
+    <Content Include="Content\themes\images\error.png" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />
     <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
