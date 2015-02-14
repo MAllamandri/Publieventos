@@ -3,11 +3,12 @@
 
     options = {
         url: '/Event/UploadPictures',
+        params: { eventId: $('#EventId').val() },
         maxFilesize: 200,
         clickable: true,
         previewTemplate: previewTemplate,
         thumbnailWIdth: 100,
-        acceptedFiles: '.png, .jpg, .gif, .jpeg, .mp4'
+        acceptedFiles: '.png, .jpg, .gif, .jpeg, .mp4, .mpeg, .avi'
     }
 
     var dropzone = new Dropzone('.dropfiles', options);
@@ -33,60 +34,40 @@
     dropzone.on('success', function (file, response) {
         $('.dz-message').hide();
 
+        file.Id = response.FileName;
         preview = $(file.previewElement);
         preview.find('.file-progress').fadeOut(20);
-        preview.find('.result').addClass('success').show();
-        preview.find('.close').on('click', function (e) {
-            preview.fadeOut(100, function () {
-                dropzone.removeFile(file);
 
-                //Llamar a metodo para eliminar archivo.
-            })
+        if (response.Success) {
+            preview.find('.result').addClass('success').show();
+        } else {
+            preview.find('.result').addClass('error').show();
+        }
+
+        preview.find('.close').on('click', function (e) {
+            $.ajax({
+                url: '/Event/DeletePictures',
+                data: {
+                    fileName: file.Id,
+                    eventId: $('#EventId').val()
+                }
+            }).done(function (data) {
+                if (data.Success) {
+                    dropzone.removeFile(file);
+
+                    if (data.QuantityContents == 0) {
+                        $('.dz-message').show();
+                    }
+                } else {
+                    alert("Ha ocurrido un error al eliminar el archivo");
+                }
+            });
         });
     });
 
     dropzone.on('error', function (file, message) {
         preview = $(file.previewElement);
         preview.find('.result').addClass('error').show();
+        $('.dz-message').hide();
     });
-    ////File Upload response from the server
-    //Dropzone.options.dropzoneForm = {
-    //    url: "/Event/UploadPictures",
-    //    init: function () {
-    //        this.on("complete", function (data) {
-    //            console.log(data.xhr.responseText);
-    //        });
-
-    //        this.on("addedfile", function (file) {
-
-    //            // Create the remove button
-    //            var removeButton = Dropzone.createElement("<button>Quitar</button>");
-
-    //            // Capture the Dropzone instance as closure.
-    //            var _this = this;
-
-    //            // Listen to the click event
-    //            removeButton.addEventListener("click", function (e) {
-    //                // Make sure the button click doesn't submit the form:
-    //                e.preventDefault();
-    //                e.stopPropagation();
-    //                // Remove the file preview.
-    //                _this.removeFile(file);
-    //                // If you want to the delete the file on the server as well,
-    //                // you can do the AJAX request here.
-    //            });
-
-    //            // Add the button to the file preview element.
-    //            file.previewElement.appendChild(removeButton);
-    //        });
-    //    },
-    //    addRemoveLinks: false,
-    //    dictCancelUpload: "Cancelar",
-    //    dictRemoveFile: "Quitar Archivo",
-    //    uploadprogress: true,
-    //    fallback: Dropzone.createElement("<input type='file' />"),
-    //    previewTemplate: 
-    //};
-
-    //$("form.dropzone").data("dropzone")
 });

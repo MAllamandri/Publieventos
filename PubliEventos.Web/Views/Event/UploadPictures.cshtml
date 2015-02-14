@@ -35,7 +35,7 @@
     }
 
         .file-preview.dz-processing {
-            opacity: 0.6;
+            opacity: 1;
         }
 
         .file-preview.dz-success {
@@ -67,8 +67,7 @@
     }
 
     .close {
-        color: white;
-        background: black;
+        content: url("/Content/themes/images/Delete-picture-image.jpg");
         display: none;
         width: 20px;
         height: 20px;
@@ -79,7 +78,6 @@
     }
 
         .close:hover {
-            background: #C22222;
             box-shadow: 0px 0px 5px black;
         }
 
@@ -138,9 +136,10 @@
                 </div>
                 <div class="row-fluid" style="margin-top: 100px">
                     <div class="col-md-10 offset1">
+                        @Html.Hidden("EventId", (int)ViewBag.eventId)
                         <div>
                             <div class="dropfiles">
-                                <div class="dz-message" data-dz-message><span class="font-text default-message">Arrastre los archivos o haga click en el recuadro. Tipos permitidos jpg, png, gif, jpeg y mp4 </span></div>
+                                <div class="dz-message" data-dz-message><span class="font-text default-message">Arrastre los archivos o haga click en el recuadro para subir contenidos. Tipos permitidos jpg, png, gif, jpeg y mp4.</span></div>
                             </div>
                             <div id="dz-preview-template">
                                 <div class="file-preview">

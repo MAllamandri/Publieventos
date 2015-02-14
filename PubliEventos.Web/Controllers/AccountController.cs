@@ -134,7 +134,7 @@
         {
             var model = this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = id }).User;
 
-            var events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { SearchPublics = true, IdUser = id });
+            var events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { SearchPublics = true, IdUser = id }).Events;
 
             // Obtengo los ultimos tres eventos del usuario.
             ViewBag.events = events.OrderByDescending(x => x.EventDate).Take(3).ToList();

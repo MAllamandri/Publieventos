@@ -1,4 +1,4 @@
-﻿namespace PubliEventos.Domain.Enums
+﻿namespace PubliEventos.Contract.Enums
 {
     /// <summary>
     /// Representa los tipos de contenidos multimedia de la aplicación.

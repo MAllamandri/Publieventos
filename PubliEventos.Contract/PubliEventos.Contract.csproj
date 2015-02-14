@@ -57,6 +57,7 @@
     <Compile Include="Contracts\IInvitationServices.cs" />
     <Compile Include="Contracts\ILocalityServices.cs" />
     <Compile Include="Contracts\IUsersGroupServices.cs" />
+    <Compile Include="Enums\ContentTypes.cs" />
     <Compile Include="Enums\ElementTypesToValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Account\EditPasswordRequest.cs" />
@@ -77,6 +78,10 @@
     <Compile Include="Services\Comment\EditCommentResponse.cs" />
     <Compile Include="Services\Comment\GetCommentsByEventRequest.cs" />
     <Compile Include="Services\Comment\GetCommentsByEventResponse.cs" />
+    <Compile Include="Services\Event\CreateMultimediaContentRequest.cs" />
+    <Compile Include="Services\Event\CreateMultimediaContentResponse.cs" />
+    <Compile Include="Services\Event\DeleteMultimediaContentRequest.cs" />
+    <Compile Include="Services\Event\DeleteMultimediaContentResponse.cs" />
     <Compile Include="Services\Event\EventCreateOrUpdateRequest.cs" />
     <Compile Include="Services\Event\EventCreateOrUpdateResponse.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsRequest.cs" />

@@ -71,9 +71,29 @@
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
         /// <returns>Lista de eventos filtrados.</returns>
-        public List<Event> SearchFilteredEvents(SearchFilteredEventsRequest request)
+        public SearchFilteredEventsResponse SearchFilteredEvents(SearchFilteredEventsRequest request)
         {
             return EventServices.SearchFilteredEvents(request);
+        }
+
+        /// <summary>
+        /// Da de alta un contenido multimedia asociado al evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public CreateMultimediaContentResponse CreateMultimediaContent(CreateMultimediaContentRequest request)
+        {
+            return EventServices.CreateMultimediaContent(request);
+        }
+
+        /// <summary>
+        /// Da de baja un contenido multimedia asociado al evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public DeleteMultimediaContentResponse DeleteMultimediaContent(DeleteMultimediaContentRequest request)
+        {
+            return EventServices.DeleteMultimediaContent(request);
         }
     }
 }

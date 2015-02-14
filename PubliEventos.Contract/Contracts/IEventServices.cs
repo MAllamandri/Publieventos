@@ -51,6 +51,20 @@
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
         /// <returns>Lista de eventos filtrados.</returns>
-        List<Event> SearchFilteredEvents(SearchFilteredEventsRequest request);
+        SearchFilteredEventsResponse SearchFilteredEvents(SearchFilteredEventsRequest request);
+
+        /// <summary>
+        /// Da de alta un contenido multimedia asociado al evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        CreateMultimediaContentResponse CreateMultimediaContent(CreateMultimediaContentRequest request);
+
+        /// <summary>
+        /// Da de baja un contenido multimedia asociado al evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        DeleteMultimediaContentResponse DeleteMultimediaContent(DeleteMultimediaContentRequest request);
     }
 }

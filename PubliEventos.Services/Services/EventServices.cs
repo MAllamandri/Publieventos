@@ -3,6 +3,7 @@
     using LinqKit;
     using NHibernate.Linq;
     using PubliEventos.Contract.Class;
+    using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Event;
     using PubliEventos.DataAccess.Querys;
     using System;
@@ -142,7 +143,7 @@
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
         /// <returns>Lista de eventos filtrados.</returns>
-        public static List<Event> SearchFilteredEvents(SearchFilteredEventsRequest request)
+        public static SearchFilteredEventsResponse SearchFilteredEvents(SearchFilteredEventsRequest request)
         {
             var predicate = PredicateBuilder.True<Domain.Domain.Event>();
             predicate = predicate.And(x => !x.NullDate.HasValue && x.Active);
@@ -175,7 +176,72 @@
                 predicate = predicate.And(x => x.EventDate.Date <= request.EndDate.Value.Date);
             }
 
-            return CurrentSession.Query<Domain.Domain.Event>().Where(predicate).Select(x => InternalServices.GetEventSummary(x)).ToList();
+            var events = CurrentSession.Query<Domain.Domain.Event>().Where(predicate).Select(x => InternalServices.GetEventSummary(x)).ToList();
+
+            return new SearchFilteredEventsResponse()
+            {
+                Events = events
+            };
+        }
+
+        /// <summary>
+        /// Da de alta un contenido multimedia asociado al evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public static CreateMultimediaContentResponse CreateMultimediaContent(CreateMultimediaContentRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var _event = CurrentSession.Get<Domain.Domain.Event>(request.EventId);
+
+                if (_event.MultimediaContents == null)
+                {
+                    _event.MultimediaContents = new List<Domain.Domain.MultimediaContent>();
+                }
+
+                var content = new Domain.Domain.MultimediaContent()
+                {
+                    Active = true,
+                    ContentType = (int)ContentTypes.Image,
+                    EffectDate = DateTime.Now,
+                    Event = _event,
+                    Name = request.FileName
+                };
+
+                new BaseQuery<Domain.Domain.MultimediaContent, int>().Create(content);
+
+                transaction.Complete();
+
+                return new CreateMultimediaContentResponse();
+            }
+        }
+
+        /// <summary>
+        /// Da de baja un contenido multimedia asociado al evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public static DeleteMultimediaContentResponse DeleteMultimediaContent(DeleteMultimediaContentRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var _event = CurrentSession.Get<Domain.Domain.Event>(request.EventId);
+
+                if (_event.MultimediaContents.Where(x => x.Name == request.FileName && !x.NullDate.HasValue).Any())
+                {
+                    _event.MultimediaContents.Where(x => x.Name == request.FileName && !x.NullDate.HasValue).Single().NullDate = DateTime.Now;
+                }
+
+                transaction.Complete();
+
+                var count = !_event.MultimediaContents.Any(x => !x.NullDate.HasValue) ? 0 : _event.MultimediaContents.Where(x => !x.NullDate.HasValue).Count();
+
+                return new DeleteMultimediaContentResponse()
+                {
+                    QuantityContents = count
+                };
+            }
         }
     }
 }

@@ -113,36 +113,16 @@
             return View();
         }
 
+        /// <summary>
+        /// Vista de alta de contenidos multimedia.
+        /// </summary>
+        /// <param name="id">Identificador del evento.</param>
+        /// <returns>UploadPictures view.</returns>
         public ActionResult UploadPictures(int id)
         {
+            ViewBag.eventId = id;
+
             return View();
-        }
-
-        [HttpPost]
-        public JsonResult UploadPictures()
-        {
-            bool isSavedSuccessfully = true;
-            try
-            {
-                foreach (string file in Request.Files)
-                {
-                    HttpPostedFileBase fileToSave = Request.Files[file];
-
-                    // Renombro el archivo.
-                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(fileToSave.FileName));
-                    var path = Path.Combine(HttpContext.Server.MapPath(pathEventsPictures), Path.GetFileName(fileName));
-
-                    fileToSave.SaveAs(path);
-                }
-
-            }
-            catch (Exception)
-            {
-
-                isSavedSuccessfully = false;
-            }
-
-            return Json(new { Success = isSavedSuccessfully });
         }
 
         /// <summary>
@@ -193,6 +173,73 @@
         #endregion
 
         #region Json Methods
+
+        /// <summary>
+        /// Da de alta contenido multimedia a un evento.
+        /// </summary>
+        /// <param name="eventId">Identificador del evento.</param>
+        /// <returns>True o false, y Id del archivo.</returns>
+        [HttpPost]
+        public JsonResult UploadPictures(int eventId, int? nullParameter)
+        {
+            var fileName = string.Empty;
+            bool isSavedSuccessfully = true;
+
+            try
+            {
+                foreach (string file in Request.Files)
+                {
+                    HttpPostedFileBase fileToSave = Request.Files[file];
+
+                    // Renombro el archivo.
+                    fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(fileToSave.FileName));
+                    var path = Path.Combine(HttpContext.Server.MapPath(pathEventsPictures), Path.GetFileName(fileName));
+
+                    fileToSave.SaveAs(path);
+
+                    // Doy de alta el contenido al evento.
+                    this.serviceEvents.CreateMultimediaContent(new CreateMultimediaContentRequest() { EventId = eventId, FileName = fileName });
+                }
+            }
+            catch (Exception)
+            {
+                isSavedSuccessfully = false;
+
+                // Elimino la portada anterior.
+                System.IO.File.Delete(HttpContext.Server.MapPath(pathEventsPictures + fileName));
+
+                this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
+            }
+
+            return Json(new { Success = isSavedSuccessfully, FileName = fileName }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Elimina un archivo asociado a un evento.
+        /// </summary>
+        /// <param name="fileName">Nombre del archivo (único).</param>
+        /// <returns></returns>
+        public JsonResult DeletePictures(string fileName, int eventId)
+        {
+            var quantity = 0;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    // Elimino la portada anterior.
+                    System.IO.File.Delete(HttpContext.Server.MapPath(pathEventsPictures + fileName));
+
+                    quantity = this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName }).QuantityContents;
+                }
+
+                return Json(new { Success = true, QuantityContents = quantity }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { Success = false, QuantityContents = quantity }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         /// <summary>
         /// Vista de creación de eventos.

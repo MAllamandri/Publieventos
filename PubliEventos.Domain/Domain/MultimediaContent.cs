@@ -2,7 +2,6 @@
 {
     using System;
     using PubliEventos.DataAccess.Infrastructure;
-    using PubliEventos.Domain.Enums;
 
     /// <summary>
     /// Representa un contenido multimedia usado en la aplicación (imagen, video, evento o comentario).
@@ -22,7 +21,7 @@
         /// <summary>
         /// Tipo de contenido.
         /// </summary>
-        public virtual ContentTypes ContentType { get; set; }
+        public virtual int ContentType { get; set; }
 
         /// <summary>
         /// Indica si está activo.
@@ -32,7 +31,7 @@
         /// <summary>
         /// Indica si está dado de baja.
         /// </summary>
-        public virtual DateTime NullDate { get; set; }
+        public virtual DateTime? NullDate { get; set; }
 
         /// <summary>
         /// Fecha de alta del contenido.
