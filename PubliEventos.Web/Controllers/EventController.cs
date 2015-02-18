@@ -15,6 +15,8 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using System.Drawing;
+    using System.Drawing.Imaging;
 
     [Authorize]
     public class EventController : BaseController
@@ -83,6 +85,10 @@
                 ViewBag.participants = invitations.Where(x => x.Confirmed == true).Select(x => x.User).ToList();
                 ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
                 ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments.OrderByDescending(x => x.EffectDate).ToList();
+
+                // Distingo entre fotos y videos.
+                ViewBag.pictures = model.MultimediaContentIds.Where(x => PicturesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
+                ViewBag.movies = model.MultimediaContentIds.Where(x => MoviesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
             }
 
             return View(model);
@@ -118,6 +124,7 @@
         /// </summary>
         /// <param name="id">Identificador del evento.</param>
         /// <returns>UploadPictures view.</returns>
+        [UserActionRestriction(ElementTypesToValidate.UploadPictures)]
         public ActionResult UploadPictures(int id)
         {
             ViewBag.eventId = id;
@@ -197,8 +204,10 @@
 
                     fileToSave.SaveAs(path);
 
+                    var contentType = PicturesExtensions.Contains(Path.GetExtension(fileName).ToLower()) ? (int)ContentTypes.Image : (int)ContentTypes.Movie;
+
                     // Doy de alta el contenido al evento.
-                    this.serviceEvents.CreateMultimediaContent(new CreateMultimediaContentRequest() { EventId = eventId, FileName = fileName });
+                    this.serviceEvents.CreateMultimediaContent(new CreateMultimediaContentRequest() { EventId = eventId, FileName = fileName, ContentType = contentType });
                 }
             }
             catch (Exception)
@@ -221,8 +230,6 @@
         /// <returns></returns>
         public JsonResult DeletePictures(string fileName, int eventId)
         {
-            var quantity = 0;
-
             try
             {
                 if (!string.IsNullOrEmpty(fileName))
@@ -230,14 +237,16 @@
                     // Elimino la portada anterior.
                     System.IO.File.Delete(HttpContext.Server.MapPath(pathEventsPictures + fileName));
 
-                    quantity = this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName }).QuantityContents;
+                    this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
+
+                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
                 }
 
-                return Json(new { Success = true, QuantityContents = quantity }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
-                return Json(new { Success = false, QuantityContents = quantity }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
         }
 

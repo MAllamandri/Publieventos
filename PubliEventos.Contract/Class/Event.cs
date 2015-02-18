@@ -63,7 +63,7 @@
         /// <summary>
         /// Contenidos multimedia relacionados al evento (imagenes o videos).
         /// </summary>
-        //public virtual IList<MultimediaContent> MultimediaContents { get; set; }
+        public List<string> MultimediaContentIds { get; set; }
 
         /// <summary>
         /// Localidad del evento.

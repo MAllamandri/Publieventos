@@ -8,6 +8,10 @@ body {
     padding-top: 10px;
 }
 
+a:active {
+    text-decoration: none;
+}
+
 p, strong, label {
     font-family: 'MuseoSans-500';
 }

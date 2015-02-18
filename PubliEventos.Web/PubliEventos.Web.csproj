@@ -193,7 +193,29 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\EventsDetail.css" />
+    <Content Include="Content\Extensions\background.png" />
+    <Content Include="Content\Extensions\bigplay.fw.png" />
+    <Content Include="Content\Extensions\bigplay.png" />
+    <Content Include="Content\Extensions\controls-ted.png" />
+    <Content Include="Content\Extensions\controls-wmp-bg.png" />
+    <Content Include="Content\Extensions\controls-wmp.png" />
+    <Content Include="Content\Extensions\controls.fw.png" />
+    <Content Include="Content\Extensions\controls.png" />
+    <Content Include="Content\Extensions\flashmediaelement-cdn.swf" />
+    <Content Include="Content\Extensions\flashmediaelement.swf" />
+    <Content Include="Content\Extensions\jquery.js" />
+    <Content Include="Content\Extensions\loading.gif" />
+    <Content Include="Content\Extensions\mediaelement-and-player.js" />
+    <Content Include="Content\Extensions\mediaelement.js" />
+    <Content Include="Content\Extensions\mediaelement.min.js" />
+    <Content Include="Content\Extensions\mediaelementplayer.css" />
+    <Content Include="Content\Extensions\mediaelementplayer.js" />
+    <Content Include="Content\Extensions\mediaelementplayer.min.css" />
+    <Content Include="Content\Extensions\mediaelementplayer.min.js" />
+    <Content Include="Content\Extensions\mejs-skins.css" />
     <Content Include="Content\Extensions\nanoscroller.css" />
+    <Content Include="Content\Extensions\silverlightmediaelement.xap" />
+    <Content Include="Content\Extensions\skipback.png" />
     <Content Include="Content\fonts\css\font-awesome.css" />
     <Content Include="Content\images\Covers\maxi.jpg" />
     <Content Include="Content\ladda\ladda-themeless.css" />
@@ -215,6 +237,7 @@
     <Content Include="Scripts\dropzone\dropzone.min.css" />
     <Content Include="Scripts\dropzone\dropzone.min.js" />
     <Content Include="Scripts\jquery.nanoscroller.min.js" />
+    <Content Include="Content\Extensions\mediaelement-and-player.min.js" />
     <Content Include="Scripts\select2_locale_es.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
@@ -321,6 +344,8 @@
     <Content Include="Scripts\dropzone\dropzone.min.js.map">
       <DependentUpon>dropzone.js</DependentUpon>
     </Content>
+    <Content Include="Content\Extensions\bigplay.svg" />
+    <Content Include="Content\Extensions\controls.svg" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -424,8 +449,9 @@
     <Content Include="Views\Invitation\Partial\_PendingConfirmation.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\Event\Partial\_FilesForm.cshtml" />
+    <Content Include="Views\Event\Partial\_PicturesForm.cshtml" />
     <Content Include="Views\Event\UploadPictures.cshtml" />
+    <Content Include="Views\Event\Partial\_MoviesForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

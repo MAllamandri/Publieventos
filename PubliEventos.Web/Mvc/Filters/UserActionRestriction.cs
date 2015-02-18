@@ -152,6 +152,16 @@
                 }
             }
 
+            if (this.ElementType == (int)ElementTypesToValidate.UploadPictures)
+            {
+                Event _event = (Event)element;
+
+                if (_event.User.Id != user.Id)
+                {
+                    valid = false;
+                }
+            }
+
             if (!valid)
             {
                 filterContext.Result = new ViewResult
@@ -207,7 +217,9 @@
         {
             if (elementId.HasValue)
             {
-                if (elementType == (int)ElementTypesToValidate.Event || elementType == (int)ElementTypesToValidate.InvitationToEvent)
+                if (elementType == (int)ElementTypesToValidate.Event ||
+                    elementType == (int)ElementTypesToValidate.InvitationToEvent ||
+                    elementType == (int)ElementTypesToValidate.UploadPictures)
                 {
                     return this.serviceEvents.GetEventById(elementId.Value);
                 }

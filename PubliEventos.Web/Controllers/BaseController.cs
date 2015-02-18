@@ -6,6 +6,9 @@
 
     public class BaseController : Controller
     {
+        public string[] PicturesExtensions = new string[] { ".png", ".jpg", ".gif", ".jpeg" };
+        public string[] MoviesExtensions = new string[] { ".mp4", ".webm" };
+
         /// <summary>
         /// Path de almacenamiento de las fotos de portada.
         /// </summary>

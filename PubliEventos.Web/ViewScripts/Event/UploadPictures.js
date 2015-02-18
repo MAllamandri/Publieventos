@@ -8,7 +8,7 @@
         clickable: true,
         previewTemplate: previewTemplate,
         thumbnailWIdth: 100,
-        acceptedFiles: '.png, .jpg, .gif, .jpeg, .mp4, .mpeg, .avi'
+        acceptedFiles: '.png, .jpg, .gif, .jpeg, .mp4, .webm'
     }
 
     var dropzone = new Dropzone('.dropfiles', options);
@@ -33,15 +33,20 @@
 
     dropzone.on('success', function (file, response) {
         $('.dz-message').hide();
+        $('#detailRegion').show();
 
         file.Id = response.FileName;
         preview = $(file.previewElement);
         preview.find('.file-progress').fadeOut(20);
 
         if (response.Success) {
+            file.uploadSuccess = true;
             preview.find('.result').addClass('success').show();
+            $('#processCorrect').text(parseInt($('#processCorrect').text()) + 1);
         } else {
+            file.uploadSuccess = false;
             preview.find('.result').addClass('error').show();
+            $('#processErrors').text(parseInt($('#processErrors').text()) + 1);
         }
 
         preview.find('.close').on('click', function (e) {
@@ -55,7 +60,13 @@
                 if (data.Success) {
                     dropzone.removeFile(file);
 
-                    if (data.QuantityContents == 0) {
+                    if (file.uploadSuccess) {
+                        $('#processCorrect').text(parseInt($('#processCorrect').text()) - 1);
+                    } else {
+                        $('#processErrors').text(parseInt($('#processErrors').text()) - 1);
+                    }
+
+                    if ((parseInt($('#processCorrect').text()) + parseInt($('#processErrors').text())) == 0) {
                         $('.dz-message').show();
                     }
                 } else {
@@ -69,5 +80,7 @@
         preview = $(file.previewElement);
         preview.find('.result').addClass('error').show();
         $('.dz-message').hide();
+        $('#detailRegion').show();
+        $('#processErrors').text(parseInt($('#processErrors').text()) + 1);
     });
 });

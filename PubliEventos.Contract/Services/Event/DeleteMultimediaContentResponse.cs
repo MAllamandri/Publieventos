@@ -5,9 +5,5 @@
     /// </summary>
     public class DeleteMultimediaContentResponse
     {
-        /// <summary>
-        /// Cantidad de contenidos
-        /// </summary>
-        public int QuantityContents { get; set; }
     }
 }

@@ -15,6 +15,9 @@
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.signalR-1.0.0.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.nanoscroller.min.js")
+@System.Web.Optimization.Scripts.Render("/Content/Extensions/mediaelement-and-player.min.js")
+@System.Web.Optimization.Styles.Render("/Content/Extensions/mediaelementplayer.css")
+
 
 
 @Styles.Render("~/Content/Extensions/nanoscroller.css")
@@ -38,7 +41,8 @@
                                 <ul class="list-horizontal subtitle-sections" style="margin-left: -15px">
                                     <li><a id="tabDetail" class="label-lobster active-link" href="#" data-toggle="tab">Detalle</a></li>
                                     <li><a id="tabLocalization" href="#" class="label-lobster" data-toggle="tab">Localización</a></li>
-                                    <li><a id="tabContents" href="#" class="label-lobster" data-toggle="tab">Contenidos</a></li>
+                                    <li><a id="tabPictures" href="#" class="label-lobster" data-toggle="tab">Fotos</a></li>
+                                    <li><a id="tabMovies" href="#" class="label-lobster" data-toggle="tab">Videos</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -57,7 +61,7 @@
                             </div>
                             <div class="row-fluid" style="margin-top: 50px">
                                 <div class="col-md-8" id="commentArea">
-                                    <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios</p>
+                                    <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios Disponibles</p>
                                 </div>
                                 <div class="col-md-4" style="overflow-y: no-display; height: 100% !important;">
                                     <div class="col-md-12" style="margin-bottom: 20px;">
@@ -78,9 +82,14 @@
                                 @Html.Partial("Partial/_LocalizationDetail")
                             </div>
                         </div>
-                        <div id="regionContents" class="tab-content">
+                        <div id="regionPictures" class="tab-content" style="display: none">
                             <div class="tab-pane active">
-                                @Html.Partial("Partial/_FilesForm")
+                                @Html.Partial("Partial/_PicturesForm", ((List<string>)ViewBag.pictures), new ViewDataDictionary { { "UserId", Model.User.Id } })
+                            </div>
+                        </div>
+                        <div id="regionMovies" class="tab-content" style="display: none">
+                            <div class="tab-pane active">
+                                @Html.Partial("Partial/_MoviesForm", ((List<string>)ViewBag.movies))
                             </div>
                         </div>
                     </div>

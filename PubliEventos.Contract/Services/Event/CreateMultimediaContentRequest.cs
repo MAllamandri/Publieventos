@@ -11,6 +11,11 @@
         public int EventId { get; set; }
 
         /// <summary>
+        /// Tipo de contenido.
+        /// </summary>
+        public int ContentType { get; set; }
+
+        /// <summary>
         /// Identificador del archivo.
         /// </summary>
         public string FileName { get; set; }

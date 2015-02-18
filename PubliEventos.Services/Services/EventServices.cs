@@ -142,7 +142,7 @@
         /// Obtiene eventos por diferentes filtros.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        /// <returns>Lista de eventos filtrados.</returns>
+        /// <returns>El resultado de la operación.</returns>
         public static SearchFilteredEventsResponse SearchFilteredEvents(SearchFilteredEventsRequest request)
         {
             var predicate = PredicateBuilder.True<Domain.Domain.Event>();
@@ -188,7 +188,7 @@
         /// Da de alta un contenido multimedia asociado al evento.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        /// <returns>Lista de eventos filtrados.</returns>
+        /// <returns>El resultado de la operación.</returns>
         public static CreateMultimediaContentResponse CreateMultimediaContent(CreateMultimediaContentRequest request)
         {
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
@@ -203,7 +203,7 @@
                 var content = new Domain.Domain.MultimediaContent()
                 {
                     Active = true,
-                    ContentType = (int)ContentTypes.Image,
+                    ContentType = request.ContentType,
                     EffectDate = DateTime.Now,
                     Event = _event,
                     Name = request.FileName
@@ -221,7 +221,7 @@
         /// Da de baja un contenido multimedia asociado al evento.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        /// <returns>Lista de eventos filtrados.</returns>
+        /// <returns>El resultado de la operación.</returns>
         public static DeleteMultimediaContentResponse DeleteMultimediaContent(DeleteMultimediaContentRequest request)
         {
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
@@ -235,12 +235,7 @@
 
                 transaction.Complete();
 
-                var count = !_event.MultimediaContents.Any(x => !x.NullDate.HasValue) ? 0 : _event.MultimediaContents.Where(x => !x.NullDate.HasValue).Count();
-
-                return new DeleteMultimediaContentResponse()
-                {
-                    QuantityContents = count
-                };
+                return new DeleteMultimediaContentResponse();
             }
         }
     }

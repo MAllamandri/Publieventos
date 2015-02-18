@@ -1,7 +1,15 @@
 ﻿$(function () {
+    $('video').mediaelementplayer({
+        alwaysShowControls: true,
+        videoVolume: 'horizontal',
+        features: ['playpause', 'progress', 'volume', 'fullscreen']
+    });
+
     $('.nano').nanoScroller({
         flash: true
     });
+
+    $('.carousel').carousel();
 
     $(document).on("click", '#comment', function (event) {
         $('#commentModal').modal('show');
@@ -32,6 +40,69 @@
         $('#commentModal').modal('show');
     });
 
+    $(document).on("click", '.deletePicture', function (event) {
+        var fileName = $(this).attr('rel');
+        var element = $(this).parent().parent().parent().parent();
+        var nextElement = element.next();
+
+        bootbox.confirm({
+            title: "<h4 class='title-modal'>Eliminación de Foto</h4>",
+            message: "<p class='font-text'>Esta seguro que desea eliminar la foto?</p>",
+            buttons: {
+                'cancel': {
+                    label: "Cancelar",
+                    className: "btn-cancel pull-left",
+                },
+                'confirm': {
+                    label: "Aceptar",
+                    className: "btn-confirm"
+                }
+            }, callback: function (result) {
+                if (result) {
+                    $.blockUI({ message: "" });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Event/DeletePictures",
+                        data: {
+                            eventId: $('#EventId').val(),
+                            fileName: fileName
+                        }
+                    }).done(function (data) {
+                        if (data.Success) {
+                            // Elimino el item actual.
+                            element.remove();
+
+                            // Si el siguiente elemento es un item, lo activo. Sino muestro el mensaje que no hay mas fotos.
+                            if (nextElement.hasClass('item')) {
+                                nextElement.addClass('active');
+                            } else {
+                                $('#regionNotFound').show();
+                                $('.carousel').hide();
+                            }
+                        } else {
+                            bootbox.dialog({
+                                title: "<h4 class='title-modal'>Fotos</h4>",
+                                message: "<p class='font-text'>Ha ocurrido un error al eliminar la foto.</p>",
+                                buttons: {
+                                    success: {
+                                        label: "Aceptar",
+                                        className: "btn-confirm",
+                                        callback: function () { }
+                                    }
+                                }
+                            });
+                        }
+                        $.unblockUI();
+                    }).error(function () {
+                        alert("Ha ocurrido un error");
+                        $.unblockUI();
+                    });
+                }
+            }
+        });
+    });
+
     $('#tabDetail').click(function () {
         removeActiveClass();
         HideRegions();
@@ -50,23 +121,32 @@
         map.setCenter(center);
     });
 
-    $('#tabContents').click(function () {
+    $('#tabPictures').click(function () {
         HideRegions();
         removeActiveClass();
-        $('#regionContents').show();
+        $('#regionPictures').show();
+        $(this).addClass("active-link");
+    });
+
+    $('#tabMovies').click(function () {
+        HideRegions();
+        removeActiveClass();
+        $('#regionMovies').show();
         $(this).addClass("active-link");
     });
 
     function removeActiveClass() {
-        $('#tabContents').removeClass("active-link");
+        $('#tabPictures').removeClass("active-link");
         $('#tabLocalization').removeClass("active-link");
         $('#tabDetail').removeClass("active-link");
+        $('#tabMovies').removeClass("active-link");
     }
 
     function HideRegions() {
         $('#regionLocalization').hide();
-        $('#regionContents').hide();
+        $('#regionPictures').hide();
         $('#regionDetail').hide();
+        $('#regionMovies').hide();
     }
 
     $('#saveComment').click(function () {
@@ -172,7 +252,7 @@
     };
 
     chat.client.refreshCommentsInPage = function () {
-        $('#commentArea').html('<p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios</p>');
+        $('#commentArea').html('<p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios Disponibles</p>');
         chat.server.getComments($('#EventId').val());
     };
 

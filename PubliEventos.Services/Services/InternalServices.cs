@@ -1,6 +1,7 @@
 ﻿namespace PubliEventos.Services.Services
 {
     using PubliEventos.Contract.Class;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class InternalServices
@@ -36,7 +37,8 @@
                     Description = eventToParse.EventType.Description
                 },
                 Latitude = eventToParse.Latitude,
-                Longitude = eventToParse.Longitude
+                Longitude = eventToParse.Longitude,
+                MultimediaContentIds = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Select(x => x.Name).ToList() : new List<string>()
             };
         }
 

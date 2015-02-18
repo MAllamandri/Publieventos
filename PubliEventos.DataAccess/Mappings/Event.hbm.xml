@@ -23,7 +23,7 @@
       <key column="IdEvent"/>
       <one-to-many class="Comment"/>
     </bag>
-    <bag name="MultimediaContents" cascade="save-update">
+    <bag name="MultimediaContents" cascade="save-update" where="NullDate IS NULL">
       <key column="IdEvent"/>
       <one-to-many class="MultimediaContent"/>
     </bag>
