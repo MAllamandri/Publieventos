@@ -5,43 +5,55 @@
 {
     var active = "active";
 
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner" role="listbox">
-            @foreach (var fileName in Model)
-            {
+    <div class="col-md-12" style="margin-top: 20px; margin-bottom: 30px;">
+        <div id="carousel-movies" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner" role="listbox">
+                @foreach (var fileName in Model)
+                {
 
-                <div class="item @active">
-                    <div class="col-md-6 offset2">
-                        <video width="800" height="500" poster="">
+                    <div class="item @active">
+                        <nav class="actions-contents">
+                            <ul>
+                                @if (ViewData["UserId"] != null && (int)ViewData["UserId"] == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id)
+                                {
+                                    <li><a class="deleteContent" title="Eliminar" rel="@fileName" href="#"><i style="margin-bottom: -14px" class="icon-contents icon-remove"></i></a></li>
+                                }
+                                <li><a title="Reportar" href="#"><i class="icon-contents icon-ban-circle"></i></a></li>
+                            </ul>
+                        </nav>
+                        <video class="movies" controls poster="">
                             <source src="/Content/images/EventsPictures/@fileName" type="video/mp4">
                             <source src="/Content/images/EventsPictures/@fileName" type="video/webm">
-                            <source src="/Content/images/EventsPictures/@fileName" type="video/mpeg">
-                            <source src="/Content/images/EventsPictures/@fileName" type="video/avi">
                             Su navegador no soporta este contenido.
                         </video>
                     </div>
-                </div>
-                active = "";
-            }
+                                active = "";
+                }
+            </div>
+            <!-- Controls -->
+            <a class="carousel-control" href="#carousel-movies" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" style="color: #B89C83" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" style="background-image: none" href="#carousel-movies" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" style="color: #B89C83" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
-
 }
 else
 {
-    <div class="row-fluid">
+    <div id="regionNotFoundMovies" class="row-fluid">
         <div class="col-md-6 offset3">
             <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Videos Disponibles</p>
         </div>
     </div>   
     
 }
+
+<div id="regionNotFoundMovies" class="row-fluid" style="display: none">
+    <div class="col-md-6 offset3">
+        <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Videos Disponibles</p>
+    </div>
+</div>

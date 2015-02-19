@@ -1,10 +1,4 @@
 ﻿$(function () {
-    $('video').mediaelementplayer({
-        alwaysShowControls: true,
-        videoVolume: 'horizontal',
-        features: ['playpause', 'progress', 'volume', 'fullscreen']
-    });
-
     $('.nano').nanoScroller({
         flash: true
     });
@@ -40,14 +34,14 @@
         $('#commentModal').modal('show');
     });
 
-    $(document).on("click", '.deletePicture', function (event) {
+    $(document).on("click", '.deleteContent', function (event) {
         var fileName = $(this).attr('rel');
         var element = $(this).parent().parent().parent().parent();
-        var nextElement = element.next();
+        var nextElement = element.next().length != 0 ? element.next() : element.prev();
 
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Eliminación de Foto</h4>",
-            message: "<p class='font-text'>Esta seguro que desea eliminar la foto?</p>",
+            title: "<h4 class='title-modal'>Eliminación de Contenido</h4>",
+            message: "<p class='font-text'>Esta seguro que desea eliminar el contenido?</p>",
             buttons: {
                 'cancel': {
                     label: "Cancelar",
@@ -59,11 +53,11 @@
                 }
             }, callback: function (result) {
                 if (result) {
-                    $.blockUI({ message: "" });
+                    $.blockUI({ message: "Eliminando Contenido..." });
 
                     $.ajax({
                         type: 'POST',
-                        url: "/Event/DeletePictures",
+                        url: "/Event/DeleteContent",
                         data: {
                             eventId: $('#EventId').val(),
                             fileName: fileName
@@ -73,17 +67,22 @@
                             // Elimino el item actual.
                             element.remove();
 
-                            // Si el siguiente elemento es un item, lo activo. Sino muestro el mensaje que no hay mas fotos.
-                            if (nextElement.hasClass('item')) {
+                            // Si el siguiente elemento es un item, lo activo. Sino muestro el mensaje que no hay mas contenidos.
+                            if (nextElement.length != 0 && nextElement.hasClass('item')) {
                                 nextElement.addClass('active');
                             } else {
-                                $('#regionNotFound').show();
-                                $('.carousel').hide();
+                                if (data.IsPicture) {
+                                    $('#regionNotFound').show();
+                                    $('#carousel-pictures').hide();
+                                } else {
+                                    $('#regionNotFoundMovies').show();
+                                    $('#carousel-movies').hide();
+                                }
                             }
                         } else {
                             bootbox.dialog({
-                                title: "<h4 class='title-modal'>Fotos</h4>",
-                                message: "<p class='font-text'>Ha ocurrido un error al eliminar la foto.</p>",
+                                title: "<h4 class='title-modal'>Contenidos</h4>",
+                                message: "<p class='font-text'>Ha ocurrido un error al eliminar el contenido.</p>",
                                 buttons: {
                                     success: {
                                         label: "Aceptar",
@@ -229,10 +228,23 @@
                             chat.server.refreshComments();
                             $.unblockUI();
                         } else {
-                            bootbox.alert("Ha ocurrido un error al eliminar el registro");
+                            bootbox.dialog({
+                                title: "<h4 class='title-modal'>Comentarios</h4>",
+                                message: "<p class='font-text'>Ha ocurrido un error al eliminar el comentario..</p>",
+                                buttons: {
+                                    success: {
+                                        label: "Aceptar",
+                                        className: "btn-confirm",
+                                        callback: function () { }
+                                    }
+                                }
+                            });
                             $.unblockUI();
                         }
-                    });
+                    }).error(function () {
+                        alert("Ha ocurrido un error");
+                        $.unblockUI();
+                    });;
                 }
             }
         });

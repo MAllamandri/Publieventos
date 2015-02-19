@@ -463,13 +463,13 @@
                         if (!string.IsNullOrEmpty(model.ImageProfile))
                         {
                             // Elimino la portada anterior.
-                            System.IO.File.Delete(HttpContext.Server.MapPath(pathImageProfile + model.ImageProfile));
+                            System.IO.File.Delete(pathImageProfile + model.ImageProfile);
                         }
 
                         // Renombro el archivo.
                         model.ImageProfile = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileModel.File.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(fileModel.File.FileName));
 
-                        var path = Path.Combine(HttpContext.Server.MapPath(pathImageProfile), Path.GetFileName(model.ImageProfile));
+                        var path = Path.Combine(pathImageProfile, Path.GetFileName(model.ImageProfile));
 
                         fileModel.File.SaveAs(path);
                     }

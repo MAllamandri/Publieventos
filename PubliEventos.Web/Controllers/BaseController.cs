@@ -14,7 +14,7 @@
         /// </summary>
         public string pathCoverPhoto
         {
-            get { return "/Content/Images/Covers/"; }
+            get { return HttpContext.Server.MapPath("/Content/Images/Covers/"); }
         }
 
         /// <summary>
@@ -22,7 +22,7 @@
         /// </summary>
         public string pathImageProfile
         {
-            get { return "/Content/images/Profiles/"; }
+            get { return HttpContext.Server.MapPath("/Content/images/Profiles/"); }
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
         /// </summary>
         public string pathEventsPictures
         {
-            get { return "/Content/images/EventsPictures/"; }
+            get { return HttpContext.Server.MapPath("/Content/images/EventsPictures/"); }
         }
 
         /// <summary>

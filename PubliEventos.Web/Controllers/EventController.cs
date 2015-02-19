@@ -200,7 +200,7 @@
 
                     // Renombro el archivo.
                     fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(fileToSave.FileName));
-                    var path = Path.Combine(HttpContext.Server.MapPath(pathEventsPictures), Path.GetFileName(fileName));
+                    var path = Path.Combine(pathEventsPictures, Path.GetFileName(fileName));
 
                     fileToSave.SaveAs(path);
 
@@ -214,8 +214,14 @@
             {
                 isSavedSuccessfully = false;
 
-                // Elimino la portada anterior.
-                System.IO.File.Delete(HttpContext.Server.MapPath(pathEventsPictures + fileName));
+                //Libero y Elimino el contenido.
+                if (System.IO.File.Exists(pathEventsPictures + fileName))
+                {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    FileInfo file = new FileInfo(pathEventsPictures + fileName);
+                    file.Delete();
+                }
 
                 this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
             }
@@ -228,18 +234,23 @@
         /// </summary>
         /// <param name="fileName">Nombre del archivo (único).</param>
         /// <returns></returns>
-        public JsonResult DeletePictures(string fileName, int eventId)
+        public JsonResult DeleteContent(string fileName, int eventId)
         {
             try
             {
-                if (!string.IsNullOrEmpty(fileName))
+                if (System.IO.File.Exists(pathEventsPictures + fileName))
                 {
-                    // Elimino la portada anterior.
-                    System.IO.File.Delete(HttpContext.Server.MapPath(pathEventsPictures + fileName));
+                    var isPicture = PicturesExtensions.Contains(Path.GetExtension(fileName).ToLower()) ? true : false;
+
+                    //Libero y Elimino el contenido.
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    FileInfo file = new FileInfo(pathEventsPictures + fileName);
+                    file.Delete();
 
                     this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
 
-                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = true, IsPicture = isPicture }, JsonRequestBehavior.AllowGet);
                 }
 
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
@@ -269,7 +280,7 @@
                     // Renombro el archivo.
                     var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
                     model.FileName = fileName;
-                    var path = Path.Combine(HttpContext.Server.MapPath(pathCoverPhoto), Path.GetFileName(fileName));
+                    var path = Path.Combine(pathCoverPhoto, Path.GetFileName(fileName));
 
                     model.CoverPhoto.SaveAs(path);
                 }
@@ -298,12 +309,12 @@
                     if (!string.IsNullOrEmpty(model.FileName))
                     {
                         // Elimino la portada anterior.
-                        System.IO.File.Delete(HttpContext.Server.MapPath(pathCoverPhoto + model.FileName));
+                        System.IO.File.Delete(pathCoverPhoto + model.FileName);
                     }
 
                     var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
                     model.FileName = fileName;
-                    var path = Path.Combine(HttpContext.Server.MapPath(pathCoverPhoto), Path.GetFileName(fileName));
+                    var path = Path.Combine(pathCoverPhoto, Path.GetFileName(fileName));
 
                     model.CoverPhoto.SaveAs(path);
                 }

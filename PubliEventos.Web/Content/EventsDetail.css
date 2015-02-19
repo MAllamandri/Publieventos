@@ -191,21 +191,22 @@
 
 /*#endregion*/
 
-/*#region Pictures */
-.actions-pictures {
+/*#region Contents */
+
+.actions-contents {
     position: absolute;
     font-size: 25px;
     left: 83%;
     margin-top: -9px;
 }
 
-    .actions-pictures ul {
+    .actions-contents ul {
         position: absolute;
         list-style: none;
         padding-top: 2px;
     }
 
-.icon-pictures {
+.icon-contents {
     float: right;
     font-size: 25px;
     color: #B89C83;
@@ -213,20 +214,29 @@
     float: right;
 }
 
-    .icon-pictures:hover {
+    .icon-contents:hover {
         text-decoration: none;
     }
 
-    .icon-pictures i {
+    .icon-contents i {
         text-decoration: none;
     }
 
 .pictures {
     text-align: center;
-    max-width: 750px;
-    max-height: 500px;
+    max-width: 750px !important;
+    max-height: 500px !important;
+    min-height: 50px;
     margin: auto;
 }
 
+.movies {
+    width: 750px !important;
+    max-height: 500px !important;
+    min-height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 
 /*#endregion*/

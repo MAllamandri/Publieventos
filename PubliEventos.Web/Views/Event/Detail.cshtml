@@ -15,10 +15,6 @@
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.signalR-1.0.0.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.nanoscroller.min.js")
-@System.Web.Optimization.Scripts.Render("/Content/Extensions/mediaelement-and-player.min.js")
-@System.Web.Optimization.Styles.Render("/Content/Extensions/mediaelementplayer.css")
-
-
 
 @Styles.Render("~/Content/Extensions/nanoscroller.css")
 
@@ -89,7 +85,7 @@
                         </div>
                         <div id="regionMovies" class="tab-content" style="display: none">
                             <div class="tab-pane active">
-                                @Html.Partial("Partial/_MoviesForm", ((List<string>)ViewBag.movies))
+                                @Html.Partial("Partial/_MoviesForm", ((List<string>)ViewBag.movies), new ViewDataDictionary { { "UserId", Model.User.Id } })
                             </div>
                         </div>
                     </div>
