@@ -1,4 +1,10 @@
 ﻿@model PubliEventos.Contract.Class.Event
+@{
+    var urlEvent = string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, Model.Id);
+    var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName);
+}
+
+@using PubliEventos.Web.Helpers
 
 <li style="margin-bottom: 40px;">
     <div class="row-fluid">
@@ -11,17 +17,24 @@
                     <h4 class="font-text">@Model.Title</h4>
                     <br />
                     <p class="font-text" style="display: inline; padding-right: 5px;">
-                        <small class="text-muted"><i class="glyphicon glyphicon-calendar" title="Fecha de realización"></i> @Model.EventDate.ToShortDateString()</small>
+                        <small class="text-muted"><i class="glyphicon glyphicon-calendar" title="Fecha de realización"></i>&nbsp @Model.EventDate.ToShortDateString()</small>
                     </p>
                     <p class="font-text" style="display: inline">
-                        <small class="text-muted"><i class="glyphicon glyphicon-time" title="Hora de realización"></i> @Model.EventStartTime.ToString(@"hh\:mm") a @Model.EventEndTime.ToString(@"hh\:mm") Hs.</small>
+                        <small class="text-muted"><i class="glyphicon glyphicon-time" title="Hora de realización"></i>&nbsp @Model.EventStartTime.ToString(@"hh\:mm") a @Model.EventEndTime.ToString(@"hh\:mm") Hs.</small>
                     </p>
-                </div><br/>
-                <div class="tl-body subtitle">
+                </div>
+                <br />
+                <div class="tl-body">
                     <p class="font-text">@Model.Description</p>
                 </div>
                 <div class="col-md-12" style="margin-top: 15px; margin-bottom: -18px;">
-                    <a href="/Event/Detail/@Model.Id" title="Ir al detalle"><i class="icon-default glyphicon glyphicon-search"></i></a>
+                    <a href="/Event/Detail/@Model.Id" title="Ir al detalle"><i style="padding-top: 5px" class="icon-default glyphicon glyphicon-search"></i></a>
+                    <div style="padding: 0 7px 5px; float: right;">
+                        @Html.SharedTwitter(Model.Title, Model.Id.Value.ToString(), urlImage)
+                        <a href="#" onclick="fbShare('@urlEvent.ToString()', '@Model.Title', '@Model.Description', '@urlImage')">
+                            <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
+                        <div id="fb-root"></div>
+                    </div>
                 </div>
             </div>
         </div>

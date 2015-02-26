@@ -1,11 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using PubliEventos.Contract.Class
+
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Social.js")
 
 <style>
     img {

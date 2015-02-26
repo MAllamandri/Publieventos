@@ -826,5 +826,13 @@ img {
     font-size: 20px;
 }
 
-
 /*#endregion*/
+
+/*#region Social links */
+
+.shared-social {
+    height: 25px !important;
+    width: 25px !important;
+}
+
+/*#endregion */

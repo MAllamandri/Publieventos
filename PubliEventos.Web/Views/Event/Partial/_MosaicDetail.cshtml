@@ -1,7 +1,12 @@
 ﻿@model PubliEventos.Contract.Class.Event
 
+@using PubliEventos.Web.Helpers
+
 @{
     var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+    var coverImage = !string.IsNullOrEmpty(Model.FileName) ? System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName : "/Content/themes/images/contact-default-image.jpg";
+    var urlEvent = string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, Model.Id);
+    var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, coverImage);
 }
 
 <div class="col-md-12" style="margin-bottom: 1%;">
@@ -56,12 +61,18 @@
                 <div style="margin-bottom: 40px !important">
                     @if (ViewData["IsInvitation"] == null || (bool)ViewData["IsInvitation"] == false)
                     {
-                        <a href="#" id="comment" title="Comentar"><span style="font-size: 20px" class="icon-default icon-comments"></span></a>
+                        <a href="#" id="comment" title="Comentar"><span style="font-size: 25px" class="icon-default icon-comments"></span></a>
                         if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == @Model.User.Id)
                         {
-                        <a  href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span style="font-size: 20px; padding-right: 20px;" class="icon-default icon-user"></span></a>
-                        <a  href="/Event/UploadPictures/@Model.Id" title="Subir fotos y Videos"><span style="font-size: 20px; padding-right: 25px;" class="icon-default icon-picture"></span></a>
+                        <a  href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span style="font-size: 25px; padding-right: 25px;" class="icon-default icon-user"></span></a>
+                        <a  href="/Event/UploadPictures/@Model.Id" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px;" class="icon-default icon-picture"></span></a>
                         }
+                        <div style="padding-top: 7px">
+                            @Html.SharedTwitter(Model.Title, Model.Id.Value.ToString(), urlImage)
+                            <a href="#" onclick="fbShare('@urlEvent.ToString()', '@Model.Title', '@Model.Description', '@urlImage')">
+                                <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
+                            <div id="fb-root"></div>
+                        </div>
                     }
                 </div>
             </div>
