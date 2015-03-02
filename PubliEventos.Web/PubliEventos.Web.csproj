@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Helpers\SocialLink.cs" />
     <Compile Include="Mvc\Attributes\FileTypes.cs" />
     <Compile Include="Bootstrapper.cs" />

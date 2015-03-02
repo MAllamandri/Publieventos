@@ -41,6 +41,8 @@
                     configuration.AddFile(mappingPath + "Group.hbm.xml");
                     configuration.AddFile(mappingPath + "UsersGroup.hbm.xml");
                     configuration.AddFile(mappingPath + "Invitation.hbm.xml");
+                    configuration.AddFile(mappingPath + "Report.hbm.xml");
+                    configuration.AddFile(mappingPath + "Suspension.hbm.xml");
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;

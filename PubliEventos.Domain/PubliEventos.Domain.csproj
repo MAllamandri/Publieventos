@@ -47,6 +47,8 @@
     <Compile Include="Domain\Locality.cs" />
     <Compile Include="Domain\MultimediaContent.cs" />
     <Compile Include="Domain\Province.cs" />
+    <Compile Include="Domain\Report.cs" />
+    <Compile Include="Domain\Suspension.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Group.cs" />
     <Compile Include="Domain\UsersGroup.cs" />

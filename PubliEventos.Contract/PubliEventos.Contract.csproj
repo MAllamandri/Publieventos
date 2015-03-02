@@ -56,6 +56,7 @@
     <Compile Include="Contracts\IEventServices.cs" />
     <Compile Include="Contracts\IInvitationServices.cs" />
     <Compile Include="Contracts\ILocalityServices.cs" />
+    <Compile Include="Contracts\IReportService.cs" />
     <Compile Include="Contracts\IUsersGroupServices.cs" />
     <Compile Include="Enums\ContentTypes.cs" />
     <Compile Include="Enums\ElementTypesToValidate.cs" />
@@ -120,7 +121,9 @@
       <Name>PubliEventos.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\Report\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

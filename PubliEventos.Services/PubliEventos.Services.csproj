@@ -65,6 +65,7 @@
     <Compile Include="CommentServicesHandler.cs" />
     <Compile Include="EventServicesHandler.cs" />
     <Compile Include="LocalityServicesHandler.cs" />
+    <Compile Include="ReportServicesHandler.cs" />
     <Compile Include="Services\AccountServices.cs" />
     <Compile Include="Services\CommentServices.cs" />
     <Compile Include="Services\EventServices.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Services\InvitationServices.cs" />
     <Compile Include="Services\LocalityServices.cs" />
     <Compile Include="Services\GroupServices.cs" />
+    <Compile Include="Services\ReportServices.cs" />
     <Compile Include="UsersGroupServicesHandler.cs" />
   </ItemGroup>
   <ItemGroup>

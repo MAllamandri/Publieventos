@@ -15,8 +15,6 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using System.Drawing;
-    using System.Drawing.Imaging;
 
     [Authorize]
     public class EventController : BaseController
@@ -42,6 +40,8 @@
         public IInvitationServices servicesInvitations { get; set; }
 
         #endregion
+
+        #region Views
 
         /// <summary>
         /// Vista de creación de eventos.
@@ -148,6 +148,7 @@
             return PartialView("Partial/_Mosaic", events);
         }
 
+        #endregion
 
         #region Private Methods
 
