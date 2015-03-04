@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿var contents = {
+    Image: 1,
+    Movie: 2,
+    Event: 3,
+    Comment: 4
+}
+
+$(function () {
     $('.nano').nanoScroller({
         flash: true
     });
@@ -10,6 +17,7 @@
     });
 
     $('#detailComment').charactersQuantity(200);
+    $('#reasonReport').charactersQuantity(250);
 
     $('#commentModal').on('hidden.bs.modal', function () {
         $('#detailComment').hideMessageError();
@@ -200,6 +208,83 @@
         }
     });
 
+    //#region Reports
+
+    $(document).on("click", '#saveReport', function (event) {
+        $('#reportModal').modal('hide');
+        ReportContent();
+    });
+
+    $(document).on("click", '.reportEvent', function (event) {
+        var eventId = $(this).attr('rel');
+        $('#contentId').val(eventId);
+        $('#contentType').val(contents.Event);
+
+        $('#reportModal').modal('show');
+    });
+
+    $(document).on("click", '.reportComment', function (event) {
+        var commentId = $(this).attr('rel');
+        $('#contentId').val(commentId);
+        $('#contentType').val(contents.Comment);
+
+        $('#reportModal').modal('show');
+    });
+
+    $(document).on("click", '.reportMovie', function (event) {
+        var movieId = $(this).attr('rel');
+        $('#contentId').val(movieId);
+        $('#contentType').val(contents.Movie);
+
+        $('#reportModal').modal('show');
+    });
+
+    $(document).on("click", '.reportPicture', function (event) {
+        var pictureId = $(this).attr('rel');
+        $('#contentId').val(pictureId);
+        $('#contentType').val(contents.Image);
+
+        $('#reportModal').modal('show');
+    });
+
+    function ReportContent() {
+        $.blockUI({ message: "" });
+
+        $.ajax({
+            type: 'POST',
+            url: '/Report/ReportContent',
+            data: {
+                ContentId: $('#contentId').val(),
+                ContentType: $('#contentType').val(),
+                Reason: $('#reasonReport').val()
+            }
+        }).done(function (data) {
+            if (data.Success) {
+                if ($('#contentType').val() == contents.Comment) {
+                    chat.server.refreshComments();
+                    $.unblockUI();
+                } else {
+                    window.location.href = "/Event/Detail/" + $('#EventId').val();
+                    $.blockUI({ message: "" });
+                }
+            } else {
+                bootbox.dialog({
+                    title: "<h4 class='title-modal'>Reportar</h4>",
+                    message: "<p class='font-text'>Ha ocurrido un error al reportar el contenido.</p>",
+                    buttons: {
+                        success: {
+                            label: "Aceptar",
+                            className: "btn-confirm",
+                            callback: function () { }
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //#endregion
+
     $(document).on("click", '.deleteComment', function (event) {
         var commentId = $(this).attr('rel');
 
@@ -276,13 +361,22 @@
         if (data.M != 'addNewCommentToPage' && data.R != "" && data.R != undefined) {
             $('#commentArea').html('');
             $.each(data.R, function (index, comment) {
+                var userReportsIds = [];
+
+                if (comment.UserReportsIds != null) {
+                    $.each(comment.UserReportsIds, function (index, id) {
+                        userReportsIds.push(id)
+                    });
+                }
+
                 $('#commentArea').append($('<div>').load("/Comment/GetComment", {
                     commentId: comment.Id,
                     detail: comment.Detail,
                     imageProfile: comment.User.ImageProfile,
                     elapsedTime: comment.ElapsedTime,
                     userId: comment.User.Id,
-                    userName: comment.User.UserName
+                    userName: comment.User.UserName,
+                    userReportIds: userReportsIds.join(',')
                 }));
             });
         }

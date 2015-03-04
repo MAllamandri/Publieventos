@@ -70,6 +70,11 @@
         public virtual IList<MultimediaContent> MultimediaContents { get; set; }
 
         /// <summary>
+        /// Reportes que recibio el evento.
+        /// </summary>
+        public virtual IList<Report> Reports { get; set; }
+
+        /// <summary>
         /// Indica si esta activo.
         /// </summary>
         public virtual bool Active { get; set; }

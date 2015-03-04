@@ -2,6 +2,7 @@
 
 @{
     var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+    var userId = (User as PubliEventos.Web.App_Start.CustomPrincipal).Id;
 }
 
 <div class="row-fluid" style="margin-bottom: 20px">
@@ -15,17 +16,27 @@
             <div class="comment-detail">
                 <p class="font-comment">@Model.Detail</p>
                 <input type="hidden" value="@Model.Id"/>
-
             </div>
             <div>
                 <small style="float: left; font-size: 10px;">@Model.ElapsedTime</small>
             </div>
             <div class="actions-comment">
-                <a title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
-                @if (Model.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id)
+                @if (Model.UserReportsIds == null || !Model.UserReportsIds.Contains(userId.ToString()))
+                {
+                    <a title="Reportar" class="reportComment" rel="@Model.Id" href="#"><i class="icon-default icon-ban-circle"></i></a>
+                }
+
+                @if (Model.User.Id == userId)
                 {
                     <a title="Editar" href="#"><i class="edit-comment icon-default icon-pencil"></i></a>
                     <a style="padding-left: 7px" class="deleteComment" title="Eliminar" rel="@Model.Id" href="#"><i class="icon-default icon-remove"></i></a>
+                }
+
+                @if (Model.UserReportsIds != null && Model.UserReportsIds.Contains(userId.ToString()))
+                {
+                    <div style="display: none; display: inline; float: left; padding-right: 25px; color: #f00">
+                        <strong>Has Reportado este Comentario</strong>
+                    </div>
                 }
             </div>
         </div>

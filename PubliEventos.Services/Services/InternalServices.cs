@@ -38,7 +38,8 @@
                 },
                 Latitude = eventToParse.Latitude,
                 Longitude = eventToParse.Longitude,
-                MultimediaContentIds = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Select(x => x.Name).ToList() : new List<string>()
+                MultimediaContentIds = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Select(x => x.Name).ToList() : new List<string>(),
+                Reports = eventToParse.Reports.Any() ? eventToParse.Reports.Select(x => GetReportSummary(x)).ToList() : null
             };
         }
 
@@ -58,6 +59,7 @@
                 NullDate = comment.NullDate,
                 Event = GetEventSummary(comment.Event),
                 User = GetUserSummary(comment.User),
+                UserReportsIds = comment.Reports != null && comment.Reports.Any() ? comment.Reports.Select(x => x.User.Id.ToString()).ToArray() : null,
                 ElapsedTime = comment.ElapsedTime
             };
         }
@@ -144,6 +146,21 @@
                 Event = invitation.Event != null ? this.GetEventSummary(invitation.Event) : null,
                 Group = invitation.Group != null ? this.GetGroupSummary(invitation.Group) : null,
                 User = this.GetUserSummary(invitation.User)
+            };
+        }
+
+        /// <summary>
+        /// Parsea un reporte.
+        /// </summary>
+        /// <param name="report">Reporte.</param>
+        /// <returns>Reporte de contrato.</returns>
+        public Report GetReportSummary(Domain.Domain.Report report)
+        {
+            return new Report()
+            {
+                Id = report.Id,
+                Reason = report.Reason,
+                User = GetUserSummary(report.User)
             };
         }
     }

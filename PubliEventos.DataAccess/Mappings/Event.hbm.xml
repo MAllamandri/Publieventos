@@ -27,6 +27,10 @@
       <key column="IdEvent"/>
       <one-to-many class="MultimediaContent"/>
     </bag>
+    <bag name="Reports" cascade="save-update" where="NullDate IS NULL">
+      <key column="EventId" />
+      <one-to-many class="Report"/>
+    </bag>
     <property name="NullDate" />
     <property name="Latitude" />
     <property name="Longitude" />

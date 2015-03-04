@@ -9,6 +9,10 @@
     </id>
     <many-to-one name="Event" class="Event" column="IdEvent"/>
     <many-to-one name="User" class="User" column="IdUser" />
+    <bag name="Reports" cascade="save-update" where="NullDate IS NULL">
+      <key column="CommentId" />
+      <one-to-many class="Report"/>
+    </bag>
     <property name="Detail" />
     <property name="EffectDate" />
     <property name="Active" />

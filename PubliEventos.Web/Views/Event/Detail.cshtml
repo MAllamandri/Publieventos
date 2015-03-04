@@ -130,3 +130,24 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+                <h4 class="title-modal">Reportar Contenido</h4>
+            </div>
+            <div class="modal-body">
+                <strong>Motivo</strong>
+                <textarea style="max-width: 565px; width: 565px;" class="font-text form-control" rows="4" id="reasonReport"></textarea>
+                <input type="hidden" value="" id="contentId" />
+                <input type="hidden" value="" id="contentType" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="saveReport" class="btn-confirm">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

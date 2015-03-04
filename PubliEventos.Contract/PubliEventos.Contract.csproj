@@ -48,6 +48,7 @@
     <Compile Include="Class\Invitation.cs" />
     <Compile Include="Class\Locality.cs" />
     <Compile Include="Class\Province.cs" />
+    <Compile Include="Class\Report.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Class\Group.cs" />
     <Compile Include="Class\UserGroup.cs" />
@@ -110,6 +111,8 @@
     <Compile Include="Services\Invitation\SearchInvitationsByEventResponse.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByUserRequest.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByUserResponse.cs" />
+    <Compile Include="Services\Report\ReportContentRequest.cs" />
+    <Compile Include="Services\Report\ReportContentResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">
@@ -121,9 +124,7 @@
       <Name>PubliEventos.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Report\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

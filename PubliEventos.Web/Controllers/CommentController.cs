@@ -31,8 +31,10 @@
         /// <param name="eventId">Identificador del evento.</param>
         /// <returns>Comentarios.</returns>
         [HttpPost]
-        public PartialViewResult GetComment(string detail, int commentId, string imageProfile, string elapsedTime, int userId, string userName)
+        public PartialViewResult GetComment(string detail, int commentId, string imageProfile, string elapsedTime, int userId, string userName, string userReportIds)
         {
+            var userIds = userReportIds != null ? userReportIds.Split(',') : null;
+
             var comment = new Comment
             {
                 Detail = detail,
@@ -43,6 +45,7 @@
                     Id = userId,
                     UserName = userName
                 },
+                UserReportsIds = userIds,
                 ElapsedTime = elapsedTime
             };
 

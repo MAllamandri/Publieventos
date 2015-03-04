@@ -61,13 +61,27 @@
                 <div style="margin-bottom: 40px !important">
                     @if (ViewData["IsInvitation"] == null || (bool)ViewData["IsInvitation"] == false)
                     {
-                        <a href="#" id="comment" title="Comentar"><span style="font-size: 25px" class="icon-default icon-comments"></span></a>
+                        <a href="#" id="comment" title="Comentar"><span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-comments"></span></a>
+                        
+                        if (Model.Reports == null || !Model.Reports.Where(x => x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
+                        {
+                            <a title="Reportar" class="reportEvent" rel="@Model.Id" href="#"><i style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-ban-circle"></i></a>
+                        }
+
                         if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == @Model.User.Id)
                         {
-                        <a  href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span style="font-size: 25px; padding-right: 25px;" class="icon-default icon-user"></span></a>
-                        <a  href="/Event/UploadPictures/@Model.Id" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px;" class="icon-default icon-picture"></span></a>
+                            <a  href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
+                            <a  href="/Event/UploadPictures/@Model.Id" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
                         }
-                        <div style="padding-top: 7px">
+
+                        if (Model.Reports != null && Model.Reports.Where(x => x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
+                        {
+                            <div style="display: inline; float: right; padding-right: 25px; color: #f00">
+                                <strong>Has Reportado este Evento</strong>
+                            </div>
+                        }
+                        
+                        <div style="padding-top: 7px; display: inline;">
                             @Html.SharedTwitter(Model.Title, Model.Id.Value.ToString(), urlImage)
                             <a href="#" onclick="fbShare('@urlEvent.ToString()', '@Model.Title', '@Model.Description', '@urlImage')">
                                 <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
@@ -78,4 +92,5 @@
             </div>
         </div>
     </div>
-</div>
+</div>
+

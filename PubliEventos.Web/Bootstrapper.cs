@@ -26,6 +26,7 @@ namespace PubliEventos.Web
             container.RegisterType<ICommentServices, CommentServicesHandler>(new HierarchicalLifetimeManager());
             container.RegisterType<IGroupServices, UsersGroupServicesHandler>(new HierarchicalLifetimeManager());
             container.RegisterType<IInvitationServices, InvitationServicesHandler>(new HierarchicalLifetimeManager());
+            container.RegisterType<IReportService, ReportServicesHandler>(new HierarchicalLifetimeManager());
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers

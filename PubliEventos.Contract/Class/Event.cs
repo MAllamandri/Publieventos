@@ -94,5 +94,10 @@
         /// Indica si está dado de baja.
         /// </summary>
         public DateTime NullDate { get; set; }
+
+        /// <summary>
+        /// Reportes del evento.
+        /// </summary>
+        public List<Report> Reports { get; set; }
     }
 }

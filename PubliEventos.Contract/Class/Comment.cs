@@ -38,6 +38,11 @@
         public DateTime? NullDate { get; set; }
 
         /// <summary>
+        /// Identificadores de los usuarios que reportaron el evento.
+        /// </summary>
+        public string[] UserReportsIds { get; set; }
+
+        /// <summary>
         /// Tiempo transcurrido desde que fue creado.
         /// </summary>
         public string ElapsedTime { get; set; }

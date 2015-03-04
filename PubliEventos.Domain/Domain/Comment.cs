@@ -1,7 +1,8 @@
 ﻿namespace PubliEventos.Domain.Domain
 {
-    using System;
     using PubliEventos.DataAccess.Infrastructure;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Representa un comentario.
@@ -37,6 +38,11 @@
         /// Indica si está dado de baja.
         /// </summary>
         public virtual DateTime? NullDate { get; set; }
+
+        /// <summary>
+        /// Reportes que recibio el comentario.
+        /// </summary>
+        public virtual IList<Report> Reports { get; set; }
 
         /// <summary>
         /// Tiempo transcurrido desde que fue creado el comentario.

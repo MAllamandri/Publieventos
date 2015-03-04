@@ -77,19 +77,14 @@
         public ActionResult Detail(int id)
         {
             var model = this.serviceEvents.GetEventById(id);
+            var invitations = this.servicesInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = id }).Invitations;
 
-            if (model != null)
-            {
-                var invitations = this.servicesInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = id }).Invitations;
+            ViewBag.participants = invitations.Where(x => x.Confirmed == true).Select(x => x.User).ToList();
+            ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
 
-                ViewBag.participants = invitations.Where(x => x.Confirmed == true).Select(x => x.User).ToList();
-                ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
-                ViewBag.comments = this.serviceComments.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = id }).Comments.OrderByDescending(x => x.EffectDate).ToList();
-
-                // Distingo entre fotos y videos.
-                ViewBag.pictures = model.MultimediaContentIds.Where(x => PicturesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
-                ViewBag.movies = model.MultimediaContentIds.Where(x => MoviesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
-            }
+            // Distingo entre fotos y videos.
+            ViewBag.pictures = model.MultimediaContentIds.Where(x => PicturesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
+            ViewBag.movies = model.MultimediaContentIds.Where(x => MoviesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
 
             return View(model);
         }
