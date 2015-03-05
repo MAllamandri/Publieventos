@@ -38,7 +38,7 @@
                 },
                 Latitude = eventToParse.Latitude,
                 Longitude = eventToParse.Longitude,
-                MultimediaContentIds = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Select(x => x.Name).ToList() : new List<string>(),
+                MultimediaContents = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Select(x => GetMultimediaContentSummary(x)).ToList() : null,
                 Reports = eventToParse.Reports.Any() ? eventToParse.Reports.Select(x => GetReportSummary(x)).ToList() : null
             };
         }
@@ -161,6 +161,21 @@
                 Id = report.Id,
                 Reason = report.Reason,
                 User = GetUserSummary(report.User)
+            };
+        }
+
+        /// <summary>
+        /// Parsea un contenido multimedia.
+        /// </summary>
+        /// <param name="content">Contenido multimedia.</param>
+        /// <returns>Contenido multimedia de contrato.</returns>
+        public MultimediaContent GetMultimediaContentSummary(Domain.Domain.MultimediaContent content)
+        {
+            return new MultimediaContent()
+            {
+                FileName = content.Name,
+                Reports = content.Reports.Any() ? content.Reports.Select(x => GetReportSummary(x)).ToList() : null,
+                ContentType = content.ContentType
             };
         }
     }

@@ -8,6 +8,7 @@
     using PubliEventos.Contract.Services.Event;
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.Helpers;
+    using PubliEventos.Web.Models.EventModels;
     using PubliEventos.Web.Mvc.Filters;
     using System;
     using System.Collections.Generic;
@@ -83,8 +84,17 @@
             ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
 
             // Distingo entre fotos y videos.
-            ViewBag.pictures = model.MultimediaContentIds.Where(x => PicturesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
-            ViewBag.movies = model.MultimediaContentIds.Where(x => MoviesExtensions.Contains(Path.GetExtension(x).ToLower())).Select(x => x).ToList();
+            ViewBag.pictures = model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Image).Select(x => new MultimediaContentSummaryModel()
+            {
+                FileName = x.FileName,
+                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false
+            }).ToList() : null;
+
+            ViewBag.movies = model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Movie).Select(x => new MultimediaContentSummaryModel()
+            {
+                FileName = x.FileName,
+                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false
+            }).ToList() : null;
 
             return View(model);
         }

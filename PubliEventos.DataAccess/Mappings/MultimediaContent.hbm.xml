@@ -13,5 +13,9 @@
     <property name="EffectDate"/>
     <many-to-one name="Event" class="Event" column="IdEvent" cascade="save-update"/>
     <property name="ContentType" column="IdContentType" type="int"/>
+    <bag name="Reports" cascade="save-update" where="NullDate IS NULL">
+      <key column="MultimediaContentId" />
+      <one-to-many class="Report"/>
+    </bag>
   </class>
 </hibernate-mapping>

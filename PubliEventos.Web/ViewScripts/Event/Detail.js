@@ -5,7 +5,24 @@
     Comment: 4
 }
 
+var viewModel = {};
+
 $(function () {
+    $('#detailComment').charactersQuantity(200);
+    $('#reasonReport').charactersQuantity(250);
+
+    viewModel = new myViewModel();
+
+    $.each(pictures, function (index, picture) {
+        viewModel.MyPictures.push(new contentModel(picture));
+    });
+
+    if (viewModel.MyPictures().length > 0) {
+        viewModel.MyPictures()[0].Active(self.MyPictures()[0].Active() + " active");
+    }
+
+    ko.applyBindings(viewModel);
+
     $('.nano').nanoScroller({
         flash: true
     });
@@ -16,8 +33,30 @@ $(function () {
         $('#commentModal').modal('show');
     });
 
-    $('#detailComment').charactersQuantity(200);
-    $('#reasonReport').charactersQuantity(250);
+    $('#tabLocalization').click(function () {
+        removeActiveClass();
+        HideRegions();
+        $('#regionLocalization').show();
+        $(this).addClass("active-link");
+
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+    });
+
+    $('#tabPictures').click(function () {
+        HideRegions();
+        removeActiveClass();
+        $('#regionPictures').show();
+        $(this).addClass("active-link");
+    });
+
+    $('#tabMovies').click(function () {
+        HideRegions();
+        removeActiveClass();
+        $('#regionMovies').show();
+        $(this).addClass("active-link");
+    });
 
     $('#commentModal').on('hidden.bs.modal', function () {
         $('#detailComment').hideMessageError();
@@ -44,8 +83,6 @@ $(function () {
 
     $(document).on("click", '.deleteContent', function (event) {
         var fileName = $(this).attr('rel');
-        var element = $(this).parent().parent().parent().parent();
-        var nextElement = element.next().length != 0 ? element.next() : element.prev();
 
         bootbox.confirm({
             title: "<h4 class='title-modal'>Eliminación de Contenido</h4>",
@@ -61,7 +98,7 @@ $(function () {
                 }
             }, callback: function (result) {
                 if (result) {
-                    $.blockUI({ message: "Eliminando Contenido..." });
+                    $.blockUI({ message: "<div style='font-size: 16px; padding-top: 11px;'><p>Eliminando Contenido...</p><div>" });
 
                     $.ajax({
                         type: 'POST',
@@ -72,21 +109,8 @@ $(function () {
                         }
                     }).done(function (data) {
                         if (data.Success) {
-                            // Elimino el item actual.
-                            element.remove();
-
-                            // Si el siguiente elemento es un item, lo activo. Sino muestro el mensaje que no hay mas contenidos.
-                            if (nextElement.length != 0 && nextElement.hasClass('item')) {
-                                nextElement.addClass('active');
-                            } else {
-                                if (data.IsPicture) {
-                                    $('#regionNotFound').show();
-                                    $('#carousel-pictures').hide();
-                                } else {
-                                    $('#regionNotFoundMovies').show();
-                                    $('#carousel-movies').hide();
-                                }
-                            }
+                            //Elimino la foto de la lista.
+                            viewModel.RemoveContent(fileName);
                         } else {
                             bootbox.dialog({
                                 title: "<h4 class='title-modal'>Contenidos</h4>",
@@ -115,31 +139,6 @@ $(function () {
         HideRegions();
         $(this).addClass("active-link");
         $('#regionDetail').show();
-    });
-
-    $('#tabLocalization').click(function () {
-        removeActiveClass();
-        HideRegions();
-        $('#regionLocalization').show();
-        $(this).addClass("active-link");
-
-        var center = map.getCenter();
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(center);
-    });
-
-    $('#tabPictures').click(function () {
-        HideRegions();
-        removeActiveClass();
-        $('#regionPictures').show();
-        $(this).addClass("active-link");
-    });
-
-    $('#tabMovies').click(function () {
-        HideRegions();
-        removeActiveClass();
-        $('#regionMovies').show();
-        $(this).addClass("active-link");
     });
 
     function removeActiveClass() {
@@ -210,6 +209,10 @@ $(function () {
 
     //#region Reports
 
+    $('#reportModal').on('show.bs.modal', function () {
+        $('#reasonReport').val('');
+    });
+
     $(document).on("click", '#saveReport', function (event) {
         $('#reportModal').modal('hide');
         ReportContent();
@@ -253,6 +256,7 @@ $(function () {
         $.ajax({
             type: 'POST',
             url: '/Report/ReportContent',
+            async: false,
             data: {
                 ContentId: $('#contentId').val(),
                 ContentType: $('#contentType').val(),
@@ -262,6 +266,9 @@ $(function () {
             if (data.Success) {
                 if ($('#contentType').val() == contents.Comment) {
                     chat.server.refreshComments();
+                    $.unblockUI();
+                } else if ($('#contentType').val() == contents.Image) {
+                    viewModel.ReportContent($('#contentId').val());
                     $.unblockUI();
                 } else {
                     window.location.href = "/Event/Detail/" + $('#EventId').val();
@@ -382,3 +389,39 @@ $(function () {
         }
     });
 });
+
+function myViewModel() {
+    self = this;
+
+    self.MyMovies = ko.observableArray();
+    self.MyPictures = ko.observableArray();
+
+    self.RemoveContent = function (fileName) {
+        var element = ko.utils.arrayFirst(self.MyPictures(), function (picture) {
+            return picture.FileName == fileName;
+        });
+
+        self.MyPictures.remove(element);
+
+        if (self.MyPictures().length > 0) {
+            self.MyPictures()[0].Active(self.MyPictures()[0].Active() + " active");
+        }
+    };
+
+    self.ReportContent = function (fileName) {
+        var element = ko.utils.arrayFirst(self.MyPictures(), function (picture) {
+            return picture.FileName == fileName;
+        });
+
+        element.IsReported(true);
+    }
+}
+
+function contentModel(content) {
+    var self = this;
+
+    self.FileName = content.FileName;
+    self.Path = "/Content/images/EventsPictures/" + content.FileName
+    self.IsReported = ko.observable(content.IsReportedByUser);
+    self.Active = ko.observable("item");
+}

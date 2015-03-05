@@ -196,7 +196,7 @@
 .actions-contents {
     position: absolute;
     font-size: 25px;
-    left: 83%;
+    left: 90%;
     margin-top: -9px;
 }
 
@@ -224,7 +224,7 @@
 
 .pictures {
     text-align: center;
-    max-width: 750px !important;
+    max-width: 850px !important;
     max-height: 500px !important;
     min-height: 50px;
     margin: auto;

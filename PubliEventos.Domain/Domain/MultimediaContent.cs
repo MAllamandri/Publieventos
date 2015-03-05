@@ -1,7 +1,8 @@
 ﻿namespace PubliEventos.Domain.Domain
 {
-    using System;
     using PubliEventos.DataAccess.Infrastructure;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Representa un contenido multimedia usado en la aplicación (imagen, video, evento o comentario).
@@ -27,6 +28,11 @@
         /// Indica si está activo.
         /// </summary>
         public virtual bool Active { get; set; }
+
+        /// <summary>
+        /// Reportes que recibio el contenido.
+        /// </summary>
+        public virtual IList<Report> Reports { get; set; }
 
         /// <summary>
         /// Indica si está dado de baja.

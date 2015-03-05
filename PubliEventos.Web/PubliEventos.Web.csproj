@@ -162,6 +162,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Helpers\SocialLink.cs" />
+    <Compile Include="Models\EventModels\MultimediaContentSummaryModel.cs" />
     <Compile Include="Mvc\Attributes\FileTypes.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -438,7 +439,6 @@
     <Folder Include="Content\images\EventsPictures\" />
     <Folder Include="Content\images\Profiles\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Models\EventModels\" />
     <Folder Include="ViewScripts\Comment\Partial\" />
   </ItemGroup>
   <ItemGroup>

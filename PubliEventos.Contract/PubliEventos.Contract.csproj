@@ -47,6 +47,7 @@
     <Compile Include="Class\EventType.cs" />
     <Compile Include="Class\Invitation.cs" />
     <Compile Include="Class\Locality.cs" />
+    <Compile Include="Class\MultimediaContent.cs" />
     <Compile Include="Class\Province.cs" />
     <Compile Include="Class\Report.cs" />
     <Compile Include="Class\User.cs" />
