@@ -18,7 +18,7 @@
         /// <returns>El resultado de la operación.</returns>
         public static GetCommentsByEventResponse GetCommentsByEvent(GetCommentsByEventRequest request)
         {
-            var comments = CurrentSession.Query<Domain.Domain.Comment>().Where(x => x.Event.Id == request.EventId && !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetCommentSummary(x)).ToList();
+            var comments = CurrentSession.Query<Domain.Domain.Comment>().Where(x => x.Event.Id == request.EventId && !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetCommentSummary(x, request.CurrentUserId)).ToList();
 
             return new GetCommentsByEventResponse()
             {
@@ -46,7 +46,7 @@
 
             return new CreateCommentResponse()
             {
-                Comment = InternalServices.GetCommentSummary(comment)
+                Comment = InternalServices.GetCommentSummary(comment, request.UserId)
             };
         }
 
@@ -65,7 +65,7 @@
 
             return new EditCommentResponse()
             {
-                Comment = InternalServices.GetCommentSummary(comment)
+                Comment = InternalServices.GetCommentSummary(comment, request.CurrentUserId)
             };
         }
 
@@ -83,6 +83,21 @@
             new BaseQuery<Domain.Domain.Comment, int>().Update(comment);
 
             return new DeleteCommentResponse();
+        }
+
+        /// <summary>
+        /// Obtiene un comentario por Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static GetCommentByIdResponse GetCommentById(GetCommentByIdRequest request)
+        {
+            var comment = CurrentSession.Get<Domain.Domain.Comment>(request.CommentId);
+
+            return new GetCommentByIdResponse()
+            {
+                Comment = InternalServices.GetCommentSummary(comment, request.CurrentUserId)
+            };
         }
     }
 }

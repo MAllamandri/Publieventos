@@ -86,6 +86,8 @@
         {
             if (ModelState.IsValid)
             {
+                model.CurrentUserId = User.Id;
+
                 var response = this.serviceComments.EditComment(model);
 
                 return Json(new { Success = true, Comment = response.Comment }, JsonRequestBehavior.AllowGet);

@@ -9,5 +9,10 @@
         /// Identificador del evento.
         /// </summary>
         public int EventId { get; set; }
+
+        /// <summary>
+        /// Identificador del usuario actual.
+        /// </summary>
+        public int CurrentUserId { get; set; }
     }
 }

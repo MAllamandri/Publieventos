@@ -7,14 +7,15 @@
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.Comment;
     using PubliEventos.Services;
+    using PubliEventos.Web.App_Start;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Unity.Mvc4;
 
-    [HubName("CommentHub")]
-    public class CommentHub : Hub
+    [HubName("BaseHubs")]
+    public class BaseHubs : Hub
     {
         #region Contructor
 
@@ -27,7 +28,7 @@
         /// Constructor del hub.
         /// </summary>
         /// <param name="commentService">Servicio de comentarios.</param>
-        public CommentHub(ICommentServices commentService)
+        public BaseHubs(ICommentServices commentService)
         {
             this._commentService = commentService;
         }
@@ -57,14 +58,14 @@
 
             // register all your dependencies here.
             container.RegisterType<ICommentServices, CommentServicesHandler>();
-            container.RegisterType<CommentHub>(new InjectionFactory(CreateMyHub));
+            container.RegisterType<BaseHubs>(new InjectionFactory(CreateMyHub));
 
             return container;
         }
 
         private static object CreateMyHub(IUnityContainer p)
         {
-            var myHub = new CommentHub(p.Resolve<ICommentServices>());
+            var myHub = new BaseHubs(p.Resolve<ICommentServices>());
 
             return myHub;
         }
@@ -72,25 +73,35 @@
         #endregion
 
         /// <summary>
-        /// Agrega un nuevo comentario a todos los usuarios.
+        /// Agrega un comentario en todos los usuarios.
         /// </summary>
-        /// <param name="detail">Detalle del comentario.</param>
         /// <param name="commentId">Identificador del comentario.</param>
-        /// <param name="imageProfile">Imagen de perfil del usuario.</param>
-        /// <param name="elapsedTime">Tiempo transcurrido de creacion del comentario.</param>
-        /// <param name="userId">Identificador del usuario.</param>
-        /// <param name="userName">Nombre de usuario.</param>
-        public void AddNewComment(string detail, int commentId, string imageProfile, string elapsedTime, int userId, string userName)
+        public void AddNewComment(int commentId)
         {
-            Clients.All.addNewCommentToPage(detail, commentId, imageProfile, elapsedTime, userId, userName);
+            var userId = (System.Web.HttpContext.Current.User as CustomPrincipal).Id;
+
+            var comment = this._commentService.GetCommentById(new GetCommentByIdRequest() { CommentId = commentId, CurrentUserId = userId }).Comment;
+
+            Clients.All.addNewCommentToPage(comment);
         }
 
         /// <summary>
         /// Refresca los comentarios a todos los clientes.
         /// </summary>
-        public void RefreshComments()
+        /// <param name="commentId">Identificador del comentario.</param>
+        public void DeleteComment(int commentId)
         {
-            Clients.All.refreshCommentsInPage();
+            Clients.All.DeleteComment(commentId);
+        }
+
+        /// <summary>
+        /// Edita el comentario a todos los clientes.
+        /// </summary>
+        /// <param name="commentId">Identificador del comentario.</param>
+        /// <param name="detail">Detalle del comentario.</param>
+        public void EditComment(int commentId, string detail)
+        {
+            Clients.All.EditComment(commentId, detail);
         }
 
         /// <summary>
@@ -100,9 +111,21 @@
         /// <returns>Lista de comentarios.</returns>
         public List<Comment> GetComments(int eventId)
         {
-            var comments = this._commentService.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = eventId }).Comments.OrderByDescending(x => x.EffectDate).ToList();
+            var userId = (System.Web.HttpContext.Current.User as CustomPrincipal).Id;
+
+            var comments = this._commentService.GetCommentsByEvent(new GetCommentsByEventRequest() { EventId = eventId, CurrentUserId = userId }).Comments.OrderByDescending(x => x.EffectDate).ToList();
 
             return comments;
+        }
+
+        /// <summary>
+        /// Elimina el comentario en todos los usuarios.
+        /// </summary>
+        /// <param name="contentId">Identificador del contenido.</param>
+        /// <param name="contentType">Tipo de contenido.</param>
+        public void DeleteContent(string contentId, int contentType)
+        {
+            Clients.All.DeleteContent(contentId, contentType);
         }
     }
 

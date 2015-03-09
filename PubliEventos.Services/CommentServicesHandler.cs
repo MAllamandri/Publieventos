@@ -48,5 +48,15 @@
         {
             return CommentServices.DeleteComment(request);
         }
+
+        /// <summary>
+        /// Obtiene un comentario por Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public GetCommentByIdResponse GetCommentById(GetCommentByIdRequest request)
+        {
+            return CommentServices.GetCommentById(request);
+        }
     }
 }

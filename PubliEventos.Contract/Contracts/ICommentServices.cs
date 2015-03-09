@@ -34,5 +34,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         DeleteCommentResponse DeleteComment(DeleteCommentRequest request);
+
+        /// <summary>
+        /// Obtiene un comentario por Id.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        GetCommentByIdResponse GetCommentById(GetCommentByIdRequest request);
     }
 }

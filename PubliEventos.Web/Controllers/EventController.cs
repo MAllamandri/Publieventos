@@ -84,16 +84,18 @@
             ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
 
             // Distingo entre fotos y videos.
-            ViewBag.pictures = model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Image).Select(x => new MultimediaContentSummaryModel()
+            ViewBag.pictures = model.MultimediaContents != null && model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Image).Select(x => new MultimediaContentSummaryModel()
             {
                 FileName = x.FileName,
-                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false
+                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false,
+                ContentType = (int)ContentTypes.Image
             }).ToList() : null;
 
-            ViewBag.movies = model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Movie).Select(x => new MultimediaContentSummaryModel()
+            ViewBag.movies = model.MultimediaContents != null && model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Movie).Select(x => new MultimediaContentSummaryModel()
             {
                 FileName = x.FileName,
-                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false
+                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false,
+                ContentType = (int)ContentTypes.Movie
             }).ToList() : null;
 
             return View(model);
@@ -205,7 +207,7 @@
                     HttpPostedFileBase fileToSave = Request.Files[file];
 
                     // Renombro el archivo.
-                    fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(fileToSave.FileName));
+                    fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMssfff"), Path.GetExtension(fileToSave.FileName));
                     var path = Path.Combine(pathEventsPictures, Path.GetFileName(fileName));
 
                     fileToSave.SaveAs(path);

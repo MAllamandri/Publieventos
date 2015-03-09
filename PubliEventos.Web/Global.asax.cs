@@ -20,7 +20,7 @@ namespace PubliEventos.Web
     {
         protected void Application_Start()
         {
-            CommentHub.Initialise();
+            BaseHubs.Initialise();
             RouteTable.Routes.MapHubs();
 
             AreaRegistration.RegisterAllAreas();

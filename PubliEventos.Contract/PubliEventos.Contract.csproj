@@ -79,6 +79,8 @@
     <Compile Include="Services\Comment\DeleteCommentResponse.cs" />
     <Compile Include="Services\Comment\EditCommentRequest.cs" />
     <Compile Include="Services\Comment\EditCommentResponse.cs" />
+    <Compile Include="Services\Comment\GetCommentByIdRequest.cs" />
+    <Compile Include="Services\Comment\GetCommentByIdResponse.cs" />
     <Compile Include="Services\Comment\GetCommentsByEventRequest.cs" />
     <Compile Include="Services\Comment\GetCommentsByEventResponse.cs" />
     <Compile Include="Services\Event\CreateMultimediaContentRequest.cs" />

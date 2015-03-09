@@ -28,7 +28,9 @@
 <![endif]-->
 
 <script type="text/javascript">
-    var pictures = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.pictures))
+    var pictures = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.pictures));
+    var movies = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.movies));
+    var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal).Id);
 </script>
 
 <div class="row-fluid">
@@ -64,7 +66,7 @@
                             </div>
                             <div class="row-fluid" style="margin-top: 50px">
                                 <div class="col-md-8" id="commentArea">
-                                    <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios Disponibles</p>
+                                    @Html.Partial("../Comment/Partial/_CommentBubble")
                                 </div>
                                 <div class="col-md-4" style="overflow-y: no-display; height: 100% !important;">
                                     <div class="col-md-12" style="margin-bottom: 20px;">
@@ -92,7 +94,7 @@
                         </div>
                         <div id="regionMovies" class="tab-content" style="display: none">
                             <div class="tab-pane active">
-                                @Html.Partial("Partial/_MoviesForm", ((List<MultimediaContentSummaryModel>)ViewBag.movies), new ViewDataDictionary { { "UserId", Model.User.Id } })
+                                @Html.Partial("Partial/_MoviesForm", new ViewDataDictionary { { "UserId", Model.User.Id } })
                             </div>
                         </div>
                     </div>
@@ -128,10 +130,11 @@
             </div>
             <div class="modal-body">
                 <textarea style="max-width: 565px; width: 565px;" class="font-text form-control" name="detailComment" rows="4" id="detailComment"></textarea>
+                <input type="hidden" value="" id="commentId" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="saveComment" class="btn-confirm">Guardar</button>
+                <button type="button" data-bind="click: NewAndEditComment" class="btn-confirm">Guardar</button>
             </div>
         </div>
     </div>
@@ -152,7 +155,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="saveReport" class="btn-confirm">Guardar</button>
+                <button type="button" data-bind="click: ReportContent" class="btn-confirm">Guardar</button>
             </div>
         </div>
     </div>

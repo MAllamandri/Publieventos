@@ -1,44 +1,30 @@
-﻿@model PubliEventos.Contract.Class.Comment
-
-@{
-    var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
-    var userId = (User as PubliEventos.Web.App_Start.CustomPrincipal).Id;
-}
-
-<div class="row-fluid" style="margin-bottom: 20px">
-    <div class="col-md-12">
-        <div class="col-md-1" style="margin-right: 30px">
-            <a href="/Account/Profile/@Model.User.Id">
-                <img src="@imageProfile" title="@Model.User.UserName" alt="Perfil del usuario" class="profile-comment img-circle right" data-src="holder.js/60x60">
-            </a>
-        </div>
-        <div class="col-md-10 bubble-comment">
-            <div class="comment-detail">
-                <p class="font-comment">@Model.Detail</p>
-                <input type="hidden" value="@Model.Id"/>
+﻿<div data-bind="foreach: Comments">
+    <div class="row-fluid" style="margin-bottom: 20px">
+        <div class="col-md-12">
+            <div class="col-md-1" style="margin-right: 30px">
+                <a href="#" data-bind="click: UserProfile">
+                    <img data-bind="attr: { src: ImageProfile, title: UserName }" alt="Perfil del usuario" class="profile-comment img-circle right" data-src="holder.js/60x60">
+                </a>
             </div>
-            <div>
-                <small style="float: left; font-size: 10px;">@Model.ElapsedTime</small>
-            </div>
-            <div class="actions-comment">
-                @if (Model.UserReportsIds == null || !Model.UserReportsIds.Contains(userId.ToString()))
-                {
-                    <a title="Reportar" class="reportComment" rel="@Model.Id" href="#"><i class="icon-default icon-ban-circle"></i></a>
-                }
+            <div class="col-md-10 bubble-comment">
+                <div class="comment-detail">
+                    <p class="font-comment" data-bind="text: Detail"></p>
+                </div>
+                <div>
+                    <small data-bind="text: ElapsedTime" style="float: left; font-size: 10px;"></small>
+                </div>
+                <div class="actions-comment">
+                    <a data-bind="visible: !IsReported(), click: ShowReportModal" title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
 
-                @if (Model.User.Id == userId)
-                {
-                    <a title="Editar" href="#"><i class="edit-comment icon-default icon-pencil"></i></a>
-                    <a style="padding-left: 7px" class="deleteComment" title="Eliminar" rel="@Model.Id" href="#"><i class="icon-default icon-remove"></i></a>
-                }
+                    <a data-bind="visible: EnabledActions, click: ShowCommentModal" title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>
+                    <a data-bind="visible: EnabledActions, click: DeleteComment" style="padding-left: 7px" title="Eliminar" href="#"><i class="icon-default icon-remove"></i></a>
 
-                @if (Model.UserReportsIds != null && Model.UserReportsIds.Contains(userId.ToString()))
-                {
-                    <div style="display: none; display: inline; float: left; padding-right: 25px; color: #f00">
+                    <div data-bind="visible: IsReported()" style="display: none; display: inline; float: left; padding-right: 20px; color: #f00">
                         <strong>Has Reportado este Comentario</strong>
                     </div>
-                }
+                </div>
             </div>
         </div>
     </div>
 </div>
+<p data-bind="visible: Comments().length == 0" style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios Disponibles</p>

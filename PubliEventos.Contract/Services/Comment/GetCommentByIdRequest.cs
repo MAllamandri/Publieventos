@@ -1,23 +1,14 @@
 ﻿namespace PubliEventos.Contract.Services.Comment
 {
-    using System.ComponentModel.DataAnnotations;
-
     /// <summary>
-    /// Request del servicio EditComment.
+    /// Representa los parámetros de entrada de la operación GetCommentById.
     /// </summary>
-    public class EditCommentRequest
+    public class GetCommentByIdRequest
     {
         /// <summary>
-        /// Identificador del evento.
+        /// Identificador del comentario.
         /// </summary>
-        [Required]
         public int CommentId { get; set; }
-
-        /// <summary>
-        /// Detalle del comentario.
-        /// </summary>
-        [Required]
-        public string Detail { get; set; }
 
         /// <summary>
         /// Identificador del usuario logueado.

@@ -48,7 +48,7 @@
         /// </summary>
         /// <param name="comment">Comentario.</param>
         /// <returnsComentario de contrato.></returns>
-        public Comment GetCommentSummary(Domain.Domain.Comment comment)
+        public Comment GetCommentSummary(Domain.Domain.Comment comment, int currentUserId)
         {
             return new Comment()
             {
@@ -59,7 +59,7 @@
                 NullDate = comment.NullDate,
                 Event = GetEventSummary(comment.Event),
                 User = GetUserSummary(comment.User),
-                UserReportsIds = comment.Reports != null && comment.Reports.Any() ? comment.Reports.Select(x => x.User.Id.ToString()).ToArray() : null,
+                IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Select(x => x.User.Id).ToList().Contains(currentUserId) ? true : false,
                 ElapsedTime = comment.ElapsedTime
             };
         }

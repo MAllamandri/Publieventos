@@ -1,4 +1,4 @@
-﻿<div class="col-md-12" style="margin-top: 20px; margin-bottom: 30px;">
+﻿<div data-bind="visible: MyPictures().length > 0" class="col-md-12" style="margin-top: 20px; margin-bottom: 30px;">
     <div id="carousel-pictures" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner" data-bind="foreach: MyPictures" role="listbox">
             <div data-bind="attr: { 'class': Active() }" class="item">
@@ -9,9 +9,9 @@
                     <ul>
                         @if (ViewData["UserId"] != null && (int)ViewData["UserId"] == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id)
                         {
-                            <li><a class="deleteContent" title="Eliminar" data-bind="attr: { rel: FileName }" href="#"><i style="margin-bottom: -14px" class="icon-contents icon-remove"></i></a></li>
+                            <li><a data-bind="click: RemoveContent" title="Eliminar" href="#"><i style="margin-bottom: -14px" class="icon-contents icon-remove"></i></a></li>
                         }
-                        <li data-bind="visible: !IsReported()"><a class="reportPicture" title="Reportar" data-bind="    attr: { rel: FileName }" href="#"><i class="icon-contents icon-ban-circle"></i></a></li>
+                        <li data-bind="visible: !IsReported(), click: ShowReportModal"><a title="Reportar" href="#"><i class="icon-contents icon-ban-circle"></i></a></li>
                     </ul>
                 </nav>
                 <img class="pictures" data-bind="attr: { src: Path }" alt="">

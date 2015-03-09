@@ -43,6 +43,11 @@
         public string[] UserReportsIds { get; set; }
 
         /// <summary>
+        /// Indica si fue reportado por el usuario logueado.
+        /// </summary>
+        public bool IsReportedByUser { get; set; }
+
+        /// <summary>
         /// Tiempo transcurrido desde que fue creado.
         /// </summary>
         public string ElapsedTime { get; set; }
