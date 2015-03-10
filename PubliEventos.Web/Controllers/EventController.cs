@@ -248,17 +248,18 @@
             {
                 if (System.IO.File.Exists(pathEventsPictures + fileName))
                 {
-                    var isPicture = PicturesExtensions.Contains(Path.GetExtension(fileName).ToLower()) ? true : false;
-
                     //Libero y Elimino el contenido.
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     FileInfo file = new FileInfo(pathEventsPictures + fileName);
+                    var stream = file.OpenRead();
+                    stream.Close();
+                    stream.Dispose();
                     file.Delete();
 
                     this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
 
-                    return Json(new { Success = true, IsPicture = isPicture }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
                 }
 
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);

@@ -238,17 +238,18 @@ function myViewModel() {
             });
 
             if (element != null) {
+                //Obtengo la posición del elemento.
+                var index = self.MyPictures().indexOf(element);
+
                 self.MyPictures.remove(element);
 
-                // Busco si hay alguno activo, si no seteo uno.
                 if (self.MyPictures().length > 0) {
-                    var elementActive = ko.utils.arrayFirst(self.MyPictures(), function (picture) {
-                        return picture.Active() == "item active";
+                    $.each(self.MyPictures(), function (index, item) {
+                        item.Active('item');
                     });
 
-                    if (elementActive == null) {
-                        self.MyPictures()[0].Active("item active");
-                    }
+                    index = index == self.MyPictures().length ? 0 : index;
+                    self.MyPictures()[index].Active("item active");
                 }
             }
         } else if (contentType == contents.Movie) {
@@ -257,17 +258,18 @@ function myViewModel() {
             });
 
             if (element != null) {
+                //Obtengo la posición del elemento.
+                var index = self.MyMovies().indexOf(element);
+
                 self.MyMovies.remove(element);
 
-                // Busco si hay alguno activo, si no seteo uno.
                 if (self.MyMovies().length > 0) {
-                    var elementActive = ko.utils.arrayFirst(self.MyMovies(), function (movie) {
-                        return movie.active() == "item active";
+                    $.each(self.MyMovies(), function (index, item) {
+                        item.Active('item');
                     });
 
-                    if (elementActive == null) {
-                        self.MyMovies()[0].Active("item active");
-                    }
+                    index = index == self.MyMovies().length ? 0 : index;
+                    self.MyMovies()[index].Active("item active");
                 }
             }
         }
