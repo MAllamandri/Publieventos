@@ -25,33 +25,6 @@
 
         #region Views
 
-        /// <summary>
-        /// Busca los comentarios de un evento.
-        /// </summary>
-        /// <param name="eventId">Identificador del evento.</param>
-        /// <returns>Comentarios.</returns>
-        [HttpPost]
-        public PartialViewResult GetComment(string detail, int commentId, string imageProfile, string elapsedTime, int userId, string userName, string userReportIds)
-        {
-            var userIds = userReportIds != null ? userReportIds.Split(',') : null;
-
-            var comment = new Comment
-            {
-                Detail = detail,
-                Id = commentId,
-                User = new User
-                {
-                    ImageProfile = imageProfile,
-                    Id = userId,
-                    UserName = userName
-                },
-                UserReportsIds = userIds,
-                ElapsedTime = elapsedTime
-            };
-
-            return PartialView("Partial/_CommentBubble", comment);
-        }
-
         #endregion
 
         #region Json Methods

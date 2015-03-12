@@ -13,5 +13,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         ReportContentResponse ReportContent(ReportContentRequest request);
+
+        /// <summary>
+        /// Evalua la cantidad de reportes de un contenido, para ver su tratamiento.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        EvaluateReportsForDisabledResponse EvaluateReportsForDisabled(EvaluateReportsForDisabledRequest request);
     }
 }

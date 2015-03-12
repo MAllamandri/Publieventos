@@ -20,7 +20,7 @@ $(function () {
         });
     }
 
-    if (movies) {
+    if (movies != null) {
         $.each(movies, function (index, movie) {
             viewModel.MyMovies.push(new contentModel(movie));
         });
@@ -157,6 +157,7 @@ $(function () {
             $.each(data.R, function (index, comment) {
                 viewModel.Comments.push(new CommentModel(comment));
             });
+            viewModel.UpdateElapsedTime();
         }
     });
 
@@ -173,10 +174,10 @@ function myViewModel() {
     self.Comments = ko.observableArray();
 
     self.ReportContent = function () {
-        $.blockUI({ message: "" });
         $('#reportModal').modal('hide');
         var contentType = $('#contentType').val();
         var id = $('#contentId').val();
+        $.blockUI({ message: "" });
 
         $.ajax({
             type: 'POST',
@@ -189,28 +190,53 @@ function myViewModel() {
             }
         }).done(function (data) {
             if (data.Success) {
-                var element;
-
-                if (contentType == contents.Image) {
-                    element = ko.utils.arrayFirst(self.MyPictures(), function (picture) {
-                        return picture.FileName == id;
-                    });
-                } else if (contentType == contents.Movie) {
-                    element = ko.utils.arrayFirst(self.MyMovies(), function (movie) {
-                        return movie.FileName == id;
-                    });
-                } else if (contentType == contents.Comment) {
-                    element = ko.utils.arrayFirst(self.Comments(), function (comment) {
-                        return comment.CommentId == id;
+                if (data.IsDisabled) {
+                    bootbox.dialog({
+                        title: "<h4 class='title-modal'>Reportar</h4>",
+                        message: "<p class='font-text'>El contenido ha sido deshabilitado.</p>",
+                        buttons: {
+                            success: {
+                                label: "Aceptar",
+                                className: "btn-confirm",
+                                callback: function () {
+                                    if (contentType == contents.Event) {
+                                        window.location.href = "/";
+                                        $.blockUI({ message: "" });
+                                    } else if (contentType == contents.Image || contentType == contents.Movie) {
+                                        chat.server.deleteContent(id, contentType);
+                                        $.unblockUI();
+                                    } else if (contentType == contents.Comment) {
+                                        chat.server.deleteComment(id);
+                                        $.unblockUI();
+                                    }
+                                }
+                            }
+                        }
                     });
                 } else {
-                    window.location.href = "/Event/Detail/" + $('#EventId').val();
-                    $.blockUI({ message: "" });
-                }
+                    var element;
 
-                if (element != null) {
-                    element.IsReported(true);
-                    $.unblockUI();
+                    if (contentType == contents.Image) {
+                        element = ko.utils.arrayFirst(self.MyPictures(), function (picture) {
+                            return picture.FileName == id;
+                        });
+                    } else if (contentType == contents.Movie) {
+                        element = ko.utils.arrayFirst(self.MyMovies(), function (movie) {
+                            return movie.FileName == id;
+                        });
+                    } else if (contentType == contents.Comment) {
+                        element = ko.utils.arrayFirst(self.Comments(), function (comment) {
+                            return comment.CommentId == id;
+                        });
+                    } else {
+                        window.location.href = "/Event/Detail/" + $('#EventId').val();
+                        $.blockUI({ message: "" });
+                    }
+
+                    if (element != null) {
+                        element.IsReported(true);
+                        $.unblockUI();
+                    }
                 }
             } else {
                 $.unblockUI();
@@ -229,12 +255,12 @@ function myViewModel() {
         });
     }
 
-    self.RemoveContent = function (fileName, contentType) {
+    self.RemoveContent = function (id, contentType) {
         var element;
 
         if (contentType == contents.Image) {
             var element = ko.utils.arrayFirst(self.MyPictures(), function (picture) {
-                return picture.FileName == fileName;
+                return picture.FileName == id;
             });
 
             if (element != null) {
@@ -254,7 +280,7 @@ function myViewModel() {
             }
         } else if (contentType == contents.Movie) {
             var element = ko.utils.arrayFirst(self.MyMovies(), function (movie) {
-                return movie.FileName == fileName;
+                return movie.FileName == id;
             });
 
             if (element != null) {
@@ -272,6 +298,12 @@ function myViewModel() {
                     self.MyMovies()[index].Active("item active");
                 }
             }
+        } else if (contentType == contents.Comment) {
+            var element = ko.utils.arrayFirst(self.Comments(), function (comment) {
+                return comment.CommentId == id;
+            });
+
+            self.Comments.remove(element);
         }
     }
 
@@ -307,6 +339,7 @@ function myViewModel() {
                     } else {
                         // Agrego el comentario a todos los usuarios.
                         chat.server.addNewComment(data.Comment.Id);
+                        viewModel.UpdateElapsedTime();
                     }
 
                     $.unblockUI();
@@ -345,6 +378,13 @@ function myViewModel() {
         self.Comments.sort(function (left, right) {
             return left.CommentId == right.CommentId ? 0 : (left.CommentId > right.CommentId ? -1 : 1)
         })
+    }
+
+    self.UpdateElapsedTime = function () {
+        $.each(self.Comments(), function (index, comment) {
+            var elapsedTime = CalculeElapsedTime(comment.EffectDate);
+            comment.ElapsedTime(elapsedTime);
+        });
     }
 }
 
@@ -424,11 +464,12 @@ function CommentModel(comment) {
     self.ImageProfile = comment.User.ImageProfile != null && comment.User.ImageProfile != "" ?
                         "/Content/images/Profiles/" + comment.User.ImageProfile :
                         "/Content/themes/images/contact-default-image.jpg";
-    self.ElapsedTime = comment.ElapsedTime;
     self.UserId = comment.User.Id;
     self.UserName = comment.User.UserName;
     self.IsReported = ko.observable(comment.IsReportedByUser);
     self.EnabledActions = comment.User.Id == currentUserId;
+    self.EffectDate = comment.EffectDate;
+    self.ElapsedTime = ko.observable();
 
     self.UserProfile = function () {
         window.location.href = "/Account/Profile/" + comment.User.Id;
@@ -497,5 +538,48 @@ function CommentModel(comment) {
         $('.title-modal').text("Reportar Comentario");
 
         $('#reportModal').modal('show');
+    }
+}
+
+window.setInterval(function () {
+    viewModel.UpdateElapsedTime();
+}, 10000)
+
+function CalculeElapsedTime(effectDate) {
+    var dateTimeParts = effectDate.split('T');
+    dateParts = dateTimeParts[0].split("-");
+
+    effectDate = dateParts[0] + "/" + dateParts[1] + "/" + dateParts[2] + " " + dateTimeParts[1];
+
+    var duration = Math.round($.now() - Date.parse(effectDate));
+
+    var seconds = Math.round(duration / 1000);
+
+    if (seconds < 60) {
+        var text = seconds == 1 ? " segundo" : " segundos";
+        return "Hace aproximadamente " + seconds + text;
+    } else {
+        var minutes = Math.round(seconds / 60);
+        if (minutes < 60) {
+            var text = minutes == 1 ? " minuto" : " minutos";
+            return "Hace aproximadamente " + minutes.toString() + text;
+        } else {
+            var hours = Math.round(minutes / 60);
+            if (hours < 24) {
+                var text = hours == 1 ? " hora" : " horas";
+                return "Hace aproximadamente " + hours + text;
+            } else {
+                var days = Math.round(hours / 24);
+
+                if (days < 30) {
+                    var text = days == 1 ? " día" : " días";
+                    return "Hace aproximadamente " + days + text;
+                } else {
+                    var months = Math.round(days / 30);
+                    var text = months == 1 ? " mes" : " meses";
+                    return "Hace aproximadamente " + months + text;
+                }
+            }
+        }
     }
 }

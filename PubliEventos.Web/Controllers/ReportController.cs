@@ -25,6 +25,11 @@
 
         #endregion
 
+        /// <summary>
+        /// Reportar un contenido.
+        /// </summary>
+        /// <param name="model">ReportContentRequest model.</param>
+        /// <returns>true o false.</returns>
         [HttpPost]
         public JsonResult ReportContent(ReportContentRequest model)
         {
@@ -33,11 +38,13 @@
                 //Seteo el usuario logueado, el que realizo el reporte.
                 model.UserId = User.Id;
 
+                //Doy de alta el reporte.
                 this.serviceReports.ReportContent(model);
 
-                // TODO > Ver cantidad de reportes para desactiar evento.
+                //Evaluo el elemento reportado para ver si lo debo desactivar.
+                var isDisabled = this.serviceReports.EvaluateReportsForDisabled(new EvaluateReportsForDisabledRequest() { ContentId = model.ContentId, ContentType = model.ContentType }).IsDisabled;
 
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, IsDisabled = isDisabled }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = false }, JsonRequestBehavior.AllowGet);

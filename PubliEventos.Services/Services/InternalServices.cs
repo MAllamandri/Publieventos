@@ -59,8 +59,7 @@
                 NullDate = comment.NullDate,
                 Event = GetEventSummary(comment.Event),
                 User = GetUserSummary(comment.User),
-                IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Select(x => x.User.Id).ToList().Contains(currentUserId) ? true : false,
-                ElapsedTime = comment.ElapsedTime
+                IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Select(x => x.User.Id).ToList().Contains(currentUserId) ? true : false
             };
         }
 

@@ -114,6 +114,8 @@
     <Compile Include="Services\Invitation\SearchInvitationsByEventResponse.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByUserRequest.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByUserResponse.cs" />
+    <Compile Include="Services\Report\EvaluateReportsForDisabledRequest.cs" />
+    <Compile Include="Services\Report\EvaluateReportsForDisabledResponse.cs" />
     <Compile Include="Services\Report\ReportContentRequest.cs" />
     <Compile Include="Services\Report\ReportContentResponse.cs" />
   </ItemGroup>
