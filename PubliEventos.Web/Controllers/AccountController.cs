@@ -148,7 +148,7 @@
         /// <param name="id">Identificador del usuario.</param>
         /// <returns>EditProfile view.</returns>
         [Authorize]
-        [UserActionRestriction(ElementTypesToValidate.Profile)]
+        [UserActionRestriction(ValidateCondition.Profile)]
         public ActionResult EditProfile(int id)
         {
             var user = this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = id }).User;
@@ -227,7 +227,8 @@
                 Id = authUser.Id.Value,
                 FirstName = authUser.FirstName,
                 LastName = authUser.LastName,
-                ImageProfile = authUser.ImageProfile
+                ImageProfile = authUser.ImageProfile,
+                IsAdministrator = authUser.IsAdministrator
             };
 
             var serializer = new JavaScriptSerializer();

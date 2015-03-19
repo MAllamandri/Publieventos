@@ -88,7 +88,7 @@
                     }
                 }
 
-                if (request.ContentType == (int)ContentTypes.Image)
+                if (request.ContentType == (int)ContentTypes.Image || request.ContentType == (int)ContentTypes.Movie)
                 {
                     var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name.Equals(request.ContentId)).Single();
 
@@ -110,6 +110,43 @@
                     IsDisabled = isDisabled
                 };
             }
+        }
+
+        /// <summary>
+        /// Obtiene los contenidos reportados por los usuarios.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchReportedContentsResponse SearchReportedContents(SearchReportedContentsRequest request)
+        {
+            var countReportsForDisabled = Convert.ToInt32(System.Configuration.ConfigurationSettings.AppSettings["QuantityReports"]);
+
+            var reports = CurrentSession.Query<Domain.Domain.Report>().Where(x => !x.IsReported.HasValue).ToList();
+
+            var events = reports.Where(x => x.Event != null)
+                        .GroupBy(x => x.Event.Id)
+                        .Where(x => x.Count() >= countReportsForDisabled)
+                        .Select(x => InternalServices.GetEventSummary(x.First().Event))
+                        .ToList();
+
+            var comments = reports.Where(x => x.Comment != null)
+                        .GroupBy(x => x.Comment.Id)
+                        .Where(x => x.Count() >= countReportsForDisabled)
+                        .Select(x => InternalServices.GetCommentSummary(x.First().Comment, request.CurrentUserId))
+                        .ToList();
+
+            var multimediaContents = reports.Where(x => x.MultimediaContent != null)
+                        .GroupBy(x => x.MultimediaContent.Id)
+                        .Where(x => x.Count() >= countReportsForDisabled)
+                        .Select(x => InternalServices.GetMultimediaContentSummary(x.First().MultimediaContent))
+                        .ToList();
+
+            return new SearchReportedContentsResponse()
+            {
+                Events = events,
+                Comments = comments,
+                MultimediaContents = multimediaContents
+            };
         }
     }
 }

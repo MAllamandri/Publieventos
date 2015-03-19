@@ -59,7 +59,7 @@
         /// Vista de edición de eventos.
         /// </summary>
         /// <returns>Edit view.</returns>
-        [UserActionRestriction(ElementTypesToValidate.Event)]
+        [UserActionRestriction(ValidateCondition.Event)]
         public ActionResult Edit(int id)
         {
             var model = this.GetEventSummary(this.serviceEvents.GetEventById(id));
@@ -74,7 +74,7 @@
         /// </summary>
         /// <param name="id">Id del evento.</param>
         /// <returns>Detail view.</returns>
-        [UserActionRestriction(ElementTypesToValidate.Event)]
+        [UserActionRestriction(ValidateCondition.Event)]
         public ActionResult Detail(int id)
         {
             var model = this.serviceEvents.GetEventById(id);
@@ -131,7 +131,7 @@
         /// </summary>
         /// <param name="id">Identificador del evento.</param>
         /// <returns>UploadPictures view.</returns>
-        [UserActionRestriction(ElementTypesToValidate.UploadPictures)]
+        [UserActionRestriction(ValidateCondition.UploadPictures)]
         public ActionResult UploadPictures(int id)
         {
             ViewBag.eventId = id;
@@ -150,7 +150,7 @@
             // filtro por mis eventos.
             model.IdUser = myEvents ? User.Id : (int?)null;
 
-            var events = this.serviceEvents.SearchFilteredEvents(model);
+            var events = this.serviceEvents.SearchFilteredEvents(model).Events;
 
             return PartialView("Partial/_Mosaic", events);
         }

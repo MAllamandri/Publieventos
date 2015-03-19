@@ -62,5 +62,10 @@
         /// Imagen de perfil.
         /// </summary>
         public string ImageProfile { get; set; }
+
+        /// <summary>
+        /// Indica si el usuario es administrador.
+        /// </summary>
+        public bool IsAdministrator { get; set; }
     }
 }

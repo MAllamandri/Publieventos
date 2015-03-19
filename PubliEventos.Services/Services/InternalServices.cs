@@ -83,7 +83,8 @@
                 NullDate = user.NullDate,
                 Password = user.Password,
                 UserName = user.UserName,
-                Locality = this.GetLocalitySummary(user.Locality)
+                Locality = this.GetLocalitySummary(user.Locality),
+                IsAdministrator = user.IsAdministrator
             };
         }
 

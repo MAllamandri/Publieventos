@@ -118,6 +118,8 @@
     <Compile Include="Services\Report\EvaluateReportsForDisabledResponse.cs" />
     <Compile Include="Services\Report\ReportContentRequest.cs" />
     <Compile Include="Services\Report\ReportContentResponse.cs" />
+    <Compile Include="Services\Report\SearchReportedContentsRequest.cs" />
+    <Compile Include="Services\Report\SearchReportedContentsResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PubliEventos.DataAccess\PubliEventos.DataAccess.csproj">

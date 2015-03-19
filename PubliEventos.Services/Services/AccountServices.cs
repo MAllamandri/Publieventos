@@ -23,32 +23,10 @@
         {
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
-                return CurrentSession.Query<Domain.Domain.User>().
-                     Where(u => u.UserName.ToLower() == userName.ToLower() && !u.NullDate.HasValue).Select(u => new User()
-                     {
-                         Id = u.Id,
-                         UserName = u.UserName,
-                         Password = u.Password,
-                         Active = u.Active,
-                         BirthDate = u.BirthDate,
-                         Locality = new Locality()
-                         {
-                             Id = u.Locality.Id,
-                             Name = u.Locality.Name,
-                             Latitude = u.Locality.Latitude,
-                             Longitude = u.Locality.Longitude,
-                             Province = new Province()
-                             {
-                                 Id = u.Locality.Province.Id,
-                                 Name = u.Locality.Province.Name
-                             }
-                         },
-                         Email = u.Email,
-                         FirstName = u.FirstName,
-                         LastName = u.LastName,
-                         ImageProfile = u.ImageProfile,
-                         NullDate = u.NullDate
-                     }).SingleOrDefault();
+                return CurrentSession.Query<Domain.Domain.User>()
+                        .Where(u => u.UserName.ToLower() == userName.ToLower() && !u.NullDate.HasValue)
+                        .Select(u => InternalServices.GetUserSummary(u))
+                        .SingleOrDefault();
             }
         }
 

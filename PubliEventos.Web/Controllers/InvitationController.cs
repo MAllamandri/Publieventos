@@ -56,7 +56,7 @@
         /// </summary>
         /// <param name="id">Identificador del evento.</param>
         /// <returns>InviteToEvent view.</returns>
-        [UserActionRestriction(ElementTypesToValidate.InvitationToEvent)]
+        [UserActionRestriction(ValidateCondition.InvitationToEvent)]
         public ActionResult InviteToEvent(int id)
         {
             var model = this.serviceEvents.GetEventById(id);

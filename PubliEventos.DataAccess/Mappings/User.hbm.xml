@@ -17,6 +17,7 @@
     <property name="EffectDate" />
     <property name="NullDate" not-null="false"/>
     <property name="ImageProfile" type="AnsiString"/>
+    <property name="IsAdministrator" />
     <many-to-one name="Locality" class="Locality" column="IdLocality"/>
   </class>
 </hibernate-mapping>

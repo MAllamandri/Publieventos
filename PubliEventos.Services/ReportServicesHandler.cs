@@ -28,5 +28,15 @@
         {
             return ReportServices.EvaluateReportsForDisabled(request);
         }
+
+        /// <summary>
+        /// Obtiene los contenidos reportados por los usuarios.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchReportedContentsResponse SearchReportedContents(SearchReportedContentsRequest request)
+        {
+            return ReportServices.SearchReportedContents(request);
+        }
     }
 }

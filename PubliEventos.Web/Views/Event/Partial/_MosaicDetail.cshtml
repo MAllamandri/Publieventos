@@ -59,7 +59,7 @@
         <div class="row-fluid">
             <div class="col-md-12">
                 <div style="margin-bottom: 40px !important">
-                    @if (ViewData["IsInvitation"] == null || (bool)ViewData["IsInvitation"] == false)
+                    @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
                     {
                         <a href="#" id="comment" title="Comentar"><span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-comments"></span></a>
                         

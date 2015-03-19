@@ -27,6 +27,11 @@
         /// Imagen de perfil.
         /// </summary>
         string ImageProfile { get; set; }
+
+        /// <summary>
+        /// Indica si el usuario es administrador.
+        /// </summary>
+        bool IsAdministrator { get; set; }
     }
 
     /// <summary>
@@ -77,6 +82,11 @@
         public string ImageProfile { get; set; }
 
         /// <summary>
+        /// Indica si el usuario es administrador.
+        /// </summary>
+        public bool IsAdministrator { get; set; }
+
+        /// <summary>
         /// Indica si un usuario se encuentra en dicho rol.
         /// </summary>
         /// <param name="role">Rol a verificar.</param>
@@ -112,5 +122,10 @@
         /// Imagen de perfil.
         /// </summary>
         public string ImageProfile { get; set; }
+
+        /// <summary>
+        /// Indica si es administrador.
+        /// </summary>
+        public bool IsAdministrator { get; set; }
     }
 }

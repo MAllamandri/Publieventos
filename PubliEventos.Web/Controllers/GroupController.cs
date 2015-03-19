@@ -64,7 +64,7 @@
         /// </summary>
         /// <param name="groupId">Identificador del grupo.</param>
         /// <returns>Edit View.</returns>
-        [UserActionRestriction(ElementTypesToValidate.Group)]
+        [UserActionRestriction(ValidateCondition.Group)]
         public ActionResult Edit(int id)
         {
             var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;
@@ -87,7 +87,7 @@
         /// </summary>
         /// <param name="id">Identificador del grupo.</param>
         /// <returns>Detail view.</returns>
-        [UserActionRestriction(ElementTypesToValidate.Group)]
+        [UserActionRestriction(ValidateCondition.Group)]
         public ActionResult Detail(int id)
         {
             var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;

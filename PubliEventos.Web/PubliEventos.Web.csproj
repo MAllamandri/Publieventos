@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Helpers\SocialLink.cs" />
     <Compile Include="Models\EventModels\MultimediaContentSummaryModel.cs" />
@@ -370,6 +371,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="ViewScripts\Account\EditProfile.js" />
+    <Content Include="ViewScripts\Admin\ReportContents.js" />
     <Content Include="ViewScripts\Event\Detail.js" />
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
@@ -433,6 +435,9 @@
     <Content Include="Views\Event\Partial\_PicturesForm.cshtml" />
     <Content Include="Views\Event\UploadPictures.cshtml" />
     <Content Include="Views\Event\Partial\_MoviesForm.cshtml" />
+    <Content Include="Views\Admin\ReportContents.cshtml" />
+    <Content Include="Views\Admin\Partial\_ReportedEventDetail.cshtml" />
+    <Content Include="Views\Admin\Partial\_ReportedCommentDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

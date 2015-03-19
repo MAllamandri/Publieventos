@@ -1,0 +1,65 @@
+﻿@model PubliEventos.Contract.Services.Report.SearchReportedContentsResponse
+
+@{
+    ViewBag.Title = "Administrar Reportes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Admin/ReportContents.js")
+
+<style>
+    * {
+        padding: 0;
+    }
+</style>
+
+<script type="text/javascript">
+    var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Events));
+    var comments = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Comments));
+    var multimdiaContents =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.MultimediaContents));
+</script>
+
+<div class="row-fluid">
+    <div class="col-md-10 offset1">
+        <div style="margin-bottom: 25px">
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <h2 class="subtitle">Contenidos Reportados</h2>
+                    <div class="row-fluid">
+                        <div class="col-md-12">
+                            <ul class="list-horizontal subtitle-sections">
+                                <li><a id="tabEvents" class="label-lobster active-link" href="#" data-toggle="tab">Eventos</a></li>
+                                <li><a id="tabComments" href="#" class="label-lobster" data-toggle="tab">Comentarios</a></li>
+                                <li><a id="tabMultimediaContents" href="#" class="label-lobster" data-toggle="tab">Fotos y Videos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid" style="margin-top: 25px">
+                <div class="col-md-12">
+                    <div id="regionEvents" class="tab-content">
+                        <div class="row-fluid">
+                            @Html.Partial("Partial/_ReportedEventDetail")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <div id="regionComments" class="tab-content" style="display: none;">
+                        @Html.Partial("Partial/_ReportedCommentDetail")
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid" style="margin-top: 25px">
+                <div class="col-md-12">
+                    <div id="regionMultimediaContents" class="tab-content" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

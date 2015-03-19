@@ -56,7 +56,7 @@
         /// Constructor.
         /// </summary>
         /// <param name="elementType">Tipo de objeto a validar.</param>
-        public UserActionRestriction(ElementTypesToValidate elementType)
+        public UserActionRestriction(ValidateCondition elementType)
         {
             this.ElementType = (int)elementType;
 
@@ -81,84 +81,95 @@
         {
             // Usuario logueado.
             var user = (CustomPrincipal)filterContext.HttpContext.User;
-
-            // Id del elemento.
-            var id = this.GetElementId(filterContext);
-
-            // Elemento.
-            var element = this.GetElement(id, this.ElementType);
-
-            if (element == null)
-            {
-                throw new Exception("Ha ocurrido un error");
-            }
-
             var valid = true;
 
-            if (this.ElementType == (int)ElementTypesToValidate.Event)
+            if (this.ElementType == (int)ValidateCondition.IsAdministrator)
             {
-                Event _event = (Event)element;
+                User _user = (User)this.GetElement(user.Id, this.ElementType);
 
-                if (filterContext.ActionDescriptor.ActionName == "Edit" && _event.User.Id != user.Id)
-                {
-                    valid = false;
-                }
-
-                var invitations = this.serviceInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = _event.Id.Value }).Invitations;
-
-                if (filterContext.ActionDescriptor.ActionName == "Detail" &&
-                    _event.Private &&
-                    !invitations.Where(x => x.User.Id == user.Id && x.Confirmed != false).Any() &&
-                    _event.User.Id != user.Id)
+                if (!_user.IsAdministrator)
                 {
                     valid = false;
                 }
             }
-
-            if (this.ElementType == (int)ElementTypesToValidate.Group)
+            else
             {
-                Group group = (Group)element;
+                // Id del elemento.
+                var id = this.GetElementId(filterContext);
 
-                if (filterContext.ActionDescriptor.ActionName == "Edit" && group.Administrator.Id != user.Id)
+                // Elemento.
+                var element = this.GetElement(id, this.ElementType);
+
+                if (element == null)
                 {
-                    valid = false;
+                    throw new Exception("Ha ocurrido un error");
                 }
 
-                if (filterContext.ActionDescriptor.ActionName == "Detail" &&
-                    !group.UsersGroup.Where(x => x.Active.HasValue && x.Active.Value == true).Select(x => x.UserId).Contains(user.Id) &&
-                    group.Administrator.Id != user.Id)
+                if (this.ElementType == (int)ValidateCondition.Event)
                 {
-                    valid = false;
+                    Event _event = (Event)element;
+
+                    if (filterContext.ActionDescriptor.ActionName == "Edit" && _event.User.Id != user.Id)
+                    {
+                        valid = false;
+                    }
+
+                    var invitations = this.serviceInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = _event.Id.Value }).Invitations;
+
+                    if (filterContext.ActionDescriptor.ActionName == "Detail" &&
+                        _event.Private &&
+                        !invitations.Where(x => x.User.Id == user.Id && x.Confirmed != false).Any() &&
+                        _event.User.Id != user.Id)
+                    {
+                        valid = false;
+                    }
                 }
-            }
 
-            if (this.ElementType == (int)ElementTypesToValidate.InvitationToEvent)
-            {
-                Event _event = (Event)element;
-
-                if (filterContext.ActionDescriptor.ActionName == "InviteToEvent" && _event.User.Id != user.Id)
+                if (this.ElementType == (int)ValidateCondition.Group)
                 {
-                    valid = false;
+                    Group group = (Group)element;
+
+                    if (filterContext.ActionDescriptor.ActionName == "Edit" && group.Administrator.Id != user.Id)
+                    {
+                        valid = false;
+                    }
+
+                    if (filterContext.ActionDescriptor.ActionName == "Detail" &&
+                        !group.UsersGroup.Where(x => x.Active.HasValue && x.Active.Value == true).Select(x => x.UserId).Contains(user.Id) &&
+                        group.Administrator.Id != user.Id)
+                    {
+                        valid = false;
+                    }
                 }
-            }
 
-            if (this.ElementType == (int)ElementTypesToValidate.Profile)
-            {
-                User _user = (User)element;
-
-                if (filterContext.ActionDescriptor.ActionName == "EditProfile" && _user.Id != user.Id)
+                if (this.ElementType == (int)ValidateCondition.InvitationToEvent)
                 {
-                    valid = false;
+                    Event _event = (Event)element;
+
+                    if (filterContext.ActionDescriptor.ActionName == "InviteToEvent" && _event.User.Id != user.Id)
+                    {
+                        valid = false;
+                    }
                 }
-            }
 
-            if (this.ElementType == (int)ElementTypesToValidate.UploadPictures)
-            {
-                Event _event = (Event)element;
-
-                if (_event.User.Id != user.Id)
+                if (this.ElementType == (int)ValidateCondition.Profile)
                 {
-                    valid = false;
+                    User _user = (User)element;
+
+                    if (filterContext.ActionDescriptor.ActionName == "EditProfile" && _user.Id != user.Id)
+                    {
+                        valid = false;
+                    }
+                }
+
+                if (this.ElementType == (int)ValidateCondition.UploadPictures)
+                {
+                    Event _event = (Event)element;
+
+                    if (_event.User.Id != user.Id)
+                    {
+                        valid = false;
+                    }
                 }
             }
 
@@ -217,19 +228,20 @@
         {
             if (elementId.HasValue)
             {
-                if (elementType == (int)ElementTypesToValidate.Event ||
-                    elementType == (int)ElementTypesToValidate.InvitationToEvent ||
-                    elementType == (int)ElementTypesToValidate.UploadPictures)
+                if (elementType == (int)ValidateCondition.Event ||
+                    elementType == (int)ValidateCondition.InvitationToEvent ||
+                    elementType == (int)ValidateCondition.UploadPictures)
                 {
                     return this.serviceEvents.GetEventById(elementId.Value);
                 }
 
-                if (elementType == (int)ElementTypesToValidate.Group)
+                if (elementType == (int)ValidateCondition.Group)
                 {
                     return this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = elementId.Value }).Group;
                 }
 
-                if (elementType == (int)ElementTypesToValidate.Profile)
+                if (elementType == (int)ValidateCondition.Profile ||
+                    elementType == (int)ValidateCondition.IsAdministrator)
                 {
                     return this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = elementId.Value }).User;
                 }

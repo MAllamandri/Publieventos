@@ -571,13 +571,17 @@ function CalculeElapsedTime(effectDate) {
             } else {
                 var days = Math.round(hours / 24);
 
-                if (days < 30) {
+                if (days <= 30) {
                     var text = days == 1 ? " día" : " días";
                     return "Hace aproximadamente " + days + text;
                 } else {
                     var months = Math.round(days / 30);
-                    var text = months == 1 ? " mes" : " meses";
-                    return "Hace aproximadamente " + months + text;
+                    if (months <= 12) {
+                        var text = months == 1 ? " mes" : " meses";
+                        return "Hace aproximadamente " + months + text;
+                    } else {
+                        return "Hace mas de 1 año"
+                    }
                 }
             }
         }
