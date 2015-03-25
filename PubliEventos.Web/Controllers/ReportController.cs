@@ -25,6 +25,8 @@
 
         #endregion
 
+        #region Json Methods
+
         /// <summary>
         /// Reportar un contenido.
         /// </summary>
@@ -49,5 +51,25 @@
 
             return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// Administración de los contenidos reportados.
+        /// </summary>
+        /// <param name="model">AdministrationReportedRequest model.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult AdministrationReported(AdministrationReportedRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                this.serviceReports.AdministrationReported(model);
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
     }
 }

@@ -438,12 +438,13 @@
     <Content Include="Views\Admin\ReportContents.cshtml" />
     <Content Include="Views\Admin\Partial\_ReportedEventDetail.cshtml" />
     <Content Include="Views\Admin\Partial\_ReportedCommentDetail.cshtml" />
+    <Content Include="Views\Admin\Partial\_ReportedPicture.cshtml" />
+    <Content Include="Views\Admin\Partial\_ReportedMovie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\EventsPictures\" />
     <Folder Include="Content\images\Profiles\" />
-    <Folder Include="Infrastructure\" />
     <Folder Include="ViewScripts\Comment\Partial\" />
   </ItemGroup>
   <ItemGroup>

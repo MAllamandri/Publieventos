@@ -18,6 +18,12 @@
     <property name="NullDate" not-null="false"/>
     <property name="ImageProfile" type="AnsiString"/>
     <property name="IsAdministrator" />
+
+    <bag name="Suspensions" cascade="save-update">
+      <key column="UserId" />
+      <one-to-many class="Suspension"/>
+    </bag>
+
     <many-to-one name="Locality" class="Locality" column="IdLocality"/>
   </class>
 </hibernate-mapping>

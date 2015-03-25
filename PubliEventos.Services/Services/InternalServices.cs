@@ -1,8 +1,10 @@
 ﻿namespace PubliEventos.Services.Services
 {
     using PubliEventos.Contract.Class;
-    using System.Collections.Generic;
+    using System;
     using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
 
     public class InternalServices
     {
@@ -48,7 +50,7 @@
         /// </summary>
         /// <param name="comment">Comentario.</param>
         /// <returnsComentario de contrato.></returns>
-        public Comment GetCommentSummary(Domain.Domain.Comment comment, int currentUserId)
+        public Comment GetCommentSummary(Domain.Domain.Comment comment, int? currentUserId)
         {
             return new Comment()
             {
@@ -59,7 +61,7 @@
                 NullDate = comment.NullDate,
                 Event = GetEventSummary(comment.Event),
                 User = GetUserSummary(comment.User),
-                IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Select(x => x.User.Id).ToList().Contains(currentUserId) ? true : false
+                IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Select(x => x.User.Id).ToList().Contains(currentUserId.Value) ? true : false
             };
         }
 
@@ -84,7 +86,8 @@
                 Password = user.Password,
                 UserName = user.UserName,
                 Locality = this.GetLocalitySummary(user.Locality),
-                IsAdministrator = user.IsAdministrator
+                IsAdministrator = user.IsAdministrator,
+                HasActiveSuspension = user.Suspensions.Where(x => x.EndDate >= DateTime.Now.Date).Any()
             };
         }
 
@@ -177,6 +180,45 @@
                 Reports = content.Reports.Any() ? content.Reports.Select(x => GetReportSummary(x)).ToList() : null,
                 ContentType = content.ContentType
             };
+        }
+
+        /// <summary>
+        /// Envia un mail.
+        /// </summary>
+        /// <param name="to">Dirección destino.</param>
+        /// <param name="subject">Asunto del mail.</param>
+        /// <param name="body">Cuerpo del mail.</param>
+        /// <param name="isBodyHtml">Indica si el cuerpo el Html.</param>
+        public void SendMail(string to, string subject, string body, bool isBodyHtml)
+        {
+            var smtp = new SmtpClient
+            {
+                Host = System.Configuration.ConfigurationSettings.AppSettings["SmtpHost"].ToString(),
+                Port = Convert.ToInt32(System.Configuration.ConfigurationSettings.AppSettings["SmtpPort"]),
+                EnableSsl = true,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(System.Configuration.ConfigurationSettings.AppSettings["Mail"], System.Configuration.ConfigurationSettings.AppSettings["Password"])
+            };
+
+            var fromAddress = new MailAddress(System.Configuration.ConfigurationSettings.AppSettings["Mail"]);
+            var toAddress = new MailAddress(to);
+
+            try
+            {
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = isBodyHtml
+                })
+                {
+                    smtp.Send(message);
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ha ocurrido un error al enviar mail.");
+            }
         }
     }
 }

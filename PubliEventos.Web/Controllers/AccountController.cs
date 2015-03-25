@@ -196,8 +196,13 @@
 
                         return false;
                     }
+                    else if (user.HasActiveSuspension)
+                    {
+                        ModelState.AddModelError("Error", "Usuario deshabilitado");
 
-                    if (user.Password == Encryptor.Encrypt(model.Password))
+                        return false;
+                    }
+                    else if (user.Password == Encryptor.Encrypt(model.Password))
                     {
                         // Inicializa el identity y crea la cookie.
                         var custom = new CustomPrincipal(model.UserName);

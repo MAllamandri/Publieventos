@@ -27,5 +27,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         SearchReportedContentsResponse SearchReportedContents(SearchReportedContentsRequest request);
+
+        /// <summary>
+        /// Administra de contenidos reportados.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        AdministrationReportedResponse AdministrationReported(AdministrationReportedRequest request);
     }
 }

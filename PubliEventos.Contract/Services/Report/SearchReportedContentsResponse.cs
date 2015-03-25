@@ -19,8 +19,13 @@
         public List<Comment> Comments { get; set; }
 
         /// <summary>
-        /// Contenidos multimedia reportados.
+        /// Fotos reportados.
         /// </summary>
-        public List<MultimediaContent> MultimediaContents { get; set; }
+        public List<MultimediaContent> Pictures { get; set; }
+
+        /// <summary>
+        /// Videos reportados.
+        /// </summary>
+        public List<MultimediaContent> Movies { get; set; }
     }
 }

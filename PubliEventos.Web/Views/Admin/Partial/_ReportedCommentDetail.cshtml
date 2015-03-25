@@ -14,11 +14,11 @@
                     <small data-bind="text: CreatedBy" style="float: right; font-size: 12px;"></small>
                 </div>
                 <div class="actions-comment">
-                    <a href="#" style="float: right">Desactivar Comentario</a>
+                    <a href="#" style="float: right" data-bind="click: DisabledComment">Desactivar Comentario</a>
                     <a href="#" style="float: right; margin-right: 15px;">Ignorar Reporte</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<p data-bind="visible: Comments().length == 0" style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios Reportados</p>
+<p data-bind="visible: Comments().length == 0" style="font-size: 20px" class="not-found-message">No Hay Comentarios Reportados</p>

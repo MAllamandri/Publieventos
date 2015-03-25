@@ -8,7 +8,7 @@ body {
     padding-top: 10px;
 }
 
-a:active {
+a:link {
     text-decoration: none;
 }
 
@@ -882,6 +882,24 @@ img {
     width: 100%;
     padding-top: 75px;
     display: none;
+}
+
+/*#endregion*/
+
+/*#region Administrador */
+
+.pictures-reported {
+    max-width: 850px !important;
+    max-height: 500px !important;
+    min-height: 50px;
+    display: inline;
+    margin-left: 15px;
+}
+
+.movies-reported {
+    width: 750px !important;
+    max-height: 500px !important;
+    min-height: 50px;
 }
 
 /*#endregion*/

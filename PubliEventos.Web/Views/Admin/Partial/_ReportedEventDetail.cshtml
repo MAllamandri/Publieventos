@@ -49,7 +49,7 @@
             <div class="row-fluid">
                 <div class="col-md-12">
                     <div style="margin-bottom: 40px !important">
-                        <a href="#" style="float: right">Desactivar Evento</a>
+                        <a href="#" style="float: right" data-bind="click: DisabledEvent">Desactivar Evento</a>
                         <a href="#" style="float: right; margin-right: 15px;">Ignorar Reporte</a>
                     </div>
                 </div>
@@ -57,4 +57,4 @@
         </div>
     </div>
 </div>
-<p data-bind="visible: Events().length == 0" style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Eventos Reportados</p>
+<p data-bind="visible: Events().length == 0" style="font-size: 20px" class="not-found-message">No Hay Eventos Reportados</p>

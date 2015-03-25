@@ -1,11 +1,19 @@
-﻿var viewModel = {};
+﻿var contents = {
+    Image: 1,
+    Movie: 2,
+    Event: 3,
+    Comment: 4
+}
+
+var viewModel = {};
 
 $(function () {
     viewModel = new myViewModel();
+    viewModel.ActiveContent(contents.Event);
 
-    if (multimdiaContents != null) {
-        $.each(multimdiaContents, function (index, content) {
-            viewModel.MultimediaContents.push(new ContentModel(content));
+    if (pictures != null) {
+        $.each(pictures, function (index, picture) {
+            viewModel.Pictures.push(new ContentModel(picture));
         });
     }
 
@@ -21,39 +29,43 @@ $(function () {
         });
     }
 
+    if (movies != null) {
+        $.each(movies, function (index, movie) {
+            viewModel.Movies.push(new ContentModel(movie));
+        });
+    }
+
     ko.applyBindings(viewModel);
 
     $('#tabEvents').click(function () {
-        HideRegions();
+        viewModel.ActiveContent(contents.Event);
         removeActiveClass();
-        $('#regionEvents').show();
         $(this).addClass("active-link");
     });
 
     $('#tabComments').click(function () {
-        HideRegions();
+        viewModel.ActiveContent(contents.Comment);
         removeActiveClass();
-        $('#regionComments').show();
         $(this).addClass("active-link");
     });
 
-    $('#tabMultimediaContents').click(function () {
-        HideRegions();
+    $('#tabPictures').click(function () {
+        viewModel.ActiveContent(contents.Image);
         removeActiveClass();
-        $('#regionMultimediaContents').show();
         $(this).addClass("active-link");
     });
 
-    function HideRegions() {
-        $('#regionEvents').hide();
-        $('#regionComments').hide();
-        $('#regionMultimediaContents').hide();
-    }
+    $('#tabMovies').click(function () {
+        viewModel.ActiveContent(contents.Movie);
+        removeActiveClass();
+        $(this).addClass("active-link");
+    });
 
     function removeActiveClass() {
         $('#tabEvents').removeClass("active-link");
         $('#tabComments').removeClass("active-link");
-        $('#tabMultimediaContents').removeClass("active-link");
+        $('#tabPictures').removeClass("active-link");
+        $('#tabMovies').removeClass("active-link");
     }
 });
 
@@ -62,8 +74,94 @@ function myViewModel() {
 
     self.Events = ko.observableArray();
     self.Comments = ko.observableArray();
-    self.MultimediaContents = ko.observableArray();
+    self.Pictures = ko.observableArray();
+    self.Movies = ko.observableArray();
 
+    self.ActiveContent = ko.observable();
+    self.ContentId = ko.observable();
+    self.ContentType = ko.observable();
+
+    self.DisabledContent = function () {
+        bootbox.confirm({
+            title: "<h4 class='title-modal'>Deshabilitar Contenido</h4>",
+            message: "<p class='font-text'>Esta seguro que desea deshabilitar el contenido?</p>",
+            buttons: {
+                'cancel': {
+                    label: "Cancelar",
+                    className: "btn-cancel pull-left",
+                },
+                'confirm': {
+                    label: "Aceptar",
+                    className: "btn-confirm"
+                }
+            }, callback: function (result) {
+                if (result) {
+                    $.blockUI({ message: "" });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Report/AdministrationReported",
+                        data: {
+                            ContentId: self.ContentId(),
+                            ContentType: self.ContentType(),
+                            IsDisabled: true
+                        }
+                    }).done(function (data) {
+                        if (data.Success) {
+                            // Quito el contenido del modelo.
+                            viewModel.RemoveContent(self.ContentId(), self.ContentType());
+                        }
+                        $.unblockUI();
+                    }).error(function () {
+                        alert("Ha ocurrido un error");
+                        $.unblockUI();
+                    });
+                }
+            }
+        });
+    }
+
+    self.RemoveContent = function (contentId, contentType) {
+        if (contentType == contents.Image) {
+            var element = ko.utils.arrayFirst(self.Pictures(), function (picture) {
+                return picture.FileName == contentId;
+            });
+
+            if (element != null) {
+                self.Pictures.remove(element);
+            }
+        }
+
+        if (contentType == contents.Movie) {
+            var element = ko.utils.arrayFirst(self.Movies(), function (movie) {
+                return movie.FileName == contentId;
+            });
+
+            if (element != null) {
+                self.Movies.remove(element);
+            }
+        }
+
+        if (contentType == contents.Event) {
+            var element = ko.utils.arrayFirst(self.Events(), function (event) {
+                return event.Id == contentId;
+            });
+
+            if (element != null) {
+                self.Events.remove(element);
+            }
+        }
+
+        if (contentType == contents.Comment) {
+            var element = ko.utils.arrayFirst(self.Comments(), function (comment) {
+                return comment.CommentId == contentId;
+            });
+
+            if (element != null) {
+                self.Comments.remove(element);
+            }
+        }
+    }
 }
 
 function ContentModel(content) {
@@ -71,6 +169,13 @@ function ContentModel(content) {
 
     self.FileName = content.FileName;
     self.Path = "/Content/images/EventsPictures/" + content.FileName;
+    self.ContentType = content.ContentType;
+
+    self.DisabledMultimediaContent = function () {
+        viewModel.ContentId(content.FileName);
+        viewModel.ContentType(content.ContentType);
+        viewModel.DisabledContent();
+    }
 }
 
 function EventModel(event) {
@@ -89,6 +194,12 @@ function EventModel(event) {
     self.UserProfile = function () {
         window.location.href = "/Account/Profile/" + event.User.Id;
     }
+
+    self.DisabledEvent = function () {
+        viewModel.ContentId(event.Id);
+        viewModel.ContentType(contents.Event);
+        viewModel.DisabledContent();
+    }
 }
 
 function CommentModel(comment) {
@@ -104,5 +215,11 @@ function CommentModel(comment) {
 
     self.UserProfile = function () {
         window.location.href = "/Account/Profile/" + event.User.Id;
+    }
+
+    self.DisabledComment = function () {
+        viewModel.ContentId(comment.Id);
+        viewModel.ContentType(contents.Comment);
+        viewModel.DisabledContent();
     }
 }

@@ -38,5 +38,15 @@
         {
             return ReportServices.SearchReportedContents(request);
         }
+
+        /// <summary>
+        /// Administra de contenidos reportados.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public AdministrationReportedResponse AdministrationReported(AdministrationReportedRequest request)
+        {
+            return ReportServices.AdministrationReported(request);
+        }
     }
 }

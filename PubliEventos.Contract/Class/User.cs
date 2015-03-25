@@ -67,5 +67,10 @@
         /// Indica si el usuario es administrador.
         /// </summary>
         public bool IsAdministrator { get; set; }
+
+        /// <summary>
+        /// Indica si el usuario posee una suspensión.
+        /// </summary>
+        public bool HasActiveSuspension { get; set; }
     }
 }

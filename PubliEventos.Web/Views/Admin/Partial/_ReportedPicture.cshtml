@@ -1,0 +1,12 @@
+﻿<div data-bind="foreach: Pictures">
+    <div>
+        <div class="col-md-8" style="padding-bottom: 60px; text-align: center;">
+            <img class="pictures-reported" data-bind="attr: { src: Path }" alt="" />
+        </div>
+        <div class="col-md-4" style="display: inline">
+            <a href="#" style="float: right" data-bind="click: DisabledMultimediaContent">Desactivar Foto</a>
+            <a href="#" style="float: right; margin-right: 15px;">Ignorar Reporte</a>
+        </div>
+    </div>
+</div>
+<p data-bind="visible: Pictures().length == 0" style="font-size: 20px" class="not-found-message">No Hay Fotos Reportadas</p>

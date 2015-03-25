@@ -1,7 +1,8 @@
 ﻿namespace PubliEventos.Domain.Domain
 {
-    using System;
     using PubliEventos.DataAccess.Infrastructure;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Representa un usuario de la comunidad.
@@ -67,5 +68,10 @@
         /// Indica si el usuario es administrador.
         /// </summary>
         public virtual bool IsAdministrator { get; set; }
+
+        /// <summary>
+        /// Suspensiones del usuario.
+        /// </summary>
+        public virtual IList<Suspension> Suspensions { get; set; }
     }
 }

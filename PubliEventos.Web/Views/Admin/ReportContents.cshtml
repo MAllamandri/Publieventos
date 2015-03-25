@@ -8,6 +8,8 @@
 @System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Admin/ReportContents.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 
 <style>
     * {
@@ -16,9 +18,10 @@
 </style>
 
 <script type="text/javascript">
-    var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Events));
-    var comments = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Comments));
-    var multimdiaContents =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.MultimediaContents));
+    var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Events))
+    var comments = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Comments))
+    var pictures =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Pictures))
+    var movies =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Movies))
 </script>
 
 <div class="row-fluid">
@@ -32,7 +35,8 @@
                             <ul class="list-horizontal subtitle-sections">
                                 <li><a id="tabEvents" class="label-lobster active-link" href="#" data-toggle="tab">Eventos</a></li>
                                 <li><a id="tabComments" href="#" class="label-lobster" data-toggle="tab">Comentarios</a></li>
-                                <li><a id="tabMultimediaContents" href="#" class="label-lobster" data-toggle="tab">Fotos y Videos</a></li>
+                                <li><a id="tabPictures" href="#" class="label-lobster" data-toggle="tab">Fotos</a></li>
+                                <li><a id="tabMovies" href="#" class="label-lobster" data-toggle="tab">Videos</a></li>
                             </ul>
                         </div>
                     </div>
@@ -41,7 +45,7 @@
             <div class="row-fluid" style="margin-top: 25px">
                 <div class="col-md-12">
                     <div id="regionEvents" class="tab-content">
-                        <div class="row-fluid">
+                        <div class="row-fluid" data-bind="visible: ActiveContent() == contents.Event">
                             @Html.Partial("Partial/_ReportedEventDetail")
                         </div>
                     </div>
@@ -49,14 +53,22 @@
             </div>
             <div class="row-fluid">
                 <div class="col-md-12">
-                    <div id="regionComments" class="tab-content" style="display: none;">
+                    <div class="tab-content" data-bind="visible: ActiveContent() == contents.Comment">
                         @Html.Partial("Partial/_ReportedCommentDetail")
                     </div>
                 </div>
             </div>
-            <div class="row-fluid" style="margin-top: 25px">
+            <div class="row-fluid">
                 <div class="col-md-12">
-                    <div id="regionMultimediaContents" class="tab-content" style="display: none;">
+                    <div class="tab-content" data-bind="visible: ActiveContent() == contents.Image">
+                        @Html.Partial("Partial/_ReportedPicture")
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="col-md-12">
+                    <div class="tab-content" data-bind="visible: ActiveContent() == contents.Movie">
+                        @Html.Partial("Partial/_ReportedMovie")
                     </div>
                 </div>
             </div>

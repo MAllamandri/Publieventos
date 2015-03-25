@@ -14,6 +14,8 @@
     /// </summary>
     public class ReportServices : BaseService
     {
+        #region Public Methods
+
         /// <summary>
         /// Reporta un contenido.
         /// </summary>
@@ -62,7 +64,7 @@
 
                 if (request.ContentType == (int)ContentTypes.Comment)
                 {
-                    reportsQuantity = CurrentSession.Query<Domain.Domain.Report>().Where(x => x.Comment.Id == Convert.ToInt32(request.ContentId) && !x.IsReported.HasValue).Count();
+                    reportsQuantity = CurrentSession.Query<Domain.Domain.Report>().Where(x => x.Comment.Id == Convert.ToInt32(request.ContentId) && !x.IsReported.HasValue && !x.NullDate.HasValue).Count();
 
                     if (reportsQuantity >= countReportsForDisabled)
                     {
@@ -76,7 +78,7 @@
 
                 if (request.ContentType == (int)ContentTypes.Event)
                 {
-                    reportsQuantity = CurrentSession.Query<Domain.Domain.Report>().Where(x => x.Event.Id == Convert.ToInt32(request.ContentId) && !x.IsReported.HasValue).Count();
+                    reportsQuantity = CurrentSession.Query<Domain.Domain.Report>().Where(x => x.Event.Id == Convert.ToInt32(request.ContentId) && !x.IsReported.HasValue && !x.NullDate.HasValue).Count();
 
                     if (reportsQuantity >= countReportsForDisabled)
                     {
@@ -92,7 +94,7 @@
                 {
                     var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name.Equals(request.ContentId)).Single();
 
-                    reportsQuantity = CurrentSession.Query<Domain.Domain.Report>().Where(x => x.MultimediaContent.Id == multimediaContent.Id && !x.IsReported.HasValue).Count();
+                    reportsQuantity = CurrentSession.Query<Domain.Domain.Report>().Where(x => x.MultimediaContent.Id == multimediaContent.Id && !x.IsReported.HasValue && !x.NullDate.HasValue).Count();
 
                     if (reportsQuantity >= countReportsForDisabled)
                     {
@@ -121,7 +123,7 @@
         {
             var countReportsForDisabled = Convert.ToInt32(System.Configuration.ConfigurationSettings.AppSettings["QuantityReports"]);
 
-            var reports = CurrentSession.Query<Domain.Domain.Report>().Where(x => !x.IsReported.HasValue).ToList();
+            var reports = CurrentSession.Query<Domain.Domain.Report>().Where(x => !x.IsReported.HasValue && !x.NullDate.HasValue).ToList();
 
             var events = reports.Where(x => x.Event != null)
                         .GroupBy(x => x.Event.Id)
@@ -135,7 +137,13 @@
                         .Select(x => InternalServices.GetCommentSummary(x.First().Comment, request.CurrentUserId))
                         .ToList();
 
-            var multimediaContents = reports.Where(x => x.MultimediaContent != null)
+            var pictures = reports.Where(x => x.MultimediaContent != null && x.MultimediaContent.ContentType == (int)ContentTypes.Image)
+                        .GroupBy(x => x.MultimediaContent.Id)
+                        .Where(x => x.Count() >= countReportsForDisabled)
+                        .Select(x => InternalServices.GetMultimediaContentSummary(x.First().MultimediaContent))
+                        .ToList();
+
+            var movies = reports.Where(x => x.MultimediaContent != null && x.MultimediaContent.ContentType == (int)ContentTypes.Movie)
                         .GroupBy(x => x.MultimediaContent.Id)
                         .Where(x => x.Count() >= countReportsForDisabled)
                         .Select(x => InternalServices.GetMultimediaContentSummary(x.First().MultimediaContent))
@@ -145,8 +153,184 @@
             {
                 Events = events,
                 Comments = comments,
-                MultimediaContents = multimediaContents
+                Pictures = pictures,
+                Movies = movies
             };
         }
+
+        /// <summary>
+        /// Administra contenidos reportados.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static AdministrationReportedResponse AdministrationReported(AdministrationReportedRequest request)
+        {
+            int? userId = null;
+
+            if (request.IsDisabled)
+            {
+                using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+                {
+                    var reports = new List<Domain.Domain.Report>();
+
+                    if (request.ContentType == (int)ContentTypes.Event)
+                    {
+                        var _event = CurrentSession.Get<Domain.Domain.Event>(Convert.ToInt32(request.ContentId));
+
+                        _event.Active = false;
+
+                        userId = _event.User.Id;
+
+                        // Busco los reportes relacionados.
+                        reports = CurrentSession.Query<Domain.Domain.Report>()
+                                    .Where(x => x.Event != null && x.Event.Id == _event.Id && !x.NullDate.HasValue)
+                                    .ToList();
+                    }
+
+                    if (request.ContentType == (int)ContentTypes.Comment)
+                    {
+                        var comment = CurrentSession.Get<Domain.Domain.Comment>(Convert.ToInt32(request.ContentId));
+
+                        comment.Active = false;
+
+                        userId = comment.User.Id;
+
+                        // Busco los reportes relacionados.
+                        reports = CurrentSession.Query<Domain.Domain.Report>()
+                                    .Where(x => x.Comment != null && x.Comment.Id == comment.Id && !x.NullDate.HasValue)
+                                    .ToList();
+                    }
+
+                    if (request.ContentType == (int)ContentTypes.Image || request.ContentType == (int)ContentTypes.Movie)
+                    {
+                        var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name == request.ContentId).Single();
+
+                        multimediaContent.Active = false;
+
+                        userId = multimediaContent.Event.User.Id;
+
+                        // Busco los reportes relacionados.
+                        reports = CurrentSession.Query<Domain.Domain.Report>()
+                                    .Where(x => x.MultimediaContent != null && x.MultimediaContent.Id == multimediaContent.Id && !x.NullDate.HasValue)
+                                    .ToList();
+                    }
+
+                    // Marco como reportado.
+                    foreach (var report in reports)
+                    {
+                        report.IsReported = true;
+                    }
+
+                    transaction.Complete();
+                }
+
+                if (userId.HasValue)
+                {
+                    VerifyUserCondition(userId.Value);
+                }
+            }
+            else
+            {
+                // TO DO > por cada usuario que reporto el contenido, buscar mas reportes falsos.
+            }
+
+            return new AdministrationReportedResponse();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Verifica la condición del usuario para deshabilitarlo o suspenderlo si es necesario.
+        /// </summary>
+        /// <param name="userId">Identificador del usuario.</param>
+        private static void VerifyUserCondition(int userId)
+        {
+            var contentsReports = Convert.ToInt32(System.Configuration.ConfigurationSettings.AppSettings["ContentsReports"]);
+
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                // Busco los contenidos reportados del usuario.
+                var eventsReported = CurrentSession.Query<Domain.Domain.Report>()
+                                     .Where(x => x.IsReported == true && x.Event != null && x.Event.User.Id == userId && !x.NullDate.HasValue)
+                                     .ToList();
+
+                var commentsReported = CurrentSession.Query<Domain.Domain.Report>()
+                                      .Where(x => x.IsReported == true && x.Comment != null && x.Comment.User.Id == userId && !x.NullDate.HasValue)
+                                      .ToList();
+
+                var contentsReported = CurrentSession.Query<Domain.Domain.Report>()
+                                     .Where(x => x.IsReported == true && x.MultimediaContent != null && x.MultimediaContent.Event.User.Id == userId && !x.NullDate.HasValue)
+                                     .ToList();
+
+                // Cantidad de contenidos reportados.
+                var quantityReports = contentsReported.GroupBy(x => x.MultimediaContent.Id).Count();
+                quantityReports += commentsReported.GroupBy(x => x.Comment.Id).Count();
+                quantityReports += eventsReported.GroupBy(x => x.Event.Id).Count();
+
+                if (quantityReports >= contentsReports)
+                {
+                    var suspensions = CurrentSession.Query<Domain.Domain.Suspension>().Where(x => x.User.Id == userId).ToList();
+                    var user = CurrentSession.Get<Domain.Domain.User>(userId);
+
+                    // Si el usuario ya tiene una suspension, lo deshabilito.
+                    if (suspensions.Count() >= 1)
+                    {
+                        user.Active = false;
+
+                        new BaseQuery<Domain.Domain.User, int>().Update(user);
+
+                        //Envío el mail notificando al usuario que fue desactivado.
+                        var subject = "Publieventos - Usuario desactivado";
+                        var body = string.Format("Estimado {0}:" +
+                            "<br/><br/>Lamentamos comunicarle que su usuario <strong>{1}</strong> ha sido desactivado debido a que sus contenidos en el sitio no fueron las correctos." +
+                            "<br/><br/>Saludos cordiales." +
+                            "<br/>Equipo de administración de Publieventos", user.FirstName, user.UserName);
+
+                        InternalServices.SendMail(user.Email, subject, body, true);
+                    }
+                    else
+                    {
+                        // Deshabilito al usuario por 3 meses.
+                        var suspension = new Domain.Domain.Suspension();
+                        suspension.EffectDate = DateTime.Now.Date;
+                        suspension.EndDate = DateTime.Now.Date.AddMonths(3);
+                        suspension.User = user;
+
+                        new BaseQuery<Domain.Domain.Suspension, int>().Create(suspension);
+
+                        //Envío el mail notificando al usuario que fue desactivado.
+                        var subject = "Publieventos - Usuario deshabilitado temporalmente";
+                        var body = string.Format("Estimado {0}:" +
+                            "<br/><br/>Lamentamos comunicarle que su usuario <strong>{1}</strong> ha sido desactivado por un período de 3 meses debido a que sus contenidos en el sitio no fueron las correctos." +
+                            "<br/><br/>Nos vemos pronto. Saludos cordiales." +
+                            "<br/>Equipo de administración de Publieventos", user.FirstName, user.UserName);
+
+                        InternalServices.SendMail(user.Email, subject, body, true);
+                    }
+
+                    //Los doy de baja para indicar que ya los procese.
+                    foreach (var content in contentsReported)
+                    {
+                        content.NullDate = DateTime.Now;
+                    }
+
+                    foreach (var comment in commentsReported)
+                    {
+                        comment.NullDate = DateTime.Now;
+                    }
+
+                    foreach (var _event in eventsReported)
+                    {
+                        _event.NullDate = DateTime.Now;
+                    }
+                }
+
+                transaction.Complete();
+            }
+        }
+
+        #endregion
     }
 }
