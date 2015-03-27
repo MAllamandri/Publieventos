@@ -3,6 +3,7 @@
     using NHibernate;
     using PubliEventos.DataAccess.Infrastructure;
     using PubliEventos.Services.Services;
+    using System;
 
     /// <summary>
     /// Clase base de servicios.
@@ -29,6 +30,14 @@
         public static InternalServices InternalServices
         {
             get { return new InternalServices(); }
+        }
+
+        /// <summary>
+        /// Cantidad máxima de contenidos reportados de un usuario, para suspenderlo o desactivarlo.
+        /// </summary>
+        public static int ContentsReports
+        {
+            get { return Convert.ToInt32(System.Configuration.ConfigurationSettings.AppSettings["ContentsReports"]); }
         }
 
         #endregion

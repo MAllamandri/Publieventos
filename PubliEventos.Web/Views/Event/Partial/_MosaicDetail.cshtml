@@ -3,8 +3,8 @@
 @using PubliEventos.Web.Helpers
 
 @{
-    var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
-    var coverImage = !string.IsNullOrEmpty(Model.FileName) ? System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName : "/Content/themes/images/contact-default-image.jpg";
+    var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
+    var coverImage = !string.IsNullOrEmpty(Model.FileName) ? System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName : "/Content/images/Profiles/contact-default-image.jpg";
     var urlEvent = string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, Model.Id);
     var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, coverImage);
 }
@@ -74,7 +74,7 @@
                         <a  href="/Event/UploadPictures/@Model.Id" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
                         }
 
-                        if (Model.Reports != null && Model.Reports.Where(x => x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
+                        if (Model.Reports != null && Model.Reports.Where(x => !x.IsReported.HasValue && x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
                         {
                         <div style="display: inline; float: right; padding-right: 25px; color: #f00">
                             <strong style="font-size: 11px !important">Has Reportado este Evento</strong>

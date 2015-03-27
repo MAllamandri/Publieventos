@@ -87,14 +87,14 @@
             ViewBag.pictures = model.MultimediaContents != null && model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Image).Select(x => new MultimediaContentSummaryModel()
             {
                 FileName = x.FileName,
-                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false,
+                IsReportedByUser = x.Reports != null && x.Reports.Where(r => !r.IsReported.HasValue).Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false,
                 ContentType = (int)ContentTypes.Image
             }).ToList() : null;
 
             ViewBag.movies = model.MultimediaContents != null && model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Movie).Select(x => new MultimediaContentSummaryModel()
             {
                 FileName = x.FileName,
-                IsReportedByUser = x.Reports != null && x.Reports.Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false,
+                IsReportedByUser = x.Reports != null && x.Reports.Where(r => !r.IsReported.HasValue).Select(r => r.User.Id.Value).ToList().Contains(User.Id) ? true : false,
                 ContentType = (int)ContentTypes.Movie
             }).ToList() : null;
 

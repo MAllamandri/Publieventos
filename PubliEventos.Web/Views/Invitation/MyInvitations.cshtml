@@ -29,7 +29,7 @@
                     @foreach (var invitation in (List<Invitation>)ViewBag.invitations)
                     {
                         var userAdministrator = invitation.Event != null ? invitation.Event.User : invitation.Group.Administrator;
-                        var imageProfile = !string.IsNullOrEmpty(userAdministrator.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + userAdministrator.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+                        var imageProfile = !string.IsNullOrEmpty(userAdministrator.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + userAdministrator.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
                             
                         <div class="col-md-6 mosaic-invitation" style="margin-bottom: 140px; height: 180px;">
                             <div class="col-md-12 mosaic" style="min-height: 170px; margin-top: 30px;">

@@ -121,6 +121,46 @@ function myViewModel() {
         });
     }
 
+    self.IgnoreReportedContent = function () {
+        bootbox.confirm({
+            title: "<h4 class='title-modal'>Ignorar Contenido Reportado</h4>",
+            message: "<p class='font-text'>Esta seguro que desea volver a activar el contenido?</p>",
+            buttons: {
+                'cancel': {
+                    label: "Cancelar",
+                    className: "btn-cancel pull-left",
+                },
+                'confirm': {
+                    label: "Aceptar",
+                    className: "btn-confirm"
+                }
+            }, callback: function (result) {
+                if (result) {
+                    $.blockUI({ message: "" });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Report/AdministrationReported",
+                        data: {
+                            ContentId: self.ContentId(),
+                            ContentType: self.ContentType(),
+                            IsDisabled: false
+                        }
+                    }).done(function (data) {
+                        if (data.Success) {
+                            // Quito el contenido del modelo.
+                            viewModel.RemoveContent(self.ContentId(), self.ContentType());
+                        }
+                        $.unblockUI();
+                    }).error(function () {
+                        alert("Ha ocurrido un error");
+                        $.unblockUI();
+                    });
+                }
+            }
+        });
+    }
+
     self.RemoveContent = function (contentId, contentType) {
         if (contentType == contents.Image) {
             var element = ko.utils.arrayFirst(self.Pictures(), function (picture) {
@@ -176,6 +216,12 @@ function ContentModel(content) {
         viewModel.ContentType(content.ContentType);
         viewModel.DisabledContent();
     }
+
+    self.IgnoreReportedMultimediaContent = function () {
+        viewModel.ContentId(content.FileName);
+        viewModel.ContentType(content.ContentType);
+        viewModel.IgnoreReportedContent();
+    }
 }
 
 function EventModel(event) {
@@ -200,6 +246,12 @@ function EventModel(event) {
         viewModel.ContentType(contents.Event);
         viewModel.DisabledContent();
     }
+
+    self.IgnoreReportedEvent = function () {
+        viewModel.ContentId(event.Id);
+        viewModel.ContentType(contents.Event);
+        viewModel.IgnoreReportedContent();
+    }
 }
 
 function CommentModel(comment) {
@@ -209,7 +261,7 @@ function CommentModel(comment) {
     self.Detail = comment.Detail;
     self.ImageProfile = comment.User.ImageProfile != null && comment.User.ImageProfile != "" ?
                         "/Content/images/Profiles/" + comment.User.ImageProfile :
-                        "/Content/themes/images/contact-default-image.jpg";
+                        "/Content/images/Profiles/contact-default-image.jpg";
     self.UserName = comment.User.UserName;
     self.CreatedBy = "Realizado por " + self.UserName;
 
@@ -221,5 +273,11 @@ function CommentModel(comment) {
         viewModel.ContentId(comment.Id);
         viewModel.ContentType(contents.Comment);
         viewModel.DisabledContent();
+    }
+
+    self.IgnoreReportedComment = function () {
+        viewModel.ContentId(comment.Id);
+        viewModel.ContentType(contents.Comment);
+        viewModel.IgnoreReportedContent();
     }
 }

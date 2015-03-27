@@ -463,7 +463,7 @@ function CommentModel(comment) {
     self.Detail = ko.observable(comment.Detail);
     self.ImageProfile = comment.User.ImageProfile != null && comment.User.ImageProfile != "" ?
                         "/Content/images/Profiles/" + comment.User.ImageProfile :
-                        "/Content/themes/images/contact-default-image.jpg";
+                        "/Content/images/Profiles/contact-default-image.jpg";
     self.UserId = comment.User.Id;
     self.UserName = comment.User.UserName;
     self.IsReported = ko.observable(comment.IsReportedByUser);

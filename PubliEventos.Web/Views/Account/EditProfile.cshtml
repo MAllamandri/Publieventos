@@ -18,7 +18,7 @@
 @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
 
 @{
-    var imageProfile = !string.IsNullOrEmpty(Model.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.ImageProfile : "/Content/themes/images/contact-default-image.jpg";
+    var imageProfile = !string.IsNullOrEmpty(Model.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
 }
 
 <div class="row-fluid">

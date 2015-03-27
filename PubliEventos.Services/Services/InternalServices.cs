@@ -61,7 +61,7 @@
                 NullDate = comment.NullDate,
                 Event = GetEventSummary(comment.Event),
                 User = GetUserSummary(comment.User),
-                IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Select(x => x.User.Id).ToList().Contains(currentUserId.Value) ? true : false
+                IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Where(x => !x.IsReported.HasValue).Select(x => x.User.Id).ToList().Contains(currentUserId.Value) ? true : false
             };
         }
 
@@ -163,6 +163,7 @@
             {
                 Id = report.Id,
                 Reason = report.Reason,
+                IsReported = report.IsReported,
                 User = GetUserSummary(report.User)
             };
         }
