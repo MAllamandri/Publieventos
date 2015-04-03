@@ -315,6 +315,7 @@
         /// <returns>SignUp view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public JsonResult SignUp(UserModel model)
         {
             if (ModelState.IsValid)
@@ -353,6 +354,7 @@
         /// <param name="userName">nombre de usuario.</param>
         /// <returns>True si existe, false caso contrario.</returns>
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult ValidateExistUserName(string userName, int? userIdToExclude)
         {
             var valid = this.ValidateExistsUserName(userName, userIdToExclude);
@@ -366,6 +368,7 @@
         /// <param name="email">Email a validar.</param>
         /// <returns>True si ya existe, false caso contrario.</returns>
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult ValidateExistEmail(string email, int? userId)
         {
             if (!string.IsNullOrEmpty(email))
@@ -383,6 +386,7 @@
         /// </summary>
         /// <param name="IdProvince">Identificador de la provincia.</param>
         /// <returns>Localidades.</returns>
+        [AllowAnonymous]
         public JsonResult GetLocalitiesByProvince(string IdProvince)
         {
             if (!string.IsNullOrEmpty(IdProvince))
@@ -405,6 +409,7 @@
         /// <param name="userName">Nombre de usuario</param>
         /// <returns>Json.</returns>
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult ResendEmailActivation(string userName)
         {
             try
@@ -538,18 +543,16 @@
             {
                 var user = serviceAccounts.GetUserByUserName(userName.ToLower().Trim());
 
-                if (user != null && userIdToExclude.HasValue && user.Id != userIdToExclude)
+                if (user != null)
                 {
-                    return true;
+                    if (!userIdToExclude.HasValue || user.Id != userIdToExclude)
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
                     return false;
-                }
-
-                if (user != null)
-                {
-                    return true;
                 }
             }
 

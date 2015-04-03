@@ -379,6 +379,7 @@
     <Content Include="ViewScripts\Event\UploadPictures.js" />
     <Content Include="ViewScripts\Group\Base.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
+    <Content Include="ViewScripts\Home\Index.js" />
     <Content Include="ViewScripts\Invitation\InviteToEvent.js" />
     <Content Include="ViewScripts\Invitation\MyInvitations.js" />
     <Content Include="ViewScripts\Shared\Select2.js" />

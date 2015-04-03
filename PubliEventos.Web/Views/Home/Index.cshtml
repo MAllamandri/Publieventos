@@ -5,9 +5,18 @@
 
 @using PubliEventos.Contract.Class
 
+@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
 @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Social.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Home/Index.js")
+
+<script type="text/javascript">
+    var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<Event>)ViewBag.events))
+    var url = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, "#")))
+    var urlImage = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + '#')))
+</script>
 
 <style>
     img {
@@ -24,28 +33,18 @@
             </div>
         </div>
         <div class="row-fluid">
-            <ul class="timeline">
-                @foreach (var eventGroup in (List<List<Event>>)ViewBag.events)
-                {
-                    <li>
-                        <div class="tldate">@eventGroup.First().EventDate.ToShortDateString()</div>
-                    </li>
-                    var indice = true;
-
-                    foreach (var eventSingle in eventGroup)
-                    {
-                        if (indice)
-                        {
-                    @Html.Partial("Partial/_LeftBubble", (Event)eventSingle)
-                            indice = false;
-                        }
-                        else
-                        {
-                    @Html.Partial("Partial/_RightBubble", (Event)eventSingle)
-                            indice = true;
-                        }
-                    }
-                }
+            <ul class="timeline" data-bind="foreach:Events">
+                <li>
+                    <div class="tldate" data-bind="text: Date"></div>
+                </li>
+                <div data-bind="foreach: EventsDetail">
+                    <!-- ko if: Left() == true -->
+                    @Html.Partial("Partial/_LeftBubble")
+                    <!-- /ko -->
+                    <!-- ko if: Left() == false -->
+                    @Html.Partial("Partial/_RightBubble")
+                    <!-- /ko -->
+                </div>
             </ul>
         </div>
         <nav class="navbar-fixed-bottom" style="margin-right: 20px">

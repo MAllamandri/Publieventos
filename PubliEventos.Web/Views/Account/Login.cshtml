@@ -55,15 +55,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="row-fluid">
-                                                    <div class="col-lg-12">
+                                                    <div class="col-lg-6">
                                                         @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-control", @placeholder = "Contraseña", @style = "margin-top: -1px; display: inline;" })
                                                         <span class="font-text">Recordarme</span>
+                                                    </div>
+                                                    <div style="margin-top: 7px" class="col-lg-6">
+                                                        <a href="#" role="button" data-toggle="modal" id="recoverPass">¿Olvido su contraseña? </a>
                                                     </div>
                                                 </div>
                                                 <div style="margin-top: 10px">
                                                     <div class="row-fluid">
                                                         <div class="col-lg-12">
-                                                            <input type="submit" id="Entry" value="Ingresar" class="btn btn-success font-text" />
+                                                            <input type="submit" id="Entry" value="Ingresar" class="btn-confirm font-text" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -101,12 +104,12 @@
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.Email, new { @class = "form-control", @placeholder = "Email", @style = "height: 34px" })
                                                             @Html.ValidationMessage("SignUpModel.Email")
-                                                            <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-envelope"></span> El email ya existe</div>
+                                                            <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-envelope"></span>El email ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.UserNameToRegister, new { @class = "form-control", @placeholder = "Usuario", @style = "height: 34px" })
                                                             @Html.ValidationMessage("SignUpModel.UserNameToRegister")
-                                                            <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-user"></span> El usuario ya existe</div>
+                                                            <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-user"></span>El usuario ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.PasswordFor(m => m.SignUpModel.PasswordToRegister, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })
@@ -127,8 +130,8 @@
                                                             @Html.DropDownList("SignUpModel.Locality", new SelectList(""), "[Seleccione Localidad]", new { @class = "form-control font-text", @disabled = "disabled" })
                                                             @Html.ValidationMessage("SignUpModel.Locality")
                                                         </div>
-                                                        <div class="input-group date">
-                                                            @Html.TextBoxFor(m => m.SignUpModel.BirthDate, new { @class = "form-control font-text", @placeholder = "Fecha de Nacimiento", @style = "height: 34px" })
+                                                        <div class="input-group">
+                                                            @Html.TextBoxFor(m => m.SignUpModel.BirthDate, new { @class = "date form-control font-text", @placeholder = "Fecha de Nacimiento", @style = "height: 34px" })
                                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                         </div>
                                                         @Html.ValidationMessage("SignUpModel.BirthDate")
@@ -147,7 +150,7 @@
                                             <div class="row-fluid RegisterRow">
                                                 <div class="form-group">
                                                     <div class="col-lg-6">
-                                                        <input type="submit" id="Register" value="Registrarse" class="btn btn-primary font-text" />
+                                                        <input type="submit" id="Register" value="Registrarse" class="btn-confirm font-text" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,6 +165,24 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" style="height: 280px" id="RecoverPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-toggle="modal">
+        <div class="modal-header">
+            <h4 class="title-modal" id="myModalLabel">Recuperar Contraseña</h4>
+        </div>
+        <div class="modal-body">
+            <strong>Ingrese Usuario</strong>
+            @Html.Password("UserName", null, new { @class = "form-control", @style = "height: 34px" })
+            @Html.ValidationMessage("UserName")
+            <br />
+            <small><p>Recibira un email con los pasos a seguir para recuperar su contraseña</p></small>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+            <button type="button" id="savePassword" class="btn-confirm">Guardar</button>
+        </div>
+    </div>
+
     <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="/Scripts/jquery.blockUI.js"></script>
     <script src="/Scripts/jquery.form.js"></script>

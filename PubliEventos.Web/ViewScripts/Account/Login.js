@@ -17,6 +17,10 @@
         $('#Second').attr('class', 'col-md-3');
     }
 
+    $('#recoverPass').click(function () {
+        $('#RecoverPassModal').modal('show');
+    });
+
     $('#tabCreate').click(function () {
         $('#loginModal').attr('class', 'col-md-6');
         $('#First').attr('class', "col-md-3");

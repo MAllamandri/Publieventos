@@ -23,9 +23,7 @@
         public ActionResult Index()
         {
             ViewBag.events = serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { StartDate = DateTime.Now.AddMonths(-3), EndDate = DateTime.Now.AddMonths(6), SearchPublics = true }).Events
-                .GroupBy(x => x.EventDate)
-                .Select(grp => grp.ToList())
-                .OrderByDescending(group => group.First().EventDate)
+                .OrderByDescending(x => x.EventDate)
                 .ToList();
 
             return View();

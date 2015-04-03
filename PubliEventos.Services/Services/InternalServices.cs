@@ -40,7 +40,7 @@
                 },
                 Latitude = eventToParse.Latitude,
                 Longitude = eventToParse.Longitude,
-                MultimediaContents = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Select(x => GetMultimediaContentSummary(x)).ToList() : null,
+                MultimediaContents = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Where(x => x.Active).Select(x => GetMultimediaContentSummary(x)).ToList() : null,
                 Reports = eventToParse.Reports.Any() ? eventToParse.Reports.Select(x => GetReportSummary(x)).ToList() : null
             };
         }
@@ -87,7 +87,7 @@
                 UserName = user.UserName,
                 Locality = this.GetLocalitySummary(user.Locality),
                 IsAdministrator = user.IsAdministrator,
-                HasActiveSuspension = user.Suspensions.Where(x => x.EndDate >= DateTime.Now.Date).Any()
+                HasActiveSuspension = user.Suspensions != null && user.Suspensions.Where(x => x.EndDate >= DateTime.Now.Date).Any() ? true : false
             };
         }
 
