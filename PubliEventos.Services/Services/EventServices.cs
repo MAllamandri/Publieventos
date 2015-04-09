@@ -148,14 +148,21 @@
             var predicate = PredicateBuilder.True<Domain.Domain.Event>();
             predicate = predicate.And(x => !x.NullDate.HasValue && x.Active);
 
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                predicate = predicate.And(x => x.Title.Contains(request.SearchTerm.Trim()) ||
+                                               x.Description.Contains(request.SearchTerm.Trim()) ||
+                                               x.Detail.Contains(request.SearchTerm.Trim()));
+            }
+
             if (request.SearchPublics)
             {
                 predicate = predicate.And(x => x.Private == false);
             }
 
-            if (request.IdUser.HasValue)
+            if (request.UserId.HasValue)
             {
-                predicate = predicate.And(x => x.User.Id == request.IdUser.Value);
+                predicate = predicate.And(x => x.User.Id == request.UserId.Value);
             }
 
             if (request.EventTypeId.HasValue)
@@ -176,7 +183,11 @@
                 predicate = predicate.And(x => x.EventDate.Date <= request.EndDate.Value.Date);
             }
 
-            var events = CurrentSession.Query<Domain.Domain.Event>().Where(predicate).Select(x => InternalServices.GetEventSummary(x)).ToList();
+            var events = CurrentSession.Query<Domain.Domain.Event>()
+                            .Where(predicate)
+                            .Select(x => InternalServices.GetEventSummary(x))
+                            .Take(500)
+                            .ToList();
 
             return new SearchFilteredEventsResponse()
             {

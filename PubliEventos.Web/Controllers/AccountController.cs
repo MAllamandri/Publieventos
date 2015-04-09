@@ -134,7 +134,7 @@
         {
             var model = this.serviceAccounts.GetUserById(new GetUserByIdRequest() { UserId = id }).User;
 
-            var events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { SearchPublics = true, IdUser = id }).Events;
+            var events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { SearchPublics = true, UserId = id }).Events;
 
             // Obtengo los ultimos tres eventos del usuario.
             ViewBag.events = events.OrderByDescending(x => x.EventDate).Take(3).ToList();
@@ -434,6 +434,7 @@
         /// <param name="pageNumber">Número de página.</param>
         /// <param name="pageSize">Tamaño de página.</param>
         /// <returns>Usuarios encontrados.</returns>
+        [AllowAnonymous]
         public JsonResult SearchUsersByUserName(string userName, int pageNumber, int pageSize)
         {
             List<Select2Result> Users = new List<Select2Result>();

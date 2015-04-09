@@ -482,7 +482,7 @@ img {
 /** timeline box structure **/
 .timeline {
     list-style: none;
-    padding: 35px 0 20px;
+    padding: 35px 0 30px;
     position: relative;
 }
 
@@ -691,6 +691,38 @@ img {
             left: -14px;
             right: auto;
         }
+}
+
+#navigation {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    top: 100px;
+    right: 0px;
+    z-index: 9999;
+}
+
+.inner {
+    position: absolute;
+    top: 18%;
+    left: 20px;
+    font-size: 30px;
+}
+
+.rotate {
+    transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
+.col-search {
+    float: right !important;
+}
+
+.filter-section div {
+    margin-bottom: 3px;
+}
+
+img {
+    max-width: 100%;
 }
 
 /* #endregion */

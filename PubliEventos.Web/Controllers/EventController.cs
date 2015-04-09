@@ -148,7 +148,7 @@
         public PartialViewResult GetFilteredEvents(SearchFilteredEventsRequest model, bool myEvents)
         {
             // filtro por mis eventos.
-            model.IdUser = myEvents ? User.Id : (int?)null;
+            model.UserId = myEvents ? User.Id : (int?)null;
 
             var events = this.serviceEvents.SearchFilteredEvents(model).Events;
 

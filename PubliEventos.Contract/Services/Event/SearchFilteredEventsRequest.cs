@@ -25,11 +25,16 @@
         /// <summary>
         /// Identificador del usuario para filtrar eventos.
         /// </summary>
-        public int? IdUser { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>
         /// Indica que busca los eventos publicos.
         /// </summary>
         public bool SearchPublics { get; set; }
+
+        /// <summary>
+        /// Término de búsqueda.
+        /// </summary>
+        public string SearchTerm { get; set; }
     }
 }

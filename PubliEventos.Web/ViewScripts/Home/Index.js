@@ -1,27 +1,114 @@
 ﻿var viewModel = {};
 
 $(function () {
+    $('.date').datetimepicker({
+        pickTime: false,
+        format: "DD/MM/YYYY",
+        language: 'es',
+        autoclose: true,
+    });
+
+    SelectUsers($(".select2-users"), false);
+
+    $('.datepicker,.select2-search,#navigation').hover(
+     function () {
+         $('.filter-section', $('#navigation')).stop().animate({ 'marginRight': '15px' }, 200);
+     },
+     function () {
+         $('.filter-section', $('#navigation')).stop().animate({ 'marginRight': '-450px' }, 200);
+     }
+    );
+
+    $('#navigation .filter-section').stop().animate({ 'marginRight': '-450px' }, 1000);
+
     viewModel = new myViewModel();
 
     if (events != null) {
-        var eventsArray = [];
-        $.each(events, function (index, event) {
-            if (eventsArray.length == 0 || moment(eventsArray[eventsArray.length - 1].EventDate).format("DD/MM/YYYY") == moment(event.EventDate).format("DD/MM/YYYY")) {
-                eventsArray.push(event);
-            } else {
-                viewModel.Events.push(new EventsHeader(eventsArray));
-                eventsArray = [];
-                eventsArray.push(event);
-            }
-        });
-
-        if (eventsArray.length > 0) {
-            viewModel.Events.push(new EventsHeader(eventsArray));
-        }
+        LoadEvents(events);
     }
+
+    $('#SearchTerm').keypress(function () {
+        if ($('#SearchTerm').val().length >= 5) {
+            SearchEvents(null, $('#SearchTerm').val());
+        }
+    });
+
+    $('#SearchTerm').keyup(function (e) {
+        if (e.keyCode == 8 && $('#SearchTerm').val().length > 4) {
+            SearchEvents(null, $('#SearchTerm').val());
+        } else if (e.keyCode == 8 && $('#SearchTerm').val().length == 4) {
+            SearchEvents(true, null);
+        };
+    });
+
+    function SearchEvents(initialSearch, searchTerm) {
+        $.ajax({
+            url: '/Home/SearchEvents',
+            dataType: "json",
+            data: {
+                initialSearch: initialSearch,
+                fullText: searchTerm
+            }
+        }).success(function (data) {
+            viewModel.Events.removeAll();
+
+            LoadEvents(JSON.parse(data.Events));
+        });
+    }
+
+    $('#search').click(function () {
+        if ($('#StartDate').val() != "" || $('#EndDate').val() != "" || $('#EventType').val() != "" || $('#UserName').val()) {
+            $.blockUI({ message: "" });
+
+            $('#SearchTerm').val("");
+            var startDate = $('#StartDate').val() != "" ? moment($('#StartDate').val()).format("DD/MM/YYYY") : null;
+            var endDate = $('#EndDate').val() != "" ? moment($('#EndDate').val()).format("DD/MM/YYYY") : null;
+
+            $.ajax({
+                url: '/Home/SearchEvents',
+                dataType: "json",
+                data: {
+                    userId: $('#UserName').val(),
+                    eventType: $('#EventType').val(),
+                    startDate: startDate,
+                    endDate: endDate
+                }
+            }).success(function (data) {
+                viewModel.Events.removeAll();
+
+                LoadEvents(JSON.parse(data.Events));
+
+                $.unblockUI();
+            });
+        }
+    });
+
+    $('#resetFilters').click(function () {
+        $('#StartDate').val("");
+        $('#EndDate').val("");
+        $("#UserName").select2("val", "");
+        $('#EventType').val("");
+    });
 
     ko.applyBindings(viewModel);
 });
+
+function LoadEvents(events) {
+    var eventsArray = [];
+    $.each(events, function (index, event) {
+        if (eventsArray.length == 0 || moment(eventsArray[eventsArray.length - 1].EventDate).format("DD/MM/YYYY") == moment(event.EventDate).format("DD/MM/YYYY")) {
+            eventsArray.push(event);
+        } else {
+            viewModel.Events.push(new EventsHeader(eventsArray));
+            eventsArray = [];
+            eventsArray.push(event);
+        }
+    });
+
+    if (eventsArray.length > 0) {
+        viewModel.Events.push(new EventsHeader(eventsArray));
+    }
+}
 
 function myViewModel() {
     self = this;
@@ -32,7 +119,9 @@ function myViewModel() {
 function EventsHeader(events) {
     var self = this;
 
-    self.Date = moment(events[0].EventDate).format("DD/MM/YYYY");
+    var month = moment(events[0].EventDate).format("MM");
+    self.Date = moment(events[0].EventDate).format("DD") + " de " + GetMonthDescription(month) + " de " + moment(events[0].EventDate).format("YYYY");;
+
     self.EventsDetail = ko.observableArray();
 
     $.each(events, function (index, event) {
@@ -81,3 +170,46 @@ ko.bindingHandlers.TwitterButton = {
         element.href = urlTwitter;
     }
 };
+
+function GetMonthDescription(month) {
+    switch (month) {
+        case ("01"):
+            return "Enero"
+            break;
+        case ("02"):
+            return "Febrero"
+            break;
+        case ("03"):
+            return "Marzo"
+            break;
+        case ("04"):
+            return "Abril"
+            break;
+        case ("05"):
+            return "Mayo"
+            break;
+        case ("06"):
+            return "Junio"
+            break;
+        case ("07"):
+            return "Julio"
+            break;
+        case ("08"):
+            return "Agosto"
+            break;
+        case ("09"):
+            return "Septiembre"
+            break;
+        case ("10"):
+            return "Octubre"
+            break;
+        case ("11"):
+            return "Noviembre"
+            break;
+        case ("12"):
+            return "Diciembre"
+            break;
+        default:
+            return "";
+    }
+}

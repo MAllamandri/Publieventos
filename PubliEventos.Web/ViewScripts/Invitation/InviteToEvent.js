@@ -3,6 +3,8 @@
         flash: true
     });
 
+    SelectUsers($(".select2-users"), true);
+
     $('#Send').click(function () {
         $('#SendForm').ajaxForm({
             url: '/Invitation/InviteToEvent',
