@@ -95,5 +95,15 @@
         {
             return EventServices.DeleteMultimediaContent(request);
         }
+
+        /// <summary>
+        /// Busca eventos por aproximación.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public SearchEventsByDistanceResponse SearchEventsByDistance(SearchEventsByDistanceRequest request)
+        {
+            return EventServices.SearchEventsByDistance(request);
+        }
     }
 }

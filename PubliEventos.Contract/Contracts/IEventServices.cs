@@ -66,5 +66,12 @@
         /// <param name="request">Parámetros de entrada.</param>
         /// <returns>Lista de eventos filtrados.</returns>
         DeleteMultimediaContentResponse DeleteMultimediaContent(DeleteMultimediaContentRequest request);
+
+        /// <summary>
+        /// Busca eventos por aproximación.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        SearchEventsByDistanceResponse SearchEventsByDistance(SearchEventsByDistanceRequest request);
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Class\MultimediaContent.cs" />
     <Compile Include="Class\Province.cs" />
     <Compile Include="Class\Report.cs" />
+    <Compile Include="Class\SearchEventsByDistanceResult.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Class\Group.cs" />
     <Compile Include="Class\UserGroup.cs" />
@@ -89,6 +90,8 @@
     <Compile Include="Services\Event\DeleteMultimediaContentResponse.cs" />
     <Compile Include="Services\Event\EventCreateOrUpdateRequest.cs" />
     <Compile Include="Services\Event\EventCreateOrUpdateResponse.cs" />
+    <Compile Include="Services\Event\SearchEventsByDistanceRequest.cs" />
+    <Compile Include="Services\Event\SearchEventsByDistanceResponse.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsRequest.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsResponse.cs" />
     <Compile Include="Services\Group\CreateGroupRequest.cs" />

@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>Publieventos - Búsqueda de Eventos</title>
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @System.Web.Optimization.Scripts.Render("/ViewScripts/Home/SearchEventsByDistance.js")
+    @System.Web.Optimization.Styles.Render("/Content/Site.css")
+    @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+</head>
+<body>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        #map-canvas {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+
+        .distance-form {
+            position: absolute;
+            z-index: 1;
+            left: 54%;
+            background-color: #E2CCA5;
+            top: 25px;
+            padding: 10px;
+        }
+
+            .distance-form input, p {
+                display: inline;
+            }
+
+        .user-position {
+            background-color: #DAA04E !important;
+            background-image: none !important;
+            color: black !important;
+            text-shadow: none !important;
+        }
+
+        .link-event {
+            color: white;
+        }
+
+        .m_tooltip {
+            position: absolute;
+            text-align: center;
+            font-family: 'MuseoSans-500';
+            font-size: 13px;
+            left: 0;
+            top: 0;
+            z-index: -2;
+            color: #FFFFFF;
+            float: left;
+            margin-top: 10px;
+            padding: 10px;
+            width: 260px;
+            border: 1px solid #313436;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            -moz-box-shadow: 0px 1px 2px #000;
+            -webkit-box-shadow: 0px 1px 2px #000;
+            box-shadow: 0px 1px 2px #000;
+            background-color: #313436;
+            background-image: -webkit-linear-gradient(top, #313436, #222526);
+            background-image: -moz-linear-gradient(top, #313436, #222526);
+            background-image: -ms-linear-gradient(top, #313436, #222526);
+            background-image: -o-linear-gradient(top, #313436, #222526);
+            background-image: linear-gradient(top, #313436, #222526);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#313436', EndColorStr='#222526');
+        }
+    </style>
+    <a class="title" style="position: absolute; z-index: 1; left: 7%;" href="/Home/Index">publieventos</a>
+    <div class="distance-form">
+        <div>
+            <p>Buscar eventos en un radio de</p>
+        </div>
+        <input type="radio" class="checkbox-distance" name="distance" value="50" />
+        <p>50 km</p>
+        <input type="radio" class="checkbox-distance" name="distance" value="100" />
+        <p>100 km</p>
+        <input type="radio" class="checkbox-distance" name="distance" value="200" />
+        <p>200 km</p>
+        <input type="radio" class="checkbox-distance" name="distance" value="300" />
+        <p>300 km</p>
+        <input type="radio" class="checkbox-distance" name="distance" value="400" />
+        <p>400 km</p>
+        <input type="radio" class="checkbox-distance" name="distance" value="500" />
+        <p>500 km</p>
+        <input type="radio" class="checkbox-distance" name="distance" value="1000" />
+        <p>1000 km</p>
+    </div>
+    <div id="map-canvas"></div>
+    @Html.Hidden("LatitudeInitial")
+    @Html.Hidden("LongitudeInitial")
+</body>

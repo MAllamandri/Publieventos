@@ -71,6 +71,9 @@
   <ItemGroup>
     <Content Include="Mappings\Invitation.hbm.xml" />
     <EmbeddedResource Include="Mappings\Report.hbm.xml" />
+    <EmbeddedResource Include="Mappings\SearchEventsByDistance.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="Mappings\Suspension.hbm.xml" />
     <Content Include="Mappings\UsersGroup.hbm.xml" />
   </ItemGroup>

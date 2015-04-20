@@ -43,6 +43,7 @@ $(function () {
 
     function SearchEvents(initialSearch, searchTerm) {
         $.ajax({
+            type: 'POST',
             url: '/Home/SearchEvents',
             dataType: "json",
             data: {
@@ -53,25 +54,29 @@ $(function () {
             viewModel.Events.removeAll();
 
             LoadEvents(JSON.parse(data.Events));
+
+            $.unblockUI();
         });
     }
 
     $('#search').click(function () {
-        if ($('#StartDate').val() != "" || $('#EndDate').val() != "" || $('#EventType').val() != "" || $('#UserName').val()) {
-            $.blockUI({ message: "" });
+        if ($('#StartDate').val() != "" ||
+            $('#EndDate').val() != "" ||
+            $('#EventType').val() != "" ||
+            $('#UserName').val()) {
 
+            $.blockUI({ message: "" });
             $('#SearchTerm').val("");
-            var startDate = $('#StartDate').val() != "" ? moment($('#StartDate').val()).format("DD/MM/YYYY") : null;
-            var endDate = $('#EndDate').val() != "" ? moment($('#EndDate').val()).format("DD/MM/YYYY") : null;
 
             $.ajax({
+                type: 'POST',
                 url: '/Home/SearchEvents',
                 dataType: "json",
                 data: {
                     userId: $('#UserName').val(),
                     eventType: $('#EventType').val(),
-                    startDate: startDate,
-                    endDate: endDate
+                    startDate: $('#StartDate').val(),
+                    endDate: $('#EndDate').val()
                 }
             }).success(function (data) {
                 viewModel.Events.removeAll();
@@ -84,10 +89,14 @@ $(function () {
     });
 
     $('#resetFilters').click(function () {
+        $.blockUI({ message: "" });
+
         $('#StartDate').val("");
         $('#EndDate').val("");
         $("#UserName").select2("val", "");
         $('#EventType').val("");
+
+        SearchEvents(true, null);
     });
 
     ko.applyBindings(viewModel);

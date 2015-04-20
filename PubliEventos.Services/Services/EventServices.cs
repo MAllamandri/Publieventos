@@ -2,6 +2,7 @@
 {
     using LinqKit;
     using NHibernate.Linq;
+    using NHibernate.Transform;
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Event;
@@ -248,6 +249,31 @@
 
                 return new DeleteMultimediaContentResponse();
             }
+        }
+
+        /// <summary>
+        /// Busca eventos por aproximación.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public static SearchEventsByDistanceResponse SearchEventsByDistance(SearchEventsByDistanceRequest request)
+        {
+
+            var eventsIds = CurrentSession.GetNamedQuery("SearchEventsByDistance")
+                                      .SetString("LatitudeInitial", request.LatitudeInitial)
+                                      .SetString("LongitudeInitial", request.LongitudeInitial)
+                                      .SetParameter<int>("MaxDistance", request.MaxDistance)
+                                      .SetResultTransformer(Transformers.AliasToBean<SearchEventsByDistanceResult>())
+                                      .List<SearchEventsByDistanceResult>().Select(x => x.Id).ToList();
+
+            var events = CurrentSession.Query<Domain.Domain.Event>().Where(x => eventsIds.Any() && eventsIds.Contains(x.Id))
+                                                                    .Select(x => InternalServices.GetEventSummary(x))
+                                                                    .ToList();
+
+            return new SearchEventsByDistanceResponse()
+            {
+                Events = events
+            };
         }
     }
 }

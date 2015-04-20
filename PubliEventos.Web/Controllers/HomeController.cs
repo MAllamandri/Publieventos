@@ -6,9 +6,8 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using System.Web.Script.Serialization;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         #region Properties
 
@@ -38,8 +37,17 @@
             return View();
         }
 
-        #endregion
+        /// <summary>
+        /// Vista de búsqueda de eventos por aproximación.
+        /// </summary>
+        /// <returns>SearchEventsByDistance view.</returns>
+        [AllowAnonymous]
+        public ActionResult SearchEventsByDistance()
+        {
+            return View();
+        }
 
+        #endregion
 
         #region
 
@@ -53,6 +61,7 @@
         /// <param name="fullText">Búsqueda por texto.</param>
         /// <returns>Eventos.</returns>
         [AllowAnonymous]
+        [HttpPost]
         public JsonResult SearchEvents(int? userId, int? eventType, DateTime? startDate, DateTime? endDate, string fullText, bool? initialSearch)
         {
             var events = serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest()
@@ -70,6 +79,27 @@
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(events);
 
             return Json(new { Events = json }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Busca eventos por distancia.
+        /// </summary>
+        /// <param name="latitudeInitial">Latitud inicial.</param>
+        /// <param name="longitudeInitial">Longitud inicial.</param>
+        /// <param name="maxDistance">Distancia máxima.</param>
+        /// <returns>Eventos encontrados.</returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult SearchEventsByDistance(string latitudeInitial, string longitudeInitial, int maxDistance)
+        {
+            var events = this.serviceEvents.SearchEventsByDistance(new SearchEventsByDistanceRequest()
+            {
+                LatitudeInitial = latitudeInitial,
+                LongitudeInitial = longitudeInitial,
+                MaxDistance = maxDistance
+            }).Events;
+
+            return Json(new { Events = events }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

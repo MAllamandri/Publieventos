@@ -1,29 +1,6 @@
 ﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
-<style>
-    .infoWindow {
-        padding-top: 5px;
-        background: #333;
-        color: #FFF;
-        font-family: 'MuseoSans-500';
-        font-size: 12px;
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
-        border-radius: 2px;
-        text-shadow: 0 -1px #000000;
-        -webkit-box-shadow: 0 0 8px #000;
-        box-shadow: 0 0 8px #000;
-        width: 200px;
-        height: auto;
-        cursor: pointer;
-    }
-
-    .infoBox {
-        width: 200px !important;
-    }
-</style>
-
 <script type="text/javascript">
     $(function () {
         google.maps.event.addDomListener(window, 'load', initialize);
@@ -219,6 +196,11 @@
     }
 </script>
 
+<style>
+    .infoBox {
+        width: 200px !important;
+    }
+</style>
 <div class="row-fluid">
     <div class="span8">
         <input id="pac-input" class="controls" type="text" placeholder="Ingrese la dirección" />
