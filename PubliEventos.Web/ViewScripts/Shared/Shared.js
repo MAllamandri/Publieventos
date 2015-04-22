@@ -44,4 +44,10 @@
 
         return this;
     };
+
+    $(document).on('change', '.upload', function () {
+        if (this.files[0] != null && this.files[0].name != "") {
+            $('.title-file').text(this.files[0].name);
+        }
+    });
 });

@@ -8,10 +8,10 @@ $(function () {
 
     var icons = {
         user: new google.maps.MarkerImage(
-         "/Content/themes/images/user-icon.gif"
+         "/Content/themes/images/user-icon-small.gif"
         ),
         end: new google.maps.MarkerImage(
-         '/Content/themes/images/star-gray.png'
+         '/Content/themes/images/star.png'
         )
     };
 

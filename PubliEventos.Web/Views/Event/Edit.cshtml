@@ -52,7 +52,10 @@
                     <div class="col-md-12">
                         <div class="col-md-6">
                             <label class="label-lobster">Modificar Foto de Portada</label>
-                            <input type="file" id="CoverPhoto" name="CoverPhoto" class="custom-file-input">
+                            <div class="browse-wrap">
+                                <div class="title-file">Ningún archivo seleccionado</div>
+                                <input type="file" id="CoverPhoto" name="CoverPhoto" class="upload" title="Seleccione un archivo">
+                            </div>
                             <p><small>Extensiones permitidas (jpg, jpeg, gif y png)</small></p>
                             @Html.ValidationMessage("ErrorCoverPhoto", new { @class = "field-validation-error", @name = "ErrorCoverPhoto" })
                         </div>

@@ -26,7 +26,7 @@
                 Title = eventToParse.Title,
                 Detail = eventToParse.Detail,
                 Active = eventToParse.Active,
-                FileName = eventToParse.FileName,
+                FileName = string.IsNullOrEmpty(eventToParse.FileName) ? "publieventos.PNG" : eventToParse.FileName,
                 Description = eventToParse.Description,
                 EventDate = eventToParse.EventDate.Date,
                 EventStartTime = eventToParse.EventStartTime,

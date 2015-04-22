@@ -39,6 +39,7 @@
                 default:
                     $('#CoverPhoto').val('');
                     $('span[name = "ErrorCoverPhoto"]').text('La extension del archivo no es correcta.').show();
+                    $('.title-file').text('Ningún archivo seleccionado');
                     return false;
                     break;
             }
