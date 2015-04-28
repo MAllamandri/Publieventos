@@ -4,7 +4,6 @@
     using NHibernate.Linq;
     using NHibernate.Transform;
     using PubliEventos.Contract.Class;
-    using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Event;
     using PubliEventos.DataAccess.Querys;
     using System;
@@ -17,15 +16,6 @@
     /// </summary>
     public class EventServices : BaseService
     {
-        /// <summary>
-        /// Obtiene todos los eventos.
-        /// </summary>
-        /// <returns>Lista de eventos.</returns>
-        public static List<Event> GatAllEvents()
-        {
-            return new BaseQuery<Domain.Domain.Event, int>().LoadAll().Where(x => !x.NullDate.HasValue && x.Active).Select(x => InternalServices.GetEventSummary(x)).ToList();
-        }
-
         /// <summary>
         /// Obtiene todos los tipos de eventos.
         /// </summary>

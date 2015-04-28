@@ -26,7 +26,10 @@
                             success: {
                                 label: "Aceptar",
                                 className: "btn-confirm",
-                                callback: function () { window.location.href = "/Invitation/InviteToEvent/" + $('#eventId').val() }
+                                callback: function () {
+                                    window.location.href = "/Invitation/InviteToEvent/" + $('#eventId').val()
+                                    $.blockUI({ message: "" });
+                                }
                             }
                         }
                     });

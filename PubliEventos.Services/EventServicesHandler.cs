@@ -12,15 +12,6 @@
     public class EventServicesHandler : IEventServices
     {
         /// <summary>
-        /// Obtengo todas los eventos.
-        /// </summary>
-        /// <returns></returns>
-        public List<Event> GetAllEvents()
-        {
-            return EventServices.GatAllEvents();
-        }
-
-        /// <summary>
         /// Obtiene todos los tipos de eventos.
         /// </summary>
         /// <returns>Lista de tipos de evetnos.</returns>

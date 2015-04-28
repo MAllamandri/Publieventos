@@ -19,10 +19,20 @@
                     <div class="row-fluid" style="padding-bottom: -5px">
                         <div class="col-md-12">
                             <ul class="subtitle-sections" style="margin-left: -53px">
-                                <li><a href="/Group/Create" title="Nuevo Grupo" class="label-lobster">Crear Grupo</a></li>
+                                <li><a href="/Group/Create" title="Nuevo Grupo" class="label-lobster">Nuevo Grupo</a></li>
                             </ul>
                         </div>
                     </div>
+                    @if (((List<Group>)ViewBag.groups).Count == 0)
+                    {
+                        <div class="row-fluid">
+                            <div class="col-md-6 offset3">
+                                <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Participa de Ningún Grupo</p>
+                            </div>
+                        </div>
+
+                    }
+
                     @foreach (var group in (List<Group>)ViewBag.groups)
                     {
                         <div class="col-md-6" style="margin-bottom: 1%; height: 280px;">

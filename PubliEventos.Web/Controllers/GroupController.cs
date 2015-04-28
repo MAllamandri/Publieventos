@@ -5,6 +5,7 @@
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Group;
     using PubliEventos.Contract.Services.Invitation;
+    using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models;
     using PubliEventos.Web.Mvc.Filters;
@@ -215,7 +216,13 @@
         {
             List<Select2Result> Groups = new List<Select2Result>();
 
-            var response = this.serviceGroups.SearchGroupsByPartialName(new SearchGroupsByPartialNameRequest() { Name = groupName, PageNumber = pageNumber, PageSize = pageSize });
+            var response = this.serviceGroups.SearchGroupsByPartialName(new SearchGroupsByPartialNameRequest()
+            {
+                Name = groupName,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                UserId = User.Id
+            });
 
             foreach (var group in response.Groups)
             {

@@ -187,10 +187,10 @@
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 var total = CurrentSession.Query<Domain.Domain.Group>().
-                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue).Count();
+                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId).Count();
 
                 var groups = CurrentSession.Query<Domain.Domain.Group>().
-                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue)
+                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId)
                      .Skip(request.PageNumber - 1)
                      .Take(request.PageSize)
                      .Select(u => InternalServices.GetGroupSummary(u)).ToList();

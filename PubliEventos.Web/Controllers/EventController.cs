@@ -112,11 +112,23 @@
 
             if (currentEvents)
             {
-                events = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id && x.EventDate >= DateTime.Now.Date).ToList();
+                events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest()
+                {
+                    UserId = User.Id,
+                    StartDate = DateTime.Now.Date
+                }).Events
+                    .OrderByDescending(x => x.EventDate)
+                    .ToList();
             }
             else
             {
-                events = this.serviceEvents.GetAllEvents().Where(x => x.User.Id == User.Id && x.EventDate < DateTime.Now.Date).ToList();
+                events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest()
+                {
+                    UserId = User.Id,
+                    EndDate = DateTime.Now.Date
+                }).Events
+                    .OrderByDescending(x => x.EventDate)
+                    .ToList();
             }
 
             ViewBag.myEvents = events;

@@ -11,6 +11,11 @@
         public string Name { get; set; }
 
         /// <summary>
+        /// Identificador del usuario.
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
         /// Página.
         /// </summary>
         public int PageNumber { get; set; }

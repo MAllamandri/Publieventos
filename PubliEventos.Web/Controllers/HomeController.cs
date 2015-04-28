@@ -49,7 +49,7 @@
 
         #endregion
 
-        #region
+        #region Json Methods
 
         /// <summary>
         /// Búsqueda de eventos mediantes filtros.

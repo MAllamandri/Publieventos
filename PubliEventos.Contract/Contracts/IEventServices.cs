@@ -10,12 +10,6 @@
     public interface IEventServices
     {
         /// <summary>
-        /// Obtengo todos los usuarios.
-        /// </summary>
-        /// <returns>Lista de usuarios.</returns>
-        List<Event> GetAllEvents();
-
-        /// <summary>
         /// Obtiene todos los tipos de eventos.
         /// </summary>
         /// <returns>Lista de tipos de evetnos.</returns>

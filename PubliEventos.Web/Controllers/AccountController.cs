@@ -293,10 +293,14 @@
 
             var fromAddress = new MailAddress(ConfigurationManager.AppSettings["Mail"]);
             var toAddress = new MailAddress(user.Email);
-            string subject = "PubliEventos - Activación de cuenta";
-            string body = "Para activar su cuenta ingrese al link que figura a continuación: <br/>";
-            body += string.Format("<a href='{0}://{1}/Account/AccountActivation?token={2}'>Activar mi cuenta</a>", System.Web.HttpContext.Current.Request.RequestContext.HttpContext.Request.Url.Scheme, System.Web.HttpContext.Current.Request.RequestContext.HttpContext.Request.Url.Authority, token);
+            string subject = "Publieventos - Activación de cuenta";
 
+            string body = string.Format("Estimado/a {0}:" +
+                         "<br/><br/>Para activar su cuenta ingrese al link que figura a continuación: <br/>" +
+                         "<a href='{1}://{2}/Account/AccountActivation?token={3}'>Activar mi cuenta</a>" +
+                         "<br/><br/>Saludos cordiales. <br/>Equipo de administración de Publieventos",
+                         userName, System.Web.HttpContext.Current.Request.RequestContext.HttpContext.Request.Url.Scheme,
+                         System.Web.HttpContext.Current.Request.RequestContext.HttpContext.Request.Url.Authority, token);
             try
             {
                 using (var message = new MailMessage(fromAddress, toAddress)

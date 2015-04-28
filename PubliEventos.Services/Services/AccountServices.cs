@@ -202,10 +202,10 @@
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 var total = CurrentSession.Query<Domain.Domain.User>().
-                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue).Count();
+                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue && u.Active).Count();
 
                 var users = CurrentSession.Query<Domain.Domain.User>().
-                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue)
+                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue && u.Active)
                      .Skip(request.PageNumber - 1)
                      .Take(request.PageSize)
                      .Select(u => InternalServices.GetUserSummary(u)).ToList();

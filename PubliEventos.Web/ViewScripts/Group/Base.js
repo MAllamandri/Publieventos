@@ -2,6 +2,8 @@
     $('#GroupName').charactersQuantity(50);
     $('#Message').charactersQuantity(350);
 
+    SelectUsers($(".select2-users"), true);
+
     $('#Save').click(function () {
         $('input[type="text"]').hideMessageError();
 
