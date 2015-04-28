@@ -79,7 +79,10 @@
                         <div class="row-fluid">
                             <div class="col-md-6" style="margin-top: 23px;">
                                 <strong>Foto de Perfil</strong>
-                                <input type="file" id="File" style="text-align: center" name="File" class="custom-file-input btn-file" />
+                                <div class="browse-wrap">
+                                    <div class="title-file">Ningún archivo seleccionado</div>
+                                    <input type="file" id="File" name="File" class="upload" title="Seleccione un archivo">
+                                </div>
                                 @Html.ValidationMessage("File", new { @class = "field-validation-error", @name = "ImageFile" })
                                 <small>Archivos permitidos (jpg, jpeg, gif y png)</small>
                             </div>

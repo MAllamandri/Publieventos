@@ -1,11 +1,12 @@
 ﻿namespace PubliEventos.Contract.Services.Account
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Representa los parámetros de la operación EditPassword.
     /// </summary>
-    public class EditPasswordRequest
+    public class EditPasswordRequest : IValidatableObject
     {
         /// <summary>
         /// Identificador del usuario a cambiar el password.
@@ -16,15 +17,12 @@
         /// <summary>
         /// Password actual.
         /// </summary>
-        [Required]
         public string CurrentPassword { get; set; }
 
         /// <summary>
         /// Password actual a comparar.
         /// </summary>
-        [Required]
         [Display(Name = "Contraseña Actual")]
-        [CompareAttribute("CurrentPassword", ErrorMessage = "Las contraseña actual no coincide")]
         public string OldPassword { get; set; }
 
         /// <summary>
@@ -42,5 +40,31 @@
         [Display(Name = "Repetir Contraseña")]
         [CompareAttribute("NewPassword", ErrorMessage = "Las contraseñas no coinciden")]
         public string RepeatPassword { get; set; }
+
+        /// <summary>
+        /// Indica si viene el password actual.
+        /// </summary>
+        public bool ValidateCurrentPassword { get; set; }
+
+        /// <summary>
+        /// Validaciones.
+        /// </summary>
+        /// <param name="validationContext">Contexto.</param>
+        /// <returns>Resultados de las validaciones.</returns>
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (this.ValidateCurrentPassword)
+            {
+                if (string.IsNullOrEmpty(this.OldPassword))
+                {
+                    yield return new ValidationResult("El campo contraseña actual es obligatorio.", new[] { "OldPassword" });
+                }
+
+                if (!string.IsNullOrEmpty(this.OldPassword) && this.OldPassword != this.CurrentPassword)
+                {
+                    yield return new ValidationResult("La contraseña actual no coincide.", new[] { "OldPassword" });
+                }
+            }
+        }
     }
 }

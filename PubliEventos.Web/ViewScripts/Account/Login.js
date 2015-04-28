@@ -173,5 +173,31 @@
 
         return existEmail;
     }
+
+    $('#recoverPassword').click(function () {
+        if ($('#UserNameToRecover').val() != null && $.trim($('#UserNameToRecover').val()) != "") {
+            $('#RecoverPassModal').modal('hide');
+            $.blockUI({ message: "" });
+
+            $.ajax({
+                type: "POST",
+                url: "/Account/SendRecoverPasswordCode",
+                async: false,
+                data: { UserName: $('#UserNameToRecover').val() }
+            }).done(function (data) {
+                if (data.Success) {
+                    window.location.href = "/Account/RecoverPassword/" + data.UserId;
+                } else {
+                    $.unblockUI();
+                    alert("Ha ocurrido un error");
+                }
+            }).error(function () {
+                alert("Ha ocurrido un error interno");
+                $.unblockUI();
+            });
+        } else {
+            $('#UserNameToRecover').showMessageError("");
+        }
+    });
 });
 

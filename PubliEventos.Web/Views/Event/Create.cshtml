@@ -1,7 +1,7 @@
 ﻿@model PubliEventos.Contract.Services.Event.EventCreateOrUpdateRequest
 
 @{
-    ViewBag.Title = "Alta Evento";
+    ViewBag.Title = "Nuevo Evento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -49,7 +49,7 @@
                 </div>
                 @Html.HiddenFor(m => m.Latitude)
                 @Html.HiddenFor(m => m.Longitude)
-                <div class="row-fluid margin-bottom-normal">
+                <div class="row-fluid">
                     <div class="col-md-12">
                         <label class="label-lobster">Localización</label>
                         @Html.Partial("Partial/_Localization")

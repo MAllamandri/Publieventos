@@ -44,6 +44,7 @@
                     configuration.AddFile(mappingPath + "Report.hbm.xml");
                     configuration.AddFile(mappingPath + "Suspension.hbm.xml");
                     configuration.AddFile(mappingPath + "SearchEventsByDistance.hbm.xml");
+                    configuration.AddFile(mappingPath + "RecoverPasswordCode.hbm.xml");
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;

@@ -81,5 +81,19 @@
         /// <param name="request">Los parámetros de la operación..</param>
         /// <returns>El resultado de la operación.</returns>
         EditPasswordResponse EditPassword(EditPasswordRequest request);
+
+        /// <summary>
+        /// Envía código de verificación de usuario para recuperar su contraseña.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        SendRecoverPasswordCodeResponse SendRecoverPasswordCode(SendRecoverPasswordCodeRequest request);
+
+        /// <summary>
+        /// Valida si el código de verificación para cambiar contraseña es correcto.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        ValidateRecoverPasswordCodeResponse ValidateRecoverPasswordCode(ValidateRecoverPasswordCodeRequest request);
     }
 }

@@ -74,6 +74,7 @@
     <EmbeddedResource Include="Mappings\SearchEventsByDistance.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\RecoverPasswordCode.hbm.xml" />
     <Content Include="Mappings\Suspension.hbm.xml" />
     <Content Include="Mappings\UsersGroup.hbm.xml" />
   </ItemGroup>

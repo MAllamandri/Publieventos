@@ -74,6 +74,10 @@
     <Compile Include="Services\Account\GetUserByIdResponse.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameRequest.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameResponse.cs" />
+    <Compile Include="Services\Account\SendRecoverPasswordCodeRequest.cs" />
+    <Compile Include="Services\Account\SendRecoverPasswordCodeResponse.cs" />
+    <Compile Include="Services\Account\ValidateRecoverPasswordCodeRequest.cs" />
+    <Compile Include="Services\Account\ValidateRecoverPasswordCodeResponse.cs" />
     <Compile Include="Services\Comment\CreateCommentRequest.cs" />
     <Compile Include="Services\Comment\CreateCommentResponse.cs" />
     <Compile Include="Services\Comment\DeleteCommentRequest.cs" />

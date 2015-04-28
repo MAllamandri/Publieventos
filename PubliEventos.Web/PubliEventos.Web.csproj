@@ -374,6 +374,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="ViewScripts\Account\EditProfile.js" />
+    <Content Include="ViewScripts\Account\RecoverPassword.js" />
     <Content Include="ViewScripts\Admin\ReportContents.js" />
     <Content Include="ViewScripts\Event\Detail.js" />
     <Content Include="ViewScripts\Event\MapStyles.js" />
@@ -446,6 +447,7 @@
     <Content Include="Views\Admin\Partial\_ReportedPicture.cshtml" />
     <Content Include="Views\Admin\Partial\_ReportedMovie.cshtml" />
     <Content Include="Views\Home\SearchEventsByDistance.cshtml" />
+    <Content Include="Views\Account\RecoverPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

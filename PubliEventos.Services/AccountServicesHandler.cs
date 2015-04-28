@@ -116,5 +116,25 @@
         {
             return AccountServices.EditPassword(request);
         }
+
+        /// <summary>
+        /// Envía código de verificación de usuario para recuperar su contraseña.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SendRecoverPasswordCodeResponse SendRecoverPasswordCode(SendRecoverPasswordCodeRequest request)
+        {
+            return AccountServices.SendRecoverPasswordCode(request);
+        }
+
+        /// <summary>
+        /// Valida si el código de verificación para cambiar contraseña es correcto.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        public ValidateRecoverPasswordCodeResponse ValidateRecoverPasswordCode(ValidateRecoverPasswordCodeRequest request)
+        {
+            return AccountServices.ValidateRecoverPasswordCode(request);
+        }
     }
 }

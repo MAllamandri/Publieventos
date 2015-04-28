@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Publieventos</title>
+    <title>Publieventos - Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
@@ -18,6 +18,8 @@
     @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
     @Styles.Render("/Content/ladda/ladda-themeless.min.css")
     @Styles.Render("/Content/Site.css")
+
+    @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
     <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
 </head>
 <body style="">
@@ -59,7 +61,7 @@
                                                         @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-control", @placeholder = "Contraseña", @style = "margin-top: -1px; display: inline;" })
                                                         <span class="font-text">Recordarme</span>
                                                     </div>
-                                                    <div style="margin-top: 7px" class="col-lg-6">
+                                                    <div style="margin-top: 5px" class="col-lg-6">
                                                         <a href="#" role="button" data-toggle="modal" id="recoverPass">¿Olvido su contraseña? </a>
                                                     </div>
                                                 </div>
@@ -172,14 +174,16 @@
         </div>
         <div class="modal-body">
             <strong>Ingrese Usuario</strong>
-            @Html.Password("UserName", null, new { @class = "form-control", @style = "height: 34px" })
-            @Html.ValidationMessage("UserName")
+            @Html.TextBox("UserNameToRecover", null, new { @class = "form-control", @style = "height: 34px" })
+            @Html.ValidationMessage("UserNameToRecover")
             <br />
-            <small><p>Recibira un email con los pasos a seguir para recuperar su contraseña</p></small>
+            <small>
+                <p>Recibira un email con el códgio de verificación de su cuenta</p>
+            </small>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
-            <button type="button" id="savePassword" class="btn-confirm">Guardar</button>
+            <button type="button" id="recoverPassword" class="btn-confirm">Enviar</button>
         </div>
     </div>
 

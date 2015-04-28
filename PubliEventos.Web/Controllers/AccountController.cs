@@ -173,6 +173,19 @@
             return View(model);
         }
 
+        /// <summary>
+        /// Vista de recuperación de contraseña.
+        /// </summary>
+        /// <param name="id">Identificador del usuario.</param>
+        /// <returns>RecoverPassword view.</returns>
+        [AllowAnonymous]
+        public ActionResult RecoverPassword(int id)
+        {
+            ViewBag.userId = id;
+
+            return View();
+        }
+
         #region Private Methods
 
         /// <summary>
@@ -303,6 +316,34 @@
             {
                 throw new Exception("Ha ocurrido un error al enviar mail.");
             }
+        }
+
+        /// <summary>
+        /// Valida la si el nombre de usuario ya existe.
+        /// </summary>
+        /// <param name="userName">Nombre de usuario.</param>
+        /// <param name="userIdToExclude">Id de usuario a excluir en la validación.</param>
+        /// <returns>True si no existe, false si ya esta usado.</returns>
+        private bool ValidateExistsUserName(string userName, int? userIdToExclude)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var user = serviceAccounts.GetUserByUserName(userName.ToLower().Trim());
+
+                if (user != null)
+                {
+                    if (!userIdToExclude.HasValue || user.Id != userIdToExclude)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return false;
         }
 
         #endregion
@@ -517,6 +558,7 @@
         /// <param name="model">EditPasswordRequest model.</param>
         /// <returns>True o false.</returns>
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult EditPassword(EditPasswordRequest model)
         {
             if (ModelState.IsValid)
@@ -533,31 +575,41 @@
         }
 
         /// <summary>
-        /// Valida la si el nombre de usuario ya existe.
+        /// Envía código de verificación para recuperar contraseña.
         /// </summary>
-        /// <param name="userName">Nombre de usuario.</param>
-        /// <param name="userIdToExclude">Id de usuario a excluir en la validación.</param>
-        /// <returns>True si no existe, false si ya esta usado.</returns>
-        private bool ValidateExistsUserName(string userName, int? userIdToExclude)
+        /// <param name="model">SendRecoverPasswordCodeRequest model.</param>
+        /// <returns>true si se envío correctamente, false caso contrario.</returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult SendRecoverPasswordCode(SendRecoverPasswordCodeRequest model)
         {
-            if (!string.IsNullOrEmpty(userName))
+            if (ModelState.IsValid)
             {
-                var user = serviceAccounts.GetUserByUserName(userName.ToLower().Trim());
+                var response = this.serviceAccounts.SendRecoverPasswordCode(model);
 
-                if (user != null)
-                {
-                    if (!userIdToExclude.HasValue || user.Id != userIdToExclude)
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                return Json(new { Success = response.Success, UserId = response.UserId }, JsonRequestBehavior.AllowGet);
             }
 
-            return false;
+            return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Valida si el código de recuperación de contraseña es válido.
+        /// </summary>
+        /// <param name="model">ValidateRecoverPasswordCodeRequest model.</param>
+        /// <returns>True si es válido, false caso contrario.</returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult ValidateRecoverPasswordCode(ValidateRecoverPasswordCodeRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = this.serviceAccounts.ValidateRecoverPasswordCode(model);
+
+                return Json(new { Success = response.IsValid }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

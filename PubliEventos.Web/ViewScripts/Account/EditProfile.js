@@ -42,7 +42,8 @@
                 CurrentPassword: $('#CurrentPassword').val(),
                 OldPassword: $('#OldPassword').val(),
                 NewPassword: $('#NewPassword').val(),
-                RepeatPassword: $('#RepeatPassword').val()
+                RepeatPassword: $('#RepeatPassword').val(),
+                ValidateCurrentPassword: true
             }
         }).done(function (data) {
             if (data.Success) {

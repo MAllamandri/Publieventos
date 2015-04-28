@@ -284,5 +284,106 @@
                 return new EditPasswordResponse();
             }
         }
+
+        /// <summary>
+        /// Envía código de verificación de usuario para recuperar su contraseña.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SendRecoverPasswordCodeResponse SendRecoverPasswordCode(SendRecoverPasswordCodeRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var user = CurrentSession.Query<Domain.Domain.User>()
+                            .Where(x => x.UserName.ToLower() == request.UserName.ToLower() && !x.NullDate.HasValue && x.Active)
+                            .SingleOrDefault();
+
+                if (user == null)
+                {
+                    return new SendRecoverPasswordCodeResponse()
+                    {
+                        Success = false
+                    };
+                }
+
+                var code = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
+
+                //Envío el mail notificando al usuario que fue desactivado.
+                var subject = "Publieventos - Código de Verificación";
+                var body = string.Format("Estimado/a {0}:" +
+                    "<br/><br/>Este es su código de seguridad para recuperar su contraseña <strong>{1}</strong>" +
+                    "<br/><br/>Saludos cordiales." +
+                    "<br/>Equipo de administración de Publieventos", user.FirstName, code);
+
+                try
+                {
+                    InternalServices.SendMail(user.Email, subject, body, true);
+
+                    // Doy de baja los códigos existentes del usuario.
+                    var userCodes = CurrentSession.Query<Domain.Domain.RecoverPasswordCode>().Where(x => x.User.Id == user.Id && !x.NullDate.HasValue).ToList();
+
+                    foreach (var userCode in userCodes)
+                    {
+                        userCode.NullDate = DateTime.Now;
+                    }
+
+                    // Creo el nuevo código.
+                    var recoverCode = new Domain.Domain.RecoverPasswordCode();
+                    recoverCode.User = user;
+                    recoverCode.EffectDate = DateTime.Now;
+                    recoverCode.Code = code;
+
+                    new BaseQuery<Domain.Domain.RecoverPasswordCode, int>().Create(recoverCode);
+
+                    transaction.Complete();
+
+                    return new SendRecoverPasswordCodeResponse()
+                    {
+                        Success = true,
+                        UserId = user.Id
+                    };
+                }
+                catch (Exception)
+                {
+                    transaction.Complete();
+
+                    return new SendRecoverPasswordCodeResponse()
+                    {
+                        Success = false
+                    };
+                }
+            }
+        }
+
+        /// <summary>
+        /// Valida si el código de verificación para cambiar contraseña es correcto.
+        /// </summary>
+        /// <param name="request">Los parámetros de la operación..</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static ValidateRecoverPasswordCodeResponse ValidateRecoverPasswordCode(ValidateRecoverPasswordCodeRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var code = CurrentSession.Query<Domain.Domain.RecoverPasswordCode>().Where(x => x.User.Id == request.UserId && !x.NullDate.HasValue).FirstOrDefault();
+
+                if (code != null && code.Code == request.Code)
+                {
+                    // Lo doy de baja.
+                    code.NullDate = DateTime.Now;
+
+                    transaction.Complete();
+
+                    return new ValidateRecoverPasswordCodeResponse
+                    {
+                        IsValid = true
+                    };
+                }
+            }
+
+            return new ValidateRecoverPasswordCodeResponse
+            {
+                IsValid = false
+            };
+        }
     }
 }
