@@ -26,7 +26,6 @@
     /// <summary>
     /// Controlador de cuentas.
     /// </summary>
-
     public class AccountController : BaseController
     {
         #region Properties
@@ -50,6 +49,8 @@
         public IEventServices serviceEvents { get; set; }
 
         #endregion
+
+        #region Views
 
         /// <summary>
         /// Vista de login.
@@ -185,6 +186,8 @@
 
             return View();
         }
+
+        #endregion
 
         #region Private Methods
 

@@ -4,7 +4,6 @@
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Enums;
-    using PubliEventos.Contract.Services.Comment;
     using PubliEventos.Contract.Services.Event;
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.Helpers;

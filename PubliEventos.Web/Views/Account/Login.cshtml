@@ -106,12 +106,12 @@
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.Email, new { @class = "form-control", @placeholder = "Email", @style = "height: 34px" })
                                                             @Html.ValidationMessage("SignUpModel.Email")
-                                                            <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-envelope"></span>El email ya existe</div>
+                                                            <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-envelope"></span>&nbspEl email ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.TextBoxFor(m => m.SignUpModel.UserNameToRegister, new { @class = "form-control", @placeholder = "Usuario", @style = "height: 34px" })
                                                             @Html.ValidationMessage("SignUpModel.UserNameToRegister")
-                                                            <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-user"></span>El usuario ya existe</div>
+                                                            <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-user"></span>&nbspEl usuario ya existe</div>
                                                         </div>
                                                         <div>
                                                             @Html.PasswordFor(m => m.SignUpModel.PasswordToRegister, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })

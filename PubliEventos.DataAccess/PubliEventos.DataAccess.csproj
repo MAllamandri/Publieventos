@@ -41,6 +41,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,8 +76,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mappings\RecoverPasswordCode.hbm.xml" />
-    <Content Include="Mappings\Suspension.hbm.xml" />
-    <Content Include="Mappings\UsersGroup.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Suspension.hbm.xml" />
+    <EmbeddedResource Include="Mappings\UsersGroup.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -330,6 +330,8 @@
     <Content Include="Scripts\dropzone\dropzone.min.js.map">
       <DependentUpon>dropzone.js</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\publieventos - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\publieventos - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />

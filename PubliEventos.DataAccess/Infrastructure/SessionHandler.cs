@@ -14,12 +14,7 @@
         /// </summary>
         private static ISessionFactory _sessionFactory = null;
 
-        /// <summary>
-        /// Path de mapeo.
-        /// </summary>
-        private static readonly string mappingPath = System.Configuration.ConfigurationSettings.AppSettings["MappingPath"];
-
-        /// <summary>
+        /// <summary> 
         /// Configura la sesión.
         /// </summary>
         private static ISessionFactory SessionFactory
@@ -30,21 +25,6 @@
                 {
                     var configuration = new Configuration();
                     configuration.Configure();
-                    configuration.AddFile(mappingPath + "Locality.hbm.xml");
-                    configuration.AddFile(mappingPath + "User.hbm.xml");
-                    configuration.AddFile(mappingPath + "Event.hbm.xml");
-                    configuration.AddFile(mappingPath + "Comment.hbm.xml");
-                    configuration.AddFile(mappingPath + "EventType.hbm.xml");
-                    configuration.AddFile(mappingPath + "MultimediaContent.hbm.xml");
-                    configuration.AddFile(mappingPath + "AccountActivationToken.hbm.xml");
-                    configuration.AddFile(mappingPath + "Province.hbm.xml");
-                    configuration.AddFile(mappingPath + "Group.hbm.xml");
-                    configuration.AddFile(mappingPath + "UsersGroup.hbm.xml");
-                    configuration.AddFile(mappingPath + "Invitation.hbm.xml");
-                    configuration.AddFile(mappingPath + "Report.hbm.xml");
-                    configuration.AddFile(mappingPath + "Suspension.hbm.xml");
-                    configuration.AddFile(mappingPath + "SearchEventsByDistance.hbm.xml");
-                    configuration.AddFile(mappingPath + "RecoverPasswordCode.hbm.xml");
                     _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;
