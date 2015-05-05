@@ -51,7 +51,7 @@
 
         preview.find('.close').on('click', function (e) {
             $.ajax({
-                url: '/Event/DeletePictures',
+                url: '/Event/DeleteContent',
                 data: {
                     fileName: file.Id,
                     eventId: $('#EventId').val()

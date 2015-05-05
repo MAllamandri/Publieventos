@@ -74,12 +74,12 @@
                     });
                 },
                 complete: function (data) {
-                    if (data.Success) {
+                    if (data.responseJSON.Success) {
                         $('.RegisterRow').hide();
                         $('#RegisterSuccess').show();
 
                     } else {
-                        $.each(data.Errors, function (index, value) {
+                        $.each(data.responseJSON.Errors, function (index, value) {
                             var selector = "[name='" + index + "']";
                             $(selector).showMessageError(value);
                         });

@@ -33,11 +33,16 @@
         /// <returns>El resultado de la operación.</returns>
         public static CreateCommentResponse CreateComment(CreateCommentRequest request)
         {
+            var time = request.TIme.Split(':');
+            var date = request.Date.Split('/');
+            var datetime = new DateTime(Convert.ToInt32(date[2]), Convert.ToInt32(date[1]), Convert.ToInt32(date[0]),
+                                        Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), Convert.ToInt32(time[2]));
+
             var comment = new Domain.Domain.Comment()
             {
                 Active = true,
                 Detail = request.Detail,
-                EffectDate = DateTime.Now,
+                EffectDate = datetime,
                 Event = CurrentSession.Get<Domain.Domain.Event>(request.EventId),
                 User = CurrentSession.Get<Domain.Domain.User>(request.UserId)
             };

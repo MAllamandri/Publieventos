@@ -24,5 +24,17 @@
         /// </summary>
         [Required]
         public int UserId { get; set; }
+
+        /// <summary>
+        /// Fecha local del cliente.
+        /// </summary>
+        [Required]
+        public string Date { get; set; }
+
+        /// <summary>
+        /// Hora.
+        /// </summary>
+        [Required]
+        public string TIme { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using PubliEventos.DataAccess.Infrastructure;
 using PubliEventos.Web.App_Start;
 using PubliEventos.Web.Hubs;
 using System;
+using System.Globalization;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -37,6 +38,9 @@ namespace PubliEventos.Web
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("es-ES");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
+
             _sessionHelper = new SessionHelper();
             _sessionHelper.OpenSession();
         }
