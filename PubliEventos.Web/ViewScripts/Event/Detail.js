@@ -319,7 +319,11 @@ function myViewModel() {
         }
 
         if ($('#detailComment').val().trim() != "") {
+            $('#commentModal').modal('hide');
             $.blockUI({ message: "" });
+
+            var now = new Date();
+            var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
             $.ajax({
                 type: 'POST',
@@ -327,12 +331,12 @@ function myViewModel() {
                 data: {
                     EventId: $('#EventId').val(),
                     Detail: $('#detailComment').val(),
-                    CommentId: $('#commentId').val()
+                    CommentId: $('#commentId').val(),
+                    Date: new Date().toLocaleDateString(),
+                    Time: time
                 }
             }).done(function (data) {
                 if (data.Success) {
-                    $('#commentModal').modal('hide');
-
                     if (isEdition) {
                         // Edito el comentario en todos los usuarios.
                         chat.server.editComment(data.Comment.Id, data.Comment.Detail);
@@ -342,6 +346,8 @@ function myViewModel() {
                         viewModel.UpdateElapsedTime();
                     }
 
+                    $.unblockUI();
+                } else {
                     $.unblockUI();
                 }
             }).error(function () {

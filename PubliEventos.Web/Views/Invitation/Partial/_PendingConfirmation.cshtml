@@ -7,6 +7,10 @@
             <div class="panel-heading">
                 <p class="label-lobster" style="font-size: 25px; text-align: center;">Esperando Confirmación</p>
             </div>
+            @if (!Model.Any())
+            {
+                <p style="font-size: 15px; margin-top: 10%;" class="not-found-message">No Hay Usuarios Invitados</p>
+            }
             @foreach (var user in Model)
             {
                 var imageProfile = !string.IsNullOrEmpty(user.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + user.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";

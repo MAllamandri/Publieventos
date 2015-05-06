@@ -219,6 +219,7 @@
 
                     // Renombro el archivo.
                     fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMssfff"), Path.GetExtension(fileToSave.FileName));
+
                     var path = Path.Combine(pathEventsPictures, Path.GetFileName(fileName));
 
                     fileToSave.SaveAs(path);
@@ -229,7 +230,7 @@
                     this.serviceEvents.CreateMultimediaContent(new CreateMultimediaContentRequest() { EventId = eventId, FileName = fileName, ContentType = contentType });
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 isSavedSuccessfully = false;
 
@@ -275,7 +276,7 @@
 
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
