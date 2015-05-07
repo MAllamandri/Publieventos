@@ -154,9 +154,18 @@ function EventModel(event) {
     self.Description = event.Description;
     self.PicturePath = "/Content/images/Covers/" + event.FileName;
     self.Left = ko.observable();
+    self.EnabledActions = event.User.Id == currentUserId;
 
     self.EventDetail = function () {
         window.location.href = "/Event/Detail/" + event.Id;
+    }
+
+    self.UploadContents = function () {
+        window.location.href = "/Event/UploadPictures/" + event.Id;
+    }
+
+    self.InviteToEvent = function () {
+        window.location.href = "/Invitation/InviteToEvent/" + event.Id;
     }
 
     self.fbShare = function () {

@@ -22,6 +22,7 @@
     var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<Event>)ViewBag.events))
     var url = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, "#")))
     var urlImage = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + '#')))
+    var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal) != null ? (User as PubliEventos.Web.App_Start.CustomPrincipal).Id : 0);
 </script>
 
 <div class="row-fluid" style="margin-top: 3%">

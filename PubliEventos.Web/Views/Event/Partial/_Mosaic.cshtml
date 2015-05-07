@@ -8,11 +8,15 @@
                 <div class="span12">
                     <div class="span4">
                         <div class="tl-circ" style="padding-top: 10px; padding-bottom: 10px;">
-                            <img src="/Content/images/Covers/@Event.FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
+                            <a href="/Event/Detail/@Event.Id" style="cursor: pointer">
+                                <img src="/Content/images/Covers/@Event.FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
+                            </a>
                         </div>
                     </div>
                     <div class="span7">
-                        <h4 class="font-text" style="color: #c25b4e">@Event.Title</h4>
+                        <a href="/Event/Detail/@Event.Id" style="cursor: pointer; text-decoration: none;">
+                            <h4 class="font-text" style="color: #c25b4e">@Event.Title</h4>
+                        </a>
                         <p>
                             <p class="font-text" style="display: inline;">Fecha:</p>
                             <strong class="font-text" style="display: inline">@Event.EventDate.ToShortDateString()</strong>
@@ -25,9 +29,10 @@
                     <div id="#nav-action" class="span1">
                         <nav class="verticaltabs-container">
                             <ul>
-                                <li class="vertical-list-item"><a style="padding-bottom: 7px" class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default glyphicon glyphicon-remove"></i></a></li>
-                                <li style="padding-bottom: 7px" class="vertical-list-item"><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default glyphicon glyphicon-pencil"></i></a></li>
-                                <li class="vertical-list-item"><a title="Ver Detalle" href="/Event/Detail/@Event.Id"><i class="icon-default glyphicon glyphicon-search"></i></a></li>
+                                <li class="vertical-list-item"><a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a></li>
+                                <li class="vertical-list-item"><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a></li>
+                                <li class="vertical-list-item"><a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a></li>
+                                <li class="vertical-list-item"><a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a></li>
                             </ul>
                         </nav>
                     </div>
