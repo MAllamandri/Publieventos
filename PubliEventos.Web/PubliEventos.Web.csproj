@@ -213,6 +213,7 @@
     <Content Include="Content\themes\images\Delete-picture-image.jpg" />
     <Content Include="Content\themes\images\error.png" />
     <Content Include="Content\themes\images\facebook.jpeg" />
+    <Content Include="Content\themes\images\loading.gif" />
     <Content Include="Content\themes\images\twitter.png" />
     <Content Include="Content\themes\images\user-icon-small.gif" />
     <Content Include="Content\themes\images\user-icon.gif" />

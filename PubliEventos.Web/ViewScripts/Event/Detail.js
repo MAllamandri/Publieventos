@@ -13,6 +13,7 @@ $(function () {
     $('#reasonReport').charactersQuantity(250);
 
     viewModel = new myViewModel();
+    viewModel.ShowNotFoundComments(false);
 
     if (pictures != null) {
         $.each(pictures, function (index, picture) {
@@ -153,6 +154,9 @@ $(function () {
     });
 
     $.connection.hub.received(function (data) {
+        $('#loading').hide();
+        viewModel.ShowNotFoundComments(true);
+
         if (data.M != 'addNewCommentToPage' && data.R != "" && data.R != undefined) {
             $.each(data.R, function (index, comment) {
                 viewModel.Comments.push(new CommentModel(comment));
@@ -172,6 +176,7 @@ function myViewModel() {
     self.MyMovies = ko.observableArray();
     self.MyPictures = ko.observableArray();
     self.Comments = ko.observableArray();
+    self.ShowNotFoundComments = ko.observable();
 
     self.ReportContent = function () {
         $('#reportModal').modal('hide');

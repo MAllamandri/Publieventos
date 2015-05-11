@@ -3,7 +3,7 @@
 
 body {
     font-size: 14px;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-family: 'MuseoSans-500', Verdana, Helvetica, Sans-Serif;
     background-image: url("/Content/themes/images/background_tile.jpg");
     padding-top: 10px;
 }

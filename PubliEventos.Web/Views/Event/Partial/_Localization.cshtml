@@ -2,6 +2,10 @@
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
 <script type="text/javascript">
+    var infoBoxs = [];
+    var markersArray = [];
+    var geocoder = new google.maps.Geocoder();
+
     $(function () {
         google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -13,7 +17,6 @@
                 zoom: 15
             };
 
-            var geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
             var input = (document.getElementById('pac-input'));
@@ -26,11 +29,10 @@
             var autocomplete = new google.maps.places.Autocomplete(input, options);
             autocomplete.bindTo('bounds', map);
 
-            var infoBoxs = [];
-            var markersArray = [];
-
             if ($('#Latitude').val() != "" && $('#Longitude').val() != "") {
                 makeMarker(new google.maps.LatLng(parseFloat($('#Latitude').val()), parseFloat($('#Longitude').val())));
+            } else {
+                SetCurrentLocation();
             }
 
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -74,46 +76,61 @@
                 setLatLng(lat, lng);
                 makeMarker(latlng);
             });
-
-            function makeMarker(position) {
-                for (i in markersArray) {
-                    markersArray[i].setMap(null);
-                }
-
-                for (i in infoBoxs) {
-                    infoBoxs[i].close();
-                }
-
-                geocoder.geocode({ 'latLng': position }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        address = results[0].formatted_address;
-
-                        var infobox = new InfoBox({
-                            content: "<div class='infoWindow'>" + address + "</div>",
-                            disableAutoPan: false,
-                            zIndex: null,
-                        });
-
-                        var markerEnd = new google.maps.Marker({
-                            position: position,
-                            map: map,
-                            icon: "/Content/themes/images/star.png"
-                        });
-
-                        infobox.open(map, markerEnd);
-                        markersArray.push(markerEnd);
-                        infoBoxs.push(infobox);
-
-                        google.maps.event.addListener(markerEnd, 'click', function (e) {
-                            infobox.open(map, markerEnd);
-                        });
-                    } else {
-                        setLatLng("", "");
-                    }
-                });
-            }
         }
     });
+
+    function makeMarker(position) {
+        for (i in markersArray) {
+            markersArray[i].setMap(null);
+        }
+
+        for (i in infoBoxs) {
+            infoBoxs[i].close();
+        }
+
+        geocoder.geocode({ 'latLng': position }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                address = results[0].formatted_address;
+
+                var infobox = new InfoBox({
+                    content: "<div class='infoWindow'>" + address + "</div>",
+                    disableAutoPan: false,
+                    zIndex: null,
+                });
+
+                var markerEnd = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    icon: "/Content/themes/images/star.png"
+                });
+
+                infobox.open(map, markerEnd);
+                markersArray.push(markerEnd);
+                infoBoxs.push(infobox);
+
+                google.maps.event.addListener(markerEnd, 'click', function (e) {
+                    infobox.open(map, markerEnd);
+                });
+            } else {
+                setLatLng("", "");
+            }
+        });
+    }
+
+    function SetCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+
+                pos = new google.maps.LatLng(position.coords.latitude,
+                                                 position.coords.longitude);
+
+                makeMarker(pos);
+                setLatLng(position.coords.latitude, position.coords.longitude);
+            }, function error(err) {
+                console.log('error: ' + err.message);
+            });
+        }
+    }
 
     function setLatLng(latitude, longitude) {
         $('#Latitude').val(latitude.toString());

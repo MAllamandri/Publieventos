@@ -20,7 +20,6 @@
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Social.js")
 
 @Styles.Render("~/Content/Extensions/nanoscroller.css")
-
 <script src="~/signalr/hubs"></script>
 
 <!--[if lt IE 9]>
@@ -67,6 +66,10 @@
                             <div class="row-fluid" style="margin-top: 50px">
                                 <div class="col-md-8" id="commentArea">
                                     @Html.Partial("../Comment/Partial/_CommentBubble")
+                                    <div class="col-md-5 offset4" id="loading">
+                                        <img src="/Content/themes/images/loading.gif" />
+                                        Cargando Comentarios...
+                                    </div>
                                 </div>
                                 <div class="col-md-4" style="overflow-y: no-display; height: 100% !important;">
                                     <div class="col-md-12" style="margin-bottom: 20px;">
