@@ -56,27 +56,39 @@ header, footer, nav, section {
         text-decoration: none;
     }
 
-.btn-confirm {
-    height: 35px;
-    min-width: 94px;
+.btn-confirm, .btn-cancel {
+    border-radius: 10px 10px 10px 10px;
+    height: 40px;
+    min-width: 120px;
     font-size: 15px;
     background-color: #AAA172;
+    text-decoration: none;
     color: white;
     margin-top: 10px !important;
     margin-bottom: 10px !important;
+    -moz-box-shadow: 0px 5px 0px 0px #888888;
+    -webkit-box-shadow: 0px 5px 0px 0px #888888;
+    box-shadow: 0px 5px 0px 0px #888888;
     font-family: 'MuseoSans-500';
+    transition: all 0.10s ease-in-out;
+    -webkit-transition: all 0.10s ease-in-out;
+    position: relative;
+    outline-color: #AAA172;
 }
 
-.btn-cancel {
-    height: 35px;
-    min-width: 94px;
-    font-size: 15px;
-    background-color: #AAA172;
-    color: white;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-    font-family: 'MuseoSans-500';
-}
+    .btn-confirm:active, .btn-cancel:active {
+        /*Gracias a que el elemento está en posición relativa, podemos bajarlo 4 px sin alterar el HTML*/
+        top: 4px;
+        /*bajamos el tamaño de la sombra para conseguir el efecto de profundidad*/
+        -moz-box-shadow: 0px 1px 0px 0px #888888;
+        -webkit-box-shadow: 0px 1px 0px 0px #888888;
+        box-shadow: 0px 1px 0px 0px #888888;
+    }
+
+    .btn-confirm:focus, .btn-cancel:focus {
+        outline: 0px;
+        outline-color: #AAA172;
+    }
 
 .active-link {
     color: #2a6496;
