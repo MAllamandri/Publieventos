@@ -10,19 +10,19 @@
         /// <summary>
         /// Identificador del contenido.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string ContentId { get; set; }
 
         /// <summary>
         /// Tipo de contenido.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int ContentType { get; set; }
 
         /// <summary>
         /// Usuario que realiza el reporte.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int UserId { get; set; }
 
         /// <summary>

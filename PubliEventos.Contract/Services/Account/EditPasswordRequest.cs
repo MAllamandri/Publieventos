@@ -11,7 +11,7 @@
         /// <summary>
         /// Identificador del usuario a cambiar el password.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int UserId { get; set; }
 
         /// <summary>
@@ -28,7 +28,7 @@
         /// <summary>
         /// Nueva contraseña.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Nueva Contraseña")]
         [MinLength(8, ErrorMessage = "La contraseña debe contener mas de 8 caracteres.")]
         public string NewPassword { get; set; }
@@ -36,7 +36,7 @@
         /// <summary>
         /// Repetición de nueva contraseña.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Repetir Contraseña")]
         [CompareAttribute("NewPassword", ErrorMessage = "Las contraseñas no coinciden")]
         public string RepeatPassword { get; set; }

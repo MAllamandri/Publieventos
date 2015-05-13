@@ -10,7 +10,7 @@
         /// <summary>
         /// Nombre de usuario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string UserName { get; set; }
     }
 }

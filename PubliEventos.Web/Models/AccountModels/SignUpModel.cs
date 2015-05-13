@@ -9,7 +9,7 @@
         /// <summary>
         /// UserName a registrar
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Usuario")]
         public string UserNameToRegister { get; set; }
 
@@ -17,7 +17,7 @@
         /// Password a registrar.
         /// </summary>
         [DataType(DataType.Password)]
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Contraseña")]
         [MinLength(8, ErrorMessage = "La contraseña debe contener mas de 8 caracteres.")]
         public string PasswordToRegister { get; set; }
@@ -27,28 +27,28 @@
         /// </summary>
         [DataType(DataType.Password)]
         [CompareAttribute("PasswordToRegister", ErrorMessage = "Las contraseñas no son iguales.")]
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Repetir Contraseña")]
         public string RepeatPassword { get; set; }
 
         /// <summary>
         /// Email del usuario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [EmailAddress(ErrorMessage = "El email no es valido.")]
         public string Email { get; set; }
 
         /// <summary>
         /// Localidad del usuario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Localidad")]
         public int? Locality { get; set; }
 
         /// <summary>
         /// Fecha de nacimiento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de Nacimiento")]
         public DateTime BirthDate { get; set; }

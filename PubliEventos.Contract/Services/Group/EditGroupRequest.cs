@@ -10,7 +10,7 @@
         /// <summary>
         /// Identificador del grupo.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int GroupId { get; set; }
 
         /// <summary>

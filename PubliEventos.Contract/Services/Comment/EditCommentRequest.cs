@@ -10,13 +10,13 @@
         /// <summary>
         /// Identificador del evento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int CommentId { get; set; }
 
         /// <summary>
         /// Detalle del comentario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string Detail { get; set; }
 
         /// <summary>

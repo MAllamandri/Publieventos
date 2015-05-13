@@ -18,7 +18,7 @@
         /// <summary>
         /// Título del evento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Título")]
         public string Title { get; set; }
 
@@ -40,7 +40,7 @@
         /// <summary>
         /// Fecha del evento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Fecha de Realización")]
         [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es correcto")]
         public DateTime EventDate { get; set; }
@@ -48,7 +48,7 @@
         /// <summary>
         /// Hora comienzo del evento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Hora de Inicio")]
         [DataType(DataType.Time, ErrorMessage = "El formato de la hora no es correcto")]
         public TimeSpan EventStartTime { get; set; }
@@ -56,7 +56,7 @@
         /// <summary>
         /// Hora de fin del evento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Hora de Fin")]
         [DataType(DataType.Time, ErrorMessage = "El formato de la hora no es correcto")]
         public TimeSpan EventEndTime { get; set; }
@@ -74,7 +74,7 @@
         /// <summary>
         /// Tipo de evento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Tipo de Evento")]
         public virtual int EventTypeId { get; set; }
 

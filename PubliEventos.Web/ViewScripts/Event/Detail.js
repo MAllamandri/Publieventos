@@ -112,7 +112,7 @@ $(function () {
 
     $(document).on("click", '#comment', function (event) {
         $('#commentModal').modal('show');
-        $('.title-modal').text("Comentar");
+        $('#myModalLabel').text("Comentar");
     });
 
     $('#commentModal').on('hidden.bs.modal', function () {

@@ -10,19 +10,19 @@
         /// <summary>
         /// Identificador del contenido.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string ContentId { get; set; }
 
         /// <summary>
         /// Tipo de contenido.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int ContentType { get; set; }
 
         /// <summary>
         /// Indica si hay que deshabilitar el contenido.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public bool IsDisabled { get; set; }
     }
 }

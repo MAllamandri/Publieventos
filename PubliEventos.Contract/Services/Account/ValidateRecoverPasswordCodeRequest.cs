@@ -10,13 +10,13 @@
         /// <summary>
         /// Código.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string Code { get; set; }
 
         /// <summary>
         /// Identificador del usuario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int UserId { get; set; }
     }
 }

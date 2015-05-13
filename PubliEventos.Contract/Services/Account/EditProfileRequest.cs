@@ -12,7 +12,7 @@
         /// <summary>
         /// Identificador del usuario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int UserId { get; set; }
 
         /// <summary>
@@ -20,14 +20,14 @@
         /// </summary>
         [StringLength(30, ErrorMessage = "No puede superar los 30 caracteres.")]
         [Display(Name = "Nombre de Usuario")]
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string UserName { get; set; }
 
         /// <summary>
         /// Fecha de nacimiento.
         /// </summary>
         [Display(Name = "Fecha de Nacimiento")]
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
@@ -45,20 +45,20 @@
         /// </summary>
         [EmailAddress(ErrorMessage = "Formato de email incorrecto")]
         [Display(Name = "Email")]
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string Email { get; set; }
 
         /// <summary>
         /// Identificador de la localidad.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Localidad")]
         public int LocalityId { get; set; }
 
         /// <summary>
         /// Identificador de la provincia.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Provincia")]
         public int ProvinceId { get; set; }
 

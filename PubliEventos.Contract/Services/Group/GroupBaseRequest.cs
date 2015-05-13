@@ -10,21 +10,21 @@
         /// <summary>
         /// Nombre del grupo.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Nombre del Grupo")]
         public string GroupName { get; set; }
 
         /// <summary>
         /// Mensaje al grupo.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Mensaje al Grupo")]
         public string Message { get; set; }
 
         /// <summary>
         /// Identificador del usuario administrador.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int AdministratorId { get; set; }
 
         /// <summary>

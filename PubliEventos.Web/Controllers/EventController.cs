@@ -221,7 +221,7 @@
                     fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMssfff"), Path.GetExtension(fileToSave.FileName));
 
                     var path = Path.Combine(pathEventsPictures, Path.GetFileName(fileName));
-
+                    
                     fileToSave.SaveAs(path);
 
                     var contentType = PicturesExtensions.Contains(Path.GetExtension(fileName).ToLower()) ? (int)ContentTypes.Image : (int)ContentTypes.Movie;

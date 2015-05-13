@@ -10,31 +10,31 @@
         /// <summary>
         /// Identificador del evento.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int EventId { get; set; }
 
         /// <summary>
         /// Detalle del comentario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string Detail { get; set; }
 
         /// <summary>
         /// Identificador del usuario.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int UserId { get; set; }
 
         /// <summary>
         /// Fecha local del cliente.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string Date { get; set; }
 
         /// <summary>
         /// Hora.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public string TIme { get; set; }
     }
 }

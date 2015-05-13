@@ -10,7 +10,7 @@
         /// <summary>
         /// Usuario invitado.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "El valor es requerido")]
         public int UserId { get; set; }
 
         /// <summary>
