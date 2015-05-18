@@ -1,4 +1,8 @@
-﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
+﻿@{
+    ViewBag.layout = null;
+}
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Partial/_LocalizationDetail.js")
@@ -8,9 +12,12 @@
         width: 200px !important;
     }
 </style>
-<div class="row-fluid">
-    <div class="span8">
-        <input id="pac-input" class="controls" type="text" placeholder="Ingrese la dirección" />
+
+<div class="col-xs-12">
+    <input id="pac-input" class="controls" type="text" style="top: 12px" placeholder="Ingrese la dirección" />
+</div>
+<div class="row">
+    <div class="col-xs-12">
         <div id="map-canvas" style="height: 600px; width: auto"></div>
         <div style="position: absolute; top: 90%;">
             <p class="label-lobster" style="display: inline;">Medio de Transporte </p>
@@ -21,20 +28,8 @@
                 <option class="font-text" value="TRANSIT">Transporte Público</option>
             </select>
         </div>
-        <nav id="colorNav">
-            <ul>
-                <li class="red">
-                    <a href="#" class="icon-cogs"></a>
-                    <ul>
-                        <li><a class="mapStyle" rel="1" href="#">Gris</a></li>
-                        <li><a class="mapStyle" rel="2" href="#">Gris Claro</a></li>
-                        <li><a class="mapStyle" rel="0" href="#">Azul</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
     </div>
-    <div class="span4">
+    <div class="col-xs-12">
         <div id="infoRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute;" class="alert alert-warning" role="alert">
             <i class="glyphicon glyphicon-info-sign"></i><strong>&nbspSeleccione un lugar
                                                              <br />
@@ -49,4 +44,3 @@
         </div>
     </div>
 </div>
-

@@ -1,0 +1,31 @@
+﻿@media (max-width: 450px) {
+    ul.timeline li .timeline-panel {
+        padding: 13px;
+    }
+
+    .bubble-comment {
+        min-height: 160px;
+    }
+}
+
+.image-border {
+    border: 2px solid #a69567;
+}
+
+.actions-comment {
+    padding-top: 130px;
+    display: block;
+}
+
+.profile-after {
+    position: absolute;
+    border: 1px solid;
+    width: 1px;
+    background-color: #a69567;
+    left: 50%;
+}
+
+.actions-contents {
+    margin-top: -55px !important;
+    left: 83% !important;
+}

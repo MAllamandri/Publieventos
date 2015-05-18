@@ -5,16 +5,7 @@
                 <div data-bind="visible: IsReported()" style="position: absolute; color: #f00">
                     <strong style="font-size: 11px !important">Has Reportado este video</strong>
                 </div>
-                <nav class="actions-contents">
-                    <ul>
-                        @if (ViewData["UserId"] != null && (int)ViewData["UserId"] == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id)
-                        {
-                            <li><a data-bind="click: RemoveContent" title="Eliminar" href="#"><i style="margin-bottom: -14px" class="icon-contents icon-remove"></i></a></li>
-                        }
-                        <li data-bind="visible: !IsReported(), click: ShowReportModal"><a title="Reportar" href="#"><i class="icon-contents icon-ban-circle"></i></a></li>
-                    </ul>
-                </nav>
-                <video class="movies" style="width: 750px !important; max-height: 500px !important;" controls poster="">
+                <video class="movies" style="width: 100%" controls poster="">
                     <source data-bind="attr: { src: Path }" type="video/mp4">
                     <source data-bind="attr: { src: Path }" type="video/webm">
                     Su navegador no soporta este contenido.
@@ -32,7 +23,7 @@
         </a>
     </div>
 </div>
-<div id="regionNotFoundMovies" data-bind="visible: MyMovies().length == 0" class="row-fluid">
+<div id="regionNotFoundMovies" data-bind="visible: MyMovies().length == 0" class="row">
     <div class="col-md-6 offset3">
         <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Videos Disponibles</p>
     </div>

@@ -1,20 +1,11 @@
-﻿<div data-bind="visible: MyPictures().length > 0" class="col-md-12" style="margin-top: 20px; margin-bottom: 30px;">
+﻿<div data-bind="visible: MyPictures().length > 0" class="col-xs-12" style="margin-top: 20px; margin-bottom: 30px;">
     <div id="carousel-pictures" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner" data-bind="foreach: MyPictures" role="listbox">
             <div data-bind="attr: { 'class': Active() }" class="item">
                 <div data-bind="visible: IsReported()" class="reportMessage" style="position: absolute; color: #f00;">
                     <strong style="font-size: 11px !important">Has Reportado esta foto</strong>
                 </div>
-                <nav class="actions-contents">
-                    <ul>
-                        @if (ViewData["UserId"] != null && (int)ViewData["UserId"] == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id)
-                        {
-                            <li><a data-bind="click: RemoveContent" title="Eliminar" href="#"><i style="margin-bottom: -14px" class="icon-contents icon-remove"></i></a></li>
-                        }
-                        <li data-bind="visible: !IsReported(), click: ShowReportModal"><a title="Reportar" href="#"><i class="icon-contents icon-ban-circle"></i></a></li>
-                    </ul>
-                </nav>
-                <img class="pictures" style="max-height: 500px !important; max-width: 850px !important;" data-bind="attr: { src: Path }" alt="">
+                <img class="pictures" data-bind="attr: { src: Path }" alt="">
             </div>
         </div>
         <!-- Controls -->
@@ -28,7 +19,7 @@
         </a>
     </div>
 </div>
-<div data-bind="visible: MyPictures().length == 0" class="row-fluid">
+<div data-bind="visible: MyPictures().length == 0" class="row">
     <div class="col-md-6 offset3">
         <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Fotos Disponibles</p>
     </div>

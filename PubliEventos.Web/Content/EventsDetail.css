@@ -175,15 +175,11 @@
 
 .pictures {
     text-align: center;
-    max-width: 850px !important;
-    max-height: 500px !important;
     min-height: 50px;
     margin: auto;
 }
 
 .movies {
-    width: 750px !important;
-    max-height: 500px !important;
     min-height: 50px;
     margin-left: auto;
     margin-right: auto;

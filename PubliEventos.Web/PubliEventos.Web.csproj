@@ -209,6 +209,7 @@
     <Content Include="Content\Select2\select2-bootstrap.css" />
     <Content Include="Content\Select2\select2-spinner.gif" />
     <Content Include="Content\Select2\select2.css" />
+    <Content Include="Content\Site.Mobile.css" />
     <Content Include="Content\themes\images\check.png" />
     <Content Include="Content\themes\images\Delete-picture-image.jpg" />
     <Content Include="Content\themes\images\error.png" />
@@ -384,6 +385,7 @@
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
+    <Content Include="ViewScripts\Event\Partial\_LocalizationDetail.js" />
     <Content Include="ViewScripts\Event\UploadPictures.js" />
     <Content Include="ViewScripts\Group\Base.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
@@ -452,6 +454,15 @@
     <Content Include="Views\Admin\Partial\_ReportedMovie.cshtml" />
     <Content Include="Views\Home\SearchEventsByDistance.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
+    <Content Include="Views\Shared\_layout.Mobile.cshtml" />
+    <Content Include="Views\Home\Index.Mobile.cshtml" />
+    <Content Include="Views\Home\Partial\_leftBubble.Mobile.cshtml" />
+    <Content Include="Views\Home\Partial\_RightBubble.Mobile.cshtml" />
+    <Content Include="Views\Event\Detail.Mobile.cshtml" />
+    <Content Include="Views\Comment\Partial\_CommentBubble.Mobile.cshtml" />
+    <Content Include="Views\Event\Partial\_LocalizationDetail.Mobile.cshtml" />
+    <Content Include="Views\Event\Partial\_PicturesForm.Mobile.cshtml" />
+    <Content Include="Views\Event\Partial\_MoviesForm.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
