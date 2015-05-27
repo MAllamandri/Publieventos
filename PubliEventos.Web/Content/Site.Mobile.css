@@ -1,4 +1,19 @@
-﻿@media (max-width: 450px) {
+﻿/*#region Generales*/
+
+.image-border {
+    border: 2px solid #a69567;
+}
+
+.image-profile {
+    float: left;
+    margin-right: 5px;
+}
+
+/*#endregion*/
+
+/*#region Index */
+
+@media (max-width: 450px) {
     ul.timeline li .timeline-panel {
         padding: 13px;
     }
@@ -8,9 +23,18 @@
     }
 }
 
-.image-border {
-    border: 2px solid #a69567;
+.timeline li .timeline-panel {
+    width: 100%;
 }
+
+/** timeline circle icons **/
+.timeline li .tl-circ {
+    top: 45px;
+}
+
+/*#endregion*/
+
+/*#region Comments*/
 
 .actions-comment {
     padding-top: 130px;
@@ -29,3 +53,30 @@
     margin-top: -55px !important;
     left: 83% !important;
 }
+
+/*#endregion*/
+
+/*#region Barra superior */
+
+.username {
+    float: left;
+}
+
+/*#endregion*/
+
+/*#buttonMenu {
+    cursor: pointer;
+}
+
+#right {
+    width: 123%;
+    background-color: #fff;
+    z-index: 5;
+    left: -120%;
+    position: relative;
+    height: auto;
+    -webkit-box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+    moz-box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+    o-box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+}*/

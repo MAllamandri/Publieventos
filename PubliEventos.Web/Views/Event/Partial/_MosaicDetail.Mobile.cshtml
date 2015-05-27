@@ -1,0 +1,87 @@
+﻿@model PubliEventos.Contract.Class.Event
+
+@using PubliEventos.Web.Helpers
+
+@{
+    var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
+    var coverImage = !string.IsNullOrEmpty(Model.FileName) ? System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName : "/Content/images/Profiles/contact-default-image.jpg";
+    var urlEvent = string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, Model.Id);
+    var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, coverImage);
+}
+
+<div class="col-xs-12 mosaic" style="margin-bottom: 5%;">
+    <div class="row subtitle">
+        <div class="col-xs-12">
+            <div class="tl-circ" style="padding-top: 10px; padding-bottom: 10px;">
+                <img src="/Content/images/Covers/@Model.FileName" style="width: 100%; height: 100%;" alt="" class="img-responsive" data-src="holder.js/1000x500">
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <h4 class="font-text" style="color: #c25b4e">@Model.Title</h4>
+            <p>
+                <p class="font-text" style="display: inline; font-size: 15px">Fecha:</p>
+                <strong class="font-text" style="display: inline; font-size: 15px;">@Model.EventDate.ToShortDateString()</strong>
+            </p>
+            <p>
+                <p class="font-text" style="display: inline; font-size: 15px;">Hora:</p>
+                <strong class="font-text" style="display: inline; font-size: 15px;">@Model.EventStartTime.ToString(@"hh\:mm") a @Model.EventEndTime.ToString(@"hh\:mm") Hs</strong>
+            </p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="font-text" style="font-size: 15px">@Model.Description</p>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-xs-12">
+                    <strong style="color: black">Administrador</strong>
+                </div>
+                <div class="col-xs-4">
+                    <a href="/Account/Profile/@Model.User.Id" style="display: inline; margin-right: 15px;">
+                        <img src="@imageProfile" title="@Model.User.UserName" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
+                    </a>
+                    <p style="display: inline" class="participants-user">@Model.User.UserName</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <p class="font-text" style="white-space: pre-line; font-size: 15px; margin-top: 5px;">@Model.Detail</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div style="margin-bottom: 40px !important">
+                @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
+                {
+                    <a href="#" id="comment" title="Comentar"><span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-comments"></span></a>
+                        
+                    if (Model.Reports == null || !Model.Reports.Where(x => x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
+                    {
+                    <a title="Reportar" class="reportEvent" rel="@Model.Id" href="#"><i style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-ban-circle"></i></a>
+                    }
+
+                    if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == @Model.User.Id)
+                    {
+                    <a  href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
+                    <a  href="/Event/UploadPictures/@Model.Id" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
+                    }
+
+                    if (Model.Reports != null && Model.Reports.Where(x => !x.IsReported.HasValue && x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
+                    {
+                    <div style="display: inline; float: right; padding-right: 5px; color: #f00">
+                        <strong style="font-size: 11px !important">Has Reportado este Evento</strong>
+                    </div>
+                    }
+                        
+                    <div style="padding-top: 7px; display: inline;">
+                        @Html.SharedTwitter(Model.Title, Model.Id.Value.ToString(), urlImage)
+                        <a href="#" onclick="fbShare('@urlEvent.ToString()', '@Model.Title', '@Model.Description', '@urlImage')">
+                            <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
+                        <div id="fb-root"></div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

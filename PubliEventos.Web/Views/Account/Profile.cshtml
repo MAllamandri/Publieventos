@@ -85,16 +85,14 @@
             </div>
         </div>
         <div class="row-fluid">
-            <div class="col-md-12">
-                <div class="col-md-12 region-buttons">
-                    <a type="button" href="/">
-                        <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
-                    @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == Model.Id)
-                    {
-                        <a type="button" href="/Account/EditProfile/@Model.Id">
-                            <input type="button" value="Editar" class="btn-cancel pull-right" /></a>
-                    }
-                </div>
+            <div class="col-md-12 region-buttons">
+                <a type="button" href="/">
+                    <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
+                @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == Model.Id)
+                {
+                    <a type="button" href="/Account/EditProfile/@Model.Id">
+                        <input type="button" value="Editar" class="btn-cancel pull-right" /></a>
+                }
             </div>
         </div>
     </div>

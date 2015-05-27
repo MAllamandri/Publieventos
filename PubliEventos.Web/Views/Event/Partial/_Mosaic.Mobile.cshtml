@@ -1,0 +1,42 @@
+﻿@model List<PubliEventos.Contract.Class.Event>
+
+@foreach (var Event in Model)
+{
+    <div class="col-xs-12 mosaic" style="margin-bottom: 15%">
+        <div class="row">
+            <div class="col-xs-12">
+                <div style="text-align: center; margin-top: -20px;">
+                    <a href="/Event/Detail/@Event.Id" style="cursor: pointer">
+                        <img src="/Content/images/Covers/@Event.FileName" style="width: 120px; height: 120px; border: 3px solid #a69567;" alt="" class="img-circle tl-circ" data-src="holder.js/120x120/auto">
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 subtitle">
+                <a href="/Event/Detail/@Event.Id" style="cursor: pointer; text-decoration: none;">
+                    <h4 class="font-text" style="color: #c25b4e">@Event.Title</h4>
+                </a>
+                <p>
+                    <p class="font-text" style="display: inline;">Fecha:</p>
+                    <strong class="font-text" style="display: inline">@Event.EventDate.ToShortDateString()</strong>
+                </p>
+                <p>
+                    <p class="font-text" style="display: inline;">Hora:</p>
+                    <strong class="font-text" style="display: inline;">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</strong>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="font-text">@Event.Description</p>
+            </div>
+            <div class="col-xs-12" style="margin-bottom: 5px;">
+                <ul style="list-style: none">
+                    <li><a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a></li>
+                    <li><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a></li>
+                    <li><a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a></li>
+                    <li><a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}

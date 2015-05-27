@@ -189,6 +189,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Base.css" />
     <Content Include="Content\bootstrap\css\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap-glyphicons.css" />
@@ -454,15 +455,18 @@
     <Content Include="Views\Admin\Partial\_ReportedMovie.cshtml" />
     <Content Include="Views\Home\SearchEventsByDistance.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
-    <Content Include="Views\Shared\_layout.Mobile.cshtml" />
+    <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
     <Content Include="Views\Home\Index.Mobile.cshtml" />
-    <Content Include="Views\Home\Partial\_leftBubble.Mobile.cshtml" />
-    <Content Include="Views\Home\Partial\_RightBubble.Mobile.cshtml" />
     <Content Include="Views\Event\Detail.Mobile.cshtml" />
     <Content Include="Views\Comment\Partial\_CommentBubble.Mobile.cshtml" />
     <Content Include="Views\Event\Partial\_LocalizationDetail.Mobile.cshtml" />
     <Content Include="Views\Event\Partial\_PicturesForm.Mobile.cshtml" />
     <Content Include="Views\Event\Partial\_MoviesForm.Mobile.cshtml" />
+    <Content Include="Views\Home\Partial\_Bubble.Mobile.cshtml" />
+    <Content Include="ViewScripts\Shared\_Layout.Mobile.js" />
+    <Content Include="Views\Event\MyEvents.Mobile.cshtml" />
+    <Content Include="Views\Event\Partial\_Mosaic.Mobile.cshtml" />
+    <Content Include="Views\Event\Partial\_MosaicDetail.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

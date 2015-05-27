@@ -17,19 +17,19 @@
 
 @using PubliEventos.Contract.Class
 
-<div class="row-fluid">
+<div class="row">
     <div class="col-md-10 offset1">
         <div style="margin-bottom: 25px">
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-md-12">
                     <h2 class="subtitle">Invitar Usuarios</h2>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 @Html.Partial("../Event/Partial/_MosaicDetail", Model, new ViewDataDictionary { { "HiddenActions", true } })
             </div>
         </div>
-        <div class="row-fluid" style="margin-bottom: 15px">
+        <div class="row" style="margin-bottom: 15px">
             <div class="offset1" style="margin-right: -50px">
                 <div class="col-md-6">
                     @Html.Partial("Partial/_PendingConfirmation", (List<User>)ViewBag.standby)
@@ -45,7 +45,7 @@
             @Html.AntiForgeryToken()
             @Html.Hidden("eventId", Model.Id)
 
-            <div class="row-fluid margin-bottom-normal">
+            <div class="row margin-bottom-normal">
                 <div class="col-md-12">
                     <div class="col-md-6">
                         @Html.Label("Invitar Usuarios", new { @class = "label-lobster" })
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-12 region-buttons">
                         <input type="submit" id="Send" class="btn-confirm pull-right" value="Enviar" />

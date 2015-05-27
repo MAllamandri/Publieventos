@@ -1,10 +1,8 @@
-﻿@using PubliEventos.Web.Helpers
-
-<li style="margin-bottom: 40px;">
+﻿<li style="margin-bottom: 40px;">
     <div class="col-xs-12">
         <div class="col-xs-12">
             <div class="timeline-panel" style="margin-top: 1%;">
-                <div class="tl-circ">
+                <div class="tl-circ" style="margin-left: 1%">
                     <img data-bind=" click: EventDetail, attr: { src: PicturePath }" style="cursor: pointer" class="img-circle img-cover" data-src="holder.js/120x120/auto" />
                 </div>
                 <div class="tl-heading" style="margin-top: 125px">
@@ -22,13 +20,11 @@
                     <p class="font-text" data-bind="text: Description"></p>
                 </div>
                 <div class="col-xs-12" style="margin-top: 15px; margin-bottom: -18px;">
-                    <div data-bind="visible: EnabledActions" style="padding-bottom: 25px">
-                        <a href="#" title="Invitar" data-bind="click: InviteToEvent">
+                    <div style="padding-bottom: 25px">
+                        <a href="#" title="Invitar" data-bind="click: InviteToEvent, visible: EnabledActions">
                             <span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
-                        <a href="#" title="Subir Contenidos" data-bind="click: UploadContents">
+                        <a href="#" title="Subir Contenidos" data-bind="click: UploadContents, visible: EnabledActions">
                             <span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
-                    </div>
-                    <div style="padding: 0 7px 10px; float: right;">
                         <a href="#" title="Compartir en Twitter" data-bind="TwitterButton: { title: Title, id: Id }" target="_blank">
                             <img class="shared-social" src="/Content/themes/images/twitter.png" /></a>
                         <a href="#" data-bind="click: fbShare">
@@ -40,3 +36,5 @@
         </div>
     </div>
 </li>
+
+

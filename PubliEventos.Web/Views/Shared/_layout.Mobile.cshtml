@@ -13,51 +13,60 @@
     @Styles.Render("/Content/bootstrap/css/bootstrap-glyphicons.css")
     @Scripts.Render("~/bundles/modernizr")
     @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Shared.js")
+    @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/_Layout.Mobile.js")
+    @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
 
-    <link rel="stylesheet" media="all" href="/Content/Site.css" />
+    <link rel="stylesheet" media="all" href="/Content/Base.css" />
     <link rel="stylesheet" media="all" href="/Content/Site.Mobile.css" />
-    <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
-    <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
 </head>
 <body>
     <div class="row">
-        <div class="col-xs-12" style="text-align: center;">
-            <a class="title" href="/Home/Index">publieventos</a>
-            <a title="Salir" href="/Account/LogOut">
-                <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
-            <br />
-            @*            <div class="col-xs-12">
-                <div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a title="Ver mi Perfil" href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><span class="username">@User.Identity.Name</span></a>
-                        <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-circle" data-src="holder.js/50x50">
-                    }
-                </div>
-            </div>*@
-        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-12" style="text-align: center">
+                <a class="title" href="/Home/Index">publieventos</a>
+            </div>
 
-        <div class="col-xs-12" style="text-align: center">
             @if (User.Identity.IsAuthenticated)
             {
-                <div class="col-xs-12">
-                    <a class="sections-title" href="/Event/Create">Nuevo Evento</a><span class="sections-title">-</span>
-                    <a class="sections-title" href="/Event/MyEvents?currentEvents=true">Mis Eventos</a>
-                </div>
-                <div class="col-xs-12">
-                    <a class="sections-title" href="/Group/MyGroups">Mis Grupos</a><span class="sections-title">-</span>
-                    <a class="sections-title" href="/Invitation/MyInvitations">Invitaciones</a>
+                <div class="col-xs-12" style="text-align: center">
+                    <div class="row">
+                        <a href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)" title="Ver mi Perfil">
+                            <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-circle" data-src="holder.js/50x50">
+                            <span class="username">@User.Identity.Name</span>
+                        </a>
+                        <a title="Salir" href="/Account/LogOut">
+                            <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <a class="sections-title" href="/Event/Create">Nuevo Evento</a>
+                            <a class="sections-title" href="/Event/MyEvents?currentEvents=true">Mis Eventos</a>
+                        </div>
+                        <div>
+                            <a class="sections-title" href="/Group/MyGroups">Mis Grupos</a>
+                            <a class="sections-title" href="/Invitation/MyInvitations">Invitaciones</a>
+                        </div>
+                        <div>
+                            <a class="sections-title" href="/Home/SearchEventsByDistance">Buscar Eventos</a>
+                        </div>
+                    </div>
                 </div>
             }
-            else
-            {
-                <a class="sections-title" href="../Account/Login">Ingresar</a>
-            }
+            <br />
+            <div class="col-xs-12" style="text-align: center">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a class="sections-title" href="../Account/Login">Ingresar</a>
+                }
+            </div>
         </div>
     </div>
     <div class="row">
         @RenderBody()
     </div>
+    <script type="text/javascript">
+
+    </script>
     <script src="/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
