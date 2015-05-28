@@ -680,7 +680,6 @@ img {
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
-    font-size: 30px;
     position: absolute;
     text-align: center;
 }

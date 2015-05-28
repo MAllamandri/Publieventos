@@ -16,12 +16,12 @@
 <div class="row-fluid">
     <div class="col-md-10 offset1">
         <div style="margin-bottom: 25px">
-            <div class="row-fluid">
+            <div class="row">
                 <div class="col-md-12">
                     <h2 class="subtitle">Crear Grupo</h2>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 <form id="Form" method="post">
 
                     @Html.AntiForgeryToken()
@@ -29,13 +29,11 @@
 
                     @Html.Partial("Partial/_Form", Model)
 
-                    <div class="row-fluid">
-                        <div class="col-md-12">
-                            <div class="col-md-12 region-buttons">
-                                <input type="submit" id="Save" class="btn-confirm pull-right" value="Guardar" />
-                                <a type="button" href="/Group/MyGroups">
-                                    <input type="button" value="Cancelar" class="btn-cancel pull-left" /></a>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12 region-buttons">
+                            <input type="submit" id="Save" class="btn-confirm pull-right" value="Guardar" />
+                            <a type="button" href="/Group/MyGroups">
+                                <input type="button" value="Cancelar" class="btn-cancel pull-left" /></a>
                         </div>
                     </div>
                 </form>

@@ -64,19 +64,10 @@
 
 /*#endregion*/
 
-/*#buttonMenu {
-    cursor: pointer;
+/*#region Groups*/
+
+.group-name-text {
+    font-size: 20px;
 }
 
-#right {
-    width: 123%;
-    background-color: #fff;
-    z-index: 5;
-    left: -120%;
-    position: relative;
-    height: auto;
-    -webkit-box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
-    moz-box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
-    o-box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
-}*/
+/*#endregion*/
