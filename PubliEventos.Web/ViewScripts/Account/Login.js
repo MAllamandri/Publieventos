@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $('#SignUpModel_UserNameToRegister').charactersQuantity(30);
+    $('#SignUpModel_UserNameToRegister').charactersQuantity(20);
 
     if (data.IsLogin === true) {
         $('#login').attr('class', 'tab-pane active');

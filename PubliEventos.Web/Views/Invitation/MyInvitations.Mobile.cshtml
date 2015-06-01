@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Mis invitaciones";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
+}
+
+@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Invitation/MyInvitations.js")
+
+@using PubliEventos.Contract.Class;
+@using System.Linq;
+
+<div class="row">
+    <div class="col-xs-12">
+        <div style="margin-bottom: 25px" id="create">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="subtitle">Mis Invitaciones</h2>
+                    @if (((List<Invitation>)ViewBag.invitations).Count == 0)
+                    {
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Tiene Invitaciones Pendientes</p>
+                            </div>
+                        </div>
+
+                    }
+
+                    @foreach (var invitation in (List<Invitation>)ViewBag.invitations)
+                    {
+                        var userAdministrator = invitation.Event != null ? invitation.Event.User : invitation.Group.Administrator;
+                        var imageProfile = !string.IsNullOrEmpty(userAdministrator.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + userAdministrator.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
+                            
+                        <div class="col-xs-12 mosaic-invitation" style="margin-bottom: 140px; height: 180px;">
+                            <div class="col-md-12 mosaic" style="min-height: 170px; margin-top: 30px;">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-12" style="text-align:center; margin-top: 10px;">
+                                            <a href="/Account/Profile/@userAdministrator.Id">
+                                                <img src="@imageProfile" title="@userAdministrator.UserName" alt="Perfil del usuario" class="profile-invitation img-circle right" data-src="holder.js/70x70"></a>
+                                        </div>
+                                        <div class="col-xs-12" style="margin-top: 30px">
+                                            <a href="/Account/Profile/@userAdministrator.Id">
+                                                <strong class="invitation-user">@userAdministrator.UserName</strong></a>
+                                        </div>
+                                        <div class="col-xs-12" style="margin-top: 30px">
+                                            @if (invitation.Group != null)
+                                            {
+                                                <div style="text-align: center">Te ha invitado a participar de su grupo:</div>
+                                                <br />
+                                                <div style="text-align: center; margin-bottom: 15px;">
+                                                    <strong class="invitation-title">@invitation.Group.Name</strong>
+                                                </div>
+                                            }
+
+                                            @if (invitation.Event != null)
+                                            {
+                                                <div style="text-align: center">Te ha invitado a participar de su evento:</div>
+                                                <br />
+                                                <div style="text-align: center; margin-bottom: 15px;">
+                                                    <a href="/Event/Detail/@invitation.Event.Id"><strong style="display: inline" class="invitation-title">@invitation.Event.Title.Substring(0, invitation.Event.Title.Length >= 50 ? 47 : invitation.Event.Title.Length)...</strong></a>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="col-xs-12" style="margin-bottom: 15px">
+                                            <a href="#" title="Aceptar Invitación" class="replyInvitation confirm" rel="@invitation.Id" style="margin-right: 10px;"><i style="font-size: 20px;" class="icon-default icon-ok"></i></a>
+                                            <a href="#" title="Cancelar Invitación" class="replyInvitation cancel" rel="@invitation.Id"><i style="font-size: 20px; margin-right: 10px;" class="icon-default icon-remove"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
