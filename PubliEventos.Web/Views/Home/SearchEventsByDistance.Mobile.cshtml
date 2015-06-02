@@ -14,39 +14,43 @@
     @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @System.Web.Optimization.Scripts.Render("/ViewScripts/Home/SearchEventsByDistance.js")
     @System.Web.Optimization.Styles.Render("/Content/Base.css")
-    @System.Web.Optimization.Styles.Render("/Content/Site.css")
+    @System.Web.Optimization.Styles.Render("/Content/Site.Mobile.css")
     @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 </head>
 <body>
     <script src="/Scripts/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&language=es"></script>
     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-
     <style>
         html, body {
             height: 100%;
         }
     </style>
-    <a class="title" style="position: absolute; z-index: 1; left: 7%;" href="/Home/Index">publieventos</a>
-    <div class="col-md-12 distance-form">
+
+    <div class="col-xs-12 distance-form">
         <div>
             <p>Buscar eventos en un radio de</p>
         </div>
-        <input type="radio" class="checkbox-distance" name="distance" value="50" />
-        <p>50 km</p>
-        <input type="radio" class="checkbox-distance" name="distance" value="100" />
-        <p>100 km</p>
-        <input type="radio" class="checkbox-distance" name="distance" value="200" />
-        <p>200 km</p>
-        <input type="radio" class="checkbox-distance" name="distance" value="300" />
-        <p>300 km</p>
-        <input type="radio" class="checkbox-distance" name="distance" value="400" />
-        <p>400 km</p>
-        <input type="radio" class="checkbox-distance" name="distance" value="500" />
-        <p>500 km</p>
-        <input type="radio" class="checkbox-distance" name="distance" value="1000" />
-        <p>1000 km</p>
+        <div class="col-xs-12">
+            <input type="radio" class="checkbox-distance" name="distance" value="50" />
+            <p>50 km</p>
+            <input type="radio" class="checkbox-distance" name="distance" value="100" />
+            <p>100 km</p>
+            <input type="radio" class="checkbox-distance" name="distance" value="200" />
+            <p>200 km</p>
+            <input type="radio" class="checkbox-distance" name="distance" value="300" />
+            <p>300 km</p>
+        </div>
+        <div class="col-xs-12">
+            <input type="radio" class="checkbox-distance" name="distance" value="400" />
+            <p>400 km</p>
+            <input type="radio" class="checkbox-distance" name="distance" value="500" />
+            <p>500 km</p>
+            <input type="radio" class="checkbox-distance" name="distance" value="1000" />
+            <p>1000 km</p>
+        </div>
     </div>
+    <a class="title" style="position: absolute; z-index: 1; left: 15%; top: 86%" href="/Home/Index">publieventos</a>
     <div id="map-canvas" class="search-distance-map"></div>
     @Html.Hidden("LatitudeInitial")
     @Html.Hidden("LongitudeInitial")

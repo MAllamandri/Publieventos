@@ -87,3 +87,16 @@
 }
 
 /*#endregion*/
+
+/*#region Search Events by Distance*/
+
+.distance-form {
+    left: 54%;
+    top: 25px;
+}
+
+.distance-form {
+    padding: 10px;
+}
+
+/*#endregion*/

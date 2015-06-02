@@ -18,29 +18,35 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <div id="map-canvas" style="height: 600px; width: auto"></div>
-        <div style="position: absolute; top: 90%;">
-            <p class="label-lobster" style="display: inline;">Medio de Transporte </p>
-            <select class="form-control" style="width: 250px; display: inline;" id="mode">
-                <option class="font-text" value="DRIVING">Auto</option>
-                <option class="font-text" value="WALKING">Caminando</option>
-                <option class="font-text" value="BICYCLING">Bicicleta</option>
-                <option class="font-text" value="TRANSIT">Transporte Público</option>
-            </select>
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div id="map-canvas" style="height: 600px; width: auto"></div>
+                <div style="position: absolute; top: 90%;">
+                    <p class="label-lobster" style="display: inline;">Medio de Transporte </p>
+                    <select class="form-control" style="width: 250px; display: inline;" id="mode">
+                        <option class="font-text" value="DRIVING">Auto</option>
+                        <option class="font-text" value="WALKING">Caminando</option>
+                        <option class="font-text" value="BICYCLING">Bicicleta</option>
+                        <option class="font-text" value="TRANSIT">Transporte Público</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-xs-12">
-        <div id="infoRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute;" class="alert alert-warning" role="alert">
-            <i class="glyphicon glyphicon-info-sign"></i><strong>&nbspSeleccione un lugar
+        <div class="col-xs-12">
+            <div id="infoRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute;" class="alert alert-warning" role="alert">
+                <i class="glyphicon glyphicon-info-sign"></i><strong>&nbspSeleccione un lugar
                                                              <br />
-                para marcar su recorrido al evento...</strong>
-        </div>
-        <div id="NotFoundRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute; display: none;" class="alert alert-danger" role="alert">
-            <i class="glyphicon glyphicon-ban-circle"></i><strong>&nbspNo se ha podido encontrar
+                    para marcar su recorrido al evento...</strong>
+            </div>
+            <div id="NotFoundRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute; display: none;" class="alert alert-danger" role="alert">
+                <i class="glyphicon glyphicon-ban-circle"></i><strong>&nbspNo se ha podido encontrar
                                                              <br />
-                la ruta, intente cambiando los parámetros de busqueda...</strong>
-        </div>
-        <div id="directionsPanel" class="directions-panel">
+                    la ruta, intente cambiando los parámetros de busqueda...</strong>
+            </div>
+            <div id="directionsPanel" class="directions-panel">
+            </div>
         </div>
     </div>
 </div>

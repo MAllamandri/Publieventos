@@ -470,6 +470,7 @@
     <Content Include="Views\Group\MyGroups.Mobile.cshtml" />
     <Content Include="Views\Home\Index.Mobile.cshtml" />
     <Content Include="Views\Invitation\MyInvitations.Mobile.cshtml" />
+    <Content Include="Views\Home\SearchEventsByDistance.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
