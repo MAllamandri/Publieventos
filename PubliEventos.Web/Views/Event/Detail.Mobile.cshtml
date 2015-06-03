@@ -62,7 +62,9 @@
                 </div>
                 <div class="row" style="margin-top: 50px">
                     <div class="col-xs-12" id="commentArea">
-                        @Html.Partial("../Comment/Partial/_CommentBubble")
+                        <div class="col-xs-12">
+                            @Html.Partial("../Comment/Partial/_CommentBubble")
+                        </div>
                         <div class="col-xs-12" id="loading" style="text-align: center">
                             <img src="/Content/themes/images/loading.gif" />
                             Cargando Comentarios...

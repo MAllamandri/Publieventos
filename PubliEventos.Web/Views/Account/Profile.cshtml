@@ -11,7 +11,7 @@
     var imageProfile = !string.IsNullOrEmpty(Model.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
 }
 
-<div class="row-fluid">
+<div class="row">
     <div class="col-md-10 offset1">
         <div style="margin-bottom: 25px">
             <div class="row-fluid" style="margin-top: 30px">
@@ -23,18 +23,18 @@
                 <div class="col-md-8">
                     <div class="row-fluid">
                         <div class="col-md-6">
-                            <strong>Nombre de Usuario</strong>
+                            <strong>Nombre de Usuario</strong><br />
                             <p class="user-description">@Model.UserName</p>
                         </div>
                         <div class="col-md-6">
-                            <strong>Email</strong>
+                            <strong>Email</strong><br />
                             <p class="user-description">@Model.Email</p>
                         </div>
                     </div>
                     <br />
                     <div class="row-fluid">
                         <div class="col-md-6">
-                            <strong>Nombre</strong>
+                            <strong>Nombre</strong><br />
                             @if (!string.IsNullOrEmpty(Model.FirstName))
                             {
                                 <p class="user-description">@Model.FirstName </p>
@@ -45,14 +45,7 @@
                             }
                         </div>
                         <div class="col-md-6">
-                            <strong>Localidad</strong>
-                            <p class="user-description">@Model.Locality.Name</p>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row-fluid">
-                        <div class="col-md-6">
-                            <strong>Apellido</strong>
+                            <strong>Apellido</strong><br />
                             @if (!string.IsNullOrEmpty(Model.LastName))
                             {
                                 <p class="user-description">@Model.LastName </p>
@@ -62,11 +55,19 @@
                                 <p class="user-description">-</p>
                             }
                         </div>
+                    </div>
+                    <br />
+                    <div class="row-fluid">
                         <div class="col-md-6">
-                            <strong>Provincia</strong>
+                            <strong>Localidad</strong><br />
+                            <p class="user-description">@Model.Locality.Name</p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Provincia</strong><br />
                             <p class="user-description">@Model.Locality.Province.Name</p>
                         </div>
                     </div>
+                    <br />
                     <div class="row-fluid">
                         @if (((List<Event>)ViewBag.events).Count() > 0)
                         {

@@ -16,12 +16,12 @@
                 var imageProfile = !string.IsNullOrEmpty(user.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + user.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
             
                 <div class="col-md-11 panel-body" style="margin-top: 15px">
-                    <div class="col-md-1" style="margin-right: -15px; display: inline; height: 40px; width: 70px;">
+                    <div class="col-md-3" style="display: inline; height: 40px; width: 70px;">
                         <a href="/Account/Profile/@user.Id">
                             <img src="@imageProfile" title="@user.UserName" style="cursor:pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
                         </a>
                     </div>
-                    <div class="col-md-8" style="min-height: 40px;">
+                    <div class="col-md-8" style="text-align: center">
                         <p class="participants-user">@user.UserName</p>
                     </div>
                 </div>

@@ -743,7 +743,7 @@ img {
 
 .partipants-panel {
     text-align: center;
-    width: 350px !important;
+    max-width: 350px !important;
     height: 400px !important;
     border-radius: 15px 15px 15px 15px;
     border: 2px solid;
