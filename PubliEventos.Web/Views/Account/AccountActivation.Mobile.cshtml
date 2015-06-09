@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Publieventos - Activación de cuenta</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("/Content/Site.css")
+    @Styles.Render("/Content/Base.css")
+    <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-6">
+                <div style="margin-top: 30px">
+                    <a class="title" title="PubliEventos" href="../Account/Login">publieventos</a>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="col-xs-12" style="margin-top: 50px">
+                    @if (ViewBag.Active)
+                    {
+                            
+                        <div class="alert alert-success" role="alert">
+                            <h3><span class="glyphicon glyphicon-ok"></span>Activación de cuenta</h3>
+                            <p>Su cuenta ha sido activada con exito.</p>
+                            <p>Muchas gracias por registrarse. Disfrute de nuestro sitio.</p><br />
+                            <a class="alert-link" href="../Account/Login">Ingresar a publieventos</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <h3><span class="glyphicon glyphicon-remove-circle"></span>Activación caducada</h3>
+                            <strong>Su activación ha caducado, para re activar su cuenta ingrese con sus datos y reenvie el email de activación.</strong>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

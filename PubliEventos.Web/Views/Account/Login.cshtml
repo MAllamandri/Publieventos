@@ -14,7 +14,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
-    @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
     @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
     @Styles.Render("/Content/ladda/ladda-themeless.min.css")
     @Styles.Render("/Content/Site.css")
@@ -167,24 +166,23 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="modal fade" style="height: 290px" id="RecoverPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-toggle="modal">
-        <div class="modal-header">
-            <h4 class="title-modal" id="myModalLabel">Recuperar Contraseña</h4>
-        </div>
-        <div class="modal-body">
-            <strong>Ingrese Usuario</strong>
-            @Html.TextBox("UserNameToRecover", null, new { @class = "form-control", @style = "height: 34px" })
-            @Html.ValidationMessage("UserNameToRecover")
-            <br />
-            <small>
-                <p>Recibira un email con el códgio de verificación de su cuenta</p>
-            </small>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
-            <button type="button" id="recoverPassword" class="btn-confirm">Enviar</button>
+        <div class="modal fade" style="height: 290px" id="RecoverPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-toggle="modal">
+            <div class="modal-header">
+                <h4 class="title-modal" id="myModalLabel">Recuperar Contraseña</h4>
+            </div>
+            <div class="modal-body">
+                <strong>Ingrese Usuario</strong>
+                @Html.TextBox("UserNameToRecover", null, new { @class = "form-control", @style = "height: 34px" })
+                @Html.ValidationMessage("UserNameToRecover")
+                <br />
+                <small>
+                    <p>Recibira un email con el códgio de verificación de su cuenta</p>
+                </small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="recoverPassword" class="btn-confirm">Enviar</button>
+            </div>
         </div>
     </div>
 

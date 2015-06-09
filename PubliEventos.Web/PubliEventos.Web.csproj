@@ -472,6 +472,8 @@
     <Content Include="Views\Invitation\MyInvitations.Mobile.cshtml" />
     <Content Include="Views\Home\SearchEventsByDistance.Mobile.cshtml" />
     <Content Include="Views\Invitation\InviteToEvent.Mobile.cshtml" />
+    <Content Include="Views\Account\Login.Mobile.cshtml" />
+    <Content Include="Views\Account\AccountActivation.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
