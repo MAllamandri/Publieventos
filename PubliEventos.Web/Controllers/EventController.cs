@@ -151,6 +151,22 @@
         }
 
         /// <summary>
+        /// Vista que muestra los eventos a los que asistio el usuario.
+        /// </summary>
+        /// <returns>AssistsRecord view.</returns>
+        public ActionResult AssistsRecord()
+        {
+            ViewBag.EventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
+
+            var events = this.servicesInvitations.SearchEventsUserConfirmed(new SearchEventsUserConfirmedRequest { UserId = User.Id }).Events;
+
+            ViewBag.futureEvents = events.Any() ? events.Where(x => x.EventDate.Date >= DateTime.Now).ToList() : events;
+            ViewBag.previousEvents = events.Any() ? events.Where(x => x.EventDate.Date < DateTime.Now).ToList() : events;
+
+            return View();
+        }
+
+        /// <summary>
         /// Vista parcial de eventos.
         /// </summary>
         /// <param name="model">modelo de filtros.</param>
@@ -162,6 +178,23 @@
             model.UserId = myEvents ? User.Id : (int?)null;
 
             var events = this.serviceEvents.SearchFilteredEvents(model).Events;
+            ViewData["ViewActions"] = true;
+
+            return PartialView("Partial/_Mosaic", events);
+        }
+
+        /// <summary>
+        /// Obtiene los eventos a los que asistio el usuario.
+        /// </summary>
+        /// <param name="model">SearchEventsUserConfirmedRequest model.</param>
+        /// <returns>_Mosaic partial.</returns>
+        [HttpPost]
+        public PartialViewResult SearchEventsUserConfirmed(SearchEventsUserConfirmedRequest model)
+        {
+            model.UserId = User.Id;
+
+            var events = this.servicesInvitations.SearchEventsUserConfirmed(model).Events;
+            ViewData["ViewActions"] = false;
 
             return PartialView("Partial/_Mosaic", events);
         }
@@ -221,7 +254,7 @@
                     fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(fileToSave.FileName), DateTime.Now.ToString("ddMMyyyyhhMMssfff"), Path.GetExtension(fileToSave.FileName));
 
                     var path = Path.Combine(pathEventsPictures, Path.GetFileName(fileName));
-                    
+
                     fileToSave.SaveAs(path);
 
                     var contentType = PicturesExtensions.Contains(Path.GetExtension(fileName).ToLower()) ? (int)ContentTypes.Image : (int)ContentTypes.Movie;

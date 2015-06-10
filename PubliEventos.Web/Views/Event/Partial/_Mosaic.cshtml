@@ -27,16 +27,19 @@
                             <strong class="font-text" style="display: inline;">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</strong>
                         </p>
                     </div>
-                    <div id="#nav-action" class="span1">
-                        <nav class="verticaltabs-container">
-                            <ul>
-                                <li class="vertical-list-item"><a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a></li>
-                                <li class="vertical-list-item"><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a></li>
-                                <li class="vertical-list-item"><a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a></li>
-                                <li class="vertical-list-item"><a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a></li>
-                            </ul>
-                        </nav>
-                    </div>
+                    @if (ViewData["ViewActions"] == null || (bool)ViewData["ViewActions"] == true)
+                    {
+                        <div id="#nav-action" class="span1">
+                            <nav class="verticaltabs-container">
+                                <ul>
+                                    <li class="vertical-list-item"><a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a></li>
+                                    <li class="vertical-list-item"><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a></li>
+                                    <li class="vertical-list-item"><a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a></li>
+                                    <li class="vertical-list-item"><a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    }
                 </div>
             </div>
             <div class="row-fluid margin-bottom-normal">

@@ -1,5 +1,6 @@
 ﻿namespace PubliEventos.Services.Services
 {
+    using LinqKit;
     using NHibernate.Linq;
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.DataAccess.Querys;
@@ -86,6 +87,53 @@
             return new SearchInvitationsByEventResponse()
             {
                 Invitations = invitations
+            };
+        }
+
+        /// <summary>
+        /// Obtiene los eventos a los que el usuario confirmó su asistencia.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchEventsUserConfirmedResponse SearchEventsUserConfirmed(SearchEventsUserConfirmedRequest request)
+        {
+            var predicate = PredicateBuilder.True<Domain.Domain.Invitation>();
+            predicate = predicate.And(x => !x.NullDate.HasValue && x.Confirmed.Value && x.Event != null);
+
+            if (request.UserId.HasValue)
+            {
+                predicate = predicate.And(x => x.User.Id == request.UserId.Value);
+            }
+
+            if (request.EventTypeId.HasValue)
+            {
+                predicate = predicate.And(x => x.Event.EventType.Id == request.EventTypeId.Value);
+            }
+
+            if (request.EndDate.HasValue && request.StartDate.HasValue)
+            {
+                predicate = predicate.And(x => x.Event.EventDate.Date >= request.StartDate.Value.Date && x.Event.EventDate.Date <= request.EndDate.Value.Date);
+            }
+            else if (request.StartDate.HasValue)
+            {
+                predicate = predicate.And(x => x.Event.EventDate.Date >= request.StartDate.Value.Date);
+            }
+            else if (request.EndDate.HasValue)
+            {
+                predicate = predicate.And(x => x.Event.EventDate.Date <= request.EndDate.Value.Date);
+            }
+
+            var events = CurrentSession.Query<Domain.Domain.Invitation>()
+                            .Where(predicate)
+                            .Select(x => InternalServices.GetEventSummary(x.Event))
+                            .Take(500)
+                            .ToList();
+
+            events = events.Any() ? events.OrderByDescending(x => x.EventDate.Date).ToList() : events;
+
+            return new SearchEventsUserConfirmedResponse
+            {
+                Events = events
             };
         }
     }

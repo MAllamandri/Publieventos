@@ -1,11 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Mis Eventos";
+    ViewBag.Title = "Registro de Asistencias";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MyEvents.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/AssistsRecord.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Partial/_EventsFilter.js")
 
@@ -14,27 +13,29 @@
         <div style="margin-bottom: 25px" id="create">
             <div class="row-fluid">
                 <div class="col-md-12">
-                    <h2 class="subtitle">Mis Eventos</h2>
+                    <h2 class="subtitle">Mis Asistencias</h2>
                     <div class="row-fluid" style="padding-bottom: -5px">
                         <div class="col-md-12">
                             <ul class="subtitle-sections" style="margin-left: -53px">
-                                <li><a href="/Event/MyEvents?currentEvents=true" id="tabCurrents" title="Eventos a realizarse proximamente" class="label-lobster eventsSearch active-link">Futuros</a></li>
-                                <li><a href="/Event/MyEvents?currentEvents=false" id="tabPrevious" title="Eventos que ya se llevaron a cabo" class="label-lobster eventsSearch">Pasados</a></li>
                                 <li>
                                     <a id="filter" href="#" title="Filtros" class="label-lobster">Filtros <span class="caret"></span></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    @Html.Hidden("CurrentsEvents", (bool)@ViewBag.currentsEvents)
                     <div id="filterRegion" class="row-fluid" style="display: none">
                         <div class="col-md-12">
-                            <span class="glyphicon glyphicon-chevron-up" style="margin-left: 136px; color: #B89C83"></span>
+                            <span class="glyphicon glyphicon-chevron-up" style="color: #B89C83"></span>
                             @Html.Partial("Partial/_EventsFilter")
                         </div>
                     </div>
-                    <div  id="myEvents" class="col-md-12" style="margin-top: 20px;">
-                        @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.myEvents, new ViewDataDictionary { { "ViewActions", true } })
+                    <div id="futures" class="col-md-12">
+                        <h2 class="subtitle">Futuros</h2>
+                        @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.futureEvents, new ViewDataDictionary { { "ViewActions", false } })
+                    </div>
+                    <div id="previous" class="col-md-12">
+                        <h2 class="subtitle">Pasados</h2>
+                        @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.previousEvents, new ViewDataDictionary { { "ViewActions", false } })
                     </div>
                     <div id="regionEvents" class="col-md-12" style="margin-top: 20px;">
                     </div>

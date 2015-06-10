@@ -383,6 +383,7 @@
     <Content Include="ViewScripts\Account\EditProfile.js" />
     <Content Include="ViewScripts\Account\RecoverPassword.js" />
     <Content Include="ViewScripts\Admin\ReportContents.js" />
+    <Content Include="ViewScripts\Event\AssistsRecord.js" />
     <Content Include="ViewScripts\Event\Detail.js" />
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
@@ -474,6 +475,7 @@
     <Content Include="Views\Invitation\InviteToEvent.Mobile.cshtml" />
     <Content Include="Views\Account\Login.Mobile.cshtml" />
     <Content Include="Views\Account\AccountActivation.Mobile.cshtml" />
+    <Content Include="Views\Event\AssistsRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

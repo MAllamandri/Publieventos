@@ -117,6 +117,8 @@
     <Compile Include="Services\Invitation\CreateInvitationResponse.cs" />
     <Compile Include="Services\Invitation\ReplyInvitationRequest.cs" />
     <Compile Include="Services\Invitation\ReplyInvitationResponse.cs" />
+    <Compile Include="Services\Invitation\SearchEventsUserConfirmedRequest.cs" />
+    <Compile Include="Services\Invitation\SearchEventsUserConfirmedResponse.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByEventRequest.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByEventResponse.cs" />
     <Compile Include="Services\Invitation\SearchInvitationsByUserRequest.cs" />

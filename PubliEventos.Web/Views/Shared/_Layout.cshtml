@@ -28,14 +28,17 @@
                 <div class="row-fluid">
                     <a class="sections-title" href="/Event/Create">Nuevo Evento</a><span class="sections-title">-</span>
                     <a class="sections-title" href="/Event/MyEvents?currentEvents=true">Mis Eventos</a><span class="sections-title">-</span>
-                    <a class="sections-title" href="/Group/MyGroups">Mis Grupos</a><span class="sections-title">-</span>
-                    <a class="sections-title" href="/Invitation/MyInvitations">Invitaciones</a>
+                    <a class="sections-title" href="/Group/MyGroups">Mis Grupos</a>
 
                     @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
                     {
                         <span class="sections-title">-</span>
                         <a class="sections-title" href="/Admin/ReportContents">Administrar Reportes</a>
                     }
+                </div>
+                <div class="row-fluid">
+                    <a class="sections-title" href="/Event/AssistsRecord">Mis Asistencias</a><span class="sections-title">-</span>
+                    <a class="sections-title" href="/Invitation/MyInvitations">Invitaciones</a>
                 </div>
             }
             else

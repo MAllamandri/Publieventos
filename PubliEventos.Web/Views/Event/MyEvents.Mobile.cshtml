@@ -30,8 +30,10 @@
                     @Html.Partial("Partial/_EventsFilter")
                 </div>
             </div>
-            <div id="regionEvents" class="col-xs-12" style="margin-top: 20px;">
-                @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.myEvents)
+            <div id="myEvents" class="col-md-12" style="margin-top: 20px;">
+                @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.myEvents, new ViewDataDictionary { { "ViewActions", true } })
+            </div>
+            <div id="regionEvents" class="col-md-12" style="margin-top: 20px;">
             </div>
         </div>
     </div>

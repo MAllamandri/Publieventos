@@ -48,5 +48,15 @@
         {
             return InvitationServices.SearchInvitationsByEvent(request);
         }
+
+        /// <summary>
+        /// Obtiene los eventos a los que el usuario confirmó su asistencia.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchEventsUserConfirmedResponse SearchEventsUserConfirmed(SearchEventsUserConfirmedRequest request)
+        {
+            return InvitationServices.SearchEventsUserConfirmed(request);
+        }
     }
 }
