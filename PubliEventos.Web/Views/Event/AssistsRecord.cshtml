@@ -30,12 +30,30 @@
                         </div>
                     </div>
                     <div id="futures" class="col-md-12">
-                        <h2 class="subtitle">Futuros</h2>
-                        @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.futureEvents, new ViewDataDictionary { { "ViewActions", false } })
+                        <h2 class="subtitle">Eventos Futuros</h2>
+                        @if (((List<PubliEventos.Contract.Class.Event>)ViewBag.futureEvents).Any())
+                        {
+                            @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.futureEvents, new ViewDataDictionary { { "ViewActions", false } })
+                        }
+                        else
+                        {
+                            <div style="text-align: center">
+                                <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Eventos Disponibles</p>
+                            </div>
+                        }
                     </div>
                     <div id="previous" class="col-md-12">
-                        <h2 class="subtitle">Pasados</h2>
-                        @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.previousEvents, new ViewDataDictionary { { "ViewActions", false } })
+                        <h2 class="subtitle">Eventos Previos</h2>
+                        @if (((List<PubliEventos.Contract.Class.Event>)ViewBag.previousEvents).Any())
+                        {
+                            @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.previousEvents, new ViewDataDictionary { { "ViewActions", false } })
+                        }
+                        else
+                        {
+                            <div style="text-align: center">
+                                <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Eventos Disponibles</p>
+                            </div>
+                        }
                     </div>
                     <div id="regionEvents" class="col-md-12" style="margin-top: 20px;">
                     </div>
