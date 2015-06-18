@@ -44,7 +44,12 @@
                 this.serviceReports.ReportContent(model);
 
                 //Evaluo el elemento reportado para ver si lo debo desactivar.
-                var isDisabled = this.serviceReports.EvaluateReportsForDisabled(new EvaluateReportsForDisabledRequest() { ContentId = model.ContentId, ContentType = model.ContentType }).IsDisabled;
+                var isDisabled = this.serviceReports.EvaluateReportsForDisabled(new EvaluateReportsForDisabledRequest()
+                {
+                    ContentId = model.ContentId,
+                    ContentType = model.ContentType,
+                    EventId = model.EventId
+                }).IsDisabled;
 
                 return Json(new { Success = true, IsDisabled = isDisabled }, JsonRequestBehavior.AllowGet);
             }

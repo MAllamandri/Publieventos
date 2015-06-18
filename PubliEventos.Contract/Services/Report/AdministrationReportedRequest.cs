@@ -24,5 +24,10 @@
         /// </summary>
         [Required(ErrorMessage = "El valor es requerido")]
         public bool IsDisabled { get; set; }
+
+        /// <summary>
+        /// Identificador del evento.
+        /// </summary>
+        public int? EventId { get; set; }
     }
 }

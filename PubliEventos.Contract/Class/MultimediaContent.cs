@@ -21,5 +21,10 @@
         /// Reportes que recibio.
         /// </summary>
         public List<Report> Reports { get; set; }
+
+        /// <summary>
+        /// Identificador del evento.
+        /// </summary>
+        public int EventId { get; set; }
     }
 }

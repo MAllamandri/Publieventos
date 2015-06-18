@@ -229,6 +229,28 @@
             };
         }
 
+        /// <summary>
+        /// Elimina un contenido multimedia.
+        /// </summary>
+        /// <param name="fileName">Identificador del archivo.</param>
+        /// <param name="eventId">Identificador del evento.</param>
+        private void DeleteMultimediaContent(string fileName, int eventId, int contentType)
+        {
+            if (System.IO.File.Exists(pathEventsPictures + fileName) && contentType == (int)ContentTypes.Image)
+            {
+                //Libero y Elimino el contenido.
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                FileInfo file = new FileInfo(pathEventsPictures + fileName);
+                var stream = file.OpenRead();
+                stream.Close();
+                stream.Dispose();
+                file.Delete();
+            }
+
+            this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
+        }
+
         #endregion
 
         #region Json Methods
@@ -257,29 +279,48 @@
 
                     fileToSave.SaveAs(path);
 
-                    var contentType = PicturesExtensions.Contains(Path.GetExtension(fileName).ToLower()) ? (int)ContentTypes.Image : (int)ContentTypes.Movie;
-
                     // Doy de alta el contenido al evento.
-                    this.serviceEvents.CreateMultimediaContent(new CreateMultimediaContentRequest() { EventId = eventId, FileName = fileName, ContentType = contentType });
+                    this.serviceEvents.CreateMultimediaContent(new CreateMultimediaContentRequest()
+                    {
+                        EventId = eventId,
+                        FileName = fileName,
+                        ContentType = (int)ContentTypes.Image
+                    });
                 }
             }
             catch (Exception e)
             {
                 isSavedSuccessfully = false;
 
-                //Libero y Elimino el contenido.
-                if (System.IO.File.Exists(pathEventsPictures + fileName))
-                {
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    FileInfo file = new FileInfo(pathEventsPictures + fileName);
-                    file.Delete();
-                }
-
-                this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
+                this.DeleteMultimediaContent(fileName, eventId, (int)ContentTypes.Image);
             }
 
             return Json(new { Success = isSavedSuccessfully, FileName = fileName }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Sube un video.
+        /// </summary>
+        /// <param name="eventId">Identificador del evento.</param>
+        /// <param name="fileName">Identificador del video.</param>
+        /// <returns>True si subio correctamente, false caso contrario.</returns>
+        [HttpPost]
+        public JsonResult UploadMovies(int eventId, string fileName)
+        {
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                // Doy de alta el contenido al evento.
+                this.serviceEvents.CreateMultimediaContent(new CreateMultimediaContentRequest()
+                {
+                    EventId = eventId,
+                    FileName = fileName,
+                    ContentType = (int)ContentTypes.Movie
+                });
+
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -287,27 +328,13 @@
         /// </summary>
         /// <param name="fileName">Nombre del archivo (único).</param>
         /// <returns></returns>
-        public JsonResult DeleteContent(string fileName, int eventId)
+        public JsonResult DeleteContent(string fileName, int eventId, int contentType)
         {
             try
             {
-                if (System.IO.File.Exists(pathEventsPictures + fileName))
-                {
-                    //Libero y Elimino el contenido.
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    FileInfo file = new FileInfo(pathEventsPictures + fileName);
-                    var stream = file.OpenRead();
-                    stream.Close();
-                    stream.Dispose();
-                    file.Delete();
+                this.DeleteMultimediaContent(fileName, eventId, contentType);
 
-                    this.serviceEvents.DeleteMultimediaContent(new DeleteMultimediaContentRequest() { EventId = eventId, FileName = fileName });
-
-                    return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
-                }
-
-                return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -400,6 +427,25 @@
             {
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// Valida si el contenido ya existe para un evento en particular.
+        /// </summary>
+        /// <param name="eventId">Identificador del evento.</param>
+        /// <param name="fileName">Identificador del archivo.</param>
+        /// <param name="contentType">Tipo de contenido.</param>
+        /// <returns>True si existe, false caso contrario.</returns>
+        public JsonResult ValidateExistsContent(int eventId, string fileName, int contentType)
+        {
+            var exists = this.serviceEvents.ValidateExistsContent(new ValidateExistsContentRequest
+            {
+                EventId = eventId,
+                FileName = fileName,
+                ContentType = contentType
+            }).Exists;
+
+            return Json(new { Exists = exists }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

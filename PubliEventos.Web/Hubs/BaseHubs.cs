@@ -123,9 +123,9 @@
         /// </summary>
         /// <param name="contentId">Identificador del contenido.</param>
         /// <param name="contentType">Tipo de contenido.</param>
-        public void DeleteContent(string contentId, int contentType)
+        public void DeleteContent(string contentId, int contentType, int eventId)
         {
-            Clients.All.DeleteContent(contentId, contentType);
+            Clients.All.DeleteContent(contentId, contentType, eventId);
         }
     }
 

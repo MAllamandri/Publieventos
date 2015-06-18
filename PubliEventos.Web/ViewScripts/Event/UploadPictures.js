@@ -1,4 +1,11 @@
-﻿$(function () {
+﻿var contentTypes = {
+    Picture: 1,
+    Movie: 2
+}
+
+$(function () {
+    viewModel = new myViewModel();
+
     var previewTemplate = $.trim($('#dz-preview-template').hide().html());
 
     options = {
@@ -8,7 +15,7 @@
         clickable: true,
         previewTemplate: previewTemplate,
         thumbnailWIdth: 100,
-        acceptedFiles: '.png, .jpg, .gif, .jpeg, .mp4, .webm'
+        acceptedFiles: '.png, .jpg, .gif, .jpeg'
     }
 
     var dropzone = new Dropzone('.dropfiles', options);
@@ -54,7 +61,8 @@
                 url: '/Event/DeleteContent',
                 data: {
                     fileName: file.Id,
-                    eventId: $('#EventId').val()
+                    eventId: $('#EventId').val(),
+                    contentType: contentTypes.Picture
                 }
             }).done(function (data) {
                 if (data.Success) {
@@ -83,4 +91,124 @@
         $('#detailRegion').show();
         $('#processErrors').text(parseInt($('#processErrors').text()) + 1);
     });
+
+    $('#addMovie').click(function () {
+        $('#movieModal').modal('show');
+    });
+
+    ko.applyBindings(viewModel);
 });
+
+function myViewModel() {
+    self = this;
+
+    self.Movies = ko.observableArray();
+    self.CurrentMovie = ko.observable();
+
+    self.viewMovie = ko.computed(function () {
+        if (self.CurrentMovie() != null && self.CurrentMovie().length > 0 && Valid(self.CurrentMovie())) {
+            var regex = /(\?v=|\&v=|\/\d\/|\/embed\/|\/v\/|\.be\/)([a-zA-Z0-9\-\_]+)/;
+            var youtubeurl = self.CurrentMovie();
+            var regexyoutubeurl = youtubeurl.match(regex);
+            if (regexyoutubeurl) {
+                var url = 'http://www.youtube.com/embed/' + regexyoutubeurl[2];
+                self.CurrentMovie(url);
+
+                return true;
+            }
+        }
+
+        return false;
+    });
+
+    self.AddMovie = function () {
+        var guid = Valid(self.CurrentMovie())
+        $('[name="currentMovie"]').hideMessageError();
+
+        if (guid) {
+            $.blockUI({ message: "<div style='font-size: 16px; padding-top: 11px;'><p>Subiendo...</p><div>" });
+
+            if (!ExistsContent(guid, contentTypes.Movie)) {
+                $('#movieModal').modal('hide');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Event/UploadMovies',
+                    data: {
+                        fileName: guid,
+                        eventId: $('#EventId').val()
+                    }
+                }).done(function (data) {
+                    if (data.Success) {
+                        self.Movies.push(new Movies(guid));
+
+                        self.CurrentMovie('');
+                    } else {
+                        alert("Ha ocurrido un error al subir el video");
+                    }
+
+                    $.unblockUI();
+                });
+            } else {
+                $('[name="currentMovie"]').showMessageError("Ya ha subido este video a su evento");
+                $.unblockUI();
+            }
+        } else {
+            $('[name="currentMovie"]').showMessageError("Dirección incorrecta");
+        }
+    }
+}
+
+function Movies(movie) {
+    var self = this;
+
+    self.FileName = "http://img.youtube.com/vi/" + movie + "/1.jpg";
+
+    self.Remove = function () {
+        $.ajax({
+            url: '/Event/DeleteContent',
+            data: {
+                fileName: movie,
+                eventId: $('#EventId').val(),
+                contentType: contentTypes.Movie
+            }
+        }).done(function (data) {
+            if (data.Success) {
+                viewModel.Movies.remove(self);
+            } else {
+                alert("Ha ocurrido un error al eliminar el video");
+            }
+        }).error(function () {
+            alert("Ha ocurrido un error al eliminar el video");
+        });
+    }
+}
+
+function Valid(url) {
+    if (url != null && url.length > 0) {
+        var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        return (url.match(p)) ? RegExp.$1 : false;
+    }
+
+    return false;
+}
+
+function ExistsContent(guid, type) {
+    var exists = false;
+
+    $.ajax({
+        url: '/Event/ValidateExistsContent',
+        async: false,
+        data: {
+            eventId: $('#EventId').val(),
+            fileName: guid,
+            contentType: type
+        }
+    }).done(function (data) {
+        if (data.Exists) {
+            exists = true;
+        }
+    });
+
+    return exists;
+}

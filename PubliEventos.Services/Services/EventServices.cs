@@ -232,7 +232,10 @@
 
                 if (_event.MultimediaContents.Where(x => x.Name == request.FileName && !x.NullDate.HasValue).Any())
                 {
-                    _event.MultimediaContents.Where(x => x.Name == request.FileName && !x.NullDate.HasValue).Single().NullDate = DateTime.Now;
+                    foreach (var content in _event.MultimediaContents.Where(x => x.Name == request.FileName && !x.NullDate.HasValue))
+                    {
+                        content.NullDate = DateTime.Now;
+                    }
                 }
 
                 transaction.Complete();
@@ -263,6 +266,30 @@
             return new SearchEventsByDistanceResponse()
             {
                 Events = events
+            };
+        }
+
+        /// <summary>
+        /// Indica si el contenido ya existe.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public static ValidateExistsContentResponse ValidateExistsContent(ValidateExistsContentRequest request)
+        {
+            var _event = CurrentSession.Get<Domain.Domain.Event>(request.EventId);
+
+            var exists = false;
+
+            if (_event.MultimediaContents.Any() && _event.MultimediaContents.Where(x => x.Name == request.FileName &&
+                                                                                        x.ContentType == request.ContentType &&
+                                                                                        !x.NullDate.HasValue).Any())
+            {
+                exists = true;
+            }
+
+            return new ValidateExistsContentResponse
+            {
+                Exists = exists
             };
         }
     }

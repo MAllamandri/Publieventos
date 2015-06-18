@@ -145,8 +145,8 @@ $(function () {
         viewModel.EditCommentInModel(commentId, detail);
     };
 
-    chat.client.DeleteContent = function (id, contentType) {
-        viewModel.RemoveContent(id, contentType);
+    chat.client.DeleteContent = function (id, contentType, eventId) {
+        viewModel.RemoveContent(id, contentType, eventId);
     }
 
     $.connection.hub.start().done(function (data) {
@@ -191,7 +191,8 @@ function myViewModel() {
             data: {
                 ContentId: id,
                 ContentType: contentType,
-                Reason: $('#reasonReport').val()
+                Reason: $('#reasonReport').val(),
+                EventId: $('#EventId').val()
             }
         }).done(function (data) {
             if (data.Success) {
@@ -208,7 +209,7 @@ function myViewModel() {
                                         window.location.href = "/";
                                         $.blockUI({ message: "" });
                                     } else if (contentType == contents.Image || contentType == contents.Movie) {
-                                        chat.server.deleteContent(id, contentType);
+                                        chat.server.deleteContent(id, contentType, $('#EventId').val());
                                         $.unblockUI();
                                     } else if (contentType == contents.Comment) {
                                         chat.server.deleteComment(id);
@@ -260,7 +261,7 @@ function myViewModel() {
         });
     }
 
-    self.RemoveContent = function (id, contentType) {
+    self.RemoveContent = function (id, contentType, eventId) {
         var element;
 
         if (contentType == contents.Image) {
@@ -285,7 +286,7 @@ function myViewModel() {
             }
         } else if (contentType == contents.Movie) {
             var element = ko.utils.arrayFirst(self.MyMovies(), function (movie) {
-                return movie.FileName == id;
+                return movie.FileName == id && movie.EventId == eventId;
             });
 
             if (element != null) {
@@ -402,8 +403,9 @@ function myViewModel() {
 function contentModel(content) {
     var self = this;
 
+    self.EventId = $('#EventId').val();
     self.FileName = content.FileName;
-    self.Path = "/Content/images/EventsPictures/" + content.FileName
+    self.Path = content.ContentType == contents.Image ? "/Content/images/EventsPictures/" + content.FileName : 'http://www.youtube.com/embed/' + content.FileName;
     self.IsReported = ko.observable(content.IsReportedByUser);
     self.Active = ko.observable("item");
 
@@ -437,12 +439,13 @@ function contentModel(content) {
                         url: "/Event/DeleteContent",
                         data: {
                             eventId: $('#EventId').val(),
-                            fileName: content.FileName
+                            fileName: content.FileName,
+                            contentType: content.ContentType
                         }
                     }).done(function (data) {
                         if (data.Success) {
                             //Elimino la foto de la lista.
-                            chat.server.deleteContent(content.FileName, content.ContentType);
+                            chat.server.deleteContent(content.FileName, content.ContentType, self.EventId);
                         } else {
                             bootbox.dialog({
                                 title: "<h4 class='title-modal'>Contenidos</h4>",

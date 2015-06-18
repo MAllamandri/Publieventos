@@ -38,7 +38,7 @@
 
                 if (request.ContentType == (int)ContentTypes.Image || request.ContentType == (int)ContentTypes.Movie)
                 {
-                    report.MultimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name.Equals(request.ContentId)).Single();
+                    report.MultimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name.Equals(request.ContentId) && !x.NullDate.HasValue && x.Event.Id == request.EventId).Single();
                 }
 
                 new BaseQuery<Domain.Domain.Report, int>().Create(report);
@@ -92,7 +92,7 @@
 
                 if (request.ContentType == (int)ContentTypes.Image || request.ContentType == (int)ContentTypes.Movie)
                 {
-                    var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name.Equals(request.ContentId)).Single();
+                    var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name.Equals(request.ContentId) && !x.NullDate.HasValue && x.Event.Id == request.EventId).Single();
 
                     reportsQuantity = CurrentSession.Query<Domain.Domain.Report>().Where(x => x.MultimediaContent.Id == multimediaContent.Id && !x.IsReported.HasValue && !x.NullDate.HasValue).Count();
 
@@ -202,7 +202,7 @@
 
                 if (request.ContentType == (int)ContentTypes.Image || request.ContentType == (int)ContentTypes.Movie)
                 {
-                    var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name == request.ContentId).Single();
+                    var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name == request.ContentId && x.Event.Id == request.EventId).Single();
 
                     multimediaContent.Active = request.IsDisabled ? false : true;
 
@@ -346,7 +346,7 @@
                 //Envío el mail notificando al usuario que fue desactivado.
                 var subject = "Publieventos - Usuario desactivado";
                 var body = string.Format("Estimado/a {0}:" +
-                    "<br/><br/>Lamentamos comunicarle que su usuario <strong>{1}</strong> ha sido desactivado debido a que sus acciones o contenidos en el sitio no fueron los correctos." +
+                    "<br/><br/>Lamentamos comunicarle que su usuario <strong>{1}</strong> ha sido desactivado debido a que sus acciones o contenidos en el sitio no fueron los adecuados." +
                     "<br/><br/>Saludos cordiales." +
                     "<br/>Equipo de administración de Publieventos", user.FirstName, user.UserName);
 
@@ -365,7 +365,7 @@
                 //Envío el mail notificando al usuario que fue desactivado.
                 var subject = "Publieventos - Usuario deshabilitado temporalmente";
                 var body = string.Format("Estimado/a {0}:" +
-                    "<br/><br/>Lamentamos comunicarle que su usuario <strong>{1}</strong> ha sido desactivado por un período de 3 meses debido a que sus acciones o contenidos en el sitio no fueron los correctos." +
+                    "<br/><br/>Lamentamos comunicarle que su usuario <strong>{1}</strong> ha sido desactivado por un período de 3 meses debido a que sus acciones o contenidos en el sitio no fueron los adecuados." +
                     "<br/><br/>Nos vemos pronto. Saludos cordiales." +
                     "<br/>Equipo de administración de Publieventos", user.FirstName, user.UserName);
 

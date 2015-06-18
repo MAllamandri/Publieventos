@@ -14,11 +14,9 @@
                         <li data-bind="visible: !IsReported(), click: ShowReportModal"><a title="Reportar" href="#"><i class="icon-contents icon-ban-circle"></i></a></li>
                     </ul>
                 </nav>
-                <video class="movies" style="width: 750px !important; max-height: 500px !important;" controls poster="">
-                    <source data-bind="attr: { src: Path }" type="video/mp4">
-                    <source data-bind="attr: { src: Path }" type="video/webm">
-                    Su navegador no soporta este contenido.
-                </video>
+                <div class="movies" style="text-align: center">
+                    <iframe width="750" height="500" data-bind="attr: { src: Path }" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
             </div>
         </div>
         <!-- Controls -->
@@ -37,3 +35,4 @@
         <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Videos Disponibles</p>
     </div>
 </div>
+

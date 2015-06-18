@@ -14,5 +14,10 @@
         /// Tipo de contenido.
         /// </summary>
         public int ContentType { get; set; }
+
+        /// <summary>
+        /// Evento al que pertence el contenido.
+        /// </summary>
+        public int EventId { get; set; }
     }
 }

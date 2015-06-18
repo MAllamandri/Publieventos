@@ -67,5 +67,12 @@
         /// <param name="request">Parámetros de entrada.</param>
         /// <returns>Lista de eventos filtrados.</returns>
         SearchEventsByDistanceResponse SearchEventsByDistance(SearchEventsByDistanceRequest request);
+
+        /// <summary>
+        /// Indica si el contenido ya existe.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        ValidateExistsContentResponse ValidateExistsContent(ValidateExistsContentRequest request);
     }
 }

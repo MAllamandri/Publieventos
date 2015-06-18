@@ -1,11 +1,9 @@
 ﻿<div data-bind="foreach: Movies">
     <div>
         <div class="col-md-8" style="padding-bottom: 60px; text-align: center;">
-            <video class="movies-reported" controls poster="">
-                <source data-bind="attr: { src: Path }" type="video/mp4">
-                <source data-bind="attr: { src: Path }" type="video/webm">
-                Su navegador no soporta este contenido.
-            </video>
+            <div class="movies-reported" style="text-align: center">
+                <iframe width="750" height="500" data-bind="attr: { src: Path }" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
         </div>
         <div class="col-md-4" style="display: inline">
             <a href="#" style="float: right" data-bind="click: DisabledMultimediaContent">Desactivar Video</a>

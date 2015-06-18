@@ -5,11 +5,9 @@
                 <div data-bind="visible: IsReported()" style="position: absolute; color: #f00">
                     <strong style="font-size: 11px !important">Has Reportado este video</strong>
                 </div>
-                <video class="movies" style="width: 100%" controls poster="">
-                    <source data-bind="attr: { src: Path }" type="video/mp4">
-                    <source data-bind="attr: { src: Path }" type="video/webm">
-                    Su navegador no soporta este contenido.
-                </video>
+                <div class="movies" style="text-align: center">
+                    <iframe style="width: 100%" data-bind="attr: { src: Path }" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
             </div>
         </div>
         <!-- Controls -->

@@ -106,6 +106,7 @@
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
 
             return RedirectToAction("Index", "Home");
         }

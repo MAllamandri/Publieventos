@@ -80,6 +80,7 @@ function myViewModel() {
     self.ActiveContent = ko.observable();
     self.ContentId = ko.observable();
     self.ContentType = ko.observable();
+    self.EventId = ko.observable();
 
     self.DisabledContent = function () {
         bootbox.confirm({
@@ -104,12 +105,13 @@ function myViewModel() {
                         data: {
                             ContentId: self.ContentId(),
                             ContentType: self.ContentType(),
-                            IsDisabled: true
+                            IsDisabled: true,
+                            EventId: self.EventId()
                         }
                     }).done(function (data) {
                         if (data.Success) {
                             // Quito el contenido del modelo.
-                            viewModel.RemoveContent(self.ContentId(), self.ContentType());
+                            viewModel.RemoveContent(self.ContentId(), self.ContentType(), self.EventId());
                         }
                         $.unblockUI();
                     }).error(function () {
@@ -144,12 +146,13 @@ function myViewModel() {
                         data: {
                             ContentId: self.ContentId(),
                             ContentType: self.ContentType(),
-                            IsDisabled: false
+                            IsDisabled: false,
+                            EventId: self.EventId()
                         }
                     }).done(function (data) {
                         if (data.Success) {
                             // Quito el contenido del modelo.
-                            viewModel.RemoveContent(self.ContentId(), self.ContentType());
+                            viewModel.RemoveContent(self.ContentId(), self.ContentType(), self.EventId());
                         }
                         $.unblockUI();
                     }).error(function () {
@@ -161,7 +164,7 @@ function myViewModel() {
         });
     }
 
-    self.RemoveContent = function (contentId, contentType) {
+    self.RemoveContent = function (contentId, contentType, eventId) {
         if (contentType == contents.Image) {
             var element = ko.utils.arrayFirst(self.Pictures(), function (picture) {
                 return picture.FileName == contentId;
@@ -174,7 +177,7 @@ function myViewModel() {
 
         if (contentType == contents.Movie) {
             var element = ko.utils.arrayFirst(self.Movies(), function (movie) {
-                return movie.FileName == contentId;
+                return movie.FileName == contentId && movie.EventId == eventId;
             });
 
             if (element != null) {
@@ -207,19 +210,22 @@ function myViewModel() {
 function ContentModel(content) {
     var self = this;
 
+    self.EventId = content.EventId;
     self.FileName = content.FileName;
-    self.Path = "/Content/images/EventsPictures/" + content.FileName;
+    self.Path = content.ContentType == contents.Image ? "/Content/images/EventsPictures/" + content.FileName : 'http://www.youtube.com/embed/' + content.FileName;
     self.ContentType = content.ContentType;
 
     self.DisabledMultimediaContent = function () {
         viewModel.ContentId(content.FileName);
         viewModel.ContentType(content.ContentType);
+        viewModel.EventId(content.EventId);
         viewModel.DisabledContent();
     }
 
     self.IgnoreReportedMultimediaContent = function () {
         viewModel.ContentId(content.FileName);
         viewModel.ContentType(content.ContentType);
+        viewModel.EventId(content.EventId);
         viewModel.IgnoreReportedContent();
     }
 }

@@ -29,5 +29,10 @@
         /// Motivo del reporte.
         /// </summary>
         public string Reason { get; set; }
+
+        /// <summary>
+        /// Identificador del evento.
+        /// </summary>
+        public int EventId { get; set; }
     }
 }

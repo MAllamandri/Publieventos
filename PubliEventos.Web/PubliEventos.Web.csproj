@@ -220,6 +220,8 @@
     <Content Include="Content\themes\images\twitter.png" />
     <Content Include="Content\themes\images\user-icon-small.gif" />
     <Content Include="Content\themes\images\user-icon.gif" />
+    <Content Include="Content\themes\images\YouTube-icon.png" />
+    <Content Include="Content\themes\images\youtube.jpg" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />
     <Content Include="Scripts\dropzone\dropzone-amd-module.js" />

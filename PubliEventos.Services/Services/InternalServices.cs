@@ -177,6 +177,7 @@
         {
             return new MultimediaContent()
             {
+                EventId = content.Event.Id,
                 FileName = content.Name,
                 Reports = content.Reports.Any() ? content.Reports.Select(x => GetReportSummary(x)).ToList() : null,
                 ContentType = content.ContentType
