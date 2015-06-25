@@ -29,15 +29,14 @@
                     @foreach (var invitation in (List<Invitation>)ViewBag.invitations)
                     {
                         var userAdministrator = invitation.Event != null ? invitation.Event.User : invitation.Group.Administrator;
-                        var imageProfile = !string.IsNullOrEmpty(userAdministrator.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + userAdministrator.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
                             
                         <div class="col-xs-12 mosaic-invitation" style="margin-bottom: 140px; height: 180px;">
                             <div class="col-md-12 mosaic" style="min-height: 170px; margin-top: 30px;">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div class="col-xs-12" style="text-align:center; margin-top: 10px;">
+                                        <div class="col-xs-12" style="text-align: center; margin-top: 10px;">
                                             <a href="/Account/Profile/@userAdministrator.Id">
-                                                <img src="@imageProfile" title="@userAdministrator.UserName" alt="Perfil del usuario" class="profile-invitation img-circle right" data-src="holder.js/70x70"></a>
+                                                <img src="@userAdministrator.ImageProfile" title="@userAdministrator.UserName" alt="Perfil del usuario" class="profile-invitation img-circle right" data-src="holder.js/70x70"></a>
                                         </div>
                                         <div class="col-xs-12" style="margin-top: 30px">
                                             <a href="/Account/Profile/@userAdministrator.Id">

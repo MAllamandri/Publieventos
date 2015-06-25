@@ -115,6 +115,8 @@
     <Compile Include="Services\Group\LeaveGroupResponse.cs" />
     <Compile Include="Services\Group\SearchGroupsByPartialNameRequest.cs" />
     <Compile Include="Services\Group\SearchGroupsByPartialNameResponse.cs" />
+    <Compile Include="Services\Invitation\AttendEventRequest.cs" />
+    <Compile Include="Services\Invitation\AttendEventResponse.cs" />
     <Compile Include="Services\Invitation\CreateInvitationRequest.cs" />
     <Compile Include="Services\Invitation\CreateInvitationResponse.cs" />
     <Compile Include="Services\Invitation\ReplyInvitationRequest.cs" />

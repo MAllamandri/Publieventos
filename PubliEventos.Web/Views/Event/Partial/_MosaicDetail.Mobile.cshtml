@@ -3,7 +3,6 @@
 @using PubliEventos.Web.Helpers
 
 @{
-    var imageProfile = !string.IsNullOrEmpty(Model.User.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + Model.User.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
     var coverImage = !string.IsNullOrEmpty(Model.FileName) ? System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName : "/Content/images/Profiles/contact-default-image.jpg";
     var urlEvent = string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, Model.Id);
     var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, coverImage);
@@ -37,7 +36,7 @@
                 </div>
                 <div class="col-xs-4">
                     <a href="/Account/Profile/@Model.User.Id" style="display: inline; margin-right: 15px;">
-                        <img src="@imageProfile" title="@Model.User.UserName" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
+                        <img src="@Model.User.ImageProfile" title="@Model.User.UserName" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
                     </a>
                     <p style="display: inline" class="participants-user">@Model.User.UserName</p>
                 </div>

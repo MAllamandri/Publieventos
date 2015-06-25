@@ -1,4 +1,20 @@
-﻿$(function () {
+﻿var viewModel = {};
+
+$(function () {
+    viewModel = new myViewModel();
+
+    if (participants != null) {
+        $.each(participants, function (index, user) {
+            viewModel.Participants.push(new InvitationModel(user));
+        });
+    }
+
+    if (standby != null) {
+        $.each(standby, function (index, user) {
+            viewModel.Standby.push(new InvitationModel(user));
+        });
+    }
+
     $('.nano').nanoScroller({
         flash: true
     });
@@ -43,4 +59,26 @@
             }
         });
     });
+
+
+    ko.applyBindings(viewModel);
 });
+
+function myViewModel() {
+    self = this;
+
+    self.Participants = ko.observableArray();
+    self.Standby = ko.observableArray();
+}
+
+function InvitationModel(user) {
+    var self = this;
+
+    self.UserId = user.Id;
+    self.UserName = user.UserName;
+    self.ImageProfile = user.ImageProfile;
+
+    self.Profile = function () {
+        window.location.href = "/Account/Profile/" + self.UserId;
+    }
+}

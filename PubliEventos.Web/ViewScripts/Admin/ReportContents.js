@@ -241,7 +241,7 @@ function EventModel(event) {
     self.Detail = event.Detail;
     self.PicturePath = "/Content/images/Covers/" + event.FileName;
     self.UserName = event.User.UserName;
-    self.ImageProfile = "/Content/images/Profiles/" + event.User.ImageProfile;
+    self.ImageProfile = event.User.ImageProfile;
 
     self.UserProfile = function () {
         window.location.href = "/Account/Profile/" + event.User.Id;
@@ -265,14 +265,12 @@ function CommentModel(comment) {
 
     self.CommentId = comment.Id;
     self.Detail = comment.Detail;
-    self.ImageProfile = comment.User.ImageProfile != null && comment.User.ImageProfile != "" ?
-                        "/Content/images/Profiles/" + comment.User.ImageProfile :
-                        "/Content/images/Profiles/contact-default-image.jpg";
+    self.ImageProfile = comment.User.ImageProfile;
     self.UserName = comment.User.UserName;
     self.CreatedBy = "Realizado por " + self.UserName;
 
     self.UserProfile = function () {
-        window.location.href = "/Account/Profile/" + event.User.Id;
+        window.location.href = "/Account/Profile/" + comment.User.Id;
     }
 
     self.DisabledComment = function () {

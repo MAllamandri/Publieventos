@@ -7,6 +7,7 @@
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.Mvc.Filters;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -88,31 +89,27 @@
                 var _event = this.serviceEvents.GetEventById(eventId);
 
                 // Busco las invitaciones del evento para verificar de que el usuario no tenga una invitación activa.
-                var invitations = this.servicesInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = _event.Id.Value }).Invitations;
-
-                #region Users
-
-                var users = !string.IsNullOrEmpty(usersIds) ? usersIds.Split(',') : new string[0];
-
-                if (users != null && users.Count() > 0)
+                var invitations = this.servicesInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest()
                 {
-                    //Mando las invitaciones.
-                    foreach (var user in users)
+                    EventId = _event.Id.Value
+                }).Invitations;
+
+                var ids = new List<int>();
+
+                if (!string.IsNullOrEmpty(usersIds))
+                {
+                    var usersToInvite = usersIds.Split(',');
+
+                    foreach (var id in usersToInvite)
                     {
-                        if (_event.User.Id != Convert.ToInt32(user) && (invitations.Where(x => x.User.Id == Convert.ToInt32(user) && x.Confirmed.HasValue && !x.Confirmed.Value).Any() || !invitations.Select(x => x.User.Id).Contains(Convert.ToInt32(user))))
+                        var lastInvitation = invitations.Where(y => y.User.Id == Convert.ToInt32(id)).OrderByDescending(y => y.EffectDate).FirstOrDefault();
+
+                        if (Convert.ToInt32(id) != _event.User.Id && (lastInvitation == null || lastInvitation.Confirmed.HasValue && !lastInvitation.Confirmed.Value))
                         {
-                            this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
-                            {
-                                EventId = _event.Id,
-                                UserId = Convert.ToInt32(user)
-                            });
+                            ids.Add(Convert.ToInt32(id));
                         }
                     }
                 }
-
-                #endregion
-
-                #region Groups
 
                 if (!string.IsNullOrEmpty(groupsIds))
                 {
@@ -121,22 +118,27 @@
                     {
                         var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = Convert.ToInt32(groupId) }).Group;
 
-                        foreach (var userId in group.UsersGroup.Select(x => x.UserId))
+                        foreach (var id in group.UsersGroup.Select(x => x.UserId))
                         {
-                            // Si ya se le mando la invitación, o es el administrador o tiene una invitación al evento pendiente, no le envio.
-                            if (!users.Contains(userId.ToString()) && _event.User.Id != Convert.ToInt32(userId) && (invitations.Where(x => x.User.Id == userId && x.Confirmed.HasValue && !x.Confirmed.Value).Any() || !invitations.Select(x => x.User.Id).Contains(userId)))
+                            var lastInvitation = invitations.Where(y => y.User.Id == id).OrderByDescending(y => y.EffectDate).FirstOrDefault();
+
+                            if (!ids.Contains(id) && _event.User.Id != id &&
+                                (lastInvitation == null || lastInvitation.Confirmed.HasValue && !lastInvitation.Confirmed.Value))
                             {
-                                this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
-                                {
-                                    EventId = _event.Id,
-                                    UserId = Convert.ToInt32(userId)
-                                });
+                                ids.Add(id);
                             }
                         }
                     }
                 }
 
-                #endregion
+                if (ids.Any())
+                {
+                    this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
+                    {
+                        EventId = eventId,
+                        UserIds = ids
+                    });
+                }
 
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -162,6 +164,19 @@
             {
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// Marca asistencia del usuario logueado al evento.
+        /// </summary>
+        /// <param name="eventId">Identificador del evento.</param>
+        /// <returns>True.</returns>
+        [HttpPost]
+        public JsonResult AttendEvent(int eventId)
+        {
+            this.servicesInvitations.AttendEvent(new AttendEventRequest { EventId = eventId, UserId = User.Id });
+
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

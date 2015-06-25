@@ -6,7 +6,7 @@
     using System.Net;
     using System.Net.Mail;
 
-    public class InternalServices
+    public class InternalServices : BaseService
     {
         /// <summary>
         /// Parsea un evento de dominio a un evento de contrato.
@@ -80,7 +80,7 @@
                 Email = user.Email,
                 FirstName = user.FirstName,
                 Id = user.Id,
-                ImageProfile = user.ImageProfile,
+                ImageProfile = !string.IsNullOrEmpty(user.ImageProfile) ? PathProfiles + user.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg",
                 LastName = user.LastName,
                 NullDate = user.NullDate,
                 Password = user.Password,
@@ -148,7 +148,8 @@
                 Confirmed = invitation.Confirmed,
                 Event = invitation.Event != null ? this.GetEventSummary(invitation.Event) : null,
                 Group = invitation.Group != null ? this.GetGroupSummary(invitation.Group) : null,
-                User = this.GetUserSummary(invitation.User)
+                User = this.GetUserSummary(invitation.User),
+                EffectDate = invitation.EffectDate
             };
         }
 

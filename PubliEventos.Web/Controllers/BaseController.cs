@@ -22,7 +22,7 @@
         /// </summary>
         public string pathImageProfile
         {
-            get { return HttpContext.Server.MapPath("/Content/images/Profiles/"); }
+            get { return "/Content/images/Profiles/"; }
         }
 
         /// <summary>

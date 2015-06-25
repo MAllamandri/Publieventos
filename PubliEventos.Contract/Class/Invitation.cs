@@ -1,5 +1,7 @@
 ﻿namespace PubliEventos.Contract.Class
 {
+    using System;
+
     /// <summary>
     /// Representa una invitación.
     /// </summary>
@@ -24,5 +26,10 @@
         /// Indica si esta confirmado o no.
         /// </summary>
         public bool? Confirmed { get; set; }
+
+        /// <summary>
+        /// Fecha de alta.
+        /// </summary>
+        public DateTime EffectDate { get; set; }
     }
 }

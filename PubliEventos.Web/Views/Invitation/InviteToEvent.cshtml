@@ -17,6 +17,10 @@
 
 @using PubliEventos.Contract.Class
 
+<script type="text/javascript">
+    var participants = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.participants));
+    var standby = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.standby));
+</script>
 
 <div class="row-fluid">
     <div class="col-md-10 offset1">
@@ -33,10 +37,10 @@
         <div class="row" style="margin-bottom: 15px">
             <div class="offset1" style="margin-right: -50px">
                 <div class="col-md-6">
-                    @Html.Partial("Partial/_PendingConfirmation", (List<User>)ViewBag.standby)
+                    @Html.Partial("Partial/_PendingConfirmation")
                 </div>
                 <div class="col-md-6">
-                    @Html.Partial("Partial/_Participants", (List<User>)ViewBag.participants)
+                    @Html.Partial("Partial/_Participants")
                 </div>
             </div>
         </div>

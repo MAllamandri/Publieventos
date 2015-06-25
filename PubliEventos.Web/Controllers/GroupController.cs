@@ -113,18 +113,15 @@
             {
                 var response = this.serviceGroups.CreateGroup(model);
 
+                var userIds = model.UserIds.Split(',');
+                var ids = userIds.Where(x => Convert.ToInt32(x) != model.AdministratorId).Select(x => Convert.ToInt32(x)).ToList();
+
                 //Mando las invitaciones.
-                foreach (var user in model.UserIds.Split(','))
+                this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
                 {
-                    if (model.AdministratorId != Convert.ToInt32(user))
-                    {
-                        this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
-                        {
-                            GroupId = response.GroupId,
-                            UserId = Convert.ToInt32(user)
-                        });
-                    }
-                }
+                    GroupId = response.GroupId,
+                    UserIds = ids
+                });
 
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
@@ -147,17 +144,20 @@
 
                 this.serviceGroups.EditGroup(model);
 
-                //Mando las invitaciones a los nuevos usuarios.
-                foreach (var user in model.UserIds.Split(','))
+                var userIds = model.UserIds.Split(',');
+
+                var ids = userIds.Where(x => Convert.ToInt32(x) != model.AdministratorId &&
+                                            !group.Users.Where(y => y.Id == Convert.ToInt32(x)).Any())
+                                .Select(x => Convert.ToInt32(x)).ToList();
+
+                if (ids.Any())
                 {
-                    if (model.AdministratorId != Convert.ToInt32(user) && !group.Users.Select(x => x.Id).ToArray().Contains(Convert.ToInt32(user)))
+                    //Mando las invitaciones a los nuevos usuarios.
+                    this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
                     {
-                        this.servicesInvitations.CreateInvitation(new CreateInvitationRequest()
-                        {
-                            GroupId = model.GroupId,
-                            UserId = Convert.ToInt32(user)
-                        });
-                    }
+                        GroupId = model.GroupId,
+                        UserIds = ids
+                    });
                 }
 
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);

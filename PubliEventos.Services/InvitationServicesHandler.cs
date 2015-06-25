@@ -58,5 +58,15 @@
         {
             return InvitationServices.SearchEventsUserConfirmed(request);
         }
+
+        /// <summary>
+        /// Marca la asistencia o cancelación de asistencia de un usuario a un evento.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public AttendEventResponse AttendEvent(AttendEventRequest request)
+        {
+            return InvitationServices.AttendEvent(request);
+        }
     }
 }

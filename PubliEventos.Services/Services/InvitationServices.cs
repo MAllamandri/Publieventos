@@ -5,6 +5,7 @@
     using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.DataAccess.Querys;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Transactions;
 
@@ -20,15 +21,7 @@
         /// <returns>El resultado de la operación.</returns>
         public static CreateInvitationResponse CreateInvitation(CreateInvitationRequest request)
         {
-            var invitation = new Domain.Domain.Invitation()
-            {
-                Event = request.EventId.HasValue ? CurrentSession.Get<Domain.Domain.Event>(request.EventId) : null,
-                Group = request.GroupId.HasValue ? CurrentSession.Get<Domain.Domain.Group>(request.GroupId) : null,
-                EffectDate = DateTime.Now,
-                User = CurrentSession.Get<Domain.Domain.User>(request.UserId)
-            };
-
-            new BaseQuery<Domain.Domain.Invitation, int>().Create(invitation);
+            CreateInvitation(request.UserIds, request.GroupId, request.EventId);
 
             return new CreateInvitationResponse();
         }
@@ -67,6 +60,8 @@
                     var userGroup = invitation.Group.UsersGroup.Where(x => x.UserId == invitation.User.Id && !x.NullDate.HasValue && !x.Active.HasValue).SingleOrDefault();
 
                     userGroup.Active = request.Reply;
+                    userGroup.NullDate = !request.Reply ? DateTime.Now : (DateTime?)null;
+
                 }
 
                 transaction.Complete();
@@ -136,5 +131,46 @@
                 Events = events
             };
         }
+
+        /// <summary>
+        /// Marca la asistencia o cancelación de asistencia de un usuario a un evento.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static AttendEventResponse AttendEvent(AttendEventRequest request)
+        {
+            var ids = new List<int>();
+            ids.Add(request.UserId);
+
+            CreateInvitation(ids, null, request.EventId);
+
+            return new AttendEventResponse();
+        }
+
+        #region Private Methods
+
+        /// <summary>
+        /// Crea una invitación.
+        /// </summary>
+        /// <param name="userId">Usuario invitado.</param>
+        /// <param name="groupId">Identificador del grupo.</param>
+        /// <param name="eventId">Identificador del evento.</param>
+        private static void CreateInvitation(List<int> userIds, int? groupId, int? eventId)
+        {
+            foreach (var userId in userIds)
+            {
+                var invitation = new Domain.Domain.Invitation()
+                {
+                    Event = eventId.HasValue ? CurrentSession.Get<Domain.Domain.Event>(eventId.Value) : null,
+                    Group = groupId.HasValue ? CurrentSession.Get<Domain.Domain.Group>(groupId.Value) : null,
+                    EffectDate = DateTime.Now,
+                    User = CurrentSession.Get<Domain.Domain.User>(userId)
+                };
+
+                new BaseQuery<Domain.Domain.Invitation, int>().Create(invitation);
+            }
+        }
+
+        #endregion
     }
 }

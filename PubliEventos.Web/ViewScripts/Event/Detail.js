@@ -27,6 +27,18 @@ $(function () {
         });
     }
 
+    if (participants != null) {
+        $.each(participants, function (index, user) {
+            viewModel.Participants.push(new InvitationModel(user));
+        });
+    }
+
+    if (standby != null) {
+        $.each(standby, function (index, user) {
+            viewModel.Standby.push(new InvitationModel(user));
+        });
+    }
+
     if (viewModel.MyPictures().length > 0) {
         viewModel.MyPictures()[0].Active(self.MyPictures()[0].Active() + " active");
     }
@@ -176,6 +188,9 @@ function myViewModel() {
     self.MyMovies = ko.observableArray();
     self.MyPictures = ko.observableArray();
     self.Comments = ko.observableArray();
+    self.Participants = ko.observableArray();
+    self.Standby = ko.observableArray();
+
     self.ShowNotFoundComments = ko.observable();
 
     self.ReportContent = function () {
@@ -398,6 +413,18 @@ function myViewModel() {
             comment.ElapsedTime(elapsedTime);
         });
     }
+
+    self.AttendEvent = function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Invitation/AttendEvent',
+            data: {
+                eventId: $('#EventId').val(),
+            }
+        }).done(function (data) {
+
+        });
+    }
 }
 
 function contentModel(content) {
@@ -475,9 +502,7 @@ function CommentModel(comment) {
 
     self.CommentId = comment.Id;
     self.Detail = ko.observable(comment.Detail);
-    self.ImageProfile = comment.User.ImageProfile != null && comment.User.ImageProfile != "" ?
-                        "/Content/images/Profiles/" + comment.User.ImageProfile :
-                        "/Content/images/Profiles/contact-default-image.jpg";
+    self.ImageProfile = comment.User.ImageProfile;
     self.UserId = comment.User.Id;
     self.UserName = comment.User.UserName;
     self.IsReported = ko.observable(comment.IsReportedByUser);
@@ -552,6 +577,18 @@ function CommentModel(comment) {
         $('.title-modal').text("Reportar Comentario");
 
         $('#reportModal').modal('show');
+    }
+}
+
+function InvitationModel(user) {
+    var self = this;
+
+    self.UserId = user.Id;
+    self.UserName = user.UserName;
+    self.ImageProfile = user.ImageProfile;
+
+    self.Profile = function () {
+        window.location.href = "/Account/Profile/" + self.UserId;
     }
 }
 

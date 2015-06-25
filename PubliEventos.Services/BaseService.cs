@@ -40,6 +40,14 @@
             get { return Convert.ToInt32(System.Configuration.ConfigurationSettings.AppSettings["ContentsReports"]); }
         }
 
+        /// <summary>
+        /// Path donde se ubican las imágenes de perfil.
+        /// </summary>
+        public static string PathProfiles
+        {
+            get { return System.Configuration.ConfigurationSettings.AppSettings["PathProfiles"]; }
+        }
+
         #endregion
     }
 }

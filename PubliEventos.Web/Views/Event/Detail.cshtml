@@ -8,7 +8,6 @@
 @using PubliEventos.Contract.Class;
 @using PubliEventos.Web.Models.EventModels;
 
-@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Detail.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MapStyles.js")
 @System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
@@ -30,6 +29,8 @@
     var pictures = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.pictures));
     var movies = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.movies));
     var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal).Id);
+    var participants = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.participants));
+    var standby = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.standby));
 </script>
 
 <div class="row-fluid">
@@ -73,10 +74,10 @@
                                 </div>
                                 <div class="col-md-4" style="overflow-y: no-display; height: 100% !important;">
                                     <div class="col-md-12" style="margin-bottom: 20px;">
-                                        @Html.Partial("../Invitation/Partial/_PendingConfirmation", (List<User>)ViewBag.standby)
+                                        @Html.Partial("../Invitation/Partial/_PendingConfirmation")
                                     </div>
                                     <div class="col-md-12" style="">
-                                        @Html.Partial("../Invitation/Partial/_Participants", (List<User>)ViewBag.participants)
+                                        @Html.Partial("../Invitation/Partial/_Participants")
                                     </div>
                                 </div>
                             </div>

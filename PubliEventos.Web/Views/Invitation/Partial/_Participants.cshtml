@@ -1,31 +1,22 @@
-﻿@model List<PubliEventos.Contract.Class.User>
-
-
-<div class="row">
+﻿<div class="row">
     <div class="col-md-7 partipants-panel panel panel-warning nano">
         <div class="nano-content">
             <div class="panel-heading">
                 <p class="label-lobster" style="font-size: 25px; text-align: center;">Asistirán</p>
             </div>
-            @if (!Model.Any())
-            {
-                <p style="font-size: 15px; margin-top: 10%;" class="not-found-message">No Hay Asistentes</p>
-            }
-            @foreach (var user in Model)
-            {
-                var imageProfile = !string.IsNullOrEmpty(user.ImageProfile) ? System.Configuration.ConfigurationManager.AppSettings["PathProfiles"] + user.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg";
-            
+            <p style="font-size: 15px; margin-top: 10%;" data-bind="visible: Participants().length == 0" class="not-found-message">No Hay Asistentes</p>
+            <div data-bind="foreach: Participants">
                 <div class="col-md-11 panel-body" style="margin-top: 15px">
                     <div class="col-md-3" style="display: inline; height: 40px; width: 75px;">
-                        <a href="/Account/Profile/@user.Id">
-                            <img src="@imageProfile" title="@user.UserName" style="cursor:pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
+                        <a href="#" data-bind="click: Profile">
+                            <img data-bind="attr: { src: ImageProfile, title: UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
                         </a>
                     </div>
                     <div class="col-md-8" style="text-align: center">
-                        <p class="participants-user">@user.UserName</p>
+                        <p class="participants-user" data-bind="text: UserName"></p>
                     </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 ﻿namespace PubliEventos.Contract.Services.Invitation
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
@@ -11,7 +12,7 @@
         /// Usuario invitado.
         /// </summary>
         [Required(ErrorMessage = "El valor es requerido")]
-        public int UserId { get; set; }
+        public List<int> UserIds { get; set; }
 
         /// <summary>
         /// Grupo al que fue invitado.
