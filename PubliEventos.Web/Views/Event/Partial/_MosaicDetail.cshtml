@@ -10,77 +10,76 @@
 
 <div class="col-md-12" style="margin-bottom: 1%;">
     <div class="col-md-12 mosaic">
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="span4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="tl-circ" style="padding-top: 10px; padding-bottom: 10px;">
-                        <img src="/Content/images/Covers/@Model.FileName" style="width: 100%; height: 100%;" alt="" class="img-responsive" data-src="holder.js/1000x500">
+                        <img data-bind="attr: { 'src': Event().Path }" style="width: 100%; height: 100%;" alt="" class="img-responsive" data-src="holder.js/1000x500">
                     </div>
                 </div>
-                <div class="span8">
-                    <h4 class="font-text" style="color: #c25b4e">@Model.Title</h4>
-                    <p>
-                        <p class="font-text" style="display: inline; font-size: 15px">Fecha:</p>
-                        <strong class="font-text" style="display: inline; font-size: 15px;">@Model.EventDate.ToShortDateString()</strong>
-                    </p>
-                    <br />
-                    <p>
-                        <p class="font-text" style="display: inline; font-size: 15px;">Hora:</p>
-                        <strong class="font-text" style="display: inline; font-size: 15px;">@Model.EventStartTime.ToString(@"hh\:mm") a @Model.EventEndTime.ToString(@"hh\:mm") Hs</strong>
-                    </p>
-                    <div class="row-fluid margin-bottom-normal margin-top-normal">
-                        <div class="span12">
-                            <div class="span12">
-                                <p class="font-text" style="font-size: 15px">@Model.Description</p>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div>
+                                <h4 class="font-text" style="color: #c25b4e" data-bind="text: Event().Title"></h4>
+                            </div>
+                            <div class="margin-bottom-normal">
+                                <p>
+                                    <p class="font-text" style="display: inline; font-size: 15px">Fecha:</p>
+                                    <strong class="font-text" style="display: inline; font-size: 15px;" data-bind="text: Event().EventDate"></strong>
+                                </p>
+                                <br />
+                                <p>
+                                    <p class="font-text" style="display: inline; font-size: 15px;">Hora:</p>
+                                    <strong class="font-text" style="display: inline; font-size: 15px;" data-bind="text: Event().Time"></strong>
+                                </p>
                             </div>
                         </div>
+                        @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
+                        {
+                            <div class="col-md-2" style="text-align: center">
+                                <a href="#" data-bind="click: Event().AttendEvent, html: Event().AttendDescription"></a>
+                            </div>
+                        }
                     </div>
-                    <div class="row-fluid margin-bottom-normal margin-top-normal">
-                        <div class="span12">
-                            <strong style="color: black">Administrador</strong>
+                    <div class="row margin-bottom-normal margin-top-normal">
+                        <div class="col-md-12">
+                            <p class="font-text" style="font-size: 15px" data-bind="text: Event().Description"></p>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-normal margin-top-normal">
+                        <div class="col-md-12">
+                            <strong style="color: black">Creado Por</strong>
                         </div>
                         <div class="col-md-4">
-                            <a href="/Account/Profile/@Model.User.Id" style="display: inline; margin-right: 15px;">
-                                <img src="@Model.User.ImageProfile" title="@Model.User.UserName" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
+                            <a href="#" data-bind="click: Event().AdministratorProfile" style="display: inline; margin-right: 15px;">
+                                <img data-bind="attr: { 'src': Event().UserImageProfile, 'title': Event().UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
                             </a>
-                            <p style="display: inline" class="participants-user">@Model.User.UserName</p>
+                            <p style="display: inline" class="participants-user" data-bind="text: Event().UserName"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row-fluid margin-bottom-normal">
-            <div class="span12">
-                <div class="span12">
-                    <p class="font-text" style="white-space: pre-line; font-size: 15px; margin-top: 5px;">@Model.Detail</p>
-                </div>
+        <div class="row margin-bottom-normal">
+            <div class="col-md-12">
+                <p class="font-text" style="white-space: pre-line; font-size: 15px; margin-top: 5px;" data-bind="text: Event().Detail"></p>
             </div>
         </div>
-        <div class="row-fluid">
+        <div class="row">
             <div class="col-md-12">
                 <div style="margin-bottom: 40px !important">
                     @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
                     {
                         <a href="#" id="comment" title="Comentar"><span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-comments"></span></a>
                         
-                        if (Model.Reports == null || !Model.Reports.Where(x => x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
-                        {
-                        <a title="Reportar" class="reportEvent" rel="@Model.Id" href="#"><i style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-ban-circle"></i></a>
-                        }
+                        <a title="Reportar" data-bind="visible: !Event().IsReportedByCurrentUser()" class="reportEvent" rel="@Model.Id" href="#"><i style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-ban-circle"></i></a>
+                        <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().InviteUsers" title="Invitar"><span style="font-size: 25px; padding-right: 25px; margin-top: -5px; cursor: pointer;" class="icon-default icon-user"></span></a>
+                        <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px; margin-top: -5px; cursor: pointer;" class="icon-default icon-picture"></span></a>
 
-                        if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == @Model.User.Id)
-                        {
-                        <a  href="/Invitation/InviteToEvent/@Model.Id" title="Invitar"><span style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
-                        <a  href="/Event/UploadPictures/@Model.Id" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
-                        }
-
-                        if (Model.Reports != null && Model.Reports.Where(x => !x.IsReported.HasValue && x.User.Id == (User as PubliEventos.Web.App_Start.CustomPrincipal).Id).Any())
-                        {
-                        <div style="display: inline; float: right; padding-right: 25px; color: #f00">
+                        <div data-bind="visible: Event().IsReportedByCurrentUser()" style="display: inline; float: right; padding-right: 25px; color: #f00">
                             <strong style="font-size: 11px !important">Has Reportado este Evento</strong>
                         </div>
-                        }
-                        
                         <div style="padding-top: 7px; display: inline;">
                             @Html.SharedTwitter(Model.Title, Model.Id.Value.ToString(), urlImage)
                             <a href="#" onclick="fbShare('@urlEvent.ToString()', '@Model.Title', '@Model.Description', '@urlImage')">

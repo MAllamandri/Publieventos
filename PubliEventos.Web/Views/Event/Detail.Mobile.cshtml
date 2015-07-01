@@ -8,7 +8,6 @@
 @using PubliEventos.Contract.Class;
 @using PubliEventos.Web.Models.EventModels;
 
-@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Detail.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MapStyles.js")
 @System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
@@ -30,6 +29,10 @@
     var pictures = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.pictures));
     var movies = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.movies));
     var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal).Id);
+    var eventDetail = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((Event)Model));
+    var attendEventByCurrentUser = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((bool)ViewBag.AttendEventByCurrentUser));
+    var participants = null;
+    var standby = null;
 </script>
 
 <div class="row">

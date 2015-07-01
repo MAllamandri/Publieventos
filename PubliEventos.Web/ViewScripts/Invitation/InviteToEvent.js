@@ -2,6 +2,7 @@
 
 $(function () {
     viewModel = new myViewModel();
+    viewModel.Event(new EventModel(eventDetail));
 
     if (participants != null) {
         $.each(participants, function (index, user) {
@@ -60,15 +61,23 @@ $(function () {
         });
     });
 
-
     ko.applyBindings(viewModel);
 });
 
 function myViewModel() {
     self = this;
 
+    self.Event = ko.observable();
     self.Participants = ko.observableArray();
     self.Standby = ko.observableArray();
+
+    self.ParticipantsTitle = ko.computed(function () {
+        return "Asistirán (" + self.Participants().length + ")";
+    });
+
+    self.StandbyTitle = ko.computed(function () {
+        return "Esperando Confirmación (" + self.Standby().length + ")";
+    });
 }
 
 function InvitationModel(user) {
@@ -81,4 +90,23 @@ function InvitationModel(user) {
     self.Profile = function () {
         window.location.href = "/Account/Profile/" + self.UserId;
     }
+}
+
+function EventModel(event) {
+    var self = this;
+
+    var dateParts = event.EventDate.toString().substring(0, 10).split('-');
+
+    self.Id = event.Id;
+    self.Title = event.Title;
+    self.Path = "/Content/images/Covers/" + event.FileName;
+    self.EventDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+    self.Time = event.EventStartTime.toString().substring(0, 5) + " a " + event.EventEndTime.toString().substring(0, 5) + " Hs";
+    self.Description = event.Description;
+    self.Detail = event.Detail;
+
+    self.UserImageProfile = event.User.ImageProfile;
+    self.UserName = event.User.UserName;
+    self.AdministratorIsCurrentUser = event.User.Id == currentUserId ? true : false;
+    self.UserId = event.User.Id;
 }

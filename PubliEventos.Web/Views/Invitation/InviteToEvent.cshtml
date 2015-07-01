@@ -18,8 +18,10 @@
 @using PubliEventos.Contract.Class
 
 <script type="text/javascript">
+    var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal).Id);
     var participants = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.participants));
     var standby = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.standby));
+    var eventDetail = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((Event)Model));
 </script>
 
 <div class="row-fluid">

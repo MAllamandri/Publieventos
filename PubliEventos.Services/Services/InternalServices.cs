@@ -87,7 +87,7 @@
                 UserName = user.UserName,
                 Locality = this.GetLocalitySummary(user.Locality),
                 IsAdministrator = user.IsAdministrator,
-                HasActiveSuspension = user.Suspensions != null && user.Suspensions.Where(x => x.EndDate >= DateTime.Now.Date).Any() ? true : false
+                HasActiveSuspension = user.Suspensions != null && user.Suspensions.Where(x => x.EndDate >= DateTime.Now.Date && !x.NullDate.HasValue).Any() ? true : false
             };
         }
 

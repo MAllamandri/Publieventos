@@ -7,6 +7,15 @@
     margin-bottom: -1px;
 }
 
+.attend-star {
+    font-size: 30px;
+    display: block !important;
+}
+
+    .attend-star .icon-star {
+        color: #deea39;
+    }
+
 /*-------------------------
 	Directions panel
 --------------------------*/

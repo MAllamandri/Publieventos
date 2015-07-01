@@ -140,15 +140,7 @@
         {
             if (ModelState.IsValid)
             {
-                var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = model.GroupId }).Group;
-
-                this.serviceGroups.EditGroup(model);
-
-                var userIds = model.UserIds.Split(',');
-
-                var ids = userIds.Where(x => Convert.ToInt32(x) != model.AdministratorId &&
-                                            !group.Users.Where(y => y.Id == Convert.ToInt32(x)).Any())
-                                .Select(x => Convert.ToInt32(x)).ToList();
+                var ids = this.serviceGroups.EditGroup(model).UserIdsToSendInvitation;
 
                 if (ids.Any())
                 {

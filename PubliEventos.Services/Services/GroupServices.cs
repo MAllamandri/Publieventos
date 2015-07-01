@@ -102,7 +102,6 @@
                         userGroup.GroupId = group.Id;
                         userGroup.UserId = Convert.ToInt32(user);
                         userGroup.EffectDate = DateTime.Now;
-                        userGroup.GroupId = group.Id;
 
                         new BaseQuery<Domain.Domain.UsersGroup, int>().Create(userGroup);
                     }
@@ -151,29 +150,52 @@
                 group.Message = request.Message;
                 group.Name = request.GroupName;
 
-                // Doy de baja los anteriores usuarios.
-                foreach (var user in group.UsersGroup)
+
+                var userIds = request.UserIds.Split(',');
+
+                // Doy de baja los usuarios que fueron eliminados del grupo.
+                foreach (var user in group.UsersGroup.Where(x => !userIds.Contains(x.UserId.ToString())))
                 {
                     user.NullDate = DateTime.Now;
+
+                    // Busco las invitaciones pendientes que tenga el usuario al grupo y las doy de baja.
+                    var invitations = CurrentSession.Query<Domain.Domain.Invitation>()
+                                        .Where(x => x.Group.Id == group.Id && x.User.Id == user.UserId && !x.Confirmed.HasValue && !x.NullDate.HasValue)
+                                        .ToList();
+
+                    foreach (var invitation in invitations)
+                    {
+                        invitation.NullDate = DateTime.Now;
+                    }
                 }
 
-                foreach (var user in request.UserIds.Split(','))
-                {
-                    if (group.Administrator.Id != Convert.ToInt32(user))
-                    {
-                        var userGroup = new Domain.Domain.UsersGroup();
-                        userGroup.GroupId = group.Id;
-                        userGroup.UserId = Convert.ToInt32(user);
-                        userGroup.EffectDate = DateTime.Now;
-                        userGroup.GroupId = group.Id;
+                var idsToSendInvitation = new List<int>();
 
-                        new BaseQuery<Domain.Domain.UsersGroup, int>().Create(userGroup);
+                foreach (var user in userIds)
+                {
+                    if (!group.UsersGroup.Where(x => x.UserId == Convert.ToInt32(user)).Any())
+                    {
+                        if (group.Administrator.Id != Convert.ToInt32(user))
+                        {
+                            var userGroup = new Domain.Domain.UsersGroup();
+                            userGroup.GroupId = group.Id;
+                            userGroup.UserId = Convert.ToInt32(user);
+                            userGroup.EffectDate = DateTime.Now;
+
+                            new BaseQuery<Domain.Domain.UsersGroup, int>().Create(userGroup);
+
+                            idsToSendInvitation.Add(Convert.ToInt32(user));
+                        }
                     }
                 }
 
                 transaction.Complete();
+                transaction.Dispose();
 
-                return new EditGroupResponse();
+                return new EditGroupResponse
+                {
+                    UserIdsToSendInvitation = idsToSendInvitation
+                };
             }
         }
 
@@ -187,10 +209,10 @@
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 var total = CurrentSession.Query<Domain.Domain.Group>().
-                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId).Count();
+                     Where(u => u.Name.ToLower().Contains(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId).Count();
 
                 var groups = CurrentSession.Query<Domain.Domain.Group>().
-                     Where(u => u.Name.ToLower().StartsWith(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId)
+                     Where(u => u.Name.ToLower().Contains(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId)
                      .Skip(request.PageNumber - 1)
                      .Take(request.PageSize)
                      .Select(u => InternalServices.GetGroupSummary(u)).ToList();

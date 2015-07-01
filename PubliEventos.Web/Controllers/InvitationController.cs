@@ -174,9 +174,9 @@
         [HttpPost]
         public JsonResult AttendEvent(int eventId)
         {
-            this.servicesInvitations.AttendEvent(new AttendEventRequest { EventId = eventId, UserId = User.Id });
+            var response = this.servicesInvitations.AttendEvent(new AttendEventRequest { EventId = eventId, UserId = User.Id });
 
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { Attend = response.Attend, User = response.User }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

@@ -15,6 +15,9 @@ $(function () {
     viewModel = new myViewModel();
     viewModel.ShowNotFoundComments(false);
 
+    viewModel.Event(new EventModel(eventDetail));
+    viewModel.Event().AttendEventByCurrentUser(attendEventByCurrentUser);
+
     if (pictures != null) {
         $.each(pictures, function (index, picture) {
             viewModel.MyPictures.push(new contentModel(picture));
@@ -185,11 +188,20 @@ $(function () {
 function myViewModel() {
     self = this;
 
+    self.Event = ko.observable();
     self.MyMovies = ko.observableArray();
     self.MyPictures = ko.observableArray();
     self.Comments = ko.observableArray();
     self.Participants = ko.observableArray();
     self.Standby = ko.observableArray();
+
+    self.ParticipantsTitle = ko.computed(function () {
+        return "Asistirán (" + self.Participants().length + ")";
+    });
+
+    self.StandbyTitle = ko.computed(function () {
+        return "Esperando Confirmación (" + self.Standby().length + ")";
+    });
 
     self.ShowNotFoundComments = ko.observable();
 
@@ -413,18 +425,6 @@ function myViewModel() {
             comment.ElapsedTime(elapsedTime);
         });
     }
-
-    self.AttendEvent = function () {
-        $.ajax({
-            type: 'POST',
-            url: '/Invitation/AttendEvent',
-            data: {
-                eventId: $('#EventId').val(),
-            }
-        }).done(function (data) {
-
-        });
-    }
 }
 
 function contentModel(content) {
@@ -589,6 +589,96 @@ function InvitationModel(user) {
 
     self.Profile = function () {
         window.location.href = "/Account/Profile/" + self.UserId;
+    }
+}
+
+function EventModel(event) {
+    var self = this;
+
+    var dateParts = event.EventDate.toString().substring(0, 10).split('-');
+
+    self.Id = event.Id;
+    self.Title = event.Title;
+    self.Path = "/Content/images/Covers/" + event.FileName;
+    self.EventDate = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+    self.Time = event.EventStartTime.toString().substring(0, 5) + " a " + event.EventEndTime.toString().substring(0, 5) + " Hs";
+    self.Description = event.Description;
+    self.Detail = event.Detail;
+
+    self.UserImageProfile = event.User.ImageProfile;
+    self.UserName = event.User.UserName;
+    self.AdministratorIsCurrentUser = event.User.Id == currentUserId ? true : false;
+    self.UserId = event.User.Id;
+    self.AttendEventByCurrentUser = ko.observable();
+
+    self.InviteUsers = function () {
+        window.location.href = "/Invitation/InviteToEvent/" + self.Id;
+    }
+
+    self.UploadPictures = function () {
+        window.location.href = "/Event/UploadPictures/" + self.Id;
+    }
+
+    self.AdministratorProfile = function () {
+        window.location.href = "/Account/Profile/" + self.UserId;
+    }
+
+    self.IsReportedByCurrentUser = ko.computed(function () {
+        if (eventDetail.Reports == null) {
+            return false;
+        } else {
+            var element = ko.utils.arrayFirst(eventDetail.Reports, function (report) {
+                return report.User.Id == currentUserId && report.IsReported == null;
+            });
+
+            if (element != null) {
+                return true;
+            }
+        }
+
+        return false;
+    });
+
+    self.AttendDescription = ko.computed(function () {
+        if (self.AttendEventByCurrentUser()) {
+            return "<p style='text-align: center'><i class='attend-star icon-star' title='Cancelar Asistencia'></i>Cancelar Asistencia</p>";
+        }
+
+        return "<p style='text-align: center'><i class='attend-star icon-star-empty' title='Asistiré'></i>Asistiré</p>";
+    });
+
+    self.AttendEvent = function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Invitation/AttendEvent',
+            data: {
+                eventId: $('#EventId').val(),
+            }
+        }).done(function (data) {
+            self.AttendEventByCurrentUser(data.Attend);
+
+            if (data.Attend) {
+                // Lo agrego a la lista de participantes.
+                viewModel.Participants.push(new InvitationModel(data.User));
+
+                var element = ko.utils.arrayFirst(viewModel.Standby(), function (standby) {
+                    return standby.UserId == data.User.Id;
+                });
+
+                // Lo elimina de la lista de esperando confirmación.
+                if (element != null) {
+                    viewModel.Standby.remove(element);
+                }
+            } else {
+                var element = ko.utils.arrayFirst(viewModel.Participants(), function (participant) {
+                    return participant.UserId == data.User.Id;
+                });
+
+                if (element != null) {
+                    viewModel.Participants.remove(element);
+                }
+            }
+        });
     }
 }
 

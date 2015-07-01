@@ -82,6 +82,11 @@
             ViewBag.participants = invitations.Where(x => x.Confirmed == true).Select(x => x.User).ToList();
             ViewBag.standby = invitations.Where(x => !x.Confirmed.HasValue).Select(x => x.User).ToList();
 
+            // Ultima vez que el usuario marco asistencia.
+            var lastInvitation = invitations.Where(x => x.User.Id == User.Id).OrderByDescending(x => x.EffectDate).FirstOrDefault();
+
+            ViewBag.AttendEventByCurrentUser = lastInvitation != null && lastInvitation.Confirmed.HasValue && lastInvitation.Confirmed.Value ? true : false;
+
             // Distingo entre fotos y videos.
             ViewBag.pictures = model.MultimediaContents != null && model.MultimediaContents.Any() ? model.MultimediaContents.Where(x => x.ContentType == (int)ContentTypes.Image).Select(x => new MultimediaContentSummaryModel()
             {

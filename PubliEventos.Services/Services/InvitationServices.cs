@@ -50,21 +50,24 @@
         {
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
-                var invitation = CurrentSession.Query<Domain.Domain.Invitation>().Where(x => !x.NullDate.HasValue && x.Id == request.InvitationId).FirstOrDefault();
+                // Debe haber solo una invitación pendiente por usuario.
+                var invitation = CurrentSession.Query<Domain.Domain.Invitation>().Where(x => !x.NullDate.HasValue && x.Id == request.InvitationId && !x.Confirmed.HasValue).FirstOrDefault();
 
-                invitation.Confirmed = request.Reply;
-
-                // Si la invitación fue a un grupo, activo el usuario.
-                if (invitation.Group != null && !invitation.Group.NullDate.HasValue)
+                if (invitation != null)
                 {
-                    var userGroup = invitation.Group.UsersGroup.Where(x => x.UserId == invitation.User.Id && !x.NullDate.HasValue && !x.Active.HasValue).SingleOrDefault();
+                    invitation.Confirmed = request.Reply;
 
-                    userGroup.Active = request.Reply;
-                    userGroup.NullDate = !request.Reply ? DateTime.Now : (DateTime?)null;
+                    // Si la invitación fue a un grupo, activo el usuario.
+                    if (invitation.Group != null && !invitation.Group.NullDate.HasValue)
+                    {
+                        var userGroup = invitation.Group.UsersGroup.Where(x => x.UserId == invitation.User.Id && !x.NullDate.HasValue && !x.Active.HasValue).SingleOrDefault();
 
+                        userGroup.Active = request.Reply;
+                        userGroup.NullDate = !request.Reply ? DateTime.Now : (DateTime?)null;
+                    }
+
+                    transaction.Complete();
                 }
-
-                transaction.Complete();
 
                 return new ReplyInvitationResponse();
             }
@@ -93,7 +96,7 @@
         public static SearchEventsUserConfirmedResponse SearchEventsUserConfirmed(SearchEventsUserConfirmedRequest request)
         {
             var predicate = PredicateBuilder.True<Domain.Domain.Invitation>();
-            predicate = predicate.And(x => !x.NullDate.HasValue && x.Confirmed.Value && x.Event != null);
+            predicate = predicate.And(x => !x.NullDate.HasValue && x.Event != null);
 
             if (request.UserId.HasValue)
             {
@@ -118,11 +121,19 @@
                 predicate = predicate.And(x => x.Event.EventDate.Date <= request.EndDate.Value.Date);
             }
 
-            var events = CurrentSession.Query<Domain.Domain.Invitation>()
+            var invitations = CurrentSession.Query<Domain.Domain.Invitation>()
                             .Where(predicate)
-                            .Select(x => InternalServices.GetEventSummary(x.Event))
-                            .Take(500)
+                            .Select(x => x)
                             .ToList();
+
+            invitations = invitations.GroupBy(x => x.Event.Id)
+                            .Select(g => g.OrderByDescending(y => y.EffectDate)
+                            .FirstOrDefault()).ToList();
+
+            var events = invitations.Where(x => x.Confirmed.HasValue && x.Confirmed.Value)
+                             .Select(x => InternalServices.GetEventSummary(x.Event))
+                             .Take(500)
+                             .ToList();
 
             events = events.Any() ? events.OrderByDescending(x => x.EventDate.Date).ToList() : events;
 
@@ -139,12 +150,54 @@
         /// <returns>El resultado de la operación.</returns>
         public static AttendEventResponse AttendEvent(AttendEventRequest request)
         {
-            var ids = new List<int>();
-            ids.Add(request.UserId);
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var activeInvitation = CurrentSession.Query<Domain.Domain.Invitation>()
+                                        .Where(x => !x.NullDate.HasValue && x.User.Id == request.UserId && x.Event.Id == request.EventId)
+                                        .OrderByDescending(x => x.EffectDate)
+                                        .FirstOrDefault();
+                var attend = true;
 
-            CreateInvitation(ids, null, request.EventId);
+                if (activeInvitation != null)
+                {
+                    if (activeInvitation.Confirmed.HasValue && activeInvitation.Confirmed.Value)
+                    {
+                        activeInvitation.Confirmed = false;
+                        attend = false;
+                    }
+                    else if (activeInvitation.Confirmed.HasValue && !activeInvitation.Confirmed.Value)
+                    {
+                        activeInvitation.Confirmed = true;
+                    }
+                    else if (!activeInvitation.Confirmed.HasValue)
+                    {
+                        activeInvitation.Confirmed = true;
+                    }
+                }
+                else
+                {
+                    var invitation = new Domain.Domain.Invitation()
+                    {
+                        Event = CurrentSession.Get<Domain.Domain.Event>(request.EventId),
+                        Group = null,
+                        EffectDate = DateTime.Now,
+                        User = CurrentSession.Get<Domain.Domain.User>(request.UserId),
+                        Confirmed = true
+                    };
 
-            return new AttendEventResponse();
+                    new BaseQuery<Domain.Domain.Invitation, int>().Create(invitation);
+                }
+
+                transaction.Complete();
+
+                var user = CurrentSession.Get<Domain.Domain.User>(request.UserId);
+
+                return new AttendEventResponse
+                {
+                    Attend = attend,
+                    User = InternalServices.GetUserSummary(user)
+                };
+            }
         }
 
         #region Private Methods
