@@ -372,9 +372,9 @@
                 }
 
                 // Doy de alta el evento.
-                this.serviceEvents.CreateEvent(model);
+                var eventId = this.serviceEvents.CreateEvent(model).EventId;
 
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, EventId = eventId }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);

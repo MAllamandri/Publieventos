@@ -36,7 +36,7 @@
         /// Guarda un evento.
         /// </summary>
         /// <param name="request">Parametros de entrada.</param>
-        public static void CreateEvent(EventCreateOrUpdateRequest request)
+        public static EventCreateOrUpdateResponse CreateEvent(EventCreateOrUpdateRequest request)
         {
             var eventToSave = new Domain.Domain.Event()
             {
@@ -57,6 +57,11 @@
             };
 
             new BaseQuery<Domain.Domain.Event, int>().Create(eventToSave);
+
+            return new EventCreateOrUpdateResponse
+            {
+                EventId = eventToSave.Id
+            };
         }
 
         /// <summary>

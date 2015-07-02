@@ -24,9 +24,9 @@
         /// Guarda un evento.
         /// </summary>
         /// <param name="parameters">Parametros de entrada.</param>
-        public void CreateEvent(EventCreateOrUpdateRequest parameters)
+        public EventCreateOrUpdateResponse CreateEvent(EventCreateOrUpdateRequest parameters)
         {
-            EventServices.CreateEvent(parameters);
+            return EventServices.CreateEvent(parameters);
         }
 
         /// <summary>

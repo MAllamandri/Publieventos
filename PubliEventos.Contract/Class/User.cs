@@ -72,5 +72,15 @@
         /// Indica si el usuario posee una suspensión.
         /// </summary>
         public bool HasActiveSuspension { get; set; }
+
+        /// <summary>
+        /// Nombre completo del usuario.
+        /// </summary>
+        public string FullName { get; set; }
+
+        /// <summary>
+        /// Path de la imagen de perfil.
+        /// </summary>
+        public string PathProfile { get; set; }
     }
 }

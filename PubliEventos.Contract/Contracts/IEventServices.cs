@@ -19,7 +19,7 @@
         /// Guarda un evento.
         /// </summary>
         /// <param name="parameters">Parametros de entrada.</param>
-        void CreateEvent(EventCreateOrUpdateRequest request);
+        EventCreateOrUpdateResponse CreateEvent(EventCreateOrUpdateRequest request);
 
         /// <summary>
         /// Recupera un evento por su id.

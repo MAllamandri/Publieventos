@@ -241,7 +241,7 @@ function EventModel(event) {
     self.Detail = event.Detail;
     self.PicturePath = "/Content/images/Covers/" + event.FileName;
     self.UserName = event.User.UserName;
-    self.ImageProfile = event.User.ImageProfile;
+    self.ImageProfile = event.User.PathProfile;
 
     self.UserProfile = function () {
         window.location.href = "/Account/Profile/" + event.User.Id;
@@ -265,9 +265,9 @@ function CommentModel(comment) {
 
     self.CommentId = comment.Id;
     self.Detail = comment.Detail;
-    self.ImageProfile = comment.User.ImageProfile;
+    self.ImageProfile = comment.User.PathProfile;
     self.UserName = comment.User.UserName;
-    self.CreatedBy = "Realizado por " + self.UserName;
+    self.CreatedBy = "Creado por " + self.UserName;
 
     self.UserProfile = function () {
         window.location.href = "/Account/Profile/" + comment.User.Id;

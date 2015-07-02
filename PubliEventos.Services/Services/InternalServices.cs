@@ -80,14 +80,16 @@
                 Email = user.Email,
                 FirstName = user.FirstName,
                 Id = user.Id,
-                ImageProfile = !string.IsNullOrEmpty(user.ImageProfile) ? PathProfiles + user.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg",
+                PathProfile = !string.IsNullOrEmpty(user.ImageProfile) ? PathProfiles + user.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg",
                 LastName = user.LastName,
                 NullDate = user.NullDate,
                 Password = user.Password,
                 UserName = user.UserName,
                 Locality = this.GetLocalitySummary(user.Locality),
                 IsAdministrator = user.IsAdministrator,
-                HasActiveSuspension = user.Suspensions != null && user.Suspensions.Where(x => x.EndDate >= DateTime.Now.Date && !x.NullDate.HasValue).Any() ? true : false
+                HasActiveSuspension = user.Suspensions != null && user.Suspensions.Where(x => x.EndDate >= DateTime.Now.Date && !x.NullDate.HasValue).Any() ? true : false,
+                FullName = user.FullName,
+                ImageProfile = user.ImageProfile
             };
         }
 

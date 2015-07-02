@@ -51,7 +51,7 @@
             },
             complete: function (data) {
                 if (data.responseJSON.Success) {
-                    window.location.href = "/Event/MyEvents?currentEvents=true";
+                    window.location.href = "/Invitation/InviteToEvent/" + data.responseJSON.EventId;
                     $.blockUI({ message: "" });
                 } else {
                     $.each(data.responseJSON.Errors, function (index, value) {

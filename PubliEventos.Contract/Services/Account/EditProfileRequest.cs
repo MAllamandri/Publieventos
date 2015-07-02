@@ -33,11 +33,13 @@
         /// <summary>
         /// Nombre.
         /// </summary>
+        [MaxLength(25, ErrorMessage = "El nombre no puede contener mas de 25 caracteres")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Apellido.
         /// </summary>
+        [MaxLength(25, ErrorMessage = "El apellido no puede contener mas de 25 caracteres")]
         public string LastName { get; set; }
 
         /// <summary>
@@ -65,11 +67,16 @@
         /// <summary>
         /// Imagen de perfil.
         /// </summary>
-        public string ImageProfile { get; set; }
+        public string PathProfile { get; set; }
 
         /// <summary>
         /// Contraseña.
         /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// FileName de la imagen de perfil.
+        /// </summary>
+        public string ImageProfile { get; set; }
     }
 }

@@ -502,9 +502,10 @@ function CommentModel(comment) {
 
     self.CommentId = comment.Id;
     self.Detail = ko.observable(comment.Detail);
-    self.ImageProfile = comment.User.ImageProfile;
+    self.ImageProfile = comment.User.PathProfile;
     self.UserId = comment.User.Id;
     self.UserName = comment.User.UserName;
+    self.FullName = comment.User.FullName != "" ? comment.User.FullName : comment.User.UserName;
     self.IsReported = ko.observable(comment.IsReportedByUser);
     self.EnabledActions = comment.User.Id == currentUserId;
     self.EffectDate = comment.EffectDate;
@@ -585,7 +586,8 @@ function InvitationModel(user) {
 
     self.UserId = user.Id;
     self.UserName = user.UserName;
-    self.ImageProfile = user.ImageProfile;
+    self.FullName = user.FullName != "" ? user.FullName : user.UserName;
+    self.ImageProfile = user.PathProfile;
 
     self.Profile = function () {
         window.location.href = "/Account/Profile/" + self.UserId;
@@ -605,8 +607,10 @@ function EventModel(event) {
     self.Description = event.Description;
     self.Detail = event.Detail;
 
-    self.UserImageProfile = event.User.ImageProfile;
+    self.UserImageProfile = event.User.PathProfile;
     self.UserName = event.User.UserName;
+    self.FullName = event.User.FullName != "" ? event.User.FullName : event.User.UserName;
+
     self.AdministratorIsCurrentUser = event.User.Id == currentUserId ? true : false;
     self.UserId = event.User.Id;
     self.AttendEventByCurrentUser = ko.observable();

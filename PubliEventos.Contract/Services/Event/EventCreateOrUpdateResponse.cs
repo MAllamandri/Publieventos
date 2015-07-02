@@ -5,5 +5,9 @@
     /// </summary>
     public class EventCreateOrUpdateResponse
     {
+        /// <summary>
+        /// Identificador del evento.
+        /// </summary>
+        public int EventId { get; set; }
     }
 }

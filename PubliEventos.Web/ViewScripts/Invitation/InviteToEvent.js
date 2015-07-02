@@ -85,7 +85,8 @@ function InvitationModel(user) {
 
     self.UserId = user.Id;
     self.UserName = user.UserName;
-    self.ImageProfile = user.ImageProfile;
+    self.FullName = user.FullName != "" ? user.FullName : user.UserName;
+    self.ImageProfile = user.PathProfile;
 
     self.Profile = function () {
         window.location.href = "/Account/Profile/" + self.UserId;
@@ -105,8 +106,9 @@ function EventModel(event) {
     self.Description = event.Description;
     self.Detail = event.Detail;
 
-    self.UserImageProfile = event.User.ImageProfile;
+    self.UserImageProfile = event.User.PathProfile;
     self.UserName = event.User.UserName;
+    self.FullName = event.User.FullName != "" ? event.User.FullName : event.User.UserName;
     self.AdministratorIsCurrentUser = event.User.Id == currentUserId ? true : false;
     self.UserId = event.User.Id;
 }

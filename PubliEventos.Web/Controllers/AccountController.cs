@@ -165,8 +165,9 @@
                 ProvinceId = user.Locality.Province.Id.Value,
                 UserName = user.UserName,
                 BirthDate = user.BirthDate.HasValue ? user.BirthDate.Value : DateTime.Now,
-                ImageProfile = user.ImageProfile,
-                Password = Encryptor.Decrypt(user.Password)
+                PathProfile = user.PathProfile,
+                Password = Encryptor.Decrypt(user.Password),
+                ImageProfile = user.ImageProfile
             };
 
             ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", model.ProvinceId);

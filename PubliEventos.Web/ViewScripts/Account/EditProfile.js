@@ -1,5 +1,7 @@
 ﻿$(function () {
     $('#UserName').charactersQuantity(30);
+    $('#FirstName').charactersQuantity(25);
+    $('#LastName').charactersQuantity(25);
 
     $('.replaceBlank').blur(function () {
         $(this).val($(this).val().replace(/ /gi, ""));

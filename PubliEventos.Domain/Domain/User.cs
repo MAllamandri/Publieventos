@@ -73,5 +73,21 @@
         /// Suspensiones del usuario.
         /// </summary>
         public virtual IList<Suspension> Suspensions { get; set; }
+
+        /// <summary>
+        /// Nombre completo.
+        /// </summary>
+        public virtual string FullName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this.FirstName) || !string.IsNullOrEmpty(this.LastName))
+                {
+                    return string.Format("{0} {1}", this.FirstName, this.LastName);
+                }
+
+                return string.Empty;
+            }
+        }
     }
 }
