@@ -33,6 +33,11 @@
         public bool SearchPublics { get; set; }
 
         /// <summary>
+        /// Indica que busca los eventos privados.
+        /// </summary>
+        public bool SearchPrivate { get; set; }
+
+        /// <summary>
         /// Término de búsqueda.
         /// </summary>
         public string SearchTerm { get; set; }

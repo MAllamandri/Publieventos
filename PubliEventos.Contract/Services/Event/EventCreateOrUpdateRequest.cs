@@ -98,6 +98,22 @@
         /// </summary>
         public string Longitude { get; set; }
 
+        /// <summary>
+        /// Indica si esta habilitada la edición de la fecha del evento.
+        /// </summary>
+        public bool EnabledEdition
+        {
+            get
+            {
+                if (this.EventDate < DateTime.Now.Date)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         #region self-validation
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -118,7 +134,12 @@
         {
             if (string.IsNullOrEmpty(this.Latitude) && string.IsNullOrEmpty(this.Longitude))
             {
-                yield return new ValidationResult("Ingrese la localización.", new[] { "Localization" });
+                yield return new ValidationResult("Ingrese la localización", new[] { "Localization" });
+            }
+
+            if (this.EventDate < DateTime.Now.Date)
+            {
+                yield return new ValidationResult("La fecha del evento debe ser superior a hoy", new[] { "EventDate" });
             }
         }
 

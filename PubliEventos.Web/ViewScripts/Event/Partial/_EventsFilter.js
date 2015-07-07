@@ -10,5 +10,6 @@
         $('#EventTypeId').val("");
         $('#StartDate').val("");
         $('#EndDate').val("");
+        $('input[name="Private"]').prop('checked', false);
     });
 });

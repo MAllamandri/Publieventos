@@ -3,6 +3,12 @@
         $('#Private').prop('checked', true);;
     }
 
+    if (!data.EnabledEdition) {
+        $('#EventDate').attr('disabled', 'disabled');
+        $('#EventStartTime').attr('disabled', 'disabled');
+        $('#EventEndTime').attr('disabled', 'disabled');
+    }
+
     // Seteo el valor con los mismos formatos que los elementos.
     $('#EventDate').val(data.EventDate.split("-")[2].split("T")[0] + "-" + data.EventDate.split("-")[1] + "-" + data.EventDate.split("-")[0]);
     $('#EventStartTime').val(data.EventStartTime.split(":")[0] + ":" + data.EventStartTime.split(":")[1]);

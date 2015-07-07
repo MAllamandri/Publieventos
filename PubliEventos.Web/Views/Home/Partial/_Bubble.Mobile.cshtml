@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-xs-12" style="margin-top: 15px; margin-bottom: -18px;">
                     <div style="padding-bottom: 25px">
-                        <a href="#" title="Invitar" data-bind="click: InviteToEvent, visible: EnabledActions">
+                        <a href="#" title="Invitar" data-bind="click: InviteToEvent, visible: EnabledActions && !AlreadyTookPlace">
                             <span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
                         <a href="#" title="Subir Contenidos" data-bind="click: UploadContents, visible: EnabledActions">
                             <span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-picture"></span></a>

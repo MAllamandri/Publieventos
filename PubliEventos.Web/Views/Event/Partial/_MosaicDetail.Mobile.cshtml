@@ -45,7 +45,7 @@
                 </div>
                 @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
                 {
-                    <div class="col-md-4" style="text-align: center">
+                    <div data-bind="visible: !Event().AlreadyTookPlace" class="col-md-4" style="text-align: center">
                         <a href="#" data-bind="click: Event().AttendEvent, html: Event().AttendDescription"></a>
                     </div>
                 }
@@ -65,7 +65,7 @@
                     <a href="#" id="comment" title="Comentar"><span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-comments"></span></a>
                         
                     <a title="Reportar" data-bind="visible: !Event().IsReportedByCurrentUser()" class="reportEvent" rel="@Model.Id" href="#"><i style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-ban-circle"></i></a>
-                    <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().InviteUsers" title="Invitar"><span style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
+                    <a data-bind="visible: Event().AdministratorIsCurrentUser && !Event().AlreadyTookPlace, click: Event().InviteUsers" title="Invitar"><span style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
                     <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
 
                     <div data-bind="visible: Event().IsReportedByCurrentUser()" style="display: inline; float: right; padding-right: 5px; color: #f00">

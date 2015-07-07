@@ -23,7 +23,7 @@
                     <div style="float: left;" data-bind="visible: EnabledActions">
                         <a href="#" title="Subir Contenidos" data-bind="click: UploadContents">
                             <span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
-                        <a href="#" title="Invitar" data-bind="click: InviteToEvent">
+                        <a href="#" title="Invitar" data-bind="visible: !AlreadyTookPlace, click: InviteToEvent">
                             <span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
                     </div>
                     <div style="padding: 0 5px 5px; float: left;">

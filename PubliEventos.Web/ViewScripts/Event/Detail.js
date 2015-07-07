@@ -606,6 +606,7 @@ function EventModel(event) {
     self.Time = event.EventStartTime.toString().substring(0, 5) + " a " + event.EventEndTime.toString().substring(0, 5) + " Hs";
     self.Description = event.Description;
     self.Detail = event.Detail;
+    self.AlreadyTookPlace = event.AlreadyTookPlace;
 
     self.UserImageProfile = event.User.PathProfile;
     self.UserName = event.User.UserName;
@@ -645,10 +646,10 @@ function EventModel(event) {
 
     self.AttendDescription = ko.computed(function () {
         if (self.AttendEventByCurrentUser()) {
-            return "<p style='text-align: center'><i class='attend-star icon-star' title='Cancelar Asistencia'></i>Cancelar Asistencia</p>";
+            return "<p style='text-align: center'><i class='attend-star icon-star' title='Estas asistiendo a este evento'></i>Cancelar Asistencia</p>";
         }
 
-        return "<p style='text-align: center'><i class='attend-star icon-star-empty' title='Asistiré'></i>Asistiré</p>";
+        return "<p style='text-align: center'><i class='attend-star icon-star-empty' title='Marca tu asistencia al evento'></i>Asistiré</p>";
     });
 
     self.AttendEvent = function () {

@@ -155,6 +155,7 @@ function EventModel(event) {
     self.PicturePath = "/Content/images/Covers/" + event.FileName;
     self.Left = ko.observable();
     self.EnabledActions = event.User.Id == currentUserId;
+    self.AlreadyTookPlace = event.AlreadyTookPlace;
 
     self.EventDetail = function () {
         window.location.href = "/Event/Detail/" + event.Id;

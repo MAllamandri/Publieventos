@@ -150,6 +150,10 @@
                     {
                         valid = false;
                     }
+                    else if (_event.EventDate < DateTime.Now.Date)
+                    {
+                        valid = false;
+                    }
                 }
 
                 if (this.ElementType == (int)ValidateCondition.Profile)

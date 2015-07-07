@@ -1,7 +1,7 @@
 ﻿@model PubliEventos.Contract.Services.Event.EventCreateOrUpdateRequest
 
 @{
-    ViewBag.Title = "Editar de Evento";
+    ViewBag.Title = "Editar Evento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -31,6 +31,7 @@
                 @Html.AntiForgeryToken()
                 
                 @Html.Partial("Partial/_Form")
+
                 @Html.HiddenFor(m => m.FileName)
                 @Html.HiddenFor(m => m.UserId)
                 @Html.HiddenFor(m => m.Id)

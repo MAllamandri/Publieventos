@@ -26,5 +26,15 @@
         /// Usuario que confirmó.
         /// </summary>
         public int? UserId { get; set; }
+
+        /// <summary>
+        /// Indica que debe buscar los eventos públicos.
+        /// </summary>
+        public bool SearchPublics { get; set; }
+
+        /// <summary>
+        /// Indica que debe buscar los eventos privados.
+        /// </summary>
+        public bool SearchPrivates { get; set; }
     }
 }

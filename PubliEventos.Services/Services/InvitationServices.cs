@@ -65,6 +65,11 @@
                         userGroup.Active = request.Reply;
                         userGroup.NullDate = !request.Reply ? DateTime.Now : (DateTime?)null;
                     }
+                    else if (invitation.Event != null && !invitation.Event.NullDate.HasValue && invitation.Event.EventDate < DateTime.Now.Date)
+                    {
+                        // Si el evento ya sucedio doy de baja la invitación.
+                        invitation.NullDate = DateTime.Now;
+                    }
 
                     transaction.Complete();
                 }
@@ -103,6 +108,16 @@
                 predicate = predicate.And(x => x.User.Id == request.UserId.Value);
             }
 
+            if (request.SearchPublics)
+            {
+                predicate = predicate.And(x => x.Event.Private == false);
+            }
+
+            if (request.SearchPrivates)
+            {
+                predicate = predicate.And(x => x.Event.Private == true);
+            }
+
             if (request.EventTypeId.HasValue)
             {
                 predicate = predicate.And(x => x.Event.EventType.Id == request.EventTypeId.Value);
@@ -126,10 +141,12 @@
                             .Select(x => x)
                             .ToList();
 
+            // Obtengo la ultima invitación del usuario al evento.
             invitations = invitations.GroupBy(x => x.Event.Id)
                             .Select(g => g.OrderByDescending(y => y.EffectDate)
                             .FirstOrDefault()).ToList();
 
+            // Obtengo las que estan confirmadas.
             var events = invitations.Where(x => x.Confirmed.HasValue && x.Confirmed.Value)
                              .Select(x => InternalServices.GetEventSummary(x.Event))
                              .Take(500)

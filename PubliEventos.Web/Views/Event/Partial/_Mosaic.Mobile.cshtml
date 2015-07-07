@@ -18,7 +18,8 @@
                 <p>
                     <p class="font-text" style="display: inline;">Fecha:</p>
                     <strong class="font-text" style="display: inline">@Event.EventDate.ToShortDateString()</strong>
-                </p><br/>
+                </p>
+                <br />
                 <p>
                     <p class="font-text" style="display: inline;">Hora:</p>
                     <strong class="font-text" style="display: inline;">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</strong>
@@ -34,7 +35,10 @@
                     <li><a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a></li>
                     <li><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a></li>
                     <li><a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a></li>
-                    <li><a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a></li>
+                    @if (!Event.AlreadyTookPlace)
+                    {
+                        <li><a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a></li>
+                    }
                 </ul>
             </div>
         </div>

@@ -99,5 +99,21 @@
         /// Reportes del evento.
         /// </summary>
         public List<Report> Reports { get; set; }
+
+        /// <summary>
+        /// Indica que el evento ya se realizo.
+        /// </summary>
+        public bool AlreadyTookPlace
+        {
+            get
+            {
+                if (this.EventDate < DateTime.Now.Date)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
     }
 }

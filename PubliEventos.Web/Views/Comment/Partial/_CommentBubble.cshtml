@@ -7,13 +7,13 @@
                 </a>
             </div>
             <div class="col-md-10 bubble-comment">
-                <div class="comment-detail">
-                    <p class="font-comment" data-bind="text: Detail"></p>
-                </div>
                 <div>
                     <small data-bind="text: ElapsedTime" style="float: left; font-size: 10px;"></small>
                 </div>
-                <div class="actions-comment">
+                <div class="col-md-12 comment-detail">
+                    <p class="font-comment" data-bind="text: Detail"></p>
+                </div>
+                <div class="col-md-12 actions-comment">
                     <a data-bind="visible: !IsReported(), click: ShowReportModal" title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
 
                     <a data-bind="visible: EnabledActions, click: ShowCommentModal" title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>

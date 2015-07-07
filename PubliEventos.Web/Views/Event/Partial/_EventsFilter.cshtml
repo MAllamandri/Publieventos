@@ -12,6 +12,15 @@
                     <label class="label-lobster">Tipo de Evento</label>
                     @Html.DropDownList("EventTypeId", (SelectList)ViewBag.EventTypes, "[Seleccione Tipo Evento]", new { @class = "form-control font-text" })
                 </div>
+                <div class="col-md-6">
+                    @Html.Label("Privacidad", new { @class = "label-lobster" })
+                    <div>
+                        @Html.Label("Público", new { @class = "label-lobster", style = "padding-right: 10px" })
+                        <input type="radio"  id="Public" name="Private" value="true" style="margin-right: 15px" />
+                        @Html.Label("Privado", new { @class = "label-lobster", style = "padding-right: 10px" })
+                        <input type="radio" id="Private" name="Private" value="false" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">

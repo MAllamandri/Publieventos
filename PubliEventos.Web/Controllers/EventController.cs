@@ -129,7 +129,7 @@
                 events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest()
                 {
                     UserId = User.Id,
-                    EndDate = DateTime.Now.Date
+                    EndDate = DateTime.Now.Date.AddDays(-1)
                 }).Events
                     .OrderByDescending(x => x.EventDate)
                     .ToList();

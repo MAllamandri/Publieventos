@@ -781,42 +781,37 @@ img {
 
 .bubble-comment {
     background-color: white;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 10px 10px 10px 10px;
     border: 2px solid;
     box-shadow: 10px 10px 5px #888888;
     border-color: #B89C83;
     margin-bottom: 1%;
-    min-height: 108px;
     padding-bottom: 10px;
     display: block;
 }
 
     .bubble-comment > .comment-detail {
-        left: 52%;
-        top: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-        position: absolute;
         width: 95%;
         display: block;
+        margin-top: 10px;
+        word-wrap: break-word;
     }
 
     .bubble-comment:hover .actions-comment {
-        display: block;
+        visibility: visible;
     }
 
 .font-comment {
     font-size: 14px;
     display: block;
-    width: 95%;
+    width: 100%;
     margin-bottom: 0px;
 }
 
 .actions-comment {
     list-style: none;
     width: 100%;
-    padding-top: 75px;
-    display: none;
+    visibility: hidden;
 }
 
 /*#endregion*/

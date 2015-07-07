@@ -65,7 +65,9 @@
                 EventTypeId: $('#EventTypeId').val(),
                 StartDate: $('#StartDate').val(),
                 EndDate: $('#EndDate').val(),
-                myEvents: true
+                myEvents: true,
+                SearchPublics: $('input[name="Private"]:checked').val() == 'true' ? true : false,
+                SearchPrivate: $('input[name="Private"]:checked').val() == 'false' ? true : false,
             },
             dataType: "html"
         }).success(function (data) {

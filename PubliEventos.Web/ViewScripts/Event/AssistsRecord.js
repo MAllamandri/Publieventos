@@ -21,7 +21,9 @@
             data: {
                 EventTypeId: $('#EventTypeId').val(),
                 StartDate: $('#StartDate').val(),
-                EndDate: $('#EndDate').val()
+                EndDate: $('#EndDate').val(),
+                SearchPublics: $('input[name="Private"]:checked').val() == 'true' ? true : false,
+                SearchPrivates: $('input[name="Private"]:checked').val() == 'false' ? true : false
             },
             dataType: "html"
         }).success(function (data) {

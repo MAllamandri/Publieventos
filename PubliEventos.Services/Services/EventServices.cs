@@ -156,6 +156,11 @@
                 predicate = predicate.And(x => x.Private == false);
             }
 
+            if (request.SearchPrivate)
+            {
+                predicate = predicate.And(x => x.Private == true);
+            }
+
             if (request.UserId.HasValue)
             {
                 predicate = predicate.And(x => x.User.Id == request.UserId.Value);

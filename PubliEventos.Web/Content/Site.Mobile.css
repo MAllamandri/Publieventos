@@ -18,9 +18,9 @@
         padding: 13px;
     }
 
-    .bubble-comment {
+    /*.bubble-comment {
         min-height: 160px;
-    }
+    }*/
 }
 
 .timeline li .timeline-panel {
@@ -37,8 +37,8 @@
 /*#region Comments*/
 
 .actions-comment {
-    padding-top: 130px;
-    display: block;
+    padding-top: 10px;
+    visibility: visible;
 }
 
 .profile-after {
