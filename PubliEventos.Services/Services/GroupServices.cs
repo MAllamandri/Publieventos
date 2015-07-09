@@ -1,12 +1,13 @@
 ﻿namespace PubliEventos.Services.Services
 {
-    using System;
+    using LinqKit;
     using NHibernate.Linq;
-    using System.Linq;
     using PubliEventos.Contract.Services.Group;
-    using System.Transactions;
-    using System.Collections.Generic;
     using PubliEventos.DataAccess.Querys;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Transactions;
 
     /// <summary>
     /// Servicios de grupos de usuarios.
@@ -208,11 +209,16 @@
         {
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
-                var total = CurrentSession.Query<Domain.Domain.Group>().
-                     Where(u => u.Name.ToLower().Contains(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId).Count();
+                var predicate = PredicateBuilder.True<Domain.Domain.Group>();
+                predicate = predicate.And(x => !x.NullDate.HasValue && x.Name.ToLower().Contains(request.Name.ToLower()));
 
-                var groups = CurrentSession.Query<Domain.Domain.Group>().
-                     Where(u => u.Name.ToLower().Contains(request.Name.ToLower()) && !u.NullDate.HasValue && u.Administrator.Id == request.UserId)
+                // Busco donde el usuario sea administrador o pertenezca al grupo.
+                predicate = predicate.And(x => x.Administrator.Id == request.UserId || x.Users.Where(u => u.Active).Select(u => u.Id).Contains(request.UserId));
+
+                var total = CurrentSession.Query<Domain.Domain.Group>().Where(predicate).Count();
+
+                var groups = CurrentSession.Query<Domain.Domain.Group>()
+                     .Where(predicate)
                      .Skip(request.PageNumber - 1)
                      .Take(request.PageSize)
                      .Select(u => InternalServices.GetGroupSummary(u)).ToList();

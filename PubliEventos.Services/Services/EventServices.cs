@@ -270,8 +270,13 @@
                                       .List<SearchEventsByDistanceResult>().Select(x => x.Id).ToList();
 
             var events = CurrentSession.Query<Domain.Domain.Event>().Where(x => eventsIds.Any() && eventsIds.Contains(x.Id))
-                                                                    .Select(x => InternalServices.GetEventSummary(x))
-                                                                    .ToList();
+                                                                    .Select(x => new Event
+                                                                    {
+                                                                        Id = x.Id,
+                                                                        Title = x.Title,
+                                                                        Latitude = x.Latitude,
+                                                                        Longitude = x.Longitude
+                                                                    }).ToList();
 
             return new SearchEventsByDistanceResponse()
             {

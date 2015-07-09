@@ -118,7 +118,10 @@
                     {
                         var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = Convert.ToInt32(groupId) }).Group;
 
-                        foreach (var id in group.UsersGroup.Select(x => x.UserId))
+                        var groupsUserIds = group.UsersGroup.Select(x => x.UserId).ToList();
+                        groupsUserIds.Add(group.Administrator.Id.Value);
+
+                        foreach (var id in groupsUserIds)
                         {
                             var lastInvitation = invitations.Where(y => y.User.Id == id).OrderByDescending(y => y.EffectDate).FirstOrDefault();
 
