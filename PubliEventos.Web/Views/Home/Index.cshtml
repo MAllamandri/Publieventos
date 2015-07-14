@@ -1,13 +1,11 @@
 ﻿@{
     ViewBag.Title = "Inicio";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPublieventos.cshtml";
 }
 
 @using PubliEventos.Contract.Class
 
 @System.Web.Optimization.Scripts.Render("~/bundles/Select2")
-@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Social.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Home/Index.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
@@ -16,7 +14,6 @@
 
 @System.Web.Optimization.Styles.Render("~/bundles/Select2-css")
 @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
-@System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
 
 <script type="text/javascript">
     var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<Event>)ViewBag.events))
@@ -25,86 +22,61 @@
     var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal) != null ? (User as PubliEventos.Web.App_Start.CustomPrincipal).Id : 0);
 </script>
 
-<div class="row-fluid" style="margin-top: 3%">
+<div class="row">
     <div class="col-md-12">
-        <div class="row-fluid">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <img class="image-cloud" alt="nube" src="/Content/themes/images/cloud_1.png" />
+        <div class="row event-band">
+            <div class="col-md-12 search-row">
+                <div class="form-group search-form" id="search-form" style="display: none;">
+                    <div class="row form-group margin-top-normal">
+                        <div class="col-md-6">
+                            @Html.Label("FECHA DESDE", new { @class = "label-desciption" })
+                            <div class="input-group">
+                                @Html.TextBox("StartDate", null, new { @class = "date form-control" })
+                                <span class="input-group-addon"><span class="icon-calendar"></span></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Label("FECHA HASTA", new { @class = "label-desciption" })
+                            <div class="input-group">
+                                @Html.TextBox("EndDate", null, new { @class = "date form-control" })
+                                <span class="input-group-addon"><span class="icon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            @Html.Label("TIPO DE EVENTO", new { @class = "label-desciption" })
+                            @Html.DropDownList("EventType", (SelectList)ViewBag.eventTypes, "[Seleccione Tipo Evento]", new { @class = "select-list form-control" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Label("USUARIO", new { @class = "label-desciption" })
+                            @Html.TextBox("UserName", null, new { @class = "form-control select2-users" })
+                        </div>
+                    </div>
+                    <div class="row  form-group">
+                        <div class="col-md-12">
+                            <a style="float: right; margin-top: 2px;" href="/Home/SearchEventsByDistance">Búsqueda por Aproximación</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input style="margin-top: 15px" id="resetFilters" value="Resetear Búsqueda" type="button" class="btn-cancel" />
+                            <input id="search" style="margin-top: 15px" value="Buscar" type="button" class="btn-confirm pull-right" />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row-fluid">
-            <ul class="timeline" data-bind="foreach:Events">
-                <li>
-                    <div class="tldate" data-bind="text: Date"></div>
-                </li>
-                <div data-bind="foreach: EventsDetail">
-                    <!-- ko if: Left() == true -->
-                    @Html.Partial("Partial/_LeftBubble")
-                    <!-- /ko -->
-                    <!-- ko if: Left() == false -->
-                    @Html.Partial("Partial/_RightBubble")
-                    <!-- /ko -->
-                </div>
-            </ul>
-            <div data-bind="visible: viewModel.Events().length == 0" style="text-align: center">
-                <p class="not-found-message">No hay Eventos Disponibles</p>
+            <div class="col-md-12 bar-search">
+                <div id="searchButton" class="search-title"><i class="icon-caret-down" id="icon-search"></i>&nbspBÚSQUEDAS</div>
             </div>
-        </div>
-        <nav class="navbar-fixed-bottom" style="margin-right: 20px">
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control search" id="SearchTerm" style="width: 400px" placeholder="Buscar...">
-                </div>
-            </form>
-        </nav>
-    </div>
-</div>
-<div id="navigation">
-    <div class="inner rotate label-lobster">Búsquedas</div>
-    <div class="filter-section" style="width: 500px; height: 415px;">
-        <div class="row-fluid">
-            <div class="col-md-11 col-search">
-                @Html.Label("Fecha Desde", new { @class = "label-lobster" })
-                <div class="input-group">
-                    @Html.TextBox("StartDate", null, new { @class = "date form-control" })
-                    <span class="input-group-addon"><span class="icon-calendar"></span></span>
+            <div class="col-md-12" data-bind="foreach:Events">
+                <div class="col-md-12 date-description" data-bind="text: Date"></div>
+                <div class="col-md-12" data-bind="foreach: EventsDetail">
+                    @Html.Partial("Partial/_EventMosaic")
                 </div>
             </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-11 col-search">
-                @Html.Label("Fecha Hasta", new { @class = "label-lobster" })
-                <div class="input-group">
-                    @Html.TextBox("EndDate", null, new { @class = "date form-control" })
-                    <span class="input-group-addon"><span class="icon-calendar"></span></span>
-                </div>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-11 col-search">
-                @Html.Label("Tipo Evento", new { @class = "label-lobster" })
-                @Html.DropDownList("EventType", (SelectList)ViewBag.eventTypes, "[Seleccione Tipo Evento]", new { @class = "select-list form-control" })
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-11 col-search">
-                @Html.Label("Usuario", new { @class = "label-lobster" })
-                @Html.TextBox("UserName", null, new { @class = "form-control select2-users" })
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-11 col-search">
-                <a style="float: right; margin-top: 2px;" href="/Home/SearchEventsByDistance">Búsqueda por Aproximación</a>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-11 col-search">
-                <div style="margin-top: 20px;">
-                    <input style="margin-top: 15px" id="resetFilters" value="Resetear Búsqueda" type="button" class="btn-cancel" />
-                    <input id="search" style="margin-top: 15px" value="Buscar" type="button" class="btn-confirm pull-right" />
-                </div>
+            <div data-bind="visible: viewModel.Events().length == 0" class="col-md-12" style="text-align: center">
+                <p class="not-found-message">NO HAY EVENTOS DISPONIBLES</p>
             </div>
         </div>
     </div>

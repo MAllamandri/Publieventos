@@ -1,0 +1,40 @@
+﻿<div class="col-md-3" style="height: 410px">
+    <div class="col-md-12 event-mosaic">
+        <div class="image-container">
+            <img class="image-mosaic-event img-circle" data-bind=" click: EventDetail, attr: { src: PicturePath }" style="cursor: pointer" data-src="holder.js/120x120/auto">
+        </div>
+        <div>
+            <h4 class="event-title" style="cursor: pointer" data-bind="text: Title, click: EventDetail"></h4>
+            <div class="">
+                <div>
+                    <p class="font-text event-date">
+                        <i class="icon-calendar" title="Fecha de realización">&nbsp</i><small class="text-muted" data-bind="text: EventDate"></small>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-text event-date">
+                        <i class="icon-time" title="Hora de realización">&nbsp</i><small class="text-muted" data-bind="text: EventTime"></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="margin-bottom-normal margin-top-normal">
+            <p class="font-text" data-bind="text: Description"></p>
+        </div>
+        <div class="margin-bottom-normal margin-top-normal" style="padding-bottom: 30px">
+            <div style="float: right; margin-top: -2px;" data-bind="visible: EnabledActions">
+                <a href="#" title="Invitar" data-bind="visible: !AlreadyTookPlace, click: InviteToEvent">
+                    <span style="font-size: 25px;" class="icon-default icon-user"></span></a>
+                <a href="#" title="Subir Contenidos" data-bind="click: UploadContents">
+                    <span style="font-size: 25px;" class="icon-default icon-picture"></span></a>
+            </div>
+            <div style="float: left;">
+                <a href="#" title="Compartir en Twitter" data-bind="TwitterButton: { title: Title, id: Id }" target="_blank">
+                    <img class="shared-social" src="/Content/themes/images/twitter.png" /></a>
+                <a href="#" data-bind="click: fbShare">
+                    <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
+                <div id="fb-root"></div>
+            </div>
+        </div>
+    </div>
+</div>

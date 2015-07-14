@@ -1,0 +1,874 @@
+﻿/*#region Generales*/
+
+body {
+    font-size: 14px;
+    font-family: 'MuseoSans-500', Verdana, Helvetica, Sans-Serif;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.font-text {
+    font-family: 'MuseoSans-500';
+    color: #5f6364;
+    font-size: 14px;
+}
+
+.active-link {
+    color: #2a6496;
+}
+
+.margin-bottom-normal {
+    margin-bottom: 10px;
+}
+
+.margin-top-normal {
+    margin-top: 10px;
+}
+
+.not-found-message {
+    font-family: 'Gotham Book';
+    color: #6f6e6e;
+    text-align: center;
+    font-size: 20px;
+}
+
+.icon-default {
+    color: #777;
+    font-size: 15px;
+}
+
+.label-desciption {
+    font-size: 14px;
+    font-family: 'Gotham Book';
+    font-weight: bold;
+}
+/*#endregion*/
+
+/*#region Fonts */
+
+@font-face {
+    font-family: 'Gotham Book';
+    src: url('/Content/Publieventos/Fonts/ufonts.com_gotham-book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*#endregion*/
+
+/*#region Layout*/
+
+.top-navbar {
+    height: 200px;
+}
+
+.footer {
+    background-color: black;
+    height: 200px;
+}
+
+.logo {
+    margin-top: 50px;
+}
+
+.sections-title {
+    font-family: 'Gotham Book';
+    font-family: 15px;
+    color: #c25b4e;
+    font-weight: bold;
+}
+
+    .sections-title:hover {
+        text-decoration: none;
+    }
+
+.sections-title-footer {
+    font-family: 'Gotham Book';
+    font-family: 15px;
+    color: white;
+    font-weight: 500;
+}
+
+.bar-title {
+    margin: 5px 2px 5px 5px;
+}
+
+.username {
+    font-family: 'Gotham Book';
+    font-size: 18px;
+    color: #5cb56e;
+    font-weight: bold;
+}
+
+/*#endregion*/
+
+/*#region Index */
+
+.event-mosaic {
+    background-color: #f5fbfa;
+    margin-bottom: 10px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.image-mosaic-event {
+    width: 160px;
+    height: 160px;
+    border: solid 5px #5cb56e;
+}
+
+.image-container {
+    margin-top: -25px;
+    text-align: center;
+}
+
+.event-title {
+    font-family: 'Gotham Book';
+    font-size: 15px;
+    font-weight: bold;
+    color: #5cb56e;
+}
+
+.date-description {
+    font-family: 'Gotham Book';
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.event-band {
+    background-color: #5cb56e;
+}
+
+.event-date {
+    font-family: 'Gotham Book';
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.event-description {
+}
+
+.search-events-container {
+    background: url("Publieventos/Images/search-icon.png") no-repeat left;
+    background-position: 50% 50%;
+    background-position-x: initial;
+    height: 40px;
+    padding-left: 30px;
+    margin-top: 8px;
+    width: 80%;
+}
+
+    .search-events-container::-webkit-input-placeholder {
+        font-family: 'Gotham Book';
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .search-events-container:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        font-family: 'Gotham Book';
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .search-events-container::-moz-placeholder { /* Mozilla Firefox 19+ */
+        font-family: 'Gotham Book';
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .search-events-container:-ms-input-placeholder { /* Internet Explorer 10+ */
+        font-family: 'Gotham Book';
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+.bar-search {
+    height: 30px;
+    background-color: #E1E1E1;
+}
+
+.search-title {
+    font-family: 'Gotham Book';
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #c25b4e;
+    cursor: pointer;
+}
+
+.search-row {
+    background-color: #E1E1E1;
+}
+
+.search-form {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*#endregion*/
+
+
+
+
+
+/*#region  Index */
+
+/** timeline content **/
+
+
+
+p, strong, label {
+    font-family: 'MuseoSans-500';
+}
+
+.label-lobster {
+    font-family: 'Lobster 1.4';
+    color: #B89C83;
+    font-size: 17px;
+}
+
+.btn-confirm, .btn-cancel {
+    border-radius: 10px 10px 10px 10px;
+    height: 40px;
+    min-width: 120px;
+    font-size: 15px;
+    background-color: #AAA172;
+    text-decoration: none;
+    color: white;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    -moz-box-shadow: 0px 5px 0px 0px #888888;
+    -webkit-box-shadow: 0px 5px 0px 0px #888888;
+    box-shadow: 0px 5px 0px 0px #888888;
+    font-family: 'MuseoSans-500';
+    transition: all 0.10s ease-in-out;
+    -webkit-transition: all 0.10s ease-in-out;
+    position: relative;
+    outline-color: #AAA172;
+}
+
+    .btn-confirm:active, .btn-cancel:active {
+        /*Gracias a que el elemento está en posición relativa, podemos bajarlo 4 px sin alterar el HTML*/
+        top: 4px;
+        /*bajamos el tamaño de la sombra para conseguir el efecto de profundidad*/
+        -moz-box-shadow: 0px 1px 0px 0px #888888;
+        -webkit-box-shadow: 0px 1px 0px 0px #888888;
+        box-shadow: 0px 1px 0px 0px #888888;
+    }
+
+    .btn-confirm:focus, .btn-cancel:focus {
+        outline: 0px;
+        outline-color: #AAA172;
+    }
+
+.title-modal {
+    font-family: 'Lobster 1.4';
+    color: #B89C83;
+    font-size: 25px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.region-buttons {
+    margin-top: 15px;
+    color: #B89C83;
+    border-top: 1px solid #B89C83;
+    padding-bottom: 15px;
+}
+
+.image-profile {
+    width: 50px;
+    height: 50px !important;
+    position: relative;
+    float: right;
+    margin-left: 3%;
+}
+
+.well-form {
+    background-color: #E9E6DA;
+}
+
+.login-form {
+    margin-top: 5%;
+}
+
+.modal-lg {
+    max-width: 900px;
+    height: 350px;
+}
+
+/*#region Select2 styles */
+
+.select2-search-choice-close {
+    top: 10px !important;
+}
+
+/*#endregion */
+
+@media (min-width: 768px) {
+    .modal-lg {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 900px;
+    }
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+@font-face {
+    font-family: 'orange_juiceregular';
+    src: url('/Content/themes/fonts/orange_juice_2.0-webfont.eot'), url('/Content/themes/fonts/orange_juice_2.0-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/themes/fonts/orange_juice_2.0-webfont.woff') format('woff'), url('/Content/themes/fonts/orange_juice_2.0-webfont.ttf') format('truetype'), url('/Content/themes/fonts/orange_juice_2.0-webfont.svg#orange_juiceregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Delicious SmallCaps';
+    src: url('/Content/themes/fonts/Delicious-SmallCaps.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lobster 1.4';
+    src: url('/Content/themes/fonts/Lobster 1.4.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MuseoSans-500';
+    src: url('/Content/themes/fonts/2BC051_0_0.eot');
+    src: url('webfonts/2BC051_0_0.eot?#iefix') format('embedded-opentype'), url('/Content/themes/fonts/2BC051_0_0.woff') format('woff'), url('/Content/themes/fonts//2BC051_0_0.ttf') format('truetype');
+}
+
+/*#endregion */
+
+/*#region Secciones dentro de una vista */
+
+.subtitle-sections {
+    list-style: none;
+    font-family: 'Lobster 1.4';
+    color: #B89C83;
+    font-size: 17px;
+}
+
+    .subtitle-sections li {
+        list-style-type: none;
+        display: inline;
+        padding-right: 10px;
+    }
+
+    .subtitle-sections a:hover {
+        text-decoration: none;
+    }
+
+/* #endregion */
+
+/*#region Mosaico */
+
+.mosaic {
+    background-color: #F6ECE7;
+    border-radius: 15px 15px 15px 15px;
+    border: 2px solid;
+    box-shadow: 10px 10px 5px #888888;
+    border-color: #B89C83;
+    margin-bottom: 1%;
+}
+
+
+    .mosaic:hover .verticaltabs-container {
+        display: block;
+    }
+
+/*#endregion */
+
+/*#region Vertical Menu */
+
+.verticaltabs-container {
+    display: none;
+}
+
+    .verticaltabs-container ul {
+        position: absolute;
+        padding-left: 4%;
+        list-style: none;
+        padding-top: 8px;
+    }
+
+.vertical-list-item a:focus {
+    background-color: none !important;
+}
+
+/*#endregion */
+
+/*#region Boton file */
+
+.browse-wrap {
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 8px 20px;
+    text-align: center;
+    position: relative;
+    background-color: #f6f7f8;
+    border: solid 1px #d2d2d7;
+}
+
+.title-file {
+    color: #3b5998;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'MuseoSans-500';
+}
+
+.upload {
+    right: 0;
+    margin: 0;
+    bottom: 0;
+    padding: 0;
+    opacity: 0;
+    height: 200px;
+    outline: none;
+    cursor: inherit;
+    position: absolute;
+    font-size: 1000px !important;
+}
+
+/*#endregion */
+
+/*#region  Title */
+
+.title {
+    color: #a69567;
+    font-family: orange_juiceregular;
+    font-size: 45px;
+    display: inline;
+}
+
+    .title:hover {
+        text-decoration: none;
+    }
+
+/*#endregion */
+
+/*#region Barra superior */
+
+.glyphicon-chevron-down {
+    color: #a69567;
+}
+
+.log-out {
+    width: 50px;
+    height: 50px;
+    float: right;
+    background-image: none;
+}
+
+/*#endregion */
+
+/*#region Filter */
+
+.filter-section {
+    background-color: #E9E6DA;
+    border-radius: 15px 15px 15px 15px;
+    border: 2px solid;
+    border-color: #B89C83;
+    margin-bottom: 1%;
+    padding-bottom: 25px;
+    padding-top: 10px;
+}
+
+
+/*#endregion */
+
+/* #region Validaciones */
+
+.field-validation-error {
+    background-color: transparent;
+    color: #f00;
+    font-size: 11px;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00 !important;
+    background-color: #fee !important;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.table .t-left th {
+    text-align: left;
+}
+
+/*#endregion */
+
+
+#navigation {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    top: 100px;
+    right: 0px;
+    z-index: 9999;
+}
+
+.inner {
+    position: absolute;
+    top: 18%;
+    left: 20px;
+    font-size: 30px;
+}
+
+.rotate {
+    transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+}
+
+.col-search {
+    float: right !important;
+}
+
+.filter-section div {
+    margin-bottom: 3px;
+}
+
+/*#region Estilo Mapas */
+
+#map-canvas {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.controls {
+    margin-top: 16px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #fff;
+    padding: 0 11px 0 13px;
+    width: 500px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+}
+
+    #pac-input:focus {
+        border-color: #4d90fe;
+        margin-left: -1px;
+        padding-left: 14px; /* Regular padding-left + 1. */
+        width: 501px;
+    }
+
+.pac-container {
+    font-family: Roboto;
+}
+
+.infoWindow {
+    padding-top: 5px;
+    background: #333;
+    color: #FFF;
+    font-family: 'MuseoSans-500';
+    font-size: 12px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-shadow: 0 -1px #000000;
+    -webkit-box-shadow: 0 0 8px #000;
+    box-shadow: 0 0 8px #000;
+    width: 200px;
+    height: auto;
+    cursor: pointer;
+}
+
+/*#endregion */
+
+/*#region Groups */
+
+.div-group-name {
+    min-height: 200px !important;
+}
+
+.group-name-text {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+}
+
+.message-group {
+    font-size: 30px;
+    text-align: center !important;
+}
+
+/*#endregion */
+
+/*#region Invitations */
+
+.invitation-user {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    font-size: 30px;
+    position: absolute;
+    text-align: center;
+    color: #c25b4e;
+}
+
+.invitation-title {
+    font-family: 'Comic Sans MS';
+    font-size: medium;
+    text-align: center;
+    color: #2a6496;
+}
+
+.profile-invitation {
+    height: 70px;
+    width: 70px;
+}
+
+.mosaic-invitation:hover .invitation-actions {
+    display: block;
+}
+
+.invitation-actions {
+    display: none;
+}
+
+.participants-image-profile {
+    height: 40px;
+    width: 40px;
+}
+
+.participants-user {
+    padding-top: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: #c25b4e;
+    min-height: 40px;
+}
+
+.partipants-panel {
+    text-align: center;
+    max-width: 350px !important;
+    height: 400px !important;
+    border-radius: 15px 15px 15px 15px;
+    border: 2px solid;
+    box-shadow: 10px 10px 10px 10px #888888;
+    border-color: #B89C83;
+}
+
+/*#endregion*/
+
+/*#region Profile */
+
+.user-description {
+    font-family: MuseoSans-500;
+    color: #c25b4e;
+    font-size: 20px;
+}
+
+/*#endregion*/
+
+/*#region Social links */
+
+.shared-social {
+    height: 25px !important;
+    width: 25px !important;
+}
+
+/*#endregion */
+
+/*#region Comentarios detalle */
+
+.profile-comment {
+    height: 60px;
+    width: 60px;
+}
+
+.bubble-comment {
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    border: 2px solid;
+    box-shadow: 10px 10px 5px #888888;
+    border-color: #B89C83;
+    margin-bottom: 1%;
+    padding-bottom: 10px;
+    display: block;
+}
+
+    .bubble-comment > .comment-detail {
+        width: 95%;
+        display: block;
+        margin-top: 10px;
+        word-wrap: break-word;
+    }
+
+    .bubble-comment:hover .actions-comment {
+        visibility: visible;
+    }
+
+.font-comment {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.actions-comment {
+    list-style: none;
+    width: 100%;
+    visibility: hidden;
+}
+
+/*#endregion*/
+
+/*#region Administrador */
+
+.pictures-reported {
+    max-width: 850px !important;
+    max-height: 500px !important;
+    min-height: 50px;
+    display: inline;
+    margin-left: 15px;
+}
+
+.movies-reported {
+    width: 750px !important;
+    max-height: 500px !important;
+    min-height: 50px;
+}
+
+/*#endregion*/
+
+/*#region Recover Password */
+
+.Absolute-Center {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 200px;
+    width: 400px;
+}
+
+/*#endregion*/
+
+/*#region Search Events by Distance*/
+
+.search-distance-map {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+.distance-form {
+    position: absolute;
+    z-index: 1;
+    background-color: #E2CCA5;
+}
+
+    .distance-form input, p {
+        display: inline;
+    }
+
+.user-position {
+    background-color: #DAA04E !important;
+    background-image: none !important;
+    color: black !important;
+    text-shadow: none !important;
+}
+
+.link-event {
+    color: white;
+}
+
+.m_tooltip {
+    position: absolute;
+    text-align: center;
+    font-family: 'MuseoSans-500';
+    font-size: 13px;
+    left: 0;
+    top: 0;
+    z-index: -2;
+    color: #FFFFFF;
+    float: left;
+    margin-top: 10px;
+    padding: 10px;
+    width: 260px;
+    border: 1px solid #313436;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0px 1px 2px #000;
+    -webkit-box-shadow: 0px 1px 2px #000;
+    box-shadow: 0px 1px 2px #000;
+    background-color: #313436;
+    background-image: -webkit-linear-gradient(top, #313436, #222526);
+    background-image: -moz-linear-gradient(top, #313436, #222526);
+    background-image: -ms-linear-gradient(top, #313436, #222526);
+    background-image: -o-linear-gradient(top, #313436, #222526);
+    background-image: linear-gradient(top, #313436, #222526);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#313436', EndColorStr='#222526');
+}
+
+/*#endregion*/

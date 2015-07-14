@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>Publieventos - @ViewBag.Title</title>
+
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
+    @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Shared.js")
+    @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
+    @System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
+    @System.Web.Optimization.Scripts.Render("/Scripts/bootstrap.min.js")
+
+    <link rel="stylesheet" media="all" href="/Content/Publieventos.css" />
+    <link rel="icon" href="/Content/themes/images/favicon.ico">
+</head>
+<body>
+    <div class="row top-navbar">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
+                </div>
+                <div class="col-md-8" style="margin-top: 50px">
+                    @if (ViewBag.isHome != null && (bool)ViewBag.isHome == true)
+                    {
+                        <form class="col-md-8" role="search">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control search search-events-container" placeholder="ENCONTRA TU EVENTO...." id="SearchTerm">
+                            </div>
+                        </form>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="col-md-4">
+                            <a title="Salir" href="/Account/LogOut">
+                                <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
+                            <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-circle right" data-src="holder.js/50x50">
+                            <a title="Ver mi Perfil" href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong class="username">Hola @User.Identity.Name!</strong></a>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-12" style="text-align: right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="sections-title" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
+                        <a class="sections-title" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
+                        <a class="sections-title" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
+                        <a class="sections-title" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title bar-title">|</span>
+                        <a class="sections-title" href="/Invitation/MyInvitations">INVITACIONES</a>
+                        if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
+                        {
+                        <span class="sections-title bar-title">|</span>
+                        <a class="sections-title" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="sections-title" href="../Account/Login">INGRESAR</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @RenderBody()
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 footer">
+            <div class="col-md-3">
+                <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="col-md-9" style="text-align: right; margin-top: 50px;">
+                    <a class="sections-title-footer" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title-footer bar-title">|</span>
+                    <a class="sections-title-footer" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title-footer bar-title">|</span>
+                    <a class="sections-title-footer" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title-footer bar-title">|</span>
+                    <a class="sections-title-footer" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title-footer bar-title">|</span>
+                    <a class="sections-title-footer" href="/Invitation/MyInvitations">INVITACIONES</a>
+                    @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
+                    {
+                        <span class="sections-title-footer bar-title">|</span>
+                        <a class="sections-title-footer" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

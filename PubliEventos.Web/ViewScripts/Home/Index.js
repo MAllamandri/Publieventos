@@ -8,6 +8,18 @@ $(function () {
         autoclose: true,
     });
 
+    $("#searchButton").click(function () {
+        $('#search-form').slideToggle("slow", function () {
+            if ($('#icon-search').hasClass('icon-caret-down')) {
+                $('#icon-search').removeClass('icon-caret-down');
+                $('#icon-search').addClass('icon-caret-up');
+            } else if ($('#icon-search').hasClass('icon-caret-up')) {
+                $('#icon-search').removeClass('icon-caret-up');
+                $('#icon-search').addClass('icon-caret-down');
+            }
+        });
+    });
+
     SelectUsers($(".select2-users"), false);
 
     $('.datepicker,.select2-search,#navigation').hover(
@@ -129,7 +141,7 @@ function EventsHeader(events) {
     var self = this;
 
     var month = moment(events[0].EventDate).format("MM");
-    self.Date = moment(events[0].EventDate).format("DD") + " de " + GetMonthDescription(month) + " de " + moment(events[0].EventDate).format("YYYY");;
+    self.Date = moment(events[0].EventDate).format("DD") + " DE " + GetMonthDescription(month) + " DE " + moment(events[0].EventDate).format("YYYY");;
 
     self.EventsDetail = ko.observableArray();
 
@@ -193,40 +205,40 @@ ko.bindingHandlers.TwitterButton = {
 function GetMonthDescription(month) {
     switch (month) {
         case ("01"):
-            return "Enero"
+            return "ENERO"
             break;
         case ("02"):
-            return "Febrero"
+            return "FEBRERO"
             break;
         case ("03"):
-            return "Marzo"
+            return "MARZO"
             break;
         case ("04"):
-            return "Abril"
+            return "ABRIL"
             break;
         case ("05"):
-            return "Mayo"
+            return "MAYO"
             break;
         case ("06"):
-            return "Junio"
+            return "JUNIO"
             break;
         case ("07"):
-            return "Julio"
+            return "JULIO"
             break;
         case ("08"):
-            return "Agosto"
+            return "AGOSTO"
             break;
         case ("09"):
-            return "Septiembre"
+            return "SEPTIEMBRE"
             break;
         case ("10"):
-            return "Octubre"
+            return "OCTUBRE"
             break;
         case ("11"):
-            return "Noviembre"
+            return "NOVIEMBRE"
             break;
         case ("12"):
-            return "Diciembre"
+            return "DICIEMBRE"
             break;
         default:
             return "";

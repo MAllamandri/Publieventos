@@ -23,7 +23,7 @@
             return new Event()
             {
                 Id = eventToParse.Id,
-                Title = eventToParse.Title,
+                Title = eventToParse.Title.ToUpper(),
                 Detail = eventToParse.Detail,
                 Active = eventToParse.Active,
                 FileName = string.IsNullOrEmpty(eventToParse.FileName) ? "publieventos.PNG" : eventToParse.FileName,

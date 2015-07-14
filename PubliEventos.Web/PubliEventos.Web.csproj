@@ -207,6 +207,11 @@
     <Content Include="Content\ladda\ladda-themeless.min.css" />
     <Content Include="Content\ladda\ladda.css" />
     <Content Include="Content\ladda\ladda.min.css" />
+    <Content Include="Content\Publieventos\Images\Logo.png" />
+    <Content Include="Content\Publieventos\Images\Barra_superior.png" />
+    <Content Include="Content\Publieventos\Images\Barra_inferior.png" />
+    <Content Include="Content\Publieventos.css" />
+    <Content Include="Content\Publieventos\Images\search-icon.png" />
     <Content Include="Content\Select2\select2-bootstrap.css" />
     <Content Include="Content\Select2\select2-spinner.gif" />
     <Content Include="Content\Select2\select2.css" />
@@ -337,6 +342,7 @@
     <Content Include="Scripts\dropzone\dropzone.min.js.map">
       <DependentUpon>dropzone.js</DependentUpon>
     </Content>
+    <Content Include="Content\Publieventos\Fonts\ufonts.com_gotham-book.ttf" />
     <None Include="Properties\PublishProfiles\publieventos - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\publieventos - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -478,9 +484,12 @@
     <Content Include="Views\Account\Login.Mobile.cshtml" />
     <Content Include="Views\Account\AccountActivation.Mobile.cshtml" />
     <Content Include="Views\Event\AssistsRecord.cshtml" />
+    <Content Include="Views\Shared\_LayoutPublieventos.cshtml" />
+    <Content Include="Views\Home\Partial\_EventMosaic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Publieventos\Icons\" />
     <Folder Include="ViewScripts\Comment\Partial\" />
   </ItemGroup>
   <ItemGroup>

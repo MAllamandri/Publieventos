@@ -34,6 +34,8 @@
 
             ViewBag.eventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
 
+            ViewBag.isHome = true;
+
             return View();
         }
 
