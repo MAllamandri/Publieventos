@@ -2,42 +2,37 @@
 @Scripts.Render("/Scripts/moment.js")
 @Scripts.Render("/Scripts/moment-with-locales.js")
 @Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
-@Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
 
-<div class="row filter-section">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <label class="label-lobster">Tipo de Evento</label>
-                    @Html.DropDownList("EventTypeId", (SelectList)ViewBag.EventTypes, "[Seleccione Tipo Evento]", new { @class = "form-control font-text" })
-                </div>
-                <div class="col-md-6">
-                    @Html.Label("Privacidad", new { @class = "label-lobster" })
-                    <div>
-                        @Html.Label("Público", new { @class = "label-lobster", style = "padding-right: 10px" })
-                        <input type="radio"  id="Public" name="Private" value="true" style="margin-right: 15px" />
-                        @Html.Label("Privado", new { @class = "label-lobster", style = "padding-right: 10px" })
-                        <input type="radio" id="Private" name="Private" value="false" />
-                    </div>
+<div class="col-md-12 search-row" id="search-form" style="display: none">
+    <div class="form-group search-form">
+        <div class="row form-group margin-top-normal">
+            <div class="col-md-6">
+                <label class="label-description">TIPO DE EVENTO</label>
+                @Html.DropDownList("EventTypeId", (SelectList)ViewBag.EventTypes, "[Seleccione Tipo Evento]", new { @class = "form-control font-text" })
+            </div>
+            <div class="col-md-6">
+                @Html.Label("PRIVACIDAD", new { @class = "label-description" })
+                <div class="well-region" style="width: 50%">
+                    @Html.Label("Público", new { @class = "label-description", style = "padding-right: 10px" })
+                    <input type="radio" id="Public" name="Private" value="true" style="margin-right: 15px" />
+                    @Html.Label("Privado", new { @class = "label-description", style = "padding-right: 10px" })
+                    <input type="radio" id="Private" name="Private" value="false" />
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    @Html.Label("Fecha Desde", new { @class = "label-lobster" })
-                    <div class="input-group">
-                        @Html.TextBox("StartDate", null, new { @class = "date form-control" })
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
+        <div class="row form-group">
+            <div class="col-md-6">
+                @Html.Label("FECHA DESDE", new { @class = "label-description" })
+                <div class="input-group">
+                    @Html.TextBox("StartDate", null, new { @class = "date form-control" })
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
-                <div class="col-md-6">
-                    @Html.Label("Fecha Hasta", new { @class = "label-lobster" })
-                    <div class="input-group date">
-                        @Html.TextBox("EndDate", null, new { @class = "date form-control" })
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
+            </div>
+            <div class="col-md-6">
+                @Html.Label("FECHA HASTA", new { @class = "label-description" })
+                <div class="input-group date">
+                    @Html.TextBox("EndDate", null, new { @class = "date form-control" })
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>
         </div>

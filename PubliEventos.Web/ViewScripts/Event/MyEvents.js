@@ -1,11 +1,23 @@
 ﻿$(function () {
     if ($('#CurrentsEvents').val() == "True") {
-        $('#tabCurrents').addClass("active-link");
-        $('#tabPrevious').removeClass("active-link");
+        $('#tabCurrents').addClass("active-tab");
+        $('#tabPrevious').removeClass("active-tab");
     } else {
-        $('#tabPrevious').addClass("active-link");
-        $('#tabCurrents').removeClass("active-link");
+        $('#tabPrevious').addClass("active-tab");
+        $('#tabCurrents').removeClass("active-tab");
     }
+
+    $("#searchButton").click(function () {
+        $('#search-form').slideToggle("slow", function () {
+            if ($('#icon-search').hasClass('icon-caret-down')) {
+                $('#icon-search').removeClass('icon-caret-down');
+                $('#icon-search').addClass('icon-caret-up');
+            } else if ($('#icon-search').hasClass('icon-caret-up')) {
+                $('#icon-search').removeClass('icon-caret-up');
+                $('#icon-search').addClass('icon-caret-down');
+            }
+        });
+    });
 
     $(document).on("click", '.deleteEvent', function (event) {
         var idEvent = $(this).attr('rel');
@@ -41,14 +53,6 @@
                 }
             }
         });
-    });
-
-    $('#filter').click(function () {
-        if ($('#filterRegion').is(':visible')) {
-            $('#filterRegion').hide();
-        } else {
-            $('#filterRegion').show();
-        }
     });
 
     $('#reset').click(function () {

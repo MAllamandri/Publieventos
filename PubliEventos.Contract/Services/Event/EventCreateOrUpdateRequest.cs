@@ -20,6 +20,7 @@
         /// </summary>
         [Required(ErrorMessage = "El valor es requerido")]
         [Display(Name = "Título")]
+        [StringLength(50, ErrorMessage = "No puede superar los 50 caracteres.")]
         public string Title { get; set; }
 
         /// <summary>
@@ -30,6 +31,9 @@
         /// <summary>
         /// Descripcion del evento.
         /// </summary>
+        [Required(ErrorMessage = "El valor es requerido")]
+        [Display(Name = "Descripción")]
+        [StringLength(120, ErrorMessage = "No puede superar los 120 caracteres.")]
         public string Description { get; set; }
 
         /// <summary>

@@ -9,9 +9,10 @@
 
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
     @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
-    @Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
+    @System.Web.Optimization.Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
     @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
-    @Scripts.Render("~/bundles/modernizr")
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/modernizr")
     @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Shared.js")
     @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
     @System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
@@ -21,11 +22,13 @@
     <link rel="icon" href="/Content/themes/images/favicon.ico">
 </head>
 <body>
-    <div class="row top-navbar">
+    <div class="header">
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="col-md-4">
-                    <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
+                    <a href="/Home/Index">
+                        <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
+                    </a>
                 </div>
                 <div class="col-md-8" style="margin-top: 50px">
                     @if (ViewBag.isHome != null && (bool)ViewBag.isHome == true)
@@ -38,10 +41,10 @@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="float: right">
                             <a title="Salir" href="/Account/LogOut">
                                 <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
-                            <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-circle right" data-src="holder.js/50x50">
+                            <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile right" data-src="holder.js/50x50">
                             <a title="Ver mi Perfil" href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong class="username">Hola @User.Identity.Name!</strong></a>
                         </div>
                     }
@@ -49,15 +52,19 @@
                 <div class="col-md-12" style="text-align: right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a class="sections-title" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
-                        <a class="sections-title" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
-                        <a class="sections-title" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
-                        <a class="sections-title" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title bar-title">|</span>
-                        <a class="sections-title" href="/Invitation/MyInvitations">INVITACIONES</a>
+
+                        var controller = ViewContext.RouteData.Values["controller"].ToString();
+                        var action = ViewContext.RouteData.Values["action"].ToString();
+                                                
+                        <a class="@(controller == "Event" && action == "Create" ? "sections-title sections-title-active" : "sections-title")" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
+                        <a class="@(controller == "Event" && action == "MyEvents" ? "sections-title sections-title-active" : "sections-title")" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
+                        <a class="@(controller == "Group" && action == "MyGroups" ? "sections-title sections-title-active" : "sections-title")" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
+                        <a class="@(controller == "Event" && action == "AssistsRecord" ? "sections-title sections-title-active" : "sections-title")" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title bar-title">|</span>
+                        <a class="@(controller == "Invitation" && action == "MyInvitations" ? "sections-title sections-title-active" : "sections-title")" href="/Invitation/MyInvitations">INVITACIONES</a>
                         if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
                         {
                         <span class="sections-title bar-title">|</span>
-                        <a class="sections-title" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
+                        <a class="@(controller == "Admin" && action == "ReportContents" ? "sections-title sections-title-active" : "sections-title")" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
                         }
                     }
                     else
@@ -68,32 +75,28 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            @RenderBody()
-        </div>
+    <div class="col-md-12 body">
+        @RenderBody()
     </div>
-    <div class="row">
-        <div class="col-md-12 footer">
-            <div class="col-md-3">
-                <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
-            </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="col-md-9" style="text-align: right; margin-top: 50px;">
-                    <a class="sections-title-footer" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title-footer bar-title">|</span>
-                    <a class="sections-title-footer" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title-footer bar-title">|</span>
-                    <a class="sections-title-footer" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title-footer bar-title">|</span>
-                    <a class="sections-title-footer" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title-footer bar-title">|</span>
-                    <a class="sections-title-footer" href="/Invitation/MyInvitations">INVITACIONES</a>
-                    @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
-                    {
-                        <span class="sections-title-footer bar-title">|</span>
-                        <a class="sections-title-footer" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
-                    }
-                </div>
-            }
+    <div class="footer col-md-12">
+        <div class="col-md-3">
+            <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
         </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-md-9" style="text-align: right; margin-top: 40px;">
+                <a class="sections-title-footer" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title-footer bar-title">|</span>
+                <a class="sections-title-footer" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title-footer bar-title">|</span>
+                <a class="sections-title-footer" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title-footer bar-title">|</span>
+                <a class="sections-title-footer" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title-footer bar-title">|</span>
+                <a class="sections-title-footer" href="/Invitation/MyInvitations">INVITACIONES</a>
+                @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
+                {
+                    <span class="sections-title-footer bar-title">|</span>
+                    <a class="sections-title-footer" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
+                }
+            </div>
+        }
     </div>
     @RenderSection("scripts", required: false)
 </body>

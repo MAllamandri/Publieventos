@@ -1,6 +1,6 @@
 ﻿$(function () {
-    $('#Description').charactersQuantity(139);
-    $('#Title').charactersQuantity(100);
+    $('#Description').charactersQuantity(119);
+    $('#Title').charactersQuantity(49);
 
     $('.date').datetimepicker({
         pickTime: false,

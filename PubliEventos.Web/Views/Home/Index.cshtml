@@ -29,14 +29,14 @@
                 <div class="form-group search-form" id="search-form" style="display: none;">
                     <div class="row form-group margin-top-normal">
                         <div class="col-md-6">
-                            @Html.Label("FECHA DESDE", new { @class = "label-desciption" })
+                            @Html.Label("FECHA DESDE", new { @class = "label-description" })
                             <div class="input-group">
                                 @Html.TextBox("StartDate", null, new { @class = "date form-control" })
                                 <span class="input-group-addon"><span class="icon-calendar"></span></span>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            @Html.Label("FECHA HASTA", new { @class = "label-desciption" })
+                            @Html.Label("FECHA HASTA", new { @class = "label-description" })
                             <div class="input-group">
                                 @Html.TextBox("EndDate", null, new { @class = "date form-control" })
                                 <span class="input-group-addon"><span class="icon-calendar"></span></span>
@@ -45,11 +45,11 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-6">
-                            @Html.Label("TIPO DE EVENTO", new { @class = "label-desciption" })
+                            @Html.Label("TIPO DE EVENTO", new { @class = "label-description" })
                             @Html.DropDownList("EventType", (SelectList)ViewBag.eventTypes, "[Seleccione Tipo Evento]", new { @class = "select-list form-control" })
                         </div>
                         <div class="col-md-6">
-                            @Html.Label("USUARIO", new { @class = "label-desciption" })
+                            @Html.Label("USUARIO", new { @class = "label-description" })
                             @Html.TextBox("UserName", null, new { @class = "form-control select2-users" })
                         </div>
                     </div>

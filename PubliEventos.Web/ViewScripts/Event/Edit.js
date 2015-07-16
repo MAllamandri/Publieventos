@@ -14,8 +14,8 @@
     $('#EventStartTime').val(data.EventStartTime.split(":")[0] + ":" + data.EventStartTime.split(":")[1]);
     $('#EventEndTime').val(data.EventEndTime.split(":")[0] + ":" + data.EventEndTime.split(":")[1]);
 
-    $('#Description').charactersQuantity(139);
-    $('#Title').charactersQuantity(100);
+    $('#Description').charactersQuantity(119);
+    $('#Title').charactersQuantity(49);
 
     $('.date').datetimepicker({
         pickTime: false,
