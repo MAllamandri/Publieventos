@@ -1,16 +1,20 @@
 ﻿$(function () {
-    $('#filter').click(function () {
-        if ($('#filterRegion').is(':visible')) {
-            $('#filterRegion').hide();
-        } else {
-            $('#filterRegion').show();
-        }
-    });
-
     $('#reset').click(function () {
         $('#futures').show();
         $('#previous').show();
         $('#regionEvents').hide();
+    });
+
+    $("#searchButton").click(function () {
+        $('#search-form').slideToggle("slow", function () {
+            if ($('#icon-search').hasClass('icon-caret-down')) {
+                $('#icon-search').removeClass('icon-caret-down');
+                $('#icon-search').addClass('icon-caret-up');
+            } else if ($('#icon-search').hasClass('icon-caret-up')) {
+                $('#icon-search').removeClass('icon-caret-up');
+                $('#icon-search').addClass('icon-caret-down');
+            }
+        });
     });
 
     $('#search').click(function () {

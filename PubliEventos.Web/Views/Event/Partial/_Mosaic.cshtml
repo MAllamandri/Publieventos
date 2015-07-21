@@ -32,7 +32,7 @@
             <div class="margin-bottom-normal margin-top-normal" style="padding-bottom: 30px">
                 @if (ViewData["ViewActions"] == null || (bool)ViewData["ViewActions"] == true)
                 {
-                    <div style="float: right; margin-top: -2px;">
+                    <div class="my-events-actions">
                         <a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a>
                         <a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a>
                         <a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a>

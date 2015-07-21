@@ -84,7 +84,7 @@ function myViewModel() {
 
     self.DisabledContent = function () {
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Deshabilitar Contenido</h4>",
+            title: "<h4 class='title-modal'>DESHABILITAR CONTENIDO</h4>",
             message: "<p class='font-text'>Esta seguro que desea deshabilitar el contenido?</p>",
             buttons: {
                 'cancel': {
@@ -125,7 +125,7 @@ function myViewModel() {
 
     self.IgnoreReportedContent = function () {
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Ignorar Contenido Reportado</h4>",
+            title: "<h4 class='title-modal'>IGNORAR CONTENIDO REPORTADO</h4>",
             message: "<p class='font-text'>Esta seguro que desea volver a activar el contenido?</p>",
             buttons: {
                 'cancel': {

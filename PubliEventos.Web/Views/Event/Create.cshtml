@@ -21,10 +21,11 @@
     <div class="col-md-12">
         <div style="margin-bottom: 25px" id="create">
             <form id="CreateForm" method="post" enctype="multipart/form-data">
-
                 @Html.AntiForgeryToken()
-                @Html.Partial("Partial/_Form")
-
+                
+                <div class="col-md-12">
+                    @Html.Partial("Partial/_Form")
+                </div>
                 <div class="margin-bottom-normal">
                     <div class="col-md-12">
                         <div class="col-md-6 margin-bottom-normal">

@@ -1,10 +1,12 @@
 ﻿<div class="row">
     <div class="col-md-7 partipants-panel panel panel-warning nano">
         <div class="nano-content">
-            <div class="panel-heading">
-                <p class="label-lobster" style="font-size: 25px; text-align: center;" data-bind="text: ParticipantsTitle"></p>
+            <div class="asists-user-title">
+                <p class="label-description" style="font-size: 25px; text-align: center;" data-bind="text: ParticipantsTitle"></p>
             </div>
-            <p style="font-size: 15px; margin-top: 10%;" data-bind="visible: Participants().length == 0" class="not-found-message">No Hay Asistentes</p>
+            <div class="col-md-12">
+                <div style="margin-top: 50%;" data-bind="visible: Participants().length == 0" class="not-found-message not-found-message-dark">NO HAY ASISTENTES</div>
+            </div>
             <div data-bind="foreach: Participants">
                 <div class="col-md-11 panel-body" style="margin-top: 15px">
                     <div class="col-md-3" style="display: inline; height: 40px; width: 75px;">

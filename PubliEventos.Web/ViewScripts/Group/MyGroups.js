@@ -3,7 +3,7 @@
         var groupId = $(this).attr('rel');
 
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Eliminación de Grupo</h4>",
+            title: "<h4 class='title-modal'>ELIMINACIÓN DE GRUPO</h4>",
             message: "<p class='font-text'>Esta seguro que desea eliminar el grupo?</p>",
             buttons: {
                 'cancel': {
@@ -39,7 +39,7 @@
         var groupId = $(this).attr('rel');
 
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Abandonar Grupo</h4>",
+            title: "<h4 class='title-modal'>ABANDONAR GRUPO</h4>",
             message: "<p class='font-text'>Esta seguro que desea abandonar el grupo?</p>",
             buttons: {
                 'cancel': {

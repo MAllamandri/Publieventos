@@ -2,16 +2,14 @@
 
 @{
     ViewBag.Title = "Detalle del Grupo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPublieventos.cshtml";
 }
 
-<div class="row-fluid">
-    <div class="col-md-10 offset1">
+<div class="row">
+    <h2 class="title-section">@Model.Name</h2>
+    <div class="col-md-12">
         <div style="margin-bottom: 25px">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="subtitle">@Model.Name</h2>
-                </div>
+            <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="message-group">@Model.Message</h2>
@@ -23,9 +21,9 @@
                             <strong>Administrador</strong>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-12 tl-heading">
+                                    <div class="col-md-12">
                                         <p style="display: inline">@Model.Administrator.FirstName @Model.Administrator.LastName </p>
-                                        <h4 style="display: inline" class="font-text">(@Model.Administrator.UserName)</h4>
+                                        <h4 style="display: inline; color: #c25b4e;" class="font-text">(@Model.Administrator.UserName)</h4>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +42,7 @@
                                     <div class="row" style="margin-bottom: 10px">
                                         <div class="col-md-12 tl-heading">
                                             <p style="display: inline">@user.FirstName @user.LastName </p>
-                                            <h4 style="display: inline" class="font-text">(@user.UserName)</h4>
+                                            <h4 style="display: inline; color: #c25b4e;" class="font-text">(@user.UserName)</h4>
 
                                             @if (userGroup.Active == null)
                                             {
@@ -57,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row-">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-12 region-buttons">
                             <a type="button" href="/Group/MyGroups">

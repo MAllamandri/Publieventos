@@ -12,7 +12,7 @@
         }
 
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Responder Invitación</h4>",
+            title: "<h4 class='title-modal'>RESPONDER INVITACIÓN</h4>",
             message: "<p class='font-text'>Esta seguro que desea " + description + " la invitación?</p>",
             buttons: {
                 'cancel': {

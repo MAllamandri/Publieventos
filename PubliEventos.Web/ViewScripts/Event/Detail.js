@@ -56,51 +56,19 @@ $(function () {
 
     $('.carousel').carousel();
 
-    $('#tabLocalization').click(function () {
-        removeActiveClass();
-        HideRegions();
-        $('#regionLocalization').show();
-        $(this).addClass("active-link");
-
-        var center = map.getCenter();
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(center);
+    $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
     });
 
-    $('#tabPictures').click(function () {
-        HideRegions();
-        removeActiveClass();
-        $('#regionPictures').show();
-        $(this).addClass("active-link");
-    });
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if (e.target.id == 'tabLocalization') {
 
-    $('#tabMovies').click(function () {
-        HideRegions();
-        removeActiveClass();
-        $('#regionMovies').show();
-        $(this).addClass("active-link");
-    });
-
-    $('#tabDetail').click(function () {
-        removeActiveClass();
-        HideRegions();
-        $(this).addClass("active-link");
-        $('#regionDetail').show();
-    });
-
-    function removeActiveClass() {
-        $('#tabPictures').removeClass("active-link");
-        $('#tabLocalization').removeClass("active-link");
-        $('#tabDetail').removeClass("active-link");
-        $('#tabMovies').removeClass("active-link");
-    }
-
-    function HideRegions() {
-        $('#regionLocalization').hide();
-        $('#regionPictures').hide();
-        $('#regionDetail').hide();
-        $('#regionMovies').hide();
-    }
+            var center = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(center);
+        }
+    })
 
     //#region Reports
 
@@ -127,7 +95,7 @@ $(function () {
 
     $(document).on("click", '#comment', function (event) {
         $('#commentModal').modal('show');
-        $('#myModalLabel').text("Comentar");
+        $('#myModalLabel').text("COMENTAR");
     });
 
     $('#commentModal').on('hidden.bs.modal', function () {
@@ -196,11 +164,11 @@ function myViewModel() {
     self.Standby = ko.observableArray();
 
     self.ParticipantsTitle = ko.computed(function () {
-        return "Asistirán (" + self.Participants().length + ")";
+        return "ASISTIRÁN (" + self.Participants().length + ")";
     });
 
     self.StandbyTitle = ko.computed(function () {
-        return "Esperando Confirmación (" + self.Standby().length + ")";
+        return "ESPERANDO CONFIRMACIÓN (" + self.Standby().length + ")";
     });
 
     self.ShowNotFoundComments = ko.observable();
@@ -225,7 +193,7 @@ function myViewModel() {
             if (data.Success) {
                 if (data.IsDisabled) {
                     bootbox.dialog({
-                        title: "<h4 class='title-modal'>Reportar</h4>",
+                        title: "<h4 class='title-modal'>REPORTAR</h4>",
                         message: "<p class='font-text'>El contenido ha sido deshabilitado.</p>",
                         buttons: {
                             success: {
@@ -274,7 +242,7 @@ function myViewModel() {
             } else {
                 $.unblockUI();
                 bootbox.dialog({
-                    title: "<h4 class='title-modal'>Reportar</h4>",
+                    title: "<h4 class='title-modal'>REPORTAR</h4>",
                     message: "<p class='font-text'>Ha ocurrido un error al reportar el contenido.</p>",
                     buttons: {
                         success: {
@@ -439,14 +407,14 @@ function contentModel(content) {
     self.ShowReportModal = function () {
         $('#contentId').val(content.FileName);
         $('#contentType').val(content.ContentType);
-        $('.title-modal').text("Reportar Contenido");
+        //$('.title-modal').text("REPORTAR CONTENIDO");
 
         $('#reportModal').modal('show');
     }
 
     self.RemoveContent = function () {
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Eliminación de Contenido</h4>",
+            title: "<h4 class='title-modal'>ELIMINACIÓN DE CONTENIDO</h4>",
             message: "<p class='font-text'>Esta seguro que desea eliminar el contenido?</p>",
             buttons: {
                 'cancel': {
@@ -475,7 +443,7 @@ function contentModel(content) {
                             chat.server.deleteContent(content.FileName, content.ContentType, self.EventId);
                         } else {
                             bootbox.dialog({
-                                title: "<h4 class='title-modal'>Contenidos</h4>",
+                                title: "<h4 class='title-modal'>CONTENIDOS</h4>",
                                 message: "<p class='font-text'>Ha ocurrido un error al eliminar el contenido.</p>",
                                 buttons: {
                                     success: {
@@ -518,7 +486,7 @@ function CommentModel(comment) {
 
     self.DeleteComment = function () {
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Eliminación de Comentario</h4>",
+            title: "<h4 class='title-modal'>ELIMINACIÓN DE COMENTARIO</h4>",
             message: "<p class='font-text'>Esta seguro que desea eliminar el comentario?</p>",
             buttons: {
                 'cancel': {
@@ -544,7 +512,7 @@ function CommentModel(comment) {
                             $.unblockUI();
                         } else {
                             bootbox.dialog({
-                                title: "<h4 class='title-modal'>Comentarios</h4>",
+                                title: "<h4 class='title-modal'>COMENTARIOS</h4>",
                                 message: "<p class='font-text'>Ha ocurrido un error al eliminar el comentario..</p>",
                                 buttons: {
                                     success: {
@@ -569,13 +537,13 @@ function CommentModel(comment) {
         $('#detailComment').val(self.Detail());
         $('#commentId').val(comment.Id);
         $('#commentModal').modal('show');
-        $('.title-modal').text("Editar Comentario");
+        $('.title-modal').text("EDITAR COMENTARIO");
     }
 
     self.ShowReportModal = function () {
         $('#contentId').val(comment.Id);
         $('#contentType').val(contents.Comment);
-        $('.title-modal').text("Reportar Comentario");
+        //$('.title-modal').text("REPORTAR COMENTARIO");
 
         $('#reportModal').modal('show');
     }

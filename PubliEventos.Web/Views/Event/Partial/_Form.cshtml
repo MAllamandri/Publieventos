@@ -1,15 +1,15 @@
 ﻿@model PubliEventos.Contract.Services.Event.EventCreateOrUpdateRequest
 
-<div class="row-fluid margin-bottom-normal">
+<div class="row margin-bottom-normal">
     <div class="col-md-12 margin-bottom-normal">
-        <div class="col-md-12">
+        <div class="col-md-6">
             @Html.Label("TÍTULO", new { @class = "label-description" })
             @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Title)
         </div>
     </div>
 </div>
-<div class="row-fluid margin-bottom-normal">
+<div class="row margin-bottom-normal">
     <div class="col-md-12 margin-bottom-normal">
         <div class="col-md-12">
             @Html.Label("DESCRIPCIÓN", new { @class = "label-description" })
@@ -18,7 +18,7 @@
         </div>
     </div>
 </div>
-<div class="row-fluid margin-bottom-normal">
+<div class="row margin-bottom-normal">
     <div class="col-md-12 margin-bottom-normal">
         <div class="col-md-12">
             @Html.Label("DETALLE", new { @class = "label-description" })
@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-<div class="row-fluid margin-bottom-normal">
+<div class="row margin-bottom-normal">
     <div class="col-md-12">
         <div class="col-md-2 margin-bottom-normal">
             @Html.Label("PRIVACIDAD", new { @class = "label-description" })

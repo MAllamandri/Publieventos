@@ -197,7 +197,6 @@
     <Content Include="Content\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
-    <Content Include="Content\EventsDetail.css" />
     <Content Include="Content\Extensions\nanoscroller.css" />
     <Content Include="Content\fonts\css\font-awesome.css" />
     <Content Include="Content\images\Covers\maxi.jpg" />
@@ -440,8 +439,6 @@
     <Content Include="Views\Event\Detail.cshtml" />
     <Content Include="Views\Event\Partial\_MosaicDetail.cshtml" />
     <Content Include="Views\Error\UnauthorizedAccess.cshtml" />
-    <Content Include="Views\Home\Partial\_LeftBubble.cshtml" />
-    <Content Include="Views\Home\Partial\_RightBubble.cshtml" />
     <Content Include="Views\Event\Partial\_LocalizationDetail.cshtml" />
     <Content Include="Views\Comment\Partial\_CommentBubble.cshtml" />
     <Content Include="Views\Group\MyGroups.cshtml" />
@@ -490,7 +487,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Publieventos\Icons\" />
-    <Folder Include="ViewScripts\Comment\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

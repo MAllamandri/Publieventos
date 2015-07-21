@@ -8,12 +8,12 @@
         width: 200px !important;
     }
 </style>
-<div class="row-fluid">
-    <div class="span8">
+<div class="row" style="margin-bottom: 30px">
+    <div class="col-md-8">
         <input id="pac-input" class="controls" type="text" placeholder="Ingrese la dirección" />
         <div id="map-canvas" style="height: 600px; width: auto"></div>
         <div style="position: absolute; top: 90%;">
-            <p class="label-lobster" style="display: inline;">Medio de Transporte </p>
+            <p class="label-description" style="display: inline;">MEDIO DE TRANSPORTE </p>
             <select class="form-control" style="width: 250px; display: inline;" id="mode">
                 <option class="font-text" value="DRIVING">Auto</option>
                 <option class="font-text" value="WALKING">Caminando</option>
@@ -21,27 +21,29 @@
                 <option class="font-text" value="TRANSIT">Transporte Público</option>
             </select>
         </div>
-        <nav id="colorNav">
-            <ul>
-                <li class="red">
-                    <a href="#" class="icon-cogs"></a>
-                    <ul>
-                        <li><a class="mapStyle" rel="1" href="#">Gris</a></li>
-                        <li><a class="mapStyle" rel="2" href="#">Gris Claro</a></li>
-                        <li><a class="mapStyle" rel="0" href="#">Azul</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+        <div style="right: 50px">
+            <nav id="colorNav">
+                <ul>
+                    <li class="red">
+                        <a href="#" class="icon-cogs"></a>
+                        <ul>
+                            <li><a class="mapStyle" rel="1" href="#">Gris</a></li>
+                            <li><a class="mapStyle" rel="2" href="#">Gris Claro</a></li>
+                            <li><a class="mapStyle" rel="0" href="#">Azul</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         <div id="infoRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute;" class="alert alert-warning" role="alert">
-            <i class="glyphicon glyphicon-info-sign"></i><strong>&nbspSeleccione un lugar
+            <i class="icon-info-sign"></i><strong>&nbspSeleccione un lugar
                                                              <br />
                 para marcar su recorrido al evento...</strong>
         </div>
         <div id="NotFoundRoutes" style="margin-left: 5px; overflow: auto; font-size: 15px; position: absolute; display: none;" class="alert alert-danger" role="alert">
-            <i class="glyphicon glyphicon-ban-circle"></i><strong>&nbspNo se ha podido encontrar
+            <i class="icon-ban-circle"></i><strong>&nbspNo se ha podido encontrar
                                                              <br />
                 la ruta, intente cambiando los parámetros de busqueda...</strong>
         </div>

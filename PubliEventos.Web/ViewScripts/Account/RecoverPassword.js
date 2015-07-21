@@ -17,7 +17,7 @@
                 $.unblockUI();
 
                 bootbox.dialog({
-                    title: "<h4 class='title-modal'>Modificar Contraseña</h4>",
+                    title: "<h4 class='title-modal'>MODIFICAR CONTRASEÑA</h4>",
                     message: "<p class='font-text'>La contraseña ha sido modificada con exito</p>",
                     buttons: {
                         success: {

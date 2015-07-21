@@ -3,7 +3,7 @@
 <div class="row margin-bottom-normal">
     <div class="col-md-12">
         <div class="col-md-6">
-            @Html.Label("Nombre del Grupo", new { @class = "label-lobster" })
+            @Html.Label("NOMBRE DEL GRUPO", new { @class = "label-description" })
             @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.GroupName)
         </div>
@@ -12,7 +12,7 @@
 <div class="row margin-bottom-normal">
     <div class="col-md-12">
         <div class="col-md-12">
-            @Html.Label("Mensaje al Grupo", new { @class = "label-lobster" })
+            @Html.Label("MENSAJE AL GRUPO", new { @class = "label-description" })
             @Html.TextBoxFor(m => m.Message, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Message)
         </div>
@@ -21,7 +21,7 @@
 <div class="row margin-bottom-normal">
     <div class="col-md-12">
         <div class="col-md-12">
-            <label class="label-lobster">Agregar Usuarios</label>
+            <label class="label-description">AGREGAR MIEMBROS</label>
             @Html.TextBoxFor(m => m.UserIds, new { @class = "font-text select2-users" })
             @Html.ValidationMessageFor(m => m.UserIds)
         </div>

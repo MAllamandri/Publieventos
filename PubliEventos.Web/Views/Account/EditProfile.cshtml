@@ -2,13 +2,12 @@
 
 @{
     ViewBag.Title = "Editar Perfil";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPublieventos.cshtml";
 }
 
 @System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/moment-with-locales.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("~/ViewScripts/Account/EditProfile.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
@@ -18,12 +17,12 @@
 @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
 
 <div class="row">
-    <div class="col-md-10 offset1">
+    <div class="col-md-12">
         <div style="margin-bottom: 25px">
-            <div class="row-fluid" style="margin-top: 30px">
+            <div class="col-md-12" style="margin-top: 30px">
                 <div class="col-md-4">
-                    <div class="tl-circ">
-                        <img src="@Model.PathProfile" style="width: 300px; height: 300px;" alt="" class="img-responsive" data-src="holder.js/300x300">
+                    <div>
+                        <img src="@Model.PathProfile" alt="Foto de perfil" class="img-responsive img-rounded" data-src="holder.js/300x300">
                     </div>
                 </div>
                 <form id="form" method="post" enctype="multipart/form-data">
@@ -34,49 +33,49 @@
                     @Html.Hidden("IsValid", true)
 
                     <div class="col-md-8">
-                        <div class="row-fluid">
+                        <div class="row">
                             <div class="col-md-6">
-                                <strong>Nombre de Usuario</strong>
+                                <label class="label-description">NOMBRE DE USUARIO</label>
                                 @Html.TextBoxFor(m => m.UserName, new { @class = "replaceBlank form-control font-text" })
                                 @Html.ValidationMessage("UserName")
                                 <div class="alert alert-danger" id="alertUserExist" style="display: none; margin-top: 15px; margin-bottom: 0px;" role="alert"><span class="glyphicon glyphicon-user"></span>&nbspEl usuario ya existe</div>
                             </div>
                             <div class="col-md-6">
-                                <strong>Email</strong>
+                                <label class="label-description">EMAIL</label>
                                 @Html.TextBoxFor(m => m.Email, new { @class = "replaceBlank form-control font-text" })
                                 @Html.ValidationMessage("Email")
                                 <div class="alert alert-danger" id="alertEmailExist" style="display: none; margin-top: 15px; margin-bottom: 0px;" role="alert"><span class="glyphicon glyphicon-envelope"></span>&nbspEl email ya existe</div>
                             </div>
                         </div>
                         <br />
-                        <div class="row-fluid">
+                        <div class="row">
                             <div class="col-md-6">
-                                <strong>Nombre</strong>
+                                <label class="label-description">NOMBRE</label>
                                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control font-text" })
                                 @Html.ValidationMessage("FirstName")
                             </div>
                             <div class="col-md-6">
-                                <strong>Apellido</strong>
+                                <label class="label-description">APELLIDO</label>
                                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control font-text" })
                                 @Html.ValidationMessage("LastName")
                             </div>
                         </div>
                         <br />
-                        <div class="row-fluid">
+                        <div class="row">
                             <div class="col-md-6">
-                                <strong>Localidad</strong>
+                                <label class="label-description">LOCALIDAD</label>
                                 @Html.DropDownListFor(m => m.LocalityId, (SelectList)ViewBag.Localities, "[Seleccione Localidad]", new { @class = "form-control font-text" })
                                 @Html.ValidationMessage("LocalityId")
                             </div>
                             <div class="col-md-6">
-                                <strong>Provincia</strong>
+                                <label class="label-description">PROVINCIA</label>
                                 @Html.DropDownListFor(m => m.ProvinceId, (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
                                 @Html.ValidationMessage("ProvinceId")
                             </div>
                         </div>
-                        <div class="row-fluid">
+                        <div class="row">
                             <div class="col-md-6" style="margin-top: 23px;">
-                                <strong>Foto de Perfil</strong>
+                                <label class="label-description">FOTO DE PERFIL</label>
                                 <div class="browse-wrap">
                                     <div class="title-file">Ningún archivo seleccionado</div>
                                     <input type="file" id="File" name="File" class="upload" title="Seleccione un archivo">
@@ -85,7 +84,7 @@
                                 <small>Archivos permitidos (jpg, jpeg, gif y png)</small>
                             </div>
                             <div class="col-md-6" style="margin-top: 23px;">
-                                <strong>Fecha de Nacimiento</strong>
+                                <label class="label-description">FECHA DE NACIMIENTO</label>
                                 <div class="input-group date">
                                     @Html.TextBox("BirthDate", Model.BirthDate.ToShortDateString(), new { @class = "date form-control" })
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -114,19 +113,19 @@
         <div class="modal-content">
             <div>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-                <h4 class="title-modal" id="myModalLabel">Modificar Contraseña</h4>
+                <h4 class="title-modal" id="myModalLabel">MODIFICAR CONTRASEÑA</h4>
             </div>
             <div class="modal-body">
                 @Html.Hidden("CurrentPassword", Model.Password)
-                <strong>Contraseña Actual</strong>
+                <label class="label-description">CONTRASEÑA ACTUAL</label>
                 @Html.Password("OldPassword", null, new { @class = "form-control" })
                 @Html.ValidationMessage("OldPassword")
                 <br />
-                <strong>Nueva Contraseña</strong>
+                <label class="label-description">NUEVA CONTRASEÑA</label>
                 @Html.Password("NewPassword", null, new { @class = "form-control" })
                 @Html.ValidationMessage("NewPassword")
                 <br />
-                <strong>Repetir Contraseña</strong>
+                <label class="label-description">REPETIR CONTRASEÑA</label>
                 @Html.Password("RepeatPassword", null, new { @class = "form-control" })
                 @Html.ValidationMessage("RepeatPassword")
             </div>

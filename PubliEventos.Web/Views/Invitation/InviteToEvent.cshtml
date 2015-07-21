@@ -2,11 +2,10 @@
 
 @{
     ViewBag.Title = "Invitar";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPublieventos.cshtml";
 }
 
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.nanoscroller.min.js")
 @System.Web.Optimization.Scripts.Render("~/bundles/Select2")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Invitation/InviteToEvent.js")
@@ -24,25 +23,25 @@
     var eventDetail = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((Event)Model));
 </script>
 
-<div class="row-fluid">
-    <div class="col-md-10 offset1">
-        <div style="margin-bottom: 25px">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="subtitle">Invitar Usuarios</h2>
-                </div>
-            </div>
-            <div class="row">
+<div class="row">
+    <h2 class="title-section">INVITAR USUARIOS</h2>
+    <div class="col-md-12">
+        <div style="margin-bottom: 25px; margin-top: 25px;">
+            <div class="col-md-12">
                 @Html.Partial("../Event/Partial/_MosaicDetail", Model, new ViewDataDictionary { { "HiddenActions", true } })
             </div>
         </div>
-        <div class="row" style="margin-bottom: 15px">
-            <div class="offset1" style="margin-right: -50px">
+        <div class="col-md-12" style="margin-bottom: 15px">
+            <div class="col-md-12">
                 <div class="col-md-6">
-                    @Html.Partial("Partial/_PendingConfirmation")
+                    <div style="margin-left: 25%">
+                        @Html.Partial("Partial/_PendingConfirmation")
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    @Html.Partial("Partial/_Participants")
+                    <div style="margin-left: 25%">
+                        @Html.Partial("Partial/_Participants")
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,26 +49,24 @@
             @Html.AntiForgeryToken()
             @Html.Hidden("eventId", Model.Id)
 
-            <div class="row margin-bottom-normal">
+            <div class="margin-bottom-normal">
                 <div class="col-md-12">
                     <div class="col-md-6">
-                        @Html.Label("Invitar Usuarios", new { @class = "label-lobster" })
+                        @Html.Label("INVITAR USUARIOS", new { @class = "label-description" })
                         @Html.TextBox("usersIds", null, new { @class = "form-control select2-users" })
                         @Html.ValidationMessage("RequiredUsers", new { @name = "RequiredUsers" })
                     </div>
                     <div class="col-md-6">
-                        @Html.Label("Invitar Grupos", new { @class = "label-lobster" })
+                        @Html.Label("INVITAR GRUPOS", new { @class = "label-description" })
                         @Html.TextBox("groupsIds", null, new { @class = "form-control select2-groups" })
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-12 region-buttons">
-                        <input type="submit" id="Send" class="btn-confirm pull-right" value="Enviar" />
-                        <a type="button" href="/Event/Detail/@Model.Id">
-                            <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
-                    </div>
+            <div class="col-md-12">
+                <div class="col-md-12 region-buttons">
+                    <input type="submit" id="Send" class="btn-confirm pull-right" value="Enviar" />
+                    <a type="button" href="/Event/Detail/@Model.Id">
+                        <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
                 </div>
             </div>
         </form>

@@ -37,7 +37,7 @@ $(function () {
                     $('#groupsIds').select2('val', '');
 
                     bootbox.dialog({
-                        title: "<h4 class='title-modal'>Invitaciones</h4>",
+                        title: "<h4 class='title-modal'>INVITACIONES</h4>",
                         message: "<p class='font-text'>Las invitaciones han sido enviadas con exito</p>",
                         buttons: {
                             success: {
@@ -72,11 +72,11 @@ function myViewModel() {
     self.Standby = ko.observableArray();
 
     self.ParticipantsTitle = ko.computed(function () {
-        return "Asistirán (" + self.Participants().length + ")";
+        return "ASISTIRÁN (" + self.Participants().length + ")";
     });
 
     self.StandbyTitle = ko.computed(function () {
-        return "Esperando Confirmación (" + self.Standby().length + ")";
+        return "ESPERANDO CONFIRMACIÓN (" + self.Standby().length + ")";
     });
 }
 

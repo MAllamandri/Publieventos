@@ -23,7 +23,7 @@
         var idEvent = $(this).attr('rel');
 
         bootbox.confirm({
-            title: "<h4 class='title-modal'>Eliminación de Evento</h4>",
+            title: "<h4 class='title-modal'>ELIMINACIÓN DE EVENTO</h4>",
             message: "<p class='font-text'>Esta seguro que desea eliminar el evento?</p>",
             buttons: {
                 'cancel': {

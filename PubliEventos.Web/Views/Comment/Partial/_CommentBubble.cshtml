@@ -1,5 +1,5 @@
 ﻿<div data-bind="foreach: Comments, visible: Comments().length > 0">
-    <div class="row-fluid" style="margin-bottom: 20px">
+    <div class="row" style="margin-bottom: 20px">
         <div class="col-md-12">
             <div class="col-md-1" style="margin-right: 20px; width: 13%;">
                 <a href="#" data-bind="click: UserProfile">
@@ -14,10 +14,10 @@
                     <p class="font-comment" data-bind="text: Detail"></p>
                 </div>
                 <div class="col-md-12 actions-comment">
-                    <a data-bind="visible: !IsReported(), click: ShowReportModal" title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
+                    <a data-bind="visible: !IsReported(), click: ShowReportModal" title="Reportar" href="#"><i class="action-comment-icon icon-ban-circle"></i></a>
 
-                    <a data-bind="visible: EnabledActions, click: ShowCommentModal" title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>
-                    <a data-bind="visible: EnabledActions, click: DeleteComment" style="padding-left: 7px" title="Eliminar" href="#"><i class="icon-default icon-remove"></i></a>
+                    <a data-bind="visible: EnabledActions, click: ShowCommentModal" title="Editar" href="#"><i  style="margin-right: 5px" class="action-comment-icon icon-pencil"></i></a>
+                    <a data-bind="visible: EnabledActions, click: DeleteComment" title="Eliminar" href="#"><i style="margin-right: 5px" class="action-comment-icon icon-remove"></i></a>
 
                     <div data-bind="visible: IsReported()" style="display: none; display: inline; float: left; padding-right: 20px; color: #f00">
                         <strong style="font-size: 11px !important">Has Reportado este Comentario</strong>
@@ -28,5 +28,5 @@
     </div>
 </div>
 <div class="col-md-12" style="text-align: center" data-bind="visible: Comments().length == 0 && ShowNotFoundComments() == true">
-    <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios Disponibles</p>
+    <p style="font-size: 20px; margin-top: 30px;" class="not-found-message not-found-message-dark">NO HAY COMENTARIOS DISPONIBLES</p>
 </div>

@@ -2,26 +2,21 @@
 
 @{
     ViewBag.Title = "Nuevo Grupo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPublieventos.cshtml";
 }
 
 @System.Web.Optimization.Scripts.Render("~/bundles/Select2")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Group/Base.js")
 
 @Styles.Render("~/bundles/Select2-css")
 
 <div class="row">
-    <div class="col-md-10 offset1">
+    <h2 class="title-section">NUEVO GRUPO</h2>
+    <div class="col-md-12">
         <div style="margin-bottom: 25px">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="subtitle">Crear Grupo</h2>
-                </div>
-            </div>
-            <div class="row">
+            <div class="col-md-12 margin-top-normal">
                 <form id="Form" method="post">
 
                     @Html.AntiForgeryToken()
