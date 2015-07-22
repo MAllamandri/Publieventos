@@ -9,7 +9,6 @@ var viewModel = {};
 
 $(function () {
     viewModel = new myViewModel();
-    viewModel.ActiveContent(contents.Event);
 
     if (pictures != null) {
         $.each(pictures, function (index, picture) {
@@ -37,36 +36,10 @@ $(function () {
 
     ko.applyBindings(viewModel);
 
-    $('#tabEvents').click(function () {
-        viewModel.ActiveContent(contents.Event);
-        removeActiveClass();
-        $(this).addClass("active-link");
+    $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
     });
-
-    $('#tabComments').click(function () {
-        viewModel.ActiveContent(contents.Comment);
-        removeActiveClass();
-        $(this).addClass("active-link");
-    });
-
-    $('#tabPictures').click(function () {
-        viewModel.ActiveContent(contents.Image);
-        removeActiveClass();
-        $(this).addClass("active-link");
-    });
-
-    $('#tabMovies').click(function () {
-        viewModel.ActiveContent(contents.Movie);
-        removeActiveClass();
-        $(this).addClass("active-link");
-    });
-
-    function removeActiveClass() {
-        $('#tabEvents').removeClass("active-link");
-        $('#tabComments').removeClass("active-link");
-        $('#tabPictures').removeClass("active-link");
-        $('#tabMovies').removeClass("active-link");
-    }
 });
 
 function myViewModel() {
@@ -77,7 +50,6 @@ function myViewModel() {
     self.Pictures = ko.observableArray();
     self.Movies = ko.observableArray();
 
-    self.ActiveContent = ko.observable();
     self.ContentId = ko.observable();
     self.ContentType = ko.observable();
     self.EventId = ko.observable();

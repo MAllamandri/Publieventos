@@ -76,7 +76,7 @@ function myViewModel() {
     });
 
     self.StandbyTitle = ko.computed(function () {
-        return "ESPERANDO CONFIRMACIÓN (" + self.Standby().length + ")";
+        return "NO CONFIRMADOS (" + self.Standby().length + ")";
     });
 }
 

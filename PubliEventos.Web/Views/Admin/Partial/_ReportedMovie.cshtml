@@ -1,16 +1,16 @@
 ﻿<div data-bind="foreach: Movies">
-    <div>
+    <div class="col-md-12" style="margin-bottom: 25px; margin-top: 25px;">
         <div class="col-md-8" style="padding-bottom: 60px; text-align: center;">
             <div class="movies-reported" style="text-align: center">
                 <iframe width="750" height="500" data-bind="attr: { src: Path }" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
         </div>
-        <div class="col-md-4" style="display: inline">
-            <a href="#" style="float: right" data-bind="click: DisabledMultimediaContent">Desactivar Video</a>
-            <a href="#" style="float: right; margin-right: 15px;" data-bind="click: IgnoreReportedMultimediaContent">Ignorar Reporte</a>
+        <div class="col-md-4" style="text-align: left">
+            <a href="#" style="margin-right: 15px;" data-bind="click: DisabledMultimediaContent">Desactivar Video</a>
+            <a href="#" data-bind="click: IgnoreReportedMultimediaContent">Ignorar Reporte</a>
         </div>
     </div>
 </div>
-<div data-bind="visible: Movies().length == 0" class="col-md-12" style="text-align: center">
-    <p style="font-size: 20px" class="not-found-message">No Hay Videos Reportados</p>
+<div data-bind="visible: Movies().length == 0" class="col-md-12" style="text-align: center; margin-bottom: 30px;">
+    <p style="font-size: 20px" class="not-found-message not-found-message-dark">NO HAY VIDEOS REPORTADOS</p>
 </div>

@@ -22,17 +22,6 @@ $(function () {
 
     SelectUsers($(".select2-users"), false);
 
-    $('.datepicker,.select2-search,#navigation').hover(
-     function () {
-         $('.filter-section', $('#navigation')).stop().animate({ 'marginRight': '15px' }, 200);
-     },
-     function () {
-         $('.filter-section', $('#navigation')).stop().animate({ 'marginRight': '-450px' }, 200);
-     }
-    );
-
-    $('#navigation .filter-section').stop().animate({ 'marginRight': '-450px' }, 1000);
-
     viewModel = new myViewModel();
 
     if (events != null) {

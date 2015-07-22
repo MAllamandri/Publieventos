@@ -42,8 +42,6 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="col-md-4" style="float: right">
-                            <a title="Salir" href="/Account/LogOut">
-                                <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
                             <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile right" data-src="holder.js/50x50">
                             <a title="Ver mi Perfil" href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong class="username">Hola @User.Identity.Name!</strong></a>
                         </div>
@@ -52,7 +50,6 @@
                 <div class="col-md-12" style="text-align: right">
                     @if (User.Identity.IsAuthenticated)
                     {
-
                         var controller = ViewContext.RouteData.Values["controller"].ToString();
                         var action = ViewContext.RouteData.Values["action"].ToString();
                                                 
@@ -66,6 +63,9 @@
                         <span class="sections-title bar-title">|</span>
                         <a class="@(controller == "Admin" && action == "ReportContents" ? "sections-title sections-title-active" : "sections-title")" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
                         }
+                        
+                        <span class="sections-title bar-title">|</span>
+                        <a class="sections-title" href="/Account/LogOut">SALIR&nbsp<i class="log-out icon-off"></i></a>
                     }
                     else
                     {
