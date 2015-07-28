@@ -11,6 +11,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Linq;
+using PubliEventos.Web.Helpers;
 
 namespace PubliEventos.Web
 {
@@ -72,7 +74,8 @@ namespace PubliEventos.Web
                     FirstName = serializeModel.FirstName,
                     LastName = serializeModel.LastName,
                     ImageProfile = string.IsNullOrEmpty(serializeModel.ImageProfile) ? "contact-default-image.jpg" : serializeModel.ImageProfile,
-                    IsAdministrator = serializeModel.IsAdministrator
+                    IsAdministrator = serializeModel.IsAdministrator,
+                    DateTimeNow = Shared.GetDateTime()
                 };
 
                 HttpContext.Current.User = newUser;

@@ -15,154 +15,157 @@
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-4 login-form" id="loginModal">
-                <div class="well">
-                    <ul class="nav nav-tabs">
-                        <li id="tabLogin" class="active"><a class="font-text" href="#login" data-toggle="tab">Ingresar</a></li>
-                        <li id="tabCreate"><a href="#create" class="font-text" data-toggle="tab">Registrarse</a></li>
-                    </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane active" id="login">
-                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.HiddenFor(m => m.IsLogin)
-                                <div class="col-md-12 form-group">
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Usuario", @style = "height: 34px" })
+            <div class="col-md-10">
+            </div>
+            <div class="login-form" id="loginModal">
+                <ul id="myTabs" class="nav nav-tabs tabs-login" role="tablist">
+                    <li role="presentation" class="active"><a href="#login" class="label-description" aria-controls="login" role="tab" data-toggle="tab">INGRESAR</a></li>
+                    <li role="presentation"><a href="#create" class="label-description" aria-controls="create" role="tab" data-toggle="tab">REGISTRARSE</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="login">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-12 form-group">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Usuario" })
+                            </div>
+                            <div class="col-md-12 form-group">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña" })
+                                @Html.ValidationMessage("Error", new { @class = "field-validation-error", @name = "Error" })
+                            </div>
+                            <div class="col-md-6 form-group">
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @placeholder = "Contraseña", @style = "margin-top: -1px; display: inline;" })
+                                <span class="font-text">Recordarme</span>
+                            </div>
+                            <div style="text-align: right" class="col-md-6">
+                                <a href="#" role="button" data-toggle="modal" id="recoverPass">¿Olvido su contraseña? </a>
+                            </div>
+                            <div class="col-md-12" id="resendEmailMessage" style="display: none">
+                                <div class="alert alert-danger" style="width: auto" role="alert">
+                                    <h4><span class="icon-remove-circle"></span>
+                                        <p>Su cuenta no fue activada a tiempo.</p>
+                                        <br />
+                                    </h4>
+                                    <p>
+                                        Para activar su cuenta reenvie el mail de activación haciendo click
+                                        <a id="ResendEmail" style="font-family: 'MuseoSans-500'; cursor: pointer;" class="ladda-button" data-style="contract"><span class="ladda-label">Aqui</span></a>
+                                    </p>
                                 </div>
-                                <div class="col-md-12 form-group">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })
-                                    @Html.ValidationMessage("Error", new { @class = "field-validation-error" })
+                            </div>
+                            <div class="col-md-12" id="Success" style="display: none">
+                                <div class="alert alert-success" style="width: auto" role="alert">
+                                    <h4>
+                                        <span class="icon-check"></span>
+                                        <p>Email enviado con exito.</p>
+                                    </h4>
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    @Html.CheckBoxFor(m => m.RememberMe, new { @placeholder = "Contraseña", @style = "margin-top: -1px; display: inline;" })
-                                    <span class="font-text">Recordarme</span>
+                            </div>
+                            <div style="margin-top: 10px">
+                                <div class="col-md-12">
+                                    <input type="button" id="Entry" value="INGRESAR" class="btn-confirm" />
                                 </div>
-                                <div style="margin-top: 5px" class="col-md-6">
-                                    <a href="#" role="button" data-toggle="modal" id="recoverPass">¿Olvido su contraseña? </a>
-                                </div>
-                                <div style="margin-top: 10px">
-                                    <div class="col-md-12">
-                                        <input type="submit" id="Entry" value="Ingresar" class="btn-confirm font-text" />
-                                    </div>
-                                </div>
-                                if (ViewBag.isExpirate != null && (bool)ViewBag.isExpirate)
-                                {
-                                <div id="Active">
-                                    <div class="alert alert-danger" style="width: auto" role="alert">
-                                        <h2></h2>
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                        <strong>Su cuenta no fue activada a tiempo.</strong><br />
-                                        <p>
-                                            Para activar su cuenta reenvie el mail de activación haciendo click
-                                                            <a id="ResendEmail" style="font-family: 'MuseoSans-500'; cursor: pointer;" class="ladda-button" data-style="contract"><span class="ladda-label">Aqui</span></a>
-                                        </p>
-                                    </div>
-                                    @Html.Hidden("ResendEmailUserName", Model.UserName)
-                                </div>
-                                }
-                                <div id="Success" style="display: none">
-                                    <div class="alert alert-success" style="width: auto" role="alert">
-                                        <h2></h2>
-                                        <span class="glyphicon glyphicon-check"></span>
-                                        <strong>Email enviado con exito.</strong><br />
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div class="tab-pane fade" id="create">
-                            <form id="RegisterForm" method="POST">
-                                @Html.AntiForgeryToken()
-                                <div class="RegisterRow">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(m => m.SignUpModel.Email, new { @class = "form-control", @placeholder = "Email", @style = "height: 34px" })
-                                            @Html.ValidationMessage("SignUpModel.Email")
-                                            <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-envelope"></span>&nbspEl email ya existe</div>
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(m => m.SignUpModel.UserNameToRegister, new { @class = "form-control", @placeholder = "Usuario", @style = "height: 34px" })
-                                            @Html.ValidationMessage("SignUpModel.UserNameToRegister")
-                                            <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="glyphicon glyphicon-user"></span>&nbspEl usuario ya existe</div>
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.PasswordFor(m => m.SignUpModel.PasswordToRegister, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })
-                                            @Html.ValidationMessage("SignUpModel.PasswordToRegister")
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.PasswordFor(m => m.SignUpModel.RepeatPassword, new { @class = "form-control", @placeholder = "Repetir Contraseña", @style = "height: 34px" })
-                                            @Html.ValidationMessage("SignUpModel.RepeatPassword")
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.DropDownList("Province", (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.DropDownList("SignUpModel.Locality", new SelectList(""), "[Seleccione Localidad]", new { @class = "form-control font-text", @disabled = "disabled" })
-                                            @Html.ValidationMessage("SignUpModel.Locality")
-                                        </div>
-                                        <div class="input-group">
-                                            @Html.TextBoxFor(m => m.SignUpModel.BirthDate, new { @class = "date form-control font-text", @placeholder = "Fecha de Nacimiento", @style = "height: 34px" })
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                        </div>
-                                        @Html.ValidationMessage("SignUpModel.BirthDate")
-                                    </div>
-                                </div>
-                                <div class="" id="RegisterSuccess" style="display: none">
-                                    <div id="Success">
-                                        <div class="alert alert-success" style="width: auto" role="alert">
-                                            <h2></h2>
-                                            <span class="glyphicon glyphicon-check"></span>
-                                            <strong>Registración satisfactoria, active su cuenta verificando el email.</strong><br />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="RegisterRow">
+                            </div>
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="create">
+                        <form id="RegisterForm" method="POST">
+                            @Html.AntiForgeryToken()
+                            <div class="RegisterRow">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="col-md-6">
-                                            <input type="submit" id="Register" value="Registrarse" class="btn-confirm font-text" />
-                                        </div>
+                                        @Html.TextBoxFor(m => m.SignUpModel.FirstName, new { @class = "form-control", @placeholder = "Nombre" })
+                                        @Html.ValidationMessage("SignUpModel.FirstName")
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SignUpModel.Email, new { @class = "form-control", @placeholder = "Email" })
+                                        @Html.ValidationMessage("SignUpModel.Email")
+                                        <div class="alert alert-danger" id="alertEmailExist" style="display: none; font-size: 13px" role="alert"><span class="icon-envelope"></span>&nbspEl email ya existe</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SignUpModel.UserNameToRegister, new { @class = "form-control", @placeholder = "Usuario" })
+                                        @Html.ValidationMessage("SignUpModel.UserNameToRegister")
+                                        <div class="alert alert-danger" id="alertUserExist" style="display: none; font-size: 13px" role="alert"><span class="icon-user"></span>&nbspEl usuario ya existe</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.PasswordFor(m => m.SignUpModel.PasswordToRegister, new { @class = "form-control", @placeholder = "Contraseña" })
+                                        @Html.ValidationMessage("SignUpModel.PasswordToRegister")
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.PasswordFor(m => m.SignUpModel.RepeatPassword, new { @class = "form-control", @placeholder = "Repetir Contraseña" })
+                                        @Html.ValidationMessage("SignUpModel.RepeatPassword")
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.SignUpModel.LastName, new { @class = "form-control", @placeholder = "Apellido" })
+                                        @Html.ValidationMessage("SignUpModel.LastName")
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownList("Province", (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownList("SignUpModel.Locality", new SelectList(""), "[Seleccione Localidad]", new { @class = "form-control font-text", @disabled = "disabled" })
+                                        @Html.ValidationMessage("SignUpModel.Locality")
+                                    </div>
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(m => m.SignUpModel.BirthDate, new { @class = "date form-control font-text", @placeholder = "Fecha de Nacimiento" })
+                                        <span class="input-group-addon"><span class="icon-calendar"></span></span>
+                                    </div>
+                                    @Html.ValidationMessage("SignUpModel.BirthDate")
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="RegisterSuccess" style="display: none">
+                                <div id="Success">
+                                    <div class="alert alert-success" style="width: auto" role="alert">
+                                        <h4>
+                                            <span class="icon-check"></span>
+                                            <p>Registración satisfactoria, active su cuenta verificando el email.</p>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="RegisterRow col-md-12">
+                                <input type="submit" id="Register" value="REGISTRARSE" class="btn-confirm" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" style="height: 290px" id="RecoverPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-toggle="modal">
-    <div class="modal-header">
-        <h4 class="title-modal" id="myModalLabel">Recuperar Contraseña</h4>
-    </div>
-    <div class="modal-body">
-        <strong>Ingrese Usuario</strong>
-        @Html.TextBox("UserNameToRecover", null, new { @class = "form-control", @style = "height: 34px" })
-        @Html.ValidationMessage("UserNameToRecover")
-        <br />
-        <small>
-            <p>Recibira un email con el códgio de verificación de su cuenta</p>
-        </small>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
-        <button type="button" id="recoverPassword" class="btn-confirm">Enviar</button>
+
+<div class="modal fade" id="RecoverPassModal" data-toggle="modal" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title-modal" id="myModalLabel">RECUPERAR CONTRASEÑA</h4>
+            </div>
+            <div class="modal-body">
+                <strong>Ingrese Usuario</strong>
+                @Html.TextBox("UserNameToRecover", null, new { @class = "form-control" })
+                @Html.ValidationMessage("UserNameToRecover")
+                <small>
+                    <p>Recibira un email con el códgio de verificación de su cuenta</p>
+                </small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="recoverPassword" class="btn-confirm">Enviar</button>
+            </div>
+        </div>
     </div>
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="/Scripts/jquery.blockUI.js"></script>
 <script src="/Scripts/jquery.form.js"></script>
 <script src="/Scripts/spin.js"></script>
 <script src="/Scripts/ladda.js"></script>
 <script src="~/Scripts/moment.js"></script>
 <script src="~/Scripts/moment-with-locales.js"></script>
 <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
-<script src="/Scripts/bootstrap.min.js"></script>
 <script src="/ViewScripts/Shared/Shared.js"></script>
 <script src="/ViewScripts/Account/Login.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var data = @Html.Raw(JsonConvert.SerializeObject(this.Model));
+    var isRegister = @Html.Raw(JsonConvert.SerializeObject(ViewBag.isRegister));
 </script>

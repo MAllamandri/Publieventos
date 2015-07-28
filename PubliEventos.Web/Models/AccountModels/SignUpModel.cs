@@ -7,6 +7,22 @@
     public class SignUpModel
     {
         /// <summary>
+        /// Nombre.
+        /// </summary>
+        [Required(ErrorMessage = "El valor es requerido")]
+        [Display(Name = "Nombre")]
+        [StringLength(20, ErrorMessage = "No puede superar los 20 caracteres.")]
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Apellido.
+        /// </summary>
+        [Required(ErrorMessage = "El valor es requerido")]
+        [Display(Name = "Apellido")]
+        [StringLength(20, ErrorMessage = "No puede superar los 20 caracteres.")]
+        public string LastName { get; set; }
+
+        /// <summary>
         /// UserName a registrar
         /// </summary>
         [Required(ErrorMessage = "El valor es requerido")]

@@ -3,7 +3,7 @@
 
 body {
     font-size: 14px;
-    font-family: 'MuseoSans-500', Verdana, Helvetica, Sans-Serif;
+    font-family: 'MuseoSans-500';
 }
 
 .body {
@@ -200,9 +200,34 @@ p, strong, label, textarea {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Gotham Black';
+    src: url('/Content/Publieventos/Fonts/ufonts.com_gotham-black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*#endregion*/
 
 /*#region Layout*/
+
+.login-partial {
+    background-color: #5f9977;
+    height: 80px;
+    border-radius: 0 0 6px 6px;
+}
+
+.input-login {
+}
+
+.label-login {
+    font-family: 'Gotham black' !important;
+    font-size: 15px;
+    color: #5f9977;
+    font-weight: bold;
+    float: right;
+    margin-right: 5px;
+}
 
 .header {
     min-height: 180px;
@@ -245,18 +270,28 @@ p, strong, label, textarea {
 }
 
 .username {
-    font-family: 'Gotham Book';
+    font-family: 'Gotham Black' !important;
     font-size: 18px;
     color: #5f9977;
     font-weight: bold;
+    float: right;
+    margin-right: 10px;
 }
 
 .image-profile {
-    width: 50px;
-    height: 50px !important;
+    /*width: 50px;*/
+    height: 60px !important;
     position: relative;
     float: right;
     border-radius: 5px;
+}
+
+.current-date {
+    font-family: 'Gotham Book' !important;
+    font-size: 18px;
+    color: #5f9977;
+    float: right;
+    margin-right: 10px;
 }
 
 /*#endregion*/
@@ -311,13 +346,13 @@ p, strong, label, textarea {
 }
 
 .search-events-container {
-    background: url("Publieventos/Images/search-icon.png") no-repeat left;
+    background: url("Publieventos/Images/search-icon.png") no-repeat 2px !important;
     background-position: 50% 50%;
     background-position-x: initial;
     height: 40px;
     padding-left: 30px;
     margin-top: 8px;
-    width: 80%;
+    width: 90%;
 }
 
     .search-events-container::-webkit-input-placeholder {
@@ -537,7 +572,6 @@ p, strong, label, textarea {
 }
 
 .div-group-name {
-    margin-top: 10px;
     text-align: center;
     margin-bottom: 10px;
 }
@@ -1129,26 +1163,49 @@ p, strong, label, textarea {
     background-color: #E9E6DA;
 }
 
-.login-form {
-    margin-top: 5%;
+.tabs-login {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 50%;
 }
 
-.modal-lg {
-    max-width: 900px;
+.login-form {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
     height: 350px;
 }
 
-@media (min-width: 768px) {
-    .modal-lg {
-        width: 100%;
+    .login-form #login {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 25px;
+        margin-bottom: 25px;
     }
+
+    .login-form #create {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+.activation-message {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
-@media (min-width: 992px) {
-    .modal-lg {
-        width: 900px;
-    }
+.recover-password-form {
+    margin-top: 100px;
+    margin-bottom: 100px !important;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
+
 
 fieldset {
     border: 1px solid #ddd;

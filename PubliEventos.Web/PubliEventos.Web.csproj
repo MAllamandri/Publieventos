@@ -162,6 +162,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Helpers\Shared.cs" />
     <Compile Include="Helpers\SocialLink.cs" />
     <Compile Include="Models\EventModels\MultimediaContentSummaryModel.cs" />
     <Compile Include="Mvc\Attributes\FileTypes.cs" />
@@ -342,6 +343,7 @@
       <DependentUpon>dropzone.js</DependentUpon>
     </Content>
     <Content Include="Content\Publieventos\Fonts\ufonts.com_gotham-book.ttf" />
+    <Content Include="Content\Publieventos\Fonts\ufonts.com_gotham-black.ttf" />
     <None Include="Properties\PublishProfiles\publieventos - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\publieventos - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

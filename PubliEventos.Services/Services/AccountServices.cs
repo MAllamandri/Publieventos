@@ -62,28 +62,33 @@
         /// <summary>
         /// Da de alta un usuario.
         /// </summary>
-        /// <param name="user">Usuario.</param>
-        public static int RegisterUser(User user)
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static RegisterUserResponse RegisterUser(RegisterUserRequest request)
         {
-            if (user != null)
+            if (request != null)
             {
-                var userCreate = new Domain.Domain.User()
+                var user = new Domain.Domain.User()
                 {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    Password = user.Password,
-                    EffectDate = user.EffectDate,
-                    UserName = user.UserName,
-                    Locality = CurrentSession.Get<Domain.Domain.Locality>(user.Locality.Id),
-                    BirthDate = user.BirthDate
+                    FirstName = request.User.FirstName,
+                    LastName = request.User.LastName,
+                    Email = request.User.Email,
+                    Password = request.User.Password,
+                    EffectDate = request.User.EffectDate,
+                    UserName = request.User.UserName,
+                    Locality = CurrentSession.Get<Domain.Domain.Locality>(request.User.Locality.Id),
+                    BirthDate = request.User.BirthDate
                 };
 
-                new BaseQuery<Domain.Domain.User, int>().Create(userCreate);
+                new BaseQuery<Domain.Domain.User, int>().Create(user);
 
-                return userCreate.Id;
+                return new RegisterUserResponse
+                {
+                    UserId = user.Id
+                };
             }
-            return 0;
+
+            return new RegisterUserResponse();
         }
 
         /// <summary>

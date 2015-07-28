@@ -24,54 +24,61 @@
 <body>
     <div class="header">
         <div class="col-md-12">
-            <div class="col-md-12">
-                <div class="col-md-4">
-                    <a href="/Home/Index">
-                        <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
-                    </a>
-                </div>
-                <div class="col-md-8" style="margin-top: 50px">
-                    @if (ViewBag.isHome != null && (bool)ViewBag.isHome == true)
-                    {
-                        <form class="col-md-8" role="search">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control search search-events-container" placeholder="ENCONTRA TU EVENTO...." id="SearchTerm">
-                            </div>
-                        </form>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="col-md-4" style="float: right">
-                            <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile right" data-src="holder.js/50x50">
-                            <a title="Ver mi Perfil" href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong class="username">Hola @User.Identity.Name!</strong></a>
+            <div class="col-md-4">
+                <a href="/Home/Index">
+                    <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
+                </a>
+            </div>
+            <div class="col-md-8" style="margin-top: 50px">
+                @if (ViewBag.isHome != null && (bool)ViewBag.isHome == true)
+                {
+                    <form class="col-md-7" role="search">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control search search-events-container" placeholder="ENCONTRA TU EVENTO...." id="SearchTerm">
                         </div>
-                    }
-                </div>
-                <div class="col-md-12" style="text-align: right">
-                    @if (User.Identity.IsAuthenticated)
+                    </form>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-5" style="float: right">
+                        <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-responsive img-rounded right" data-src="holder.js/50x50">
+                        <a title="Ver mi Perfil" href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong class="username">Hola @((User as PubliEventos.Web.App_Start.CustomPrincipal).FirstName)!</strong></a>
+                        <p class="current-date">@((User as PubliEventos.Web.App_Start.CustomPrincipal).DateTimeNow)</p>
+                    </div>
+                }
+                else
+                {
+                    if (ViewBag.isHome != null && (bool)ViewBag.isHome == true)
                     {
-                        var controller = ViewContext.RouteData.Values["controller"].ToString();
-                        var action = ViewContext.RouteData.Values["action"].ToString();
+                    <div class="col-md-5" style="margin-top: 10px">
+                        <a class="label-login" href="../Account/Login?isRegister=true">REGISTRARME</a>
+                        <span class="label-login">|</span>
+                        <a class="label-login" href="../Account/Login?isRegister=false">INGRESAR</a>
+                        <p class="current-date">@ViewBag.currentDate</p>
+                    </div>
+                    }
+                }
+            </div>
+            <div class="col-md-12" style="text-align: right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var controller = ViewContext.RouteData.Values["controller"].ToString();
+                    var action = ViewContext.RouteData.Values["action"].ToString();
                                                 
-                        <a class="@(controller == "Event" && action == "Create" ? "sections-title sections-title-active" : "sections-title")" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
-                        <a class="@(controller == "Event" && action == "MyEvents" ? "sections-title sections-title-active" : "sections-title")" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
-                        <a class="@(controller == "Group" && action == "MyGroups" ? "sections-title sections-title-active" : "sections-title")" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
-                        <a class="@(controller == "Event" && action == "AssistsRecord" ? "sections-title sections-title-active" : "sections-title")" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title bar-title">|</span>
-                        <a class="@(controller == "Invitation" && action == "MyInvitations" ? "sections-title sections-title-active" : "sections-title")" href="/Invitation/MyInvitations">INVITACIONES</a>
-                        if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
-                        {
-                        <span class="sections-title bar-title">|</span>
-                        <a class="@(controller == "Admin" && action == "ReportContents" ? "sections-title sections-title-active" : "sections-title")" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
-                        }
-                        
-                        <span class="sections-title bar-title">|</span>
-                        <a class="sections-title" href="/Account/LogOut">SALIR&nbsp<i class="log-out icon-off"></i></a>
-                    }
-                    else
+                    <a class="@(controller == "Event" && action == "Create" ? "sections-title sections-title-active" : "sections-title")" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
+                    <a class="@(controller == "Event" && action == "MyEvents" ? "sections-title sections-title-active" : "sections-title")" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
+                    <a class="@(controller == "Group" && action == "MyGroups" ? "sections-title sections-title-active" : "sections-title")" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
+                    <a class="@(controller == "Event" && action == "AssistsRecord" ? "sections-title sections-title-active" : "sections-title")" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title bar-title">|</span>
+                    <a class="@(controller == "Invitation" && action == "MyInvitations" ? "sections-title sections-title-active" : "sections-title")" href="/Invitation/MyInvitations">INVITACIONES</a>
+                    if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
                     {
-                        <a class="sections-title" href="../Account/Login">INGRESAR</a>
+                    <span class="sections-title bar-title">|</span>
+                    <a class="@(controller == "Admin" && action == "ReportContents" ? "sections-title sections-title-active" : "sections-title")" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
                     }
-                </div>
+                        
+                    <span class="sections-title bar-title">|</span>
+                    <a class="sections-title" href="/Account/LogOut">SALIR&nbsp<i class="log-out icon-off"></i></a>
+                }
             </div>
         </div>
     </div>

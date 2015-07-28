@@ -1,36 +1,21 @@
 ﻿$(function () {
-    $('#SignUpModel_UserNameToRegister').charactersQuantity(20);
-
-    if (data.IsLogin === true) {
-        $('#login').attr('class', 'tab-pane active');
-        $('#create').attr('class', 'tab-pane fane');
-        $('#tabLogin').attr('class', 'active');
-        $('#tabCreate').removeAttr('class');
-        $('#loginModal').attr('class', 'col-md-4')
+    if (isRegister) {
+        $('#myTabs a[href="#create"]').tab('show');
     } else {
-        $('#create').attr('class', 'tab-pane active');
-        $('#login').attr('class', 'tab-pane fane');
-        $('#tabCreate').attr('class', 'active');
-        $('#tabLogin').removeAttr('class');
-        $('#loginModal').attr('class', 'col-md-6');
-        $('#First').attr('class', "col-md-3");
-        $('#Second').attr('class', 'col-md-3');
+        $('#myTabs a[href="#login"]').tab('show');
     }
+
+    $('#SignUpModel_UserNameToRegister').charactersQuantity(20);
+    $('#SignUpModel_FirstName').charactersQuantity(20);
+    $('#SignUpModel_LastName').charactersQuantity(20);
+
+    $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    });
 
     $('#recoverPass').click(function () {
         $('#RecoverPassModal').modal('show');
-    });
-
-    $('#tabCreate').click(function () {
-        $('#loginModal').attr('class', 'col-md-6');
-        $('#First').attr('class', "col-md-3");
-        $('#Second').attr('class', 'col-md-3');
-    });
-
-    $('#tabLogin').click(function () {
-        $('#loginModal').attr('class', 'col-md-4');
-        $('#First').attr('class', "col-md-4");
-        $('#Second').attr('class', 'col-md-4');
     });
 
     $('.date').datetimepicker({
@@ -56,6 +41,38 @@
         if (existEmail()) {
             $('#alertEmailExist').show();
         }
+    });
+
+    $('#Entry').click(function () {
+        $.blockUI({ message: "" });
+
+        $('span[name= "Error"]').hideMessageError();
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/Login",
+            data: {
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+                UserName: $('#UserName').val(),
+                Password: $('#Password').val(),
+                RememberMe: $('#RememberMe:checked').val(),
+                ReturnUrl: getParameterByName("ReturnUrl")
+            }
+        }).done(function (data) {
+            if (data.Success) {
+                window.location.href = data.ReturnUrl;
+            } else {
+                $.each(data.Errors, function (index, value) {
+                    var selector = "[name='" + index + "']";
+                    $(selector).showMessageError(value);
+                });
+
+                if (data.IsExpirate) {
+                    $('#resendEmailMessage').show();
+                }
+                $.unblockUI();
+            }
+        });
     });
 
     $('#Register').click(function () {
@@ -114,6 +131,14 @@
         $("#Active").show();
     });
 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if (e.target.attributes[0].value == '#login') {
+            $('#myTabs').attr('style', 'width: 48%');
+        } else if (e.target.attributes[0].value == '#create') {
+            $('#myTabs').attr('style', 'width: 100%');
+        }
+    })
+
     $('#ResendEmail').click(function (e) {
         var l = Ladda.create(this);
         l.start();
@@ -121,10 +146,11 @@
         $.ajax({
             type: "POST",
             url: "/Account/ResendEmailActivation",
-            data: { userName: $('#ResendEmailUserName').val() }
+            data: { userName: $('#UserName').val() }
         }).done(function (data) {
             if (data.isValid) {
                 l.stop();
+                $('#resendEmailMessage').hide();
                 $('#Success').show();
             } else {
                 alert("Error al enviar email.")
@@ -200,4 +226,11 @@
         }
     });
 });
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 

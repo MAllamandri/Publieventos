@@ -57,12 +57,12 @@
         /// </summary>
         /// <returns>Login view.</returns>
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(bool? isRegister)
         {
             var model = new UserModel();
-            model.IsLogin = true;
 
             ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name");
+            ViewBag.isRegister = isRegister;
 
             return View(model);
         }
@@ -75,27 +75,28 @@
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(UserModel model, string ReturnUrl)
+        public JsonResult Login(UserModel model, string ReturnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (this.ValidateUser(model))
+                var returnAction = string.Empty;
+
+                if (this.ValidateUser(ref model))
                 {
                     if (string.IsNullOrEmpty(ReturnUrl))
                     {
-                        return RedirectToAction("Index", "Home");
+                        returnAction = "/Home/Index";
                     }
                     else
                     {
-                        return Redirect(ReturnUrl);
+                        returnAction = ReturnUrl;
                     }
+
+                    return Json(new { Success = true, ReturnUrl = returnAction }, JsonRequestBehavior.AllowGet);
                 }
             }
 
-            model.IsLogin = true;
-            ViewBag.Provinces = new SelectList(ServiceLocalities.GetAllProvinces(), "Id", "Name", 0);
-
-            return View(model);
+            return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState), IsExpirate = model.IsExpirate }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -139,7 +140,7 @@
             var events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { SearchPublics = true, UserId = id }).Events;
 
             // Obtengo los ultimos tres eventos del usuario.
-            ViewBag.events = events.OrderByDescending(x => x.EventDate).Take(3).ToList();
+            ViewBag.events = events.OrderByDescending(x => x.EventDate).Take(5).ToList();
 
             return View(model);
         }
@@ -198,7 +199,7 @@
         /// </summary>
         /// <param name="model">Modelo de login.</param>
         /// <returns>True si es valido, false caso contrario.</returns>
-        private bool ValidateUser(UserModel model)
+        private bool ValidateUser(ref UserModel model)
         {
             if (!string.IsNullOrEmpty(model.UserName) && !string.IsNullOrEmpty(model.Password))
             {
@@ -210,7 +211,7 @@
                     {
                         ModelState.AddModelError("Error", "Usuario no activo, por favor active su cuenta verificando su email.");
 
-                        ViewBag.isExpirate = this.serviceAccounts.HasActiveActivationToken(user.Id.Value);
+                        model.IsExpirate = this.serviceAccounts.HasActiveActivationToken(user.Id.Value);
 
                         return false;
                     }
@@ -372,6 +373,8 @@
             {
                 var user = new User()
                 {
+                    FirstName = model.SignUpModel.FirstName,
+                    LastName = model.SignUpModel.LastName,
                     Email = model.SignUpModel.Email,
                     UserName = model.SignUpModel.UserNameToRegister,
                     Password = Encryptor.Encrypt(model.SignUpModel.PasswordToRegister),
@@ -383,17 +386,15 @@
                     BirthDate = model.SignUpModel.BirthDate
                 };
 
-                var idUser = serviceAccounts.RegisterUser(user);
+                var response = serviceAccounts.RegisterUser(new RegisterUserRequest() { User = user });
 
-                if (idUser != 0)
+                if (response.UserId.HasValue)
                 {
                     this.SendEmailAccountConfirmation(user.UserName);
                 }
 
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
-
-            model.IsLogin = false;
 
             return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);
         }

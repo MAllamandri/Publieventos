@@ -5,52 +5,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>Publieventos - Activación de cuenta</title>
-    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
-    @Styles.Render("/Content/Site.css")
-    @Styles.Render("/Content/Base.css")
-    <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @System.Web.Optimization.Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
+    @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
+
+    @System.Web.Optimization.Scripts.Render("/Scripts/bootstrap.min.js")
+
+    <link rel="stylesheet" media="all" href="/Content/Publieventos.css" />
+    <link rel="icon" href="/Content/themes/images/favicon.ico">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="col-xs-12">
-                <div class="col-md-6">
-                    <div style="margin-top: 30px">
-                        <a class="title" title="PubliEventos" href="../Account/Login">publieventos</a>
+    <div class="header">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <a href="/Home/Index">
+                    <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-xs-12">
+                    <div class="activation-message">
+                        @if (ViewBag.Active)
+                        {
+                            
+                            <div class="alert alert-success" role="alert">
+                                <h3><span class="icon-ok"></span>Activación de cuenta</h3>
+                                <p>Su cuenta ha sido activada con exito.</p>
+                                <p>Muchas gracias por registrarse. Disfrute de nuestro sitio.</p>
+                                <br />
+                                <a class="alert-link" href="../Account/Login">Ingresar a publieventos</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <h3><span class="icon-remove-circle"></span>Activación caducada</h3>
+                                <strong>Su activación ha caducado, para re activar su cuenta ingrese con sus datos y reenvie el email de activación.</strong>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
-        <br />
-        <div class="container">
-            <div class="row-fluid">
-                <div class="row-fluid offset3">
-                    <div class="col-xs-12">
-                        <div class="col-md-6" style="margin-top: 18%">
-                            <div class="span12">
-                                @if (ViewBag.Active)
-                                {
-                            
-                                    <div class="alert alert-success" style="width: 440px" role="alert">
-                                        <h3><span class="glyphicon glyphicon-ok"></span>Activación de cuenta</h3>
-                                        <p>Su cuenta ha sido activada con exito.</p>
-                                        <p>Muchas gracias por registrarse. Disfrute de nuestro sitio.</p><br />
-                                        <a class="alert-link" href="../Account/Login">Ingresar a publieventos</a>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="alert alert-danger" role="alert">
-                                        <h3><span class="glyphicon glyphicon-remove-circle"></span>Activación caducada</h3>
-                                        <strong>Su activación ha caducado, para re activar su cuenta ingrese con sus datos y reenvie el email de activación.</strong>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <div class="footer col-md-12">
+        <div class="col-md-3">
+            <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
         </div>
     </div>
 </body>

@@ -31,8 +31,8 @@
         public bool RememberMe { get; set; }
 
         /// <summary>
-        /// Indica si es un login.
+        /// Indica si expiro la activación de cuenta del usuario.
         /// </summary>
-        public bool IsLogin { get; set; }
+        public bool IsExpirate { get; set; }
     }
 }

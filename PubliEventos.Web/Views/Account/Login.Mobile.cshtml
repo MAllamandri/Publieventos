@@ -41,7 +41,6 @@
                                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
                                     {
                                         @Html.AntiForgeryToken()
-                                        @Html.HiddenFor(m => m.IsLogin)
                                         <div class="form-group">
                                             <div class="row-fluid">
                                                 <div class="col-lg-12">

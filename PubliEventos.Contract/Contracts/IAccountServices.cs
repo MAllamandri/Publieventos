@@ -25,8 +25,9 @@
         /// <summary>
         /// Da de alta un usuario.
         /// </summary>
-        /// <param name="user">usuario.</param>
-        int RegisterUser(User user);
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        RegisterUserResponse RegisterUser(RegisterUserRequest request);
 
         /// <summary>
         /// Guarda un token de activación de cuenta.

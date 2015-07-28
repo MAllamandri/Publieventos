@@ -72,6 +72,8 @@
     <Compile Include="Services\Account\ExistsEmailResponse.cs" />
     <Compile Include="Services\Account\GetUserByIdRequest.cs" />
     <Compile Include="Services\Account\GetUserByIdResponse.cs" />
+    <Compile Include="Services\Account\RegisterUserRequest.cs" />
+    <Compile Include="Services\Account\RegisterUserResponse.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameRequest.cs" />
     <Compile Include="Services\Account\SearchUsersByPartialUserNameResponse.cs" />
     <Compile Include="Services\Account\SendRecoverPasswordCodeRequest.cs" />

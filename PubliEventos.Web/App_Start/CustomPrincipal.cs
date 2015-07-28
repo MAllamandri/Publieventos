@@ -32,6 +32,11 @@
         /// Indica si el usuario es administrador.
         /// </summary>
         bool IsAdministrator { get; set; }
+
+        /// <summary>
+        /// Fecha actual.
+        /// </summary>
+        string DateTimeNow { get; set; }
     }
 
     /// <summary>
@@ -87,6 +92,11 @@
         public bool IsAdministrator { get; set; }
 
         /// <summary>
+        /// Fecha actual.
+        /// </summary>
+        public string DateTimeNow { get; set; }
+
+        /// <summary>
         /// Indica si un usuario se encuentra en dicho rol.
         /// </summary>
         /// <param name="role">Rol a verificar.</param>
@@ -127,5 +137,10 @@
         /// Indica si es administrador.
         /// </summary>
         public bool IsAdministrator { get; set; }
+
+        /// <summary>
+        /// Fecha actual.
+        /// </summary>
+        string DateTimeNow { get; set; }
     }
 }

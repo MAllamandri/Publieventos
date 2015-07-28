@@ -23,10 +23,11 @@
         /// <summary>
         /// Da de alta un usuario.
         /// </summary>
-        /// <param name="user">Usuario.</param>
-        public int RegisterUser(User user)
+        /// <param name="request">Los parámetros de la operación.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public RegisterUserResponse RegisterUser(RegisterUserRequest request)
         {
-            return AccountServices.RegisterUser(user);
+            return AccountServices.RegisterUser(request);
         }
 
         /// <summary>

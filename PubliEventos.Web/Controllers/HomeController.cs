@@ -6,6 +6,7 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using PubliEventos.Web.Helpers;
 
     public class HomeController : BaseController
     {
@@ -35,6 +36,7 @@
             ViewBag.eventTypes = new SelectList(serviceEvents.GetAllEventTypes(), "Id", "Description");
 
             ViewBag.isHome = true;
+            ViewBag.currentDate = Shared.GetDateTime();
 
             return View();
         }
