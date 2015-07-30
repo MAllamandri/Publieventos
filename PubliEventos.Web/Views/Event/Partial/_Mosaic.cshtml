@@ -15,13 +15,13 @@
                 </a>
                 <div class="">
                     <div>
-                        <p class="font-text event-date">
-                            <i class="icon-calendar" title="Fecha de realización">&nbsp</i><small class="text-muted">@Event.EventDate.ToShortDateString()</small>
+                        <p class="font-text event-date" data-toggle="tooltip" data-placement="top" title="Fecha de realización">
+                            <i class="icon-calendar">&nbsp</i><small class="text-muted">@Event.EventDate.ToShortDateString()</small>
                         </p>
                     </div>
                     <div>
-                        <p class="font-text event-date">
-                            <i class="icon-time" title="Hora de realización">&nbsp</i><small class="text-muted">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</small>
+                        <p class="font-text event-date" data-toggle="tooltip" data-placement="top" title="Hora de realización">
+                            <i class="icon-time">&nbsp</i><small class="text-muted">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</small>
                         </p>
                     </div>
                 </div>
@@ -33,12 +33,12 @@
                 @if (ViewData["ViewActions"] == null || (bool)ViewData["ViewActions"] == true)
                 {
                     <div class="my-events-actions">
-                        <a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a>
-                        <a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a>
-                        <a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a>
+                        <a class="deleteEvent"  data-toggle="tooltip" data-placement="top" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a>
+                        <a  data-toggle="tooltip" data-placement="top" title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a>
+                        <a  data-toggle="tooltip" data-placement="top" title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a>
                         @if (!Event.AlreadyTookPlace)
                         {
-                            <a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a>
+                            <a  data-toggle="tooltip" data-placement="top" title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a>
                         }
                     </div>
                 }

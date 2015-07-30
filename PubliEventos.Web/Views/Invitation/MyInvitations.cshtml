@@ -34,7 +34,7 @@
                                     <div class="col-md-12">
                                         <div class="col-md-12" style="margin-top: 30px">
                                             <div class="col-md-3">
-                                                <img src="@userAdministrator.PathProfile" title="@userAdministrator.UserName" alt="Perfil del usuario" class="profile-invitation img-responsive img-rounded right" data-src="holder.js/70x70">
+                                                <img src="@userAdministrator.PathProfile"  data-toggle="tooltip" data-placement="top" title="@userAdministrator.UserName" alt="Perfil del usuario" class="profile-invitation img-responsive img-rounded right" data-src="holder.js/70x70">
                                             </div>
                                             <div class="col-md-9" style="text-align: center">
                                                 <strong class="invitation-user">@userAdministrator.FullName</strong>
@@ -60,8 +60,8 @@
                                             }
                                         </div>
                                         <div class="col-md-12 invitation-actions" style="margin-bottom: 15px">
-                                            <button type="button" title="Cancelar Invitación" class="replyInvitation cancel invitation-button invitation-cancel" rel="@invitation.Id">NO ASISTIRÉ</button>
-                                            <button type="button" title="Aceptar Invitación" class="replyInvitation confirm invitation-button invitation-confirm" rel="@invitation.Id" style="margin-right: 10px;">ASISTIRÉ</button>
+                                            <button type="button"  data-toggle="tooltip" data-placement="top" title="Cancelar Invitación" class="replyInvitation cancel invitation-button invitation-cancel" rel="@invitation.Id">NO ASISTIRÉ</button>
+                                            <button type="button"  data-toggle="tooltip" data-placement="top" title="Aceptar Invitación" class="replyInvitation confirm invitation-button invitation-confirm" rel="@invitation.Id" style="margin-right: 10px;">ASISTIRÉ</button>
                                         </div>
                                     </div>
                                 </div>

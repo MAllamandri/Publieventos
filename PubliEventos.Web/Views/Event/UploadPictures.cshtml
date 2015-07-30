@@ -66,7 +66,7 @@
             <div class="modal-body">
                 <strong>Ingrese la dirección del video</strong>
                 <input type="text" name="currentMovie" data-bind="value: CurrentMovie" class="form-control" style="width: 90%; display: inline;">
-                <img src="/Content/themes/images/youtube.jpg" style="width: 40px; height: 40px;" alt="YouTube" title="Copie la dirección del video" />
+                <img src="/Content/themes/images/youtube.jpg" style="width: 40px; height: 40px;" alt="YouTube" data-toggle="tooltip" data-placement="top" title="Copie la dirección del video" />
                 @Html.ValidationMessage("currentMovie")
 
                 <div data-bind="visible: viewMovie" style="display: none; height: 500px; margin-top: 20px;">

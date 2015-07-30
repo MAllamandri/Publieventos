@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <ul class="nav nav-pills">
-                                    <li><a href="/Group/Create" title="Nuevo Grupo" style="color: black" class="label-description section-button eventsSearch">NUEVO GRUPO</a></li>
+                                    <li><a href="/Group/Create"  data-toggle="tooltip" data-placement="top" title="Nuevo Grupo" style="color: black" class="label-description section-button eventsSearch">NUEVO GRUPO</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -49,14 +49,14 @@
                                         <div id="#nav-action" class="col-md-4 actions-group">
                                             @if (group.Administrator.Id == (User as CustomPrincipal).Id)
                                             {
-                                                <a style="padding-bottom: 7px" class="deleteGroup" title="Eliminar Grupo" rel="@group.Id" href="#"><i class="icon-default icon-remove"></i></a>
-                                                <a title="Editar Grupo" href="/Group/Edit/@group.Id"><i class="icon-default icon-pencil"></i></a>
+                                                <a style="padding-bottom: 7px" class="deleteGroup"  data-toggle="tooltip" data-placement="top" title="Eliminar Grupo" rel="@group.Id" href="#"><i class="icon-default icon-remove"></i></a>
+                                                <a  data-toggle="tooltip" data-placement="top" title="Editar Grupo" href="/Group/Edit/@group.Id"><i class="icon-default icon-pencil"></i></a>
                                             }
                                             else
                                             {
-                                                <a title="Dejar Grupo" class="leaveGroup" rel="@group.Id" href="#"><i class="icon-default icon-hand-down"></i></a>
+                                                <a  data-toggle="tooltip" data-placement="top" title="Dejar Grupo" class="leaveGroup" rel="@group.Id" href="#"><i class="icon-default icon-hand-down"></i></a>
                                             }
-                                            <a title="Ver Grupo" href="/Group/Detail/@group.Id"><i class="icon-default icon-search"></i></a>
+                                            <a  data-toggle="tooltip" data-placement="top" title="Ver Grupo" href="/Group/Detail/@group.Id"><i class="icon-default icon-search"></i></a>
                                         </div>
                                     </div>
                                     <div class="col-md-12 div-group-name">

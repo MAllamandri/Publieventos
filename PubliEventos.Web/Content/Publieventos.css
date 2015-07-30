@@ -292,11 +292,22 @@ p, strong, label, textarea {
     color: #5f9977;
     float: right;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 /*#endregion*/
 
 /*#region Index */
+.current-date-index {
+    background-color: #c25b4e;
+}
+
+.current-date-description {
+    color: white !important;
+    background-color: #c25b4e;
+    height: 60px !important;
+    margin: 0 !important;
+}
 
 .event-mosaic {
     background-color: #f5fbfa;

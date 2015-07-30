@@ -70,8 +70,8 @@
                 <div id="searchButton" class="search-title"><i class="icon-caret-down" id="icon-search"></i>&nbspBÚSQUEDAS</div>
             </div>
             <div class="col-md-12" data-bind="foreach:Events">
-                <div class="col-md-12 date-description" data-bind="text: Date"></div>
-                <div class="col-md-12" data-bind="foreach: EventsDetail">
+                <div class="col-md-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
+                <div class="col-md-12" data-bind="foreach: EventsDetail, css: {'current-date-index': CurrentDate}">
                     @Html.Partial("Partial/_EventMosaic")
                 </div>
             </div>

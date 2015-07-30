@@ -1,4 +1,10 @@
 ﻿$(function () {
+    $('html, body').tooltip({
+        selector: '[data-toggle="tooltip"]',
+        html: true,
+        title: '<p>' + $(this).attr('title') + '</p>'
+    });
+
     $.fn.charactersQuantity = function (count) {
         $(this).blur(function () {
             if ($(this).val().length > count) {

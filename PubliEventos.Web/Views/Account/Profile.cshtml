@@ -67,9 +67,22 @@
                     <div class="row">
                         @if (((List<Event>)ViewBag.events).Count() > 0)
                         {
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <strong>Últimos Eventos</strong>
                                 @foreach (var _event in (List<Event>)ViewBag.events)
+                                {
+                                    <a href="/Event/Detail/@_event.Id">
+                                        <h4>@_event.Title</h4>
+                                    </a>
+                                }
+                            </div>
+                        }
+
+                        @if (((List<Event>)ViewBag.mostPopularEvents).Count() > 0)
+                        {
+                            <div class="col-md-6">
+                                <strong>Eventos más Populares</strong>
+                                @foreach (var _event in (List<Event>)ViewBag.mostPopularEvents)
                                 {
                                     <a href="/Event/Detail/@_event.Id">
                                         <h4>@_event.Title</h4>

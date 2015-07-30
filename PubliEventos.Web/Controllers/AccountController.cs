@@ -139,8 +139,11 @@
 
             var events = this.serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { SearchPublics = true, UserId = id }).Events;
 
-            // Obtengo los ultimos tres eventos del usuario.
+            // Obtengo los ultimos eventos del usuario.
             ViewBag.events = events.OrderByDescending(x => x.EventDate).Take(5).ToList();
+
+            // Obtengo los eventos mas populares.
+            ViewBag.mostPopularEvents = this.serviceEvents.SearchMostPopularEvents(new SearchMostPopularEventsRequest() { UserId = id }).Events;
 
             return View(model);
         }
@@ -160,6 +163,7 @@
             {
                 UserId = user.Id.Value,
                 Email = user.Email,
+                FirstNameOld = user.FirstName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 LocalityId = user.Locality.Id.Value,
@@ -539,7 +543,7 @@
 
                     this.serviceAccounts.EditProfile(model);
 
-                    if (fileModel.File != null)
+                    if (fileModel.File != null || model.FirstNameOld != model.FirstName)
                     {
                         //Obtengo la cookie y la desencripto.
                         HttpCookie cookie = (HttpCookie)(Request.Cookies[FormsAuthentication.FormsCookieName]);

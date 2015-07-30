@@ -74,5 +74,12 @@
         /// <param name="request">Parámetros de entrada.</param>
         /// <returns>Lista de eventos filtrados.</returns>
         ValidateExistsContentResponse ValidateExistsContent(ValidateExistsContentRequest request);
+
+        /// <summary>
+        /// Busca los eventos más populares.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        SearchMostPopularEventsResponse SearchMostPopularEvents(SearchMostPopularEventsRequest request);
     }
 }

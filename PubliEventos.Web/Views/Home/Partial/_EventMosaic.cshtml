@@ -7,13 +7,13 @@
             <h4 class="event-title" style="cursor: pointer" data-bind="text: Title, click: EventDetail"></h4>
             <div class="">
                 <div>
-                    <p class="font-text event-date">
-                        <i class="icon-calendar" title="Fecha de realización">&nbsp</i><small class="text-muted" data-bind="text: EventDate"></small>
+                    <p class="font-text event-date" data-toggle="tooltip" data-placement="top" title="Fecha de realización">
+                        <i class="icon-calendar">&nbsp</i><small class="text-muted" data-bind="text: EventDate"></small>
                     </p>
                 </div>
                 <div>
-                    <p class="font-text event-date">
-                        <i class="icon-time" title="Hora de realización">&nbsp</i><small class="text-muted" data-bind="text: EventTime"></small>
+                    <p class="font-text event-date" data-toggle="tooltip" data-placement="top" title="Hora de realización">
+                        <i class="icon-time">&nbsp</i><small class="text-muted" data-bind="text: EventTime"></small>
                     </p>
                 </div>
             </div>
@@ -23,15 +23,15 @@
         </div>
         <div class="margin-bottom-normal margin-top-normal" style="padding-bottom: 30px">
             <div style="float: right; margin-top: -2px;" data-bind="visible: EnabledActions">
-                <a href="#" title="Invitar" data-bind="visible: !AlreadyTookPlace, click: InviteToEvent">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Invitar" data-bind="visible: !AlreadyTookPlace, click: InviteToEvent">
                     <span class="icon-default icon-user"></span></a>
-                <a href="#" title="Subir Contenidos" data-bind="click: UploadContents">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Subir Contenidos" data-bind="click: UploadContents">
                     <span class="icon-default icon-picture"></span></a>
             </div>
             <div style="float: left;">
-                <a href="#" title="Compartir en Twitter" data-bind="TwitterButton: { title: Title, id: Id }" target="_blank">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Compartir en Twitter" data-bind="TwitterButton: { title: Title, id: Id }" target="_blank">
                     <img class="shared-social" src="/Content/themes/images/twitter.png" /></a>
-                <a href="#" data-bind="click: fbShare">
+                <a href="#"  data-toggle="tooltip" data-placement="top" title="Compartir en Facebook" data-bind="click: fbShare">
                     <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
                 <div id="fb-root"></div>
             </div>

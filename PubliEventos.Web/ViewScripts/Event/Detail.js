@@ -614,10 +614,10 @@ function EventModel(event) {
 
     self.AttendDescription = ko.computed(function () {
         if (self.AttendEventByCurrentUser()) {
-            return "<p style='text-align: center'><i class='attend-star icon-star' title='Estas asistiendo a este evento'></i>Cancelar Asistencia</p>";
+            return "<p style='text-align: center'><i class='attend-star icon-star' data-toggle='tooltip' data-placement='top' title='Estas asistiendo a este evento'></i>Cancelar Asistencia</p>";
         }
 
-        return "<p style='text-align: center'><i class='attend-star icon-star-empty' title='Marca tu asistencia al evento'></i>Asistiré</p>";
+        return "<p style='text-align: center'><i class='attend-star icon-star-empty' data-toggle='tooltip' data-placement='top' title='Marca tu asistencia al evento'></i>Asistiré</p>";
     });
 
     self.AttendEvent = function () {

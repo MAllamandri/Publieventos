@@ -33,12 +33,16 @@
         /// <summary>
         /// Nombre.
         /// </summary>
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "El valor es requerido")]
         [MaxLength(25, ErrorMessage = "El nombre no puede contener mas de 25 caracteres")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Apellido.
         /// </summary>
+        [Display(Name = "Apellido")]
+        [Required(ErrorMessage = "El valor es requerido")]
         [MaxLength(25, ErrorMessage = "El apellido no puede contener mas de 25 caracteres")]
         public string LastName { get; set; }
 
@@ -78,5 +82,10 @@
         /// FileName de la imagen de perfil.
         /// </summary>
         public string ImageProfile { get; set; }
+
+        /// <summary>
+        /// Nombre anterior.
+        /// </summary>
+        public string FirstNameOld { get; set; }
     }
 }

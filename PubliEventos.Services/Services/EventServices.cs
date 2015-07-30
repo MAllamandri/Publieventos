@@ -307,5 +307,36 @@
                 Exists = exists
             };
         }
+
+        /// <summary>
+        /// Busca los eventos más populares.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public static SearchMostPopularEventsResponse SearchMostPopularEvents(SearchMostPopularEventsRequest request)
+        {
+            var predicate = PredicateBuilder.True<Domain.Domain.Invitation>();
+
+            predicate = predicate.And(x => x.Event != null && !x.Event.Private && x.Event.User.Id == request.UserId && !x.Event.NullDate.HasValue && x.Event.Active);
+            predicate = predicate.And(x => !x.NullDate.HasValue && x.Confirmed.HasValue && x.Confirmed.Value);
+
+
+            var invitations = CurrentSession.Query<Domain.Domain.Invitation>()
+                           .Where(predicate)
+                           .Select(x => x)
+                           .ToList();
+
+            var invitationsFilters = invitations.GroupBy(x => x.Event.Id)
+                           .OrderByDescending(g => g.Count())
+                           .Take(5)
+                           .ToList();
+
+            var mostPopularEvents = invitationsFilters.Select(x => InternalServices.GetEventSummary(x.First().Event)).ToList();
+
+            return new SearchMostPopularEventsResponse
+            {
+                Events = mostPopularEvents
+            };
+        }
     }
 }

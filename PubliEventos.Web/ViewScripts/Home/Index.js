@@ -8,6 +8,12 @@ $(function () {
         autoclose: true,
     });
 
+    $('.current-date').click(function () {
+        if ($('.current-date-description').length > 0) {
+            $("html, body").scrollTop($('.current-date-description').offset().top);
+        }
+    });
+
     $("#searchButton").click(function () {
         $('#search-form').slideToggle("slow", function () {
             if ($('#icon-search').hasClass('icon-caret-down')) {
@@ -130,7 +136,9 @@ function EventsHeader(events) {
     var self = this;
 
     var month = moment(events[0].EventDate).format("MM");
+
     self.Date = moment(events[0].EventDate).format("DD") + " DE " + GetMonthDescription(month) + " DE " + moment(events[0].EventDate).format("YYYY");;
+    self.CurrentDate = moment(new Date()).format("DD/MM/YYYY") == moment(events[0].EventDate).format("DD/MM/YYYY");
 
     self.EventsDetail = ko.observableArray();
 

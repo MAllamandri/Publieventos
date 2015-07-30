@@ -100,6 +100,8 @@
     <Compile Include="Services\Event\SearchEventsByDistanceResponse.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsRequest.cs" />
     <Compile Include="Services\Event\SearchFilteredEventsResponse.cs" />
+    <Compile Include="Services\Event\SearchMostPopularEventsRequest.cs" />
+    <Compile Include="Services\Event\SearchMostPopularEventsResponse.cs" />
     <Compile Include="Services\Event\ValidateExistsContentRequest.cs" />
     <Compile Include="Services\Event\ValidateExistsContentResponse.cs" />
     <Compile Include="Services\Group\CreateGroupRequest.cs" />

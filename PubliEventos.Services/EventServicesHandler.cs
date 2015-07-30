@@ -106,5 +106,15 @@
         {
             return EventServices.ValidateExistsContent(request);
         }
+
+        /// <summary>
+        /// Busca los eventos más populares.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public SearchMostPopularEventsResponse SearchMostPopularEvents(SearchMostPopularEventsRequest request)
+        {
+            return EventServices.SearchMostPopularEvents(request);
+        }
     }
 }

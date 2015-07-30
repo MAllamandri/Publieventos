@@ -5,6 +5,12 @@
         $('#myTabs a[href="#login"]').tab('show');
     }
 
+    $('#Password').keypress(function (e) {
+        if (e.keyCode == 13) {
+            $('#Entry').click();
+        }
+    });
+
     $('#SignUpModel_UserNameToRegister').charactersQuantity(20);
     $('#SignUpModel_FirstName').charactersQuantity(20);
     $('#SignUpModel_LastName').charactersQuantity(20);
@@ -202,7 +208,8 @@
 
     $('#recoverPassword').click(function () {
         if ($('#UserNameToRecover').val() != null && $.trim($('#UserNameToRecover').val()) != "") {
-            $('#RecoverPassModal').modal('hide');
+            $('#UserNameToRecover').hideMessageError();
+            
             $.blockUI({ message: "" });
 
             $.ajax({
@@ -212,10 +219,11 @@
                 data: { UserName: $('#UserNameToRecover').val() }
             }).done(function (data) {
                 if (data.Success) {
+                    $.blockUI({ message: "" });
                     window.location.href = "/Account/RecoverPassword/" + data.UserId;
                 } else {
                     $.unblockUI();
-                    alert("Ha ocurrido un error");
+                    $('#UserNameToRecover').showMessageError("Nombre de usuario incorrecto");
                 }
             }).error(function () {
                 alert("Ha ocurrido un error interno");

@@ -19,8 +19,8 @@
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <ul class="nav nav-pills">
-                            <li><a href="/Event/MyEvents?currentEvents=true" id="tabCurrents" title="Eventos a realizarse proximamente" style="color: black" class="label-description eventsSearch">PRÓXIMOS</a></li>
-                            <li><a href="/Event/MyEvents?currentEvents=false" id="tabPrevious" title="Eventos que ya se llevaron a cabo" style="color: black" class="label-description eventsSearch">PREVIOS</a></li>
+                            <li><a href="/Event/MyEvents?currentEvents=true" id="tabCurrents" data-toggle="tooltip" data-placement="top" title="Eventos a realizarse proximamente" style="color: black" class="label-description eventsSearch">PRÓXIMOS</a></li>
+                            <li><a href="/Event/MyEvents?currentEvents=false" id="tabPrevious" data-toggle="tooltip" data-placement="top" title="Eventos que ya se llevaron a cabo" style="color: black" class="label-description eventsSearch">PREVIOS</a></li>
                         </ul>
                     </div>
                     @Html.Hidden("CurrentsEvents", (bool)@ViewBag.currentsEvents)
