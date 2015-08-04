@@ -6,13 +6,16 @@
     using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Contract.Services.Comment;
+    using PubliEventos.Contract.Services.Group;
     using PubliEventos.Services;
     using PubliEventos.Web.App_Start;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
     using Unity.Mvc4;
+    using PubliEventos.Web.Mvc.Extensions;
 
     [HubName("BaseHubs")]
     public class BaseHubs : Hub
@@ -25,12 +28,18 @@
         private ICommentServices _commentService { get; set; }
 
         /// <summary>
+        /// Servicio de grupos.
+        /// </summary>
+        private IGroupServices _groupService { get; set; }
+
+        /// <summary>
         /// Constructor del hub.
         /// </summary>
         /// <param name="commentService">Servicio de comentarios.</param>
-        public BaseHubs(ICommentServices commentService)
+        public BaseHubs(ICommentServices commentService, IGroupServices groupService)
         {
             this._commentService = commentService;
+            this._groupService = groupService;
         }
 
         #endregion
@@ -58,6 +67,7 @@
 
             // register all your dependencies here.
             container.RegisterType<ICommentServices, CommentServicesHandler>();
+            container.RegisterType<IGroupServices, UsersGroupServicesHandler>();
             container.RegisterType<BaseHubs>(new InjectionFactory(CreateMyHub));
 
             return container;
@@ -65,12 +75,14 @@
 
         private static object CreateMyHub(IUnityContainer p)
         {
-            var myHub = new BaseHubs(p.Resolve<ICommentServices>());
+            var myHub = new BaseHubs(p.Resolve<ICommentServices>(), p.Resolve<IGroupServices>());
 
             return myHub;
         }
 
         #endregion
+
+        #region Comments
 
         /// <summary>
         /// Agrega un comentario en todos los usuarios.
@@ -118,6 +130,10 @@
             return comments;
         }
 
+        #endregion
+
+        #region Multimedica Contents
+
         /// <summary>
         /// Elimina el comentario en todos los usuarios.
         /// </summary>
@@ -127,6 +143,33 @@
         {
             Clients.All.DeleteContent(contentId, contentType, eventId);
         }
+
+        #endregion
+
+        #region Chat
+
+        /// <summary>
+        /// Envía un nuevo mensaje de chat.
+        /// </summary>
+        /// <param name="groupId">Identificador del grupo.</param>
+        /// <param name="message">Mensaje a enviar.</param>
+        /// <param name="effectDate">Fecha de alta.</param>
+        public void SendMessage(int groupId, string message, string effectDate)
+        {
+            var userId = (System.Web.HttpContext.Current.User as CustomPrincipal).Id;
+
+            var response = this._groupService.CreateChatMessage(new CreateChatMessageRequest
+            {
+                EffectDate = effectDate.ParseStringToDateTime().Value,
+                GroupId = groupId,
+                Message = message,
+                UserId = userId
+            });
+
+            Clients.All.NewMessage(response.Message);
+        }
+
+        #endregion
     }
 
     public class SignalRUnityDependencyResolver : DefaultDependencyResolver

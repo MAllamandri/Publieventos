@@ -56,4 +56,47 @@
             $('.title-file').text(this.files[0].name);
         }
     });
+
+    window.CalculeElapsedTime = function (effectDate) {
+        var dateTimeParts = effectDate.split('T');
+        dateParts = dateTimeParts[0].split("-");
+
+        effectDate = dateParts[0] + "/" + dateParts[1] + "/" + dateParts[2] + " " + dateTimeParts[1];
+
+        var duration = Math.round($.now() - Date.parse(effectDate));
+
+        var seconds = Math.round(duration / 1000);
+
+        if (seconds < 60) {
+            var text = seconds == 1 ? " segundo" : " segundos";
+            return "Hace aproximadamente " + seconds + text;
+        } else {
+            var minutes = Math.round(seconds / 60);
+            if (minutes < 60) {
+                var text = minutes == 1 ? " minuto" : " minutos";
+                return "Hace aproximadamente " + minutes.toString() + text;
+            } else {
+                var hours = Math.round(minutes / 60);
+                if (hours < 24) {
+                    var text = hours == 1 ? " hora" : " horas";
+                    return "Hace aproximadamente " + hours + text;
+                } else {
+                    var days = Math.round(hours / 24);
+
+                    if (days <= 30) {
+                        var text = days == 1 ? " día" : " días";
+                        return "Hace aproximadamente " + days + text;
+                    } else {
+                        var months = Math.round(days / 30);
+                        if (months <= 12) {
+                            var text = months == 1 ? " mes" : " meses";
+                            return "Hace aproximadamente " + months + text;
+                        } else {
+                            return "Hace mas de 1 año"
+                        }
+                    }
+                }
+            }
+        }
+    }
 });

@@ -24,6 +24,10 @@
         $('#RecoverPassModal').modal('show');
     });
 
+    $('#cancelRecoverPass').click(function () {
+        $('#RecoverPassModal').modal('hide');
+    });
+
     $('.date').datetimepicker({
         pickTime: false,
         format: "DD-MM-YYYY",
@@ -209,7 +213,7 @@
     $('#recoverPassword').click(function () {
         if ($('#UserNameToRecover').val() != null && $.trim($('#UserNameToRecover').val()) != "") {
             $('#UserNameToRecover').hideMessageError();
-            
+
             $.blockUI({ message: "" });
 
             $.ajax({

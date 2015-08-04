@@ -175,6 +175,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvitationController.cs" />
+    <Compile Include="Mvc\Extensions\Extension.cs" />
     <Compile Include="Mvc\Filters\UserActionRestriction.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -400,6 +401,7 @@
     <Content Include="ViewScripts\Event\Partial\_LocalizationDetail.js" />
     <Content Include="ViewScripts\Event\UploadPictures.js" />
     <Content Include="ViewScripts\Group\Base.js" />
+    <Content Include="ViewScripts\Group\Detail.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
     <Content Include="ViewScripts\Home\Index.js" />
     <Content Include="ViewScripts\Home\SearchEventsByDistance.js" />

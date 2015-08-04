@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\BaseClass.cs" />
+    <Compile Include="Class\ChatMessage.cs" />
     <Compile Include="Class\Comment.cs" />
     <Compile Include="Class\Event.cs" />
     <Compile Include="Class\EventType.cs" />
@@ -104,6 +105,8 @@
     <Compile Include="Services\Event\SearchMostPopularEventsResponse.cs" />
     <Compile Include="Services\Event\ValidateExistsContentRequest.cs" />
     <Compile Include="Services\Event\ValidateExistsContentResponse.cs" />
+    <Compile Include="Services\Group\CreateChatMessageRequest.cs" />
+    <Compile Include="Services\Group\CreateChatMessageResponse.cs" />
     <Compile Include="Services\Group\CreateGroupRequest.cs" />
     <Compile Include="Services\Group\CreateGroupResponse.cs" />
     <Compile Include="Services\Group\DeleteGroupRequest.cs" />
@@ -117,6 +120,8 @@
     <Compile Include="Services\Group\GroupBaseRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupRequest.cs" />
     <Compile Include="Services\Group\LeaveGroupResponse.cs" />
+    <Compile Include="Services\Group\SearchChatMessagesByGroupRequest.cs" />
+    <Compile Include="Services\Group\SearchChatMessagesByGroupResponse.cs" />
     <Compile Include="Services\Group\SearchGroupsByPartialNameRequest.cs" />
     <Compile Include="Services\Group\SearchGroupsByPartialNameResponse.cs" />
     <Compile Include="Services\Invitation\AttendEventRequest.cs" />

@@ -55,5 +55,19 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         SearchGroupsByPartialNameResponse SearchGroupsByPartialName(SearchGroupsByPartialNameRequest request);
+
+        /// <summary>
+        /// Crea un mensaje de chat de grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        CreateChatMessageResponse CreateChatMessage(CreateChatMessageRequest request);
+
+        /// <summary>
+        /// Obtiene los mensajes de chat de un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        SearchChatMessagesByGroupResponse SearchChatMessagesByGroup(SearchChatMessagesByGroupRequest request);
     }
 }

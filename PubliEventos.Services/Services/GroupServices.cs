@@ -2,6 +2,7 @@
 {
     using LinqKit;
     using NHibernate.Linq;
+    using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Services.Group;
     using PubliEventos.DataAccess.Querys;
     using System;
@@ -227,6 +228,72 @@
                 {
                     Groups = groups,
                     Quantity = total
+                };
+            }
+        }
+
+        /// <summary>
+        /// Crea un mensaje de chat de grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static CreateChatMessageResponse CreateChatMessage(CreateChatMessageRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var message = new Domain.Domain.ChatMessage()
+                {
+                    EffectDate = request.EffectDate,
+                    Group = CurrentSession.Get<Domain.Domain.Group>(request.GroupId),
+                    User = CurrentSession.Get<Domain.Domain.User>(request.UserId),
+                    Message = request.Message
+                };
+
+                new BaseQuery<Domain.Domain.ChatMessage, int>().Create(message);
+
+                transaction.Complete();
+
+                return new CreateChatMessageResponse
+                {
+                    Message = new ChatMessage
+                    {
+                        Id = message.Id,
+                        Message = message.Message,
+                        EffectDate = message.EffectDate,
+                        User = InternalServices.GetUserSummary(message.User),
+                        GroupId = message.Group.Id
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// Obtiene los mensajes de chat de un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchChatMessagesByGroupResponse SearchChatMessagesByGroup(SearchChatMessagesByGroupRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var predicate = PredicateBuilder.True<Domain.Domain.ChatMessage>();
+                predicate = predicate.And(x => !x.NullDate.HasValue && x.Group.Id == request.GroupId);
+
+                var messages = CurrentSession.Query<Domain.Domain.ChatMessage>()
+                     .Where(predicate)
+                     .OrderBy(x => x.EffectDate)
+                     .Take(300)
+                     .Select(x => new ChatMessage
+                     {
+                         Id = x.Id,
+                         Message = x.Message,
+                         EffectDate = x.EffectDate,
+                         User = InternalServices.GetUserSummary(x.User)
+                     }).ToList();
+
+                return new SearchChatMessagesByGroupResponse
+                {
+                    Messages = messages
                 };
             }
         }

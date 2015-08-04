@@ -1,6 +1,6 @@
 ﻿namespace PubliEventos.Services
 {
-    using Contract.Services.Group;
+    using PubliEventos.Contract.Services.Group;
     using PubliEventos.Contract.Contracts;
     using PubliEventos.Services.Services;
 
@@ -77,6 +77,26 @@
         public SearchGroupsByPartialNameResponse SearchGroupsByPartialName(SearchGroupsByPartialNameRequest request)
         {
             return GroupServices.SearchGroupsByPartialName(request);
+        }
+
+        /// <summary>
+        /// Crea un mensaje de chat de grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public CreateChatMessageResponse CreateChatMessage(CreateChatMessageRequest request)
+        {
+            return GroupServices.CreateChatMessage(request);
+        }
+
+        /// <summary>
+        /// Obtiene los mensajes de chat de un grupo.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchChatMessagesByGroupResponse SearchChatMessagesByGroup(SearchChatMessagesByGroupRequest request)
+        {
+            return GroupServices.SearchChatMessagesByGroup(request);
         }
     }
 }

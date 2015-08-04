@@ -92,6 +92,7 @@
         public ActionResult Detail(int id)
         {
             var group = this.serviceGroups.GetGroupById(new GetGroupByIdRequest() { GroupId = id }).Group;
+            ViewBag.messages = this.serviceGroups.SearchChatMessagesByGroup(new SearchChatMessagesByGroupRequest() { GroupId = id }).Messages;
 
             return View(group);
         }
