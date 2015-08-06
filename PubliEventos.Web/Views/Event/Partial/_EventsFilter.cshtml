@@ -13,10 +13,10 @@
             <div class="col-md-6">
                 @Html.Label("PRIVACIDAD", new { @class = "label-description" })
                 <div class="well-region" style="width: 50%">
-                    @Html.Label("Público", new { @class = "label-description", style = "padding-right: 10px" })
-                    <input type="radio" id="Public" name="Private" value="true" style="margin-right: 15px" />
-                    @Html.Label("Privado", new { @class = "label-description", style = "padding-right: 10px" })
+                    <input type="radio" id="Public" name="Private" value="true" />
+                    <label for="Public" style="margin-right: 15px"><span></span>Público</label>
                     <input type="radio" id="Private" name="Private" value="false" />
+                    <label for="Private"><span></span>Privado</label>
                 </div>
             </div>
         </div>

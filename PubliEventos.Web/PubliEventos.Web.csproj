@@ -208,6 +208,13 @@
     <Content Include="Content\ladda\ladda-themeless.min.css" />
     <Content Include="Content\ladda\ladda.css" />
     <Content Include="Content\ladda\ladda.min.css" />
+    <Content Include="Content\Publieventos\Icons\warning.png" />
+    <Content Include="Content\Publieventos\Icons\recycle.png" />
+    <Content Include="Content\Publieventos\Icons\edit.png" />
+    <Content Include="Content\Publieventos\Icons\search.png" />
+    <Content Include="Content\Publieventos\Icons\photo.png" />
+    <Content Include="Content\Publieventos\Icons\comment.png" />
+    <Content Include="Content\Publieventos\Icons\user.png" />
     <Content Include="Content\Publieventos\Images\Logo.png" />
     <Content Include="Content\Publieventos\Images\Barra_superior.png" />
     <Content Include="Content\Publieventos\Images\Barra_inferior.png" />
@@ -427,9 +434,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\AccountActivation.cshtml" />
@@ -490,7 +495,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Publieventos\Icons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

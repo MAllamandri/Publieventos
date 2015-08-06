@@ -171,6 +171,22 @@ function myViewModel() {
         return "NO CONFIRMADOS (" + self.Standby().length + ")";
     });
 
+    self.ParticipantsStyle = ko.computed(function () {
+        if (self.Participants().length == 0) {
+            return "col-md-7 partipants-panel  participants-panel-without-users panel panel-warning nano";
+        } else {
+            return "col-md-7 partipants-panel panel panel-warning nano partipants-panel-with-users ";
+        }
+    });
+
+    self.StandByStyle = ko.computed(function () {
+        if (self.Standby().length == 0) {
+            return "col-md-7 partipants-panel participants-panel-without-users panel panel-warning nano";
+        } else {
+            return "col-md-7 partipants-panel panel panel-warning nano partipants-panel-with-users";
+        }
+    });
+
     self.ShowNotFoundComments = ko.observable();
 
     self.ReportContent = function () {

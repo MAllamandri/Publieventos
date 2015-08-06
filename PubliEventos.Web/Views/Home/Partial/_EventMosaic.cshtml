@@ -1,4 +1,4 @@
-﻿<div class="col-md-3" style="height: 410px">
+﻿<div class="col-md-3" style="height: 450px">
     <div class="col-md-12 event-mosaic">
         <div class="image-container">
             <img class="image-mosaic-event img-circle" data-bind=" click: EventDetail, attr: { src: PicturePath }" style="cursor: pointer" data-src="holder.js/120x120/auto">
@@ -22,19 +22,25 @@
             <p class="font-text" data-bind="text: Description"></p>
         </div>
         <div class="margin-bottom-normal margin-top-normal" style="padding-bottom: 30px">
-            <div style="float: right; margin-top: -2px;" data-bind="visible: EnabledActions">
+            <div style="float: right" data-bind="visible: EnabledActions">
                 <a href="#" data-toggle="tooltip" data-placement="top" title="Invitar" data-bind="visible: !AlreadyTookPlace, click: InviteToEvent">
-                    <span class="icon-default icon-user"></span></a>
+                    <i class="icon-default icon-user"></i></a>
                 <a href="#" data-toggle="tooltip" data-placement="top" title="Subir Contenidos" data-bind="click: UploadContents">
-                    <span class="icon-default icon-picture"></span></a>
+                    <i class="icon-default icon-picture"></i></a>
             </div>
             <div style="float: left;">
                 <a href="#" data-toggle="tooltip" data-placement="top" title="Compartir en Twitter" data-bind="TwitterButton: { title: Title, id: Id }" target="_blank">
                     <img class="shared-social" src="/Content/themes/images/twitter.png" /></a>
-                <a href="#"  data-toggle="tooltip" data-placement="top" title="Compartir en Facebook" data-bind="click: fbShare">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Compartir en Facebook" data-bind="click: fbShare">
                     <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
                 <div id="fb-root"></div>
             </div>
+        </div>
+    </div>
+    <div class="col-md-12 event-mosaic">
+        <img class="image-admin-event img-responsive img-circle" data-toggle="tooltip" data-placement="top" title="Ver perfil" data-bind="attr: { src: PathProfile }, click: Profile" style="cursor: pointer" data-src="holder.js/60x60/auto">
+        <div class="admin-name-container">
+            <p class="admin-name" data-bind="text: Administrator"></p>
         </div>
     </div>
 </div>

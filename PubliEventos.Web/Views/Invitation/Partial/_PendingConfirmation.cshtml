@@ -1,11 +1,11 @@
 ﻿<div class="row">
-    <div class="col-md-7 partipants-panel panel panel-warning nano">
+    <div data-bind="attr: { 'class': StandByStyle }">
         <div class="nano-content">
             <div class="asists-user-title">
                 <p class="label-description" style="font-size: 25px; text-align: center;" data-bind="text: StandbyTitle"></p>
             </div>
             <div class="col-md-12">
-                <div style="margin-top: 50%;" data-bind="visible: Standby().length == 0" class="not-found-message not-found-message-dark">NO HAY INVITADOS</div>
+                <div style="margin-top: 10px" data-bind="visible: Standby().length == 0" class="not-found-message not-found-message-dark">NO HAY INVITADOS</div>
             </div>
             <div data-bind="foreach: Standby">
                 <div class="col-md-11 panel-body" style="margin-top: 15px">

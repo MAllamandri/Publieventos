@@ -65,7 +65,7 @@
                 __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
                 UserName: $('#UserName').val(),
                 Password: $('#Password').val(),
-                RememberMe: $('#RememberMe:checked').val(),
+                RememberMe: $('#RememberMe:checked').length > 0,
                 ReturnUrl: getParameterByName("ReturnUrl")
             }
         }).done(function (data) {

@@ -34,16 +34,22 @@ $(function () {
         LoadEvents(events);
     }
 
-    $('#SearchTerm').keypress(function () {
+    $('#SearchTerm').keypress(function (e) {
         if ($('#SearchTerm').val().length >= 5) {
             SearchEvents(null, $('#SearchTerm').val());
-        }
+        } else if (e.keyCode == 13) {
+            return false;
+        } else if ($('#SearchTerm').val() < 4) {
+            SearchEvents(true, null);
+        };
     });
 
     $('#SearchTerm').keyup(function (e) {
         if (e.keyCode == 8 && $('#SearchTerm').val().length > 4) {
             SearchEvents(null, $('#SearchTerm').val());
         } else if (e.keyCode == 8 && $('#SearchTerm').val().length == 4) {
+            SearchEvents(true, null);
+        } else if ($('#SearchTerm').val() < 4) {
             SearchEvents(true, null);
         };
     });
@@ -165,6 +171,12 @@ function EventModel(event) {
     self.Left = ko.observable();
     self.EnabledActions = event.User.Id == currentUserId;
     self.AlreadyTookPlace = event.AlreadyTookPlace;
+    self.PathProfile = event.User.PathProfile;
+    self.Administrator = event.User.FullName;
+
+    self.Profile = function () {
+        window.location.href = "/Account/Profile/" + event.User.Id;
+    }
 
     self.EventDetail = function () {
         window.location.href = "/Event/Detail/" + event.Id;
