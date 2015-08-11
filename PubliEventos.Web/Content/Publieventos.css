@@ -11,8 +11,12 @@ html, body {
     background-color: #e1e1e1;
 }
 
-a:hover, a:link {
-    text-decoration: none;
+a:hover {
+    text-decoration: none !important;
+}
+
+a:link {
+    text-decoration: none !important;
 }
 
 .font-text {
@@ -1593,4 +1597,9 @@ textarea {
 
 /*#endregion*/
 
-
+#cropContainerModal {
+    width: 330px;
+    height: 380px;
+    position: relative; /* or fixed or absolute */
+    border: 1px solid #ccc;
+}

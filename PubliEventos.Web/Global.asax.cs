@@ -73,7 +73,7 @@ namespace PubliEventos.Web
                     Id = serializeModel.Id,
                     FirstName = serializeModel.FirstName,
                     LastName = serializeModel.LastName,
-                    ImageProfile = string.IsNullOrEmpty(serializeModel.ImageProfile) ? "contact-default-image.jpg" : serializeModel.ImageProfile,
+                    ImageProfile = string.IsNullOrEmpty(serializeModel.ImageProfile) ? "contact-default-image.png" : serializeModel.ImageProfile,
                     IsAdministrator = serializeModel.IsAdministrator,
                     DateTimeNow = Shared.GetDateTime()
                 };

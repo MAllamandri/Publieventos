@@ -87,5 +87,15 @@
         /// Nombre anterior.
         /// </summary>
         public string FirstNameOld { get; set; }
+
+        /// <summary>
+        /// Imagen cortada.
+        /// </summary>
+        public string ImageCrop { get; set; }
+
+        /// <summary>
+        /// Imagen cargada.
+        /// </summary>
+        public string UploadImage { get; set; }
     }
 }

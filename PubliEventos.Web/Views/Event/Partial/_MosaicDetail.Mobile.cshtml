@@ -3,7 +3,7 @@
 @using PubliEventos.Web.Helpers
 
 @{
-    var coverImage = !string.IsNullOrEmpty(Model.FileName) ? System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName : "/Content/images/Profiles/contact-default-image.jpg";
+    var coverImage = !string.IsNullOrEmpty(Model.FileName) ? System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + Model.FileName : "/Content/images/Profiles/contact-default-image.png";
     var urlEvent = string.Format("{0}://{1}/Event/Detail/{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, Model.Id);
     var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, coverImage);
 }

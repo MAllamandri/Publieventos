@@ -12,9 +12,17 @@
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 
+@System.Web.Optimization.Scripts.Render("/Content/Publieventos/croppic/croppic.js")
+@System.Web.Optimization.Scripts.Render("/Content/Publieventos/croppic/jquery.mousewheel.min.js")
+
+@Styles.Render("~/Content/Publieventos/croppic/croppic.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+
+<script type="text/javascript">
+    var currentImage =   @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((Model.PathProfile)));
+</script>
 
 <div class="row">
     <div class="col-md-12">
@@ -30,6 +38,9 @@
                     @Html.HiddenFor(m => m.UserId)
                     @Html.HiddenFor(m => m.ImageProfile)
                     @Html.HiddenFor(m => m.FirstNameOld)
+
+                    @Html.Hidden("ImageCrop", null)
+                    @Html.Hidden("UploadImage", null)
 
                     @Html.Hidden("IsValid", true)
 
@@ -75,14 +86,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6" style="margin-top: 23px;">
-                                <label class="label-description">FOTO DE PERFIL</label>
-                                <div class="browse-wrap">
-                                    <div class="title-file">Ningún archivo seleccionado</div>
-                                    <input type="file" id="File" name="File" class="upload" title="Seleccione un archivo">
+                            <div class="col-md-6">
+                                <div id="editPhotoRegion" style="margin-top: 23px; display: none;">
+                                    <label class="label-description">NUEVA FOTO DE PERFIL</label>
+                                    <div style="margin-top: 10px" id="cropContainerModal"></div>
                                 </div>
-                                @Html.ValidationMessage("File", new { @class = "field-validation-error", @name = "ImageFile" })
-                                <small>Archivos permitidos (jpg, jpeg, gif y png)</small>
                             </div>
                             <div class="col-md-6" style="margin-top: 23px;">
                                 <label class="label-description">FECHA DE NACIMIENTO</label>
@@ -92,15 +100,19 @@
                                 </div>
                                 @Html.ValidationMessage("BirthDate")
                                 <br />
+                                <a href="#" id="EditPhoto" style="float: right">Modificar Foto</a>
+                                <br />
                                 <a href="#" id="EditPassword" style="float: right">Modificar Contraseña </a>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 region-buttons">
-                            <input type="submit" id="Save" class="btn-confirm pull-right" value="Guardar" />
-                            <a type="button" href="/Account/Profile/@Model.UserId">
-                                <input type="button" value="Cancelar" class="btn-cancel pull-left" /></a>
+                        <div class="col-md-12">
+                            <div class="col-md-12 region-buttons">
+                                <input type="submit" id="Save" class="btn-confirm pull-right" value="Guardar" />
+                                <a type="button" href="/Account/Profile/@Model.UserId">
+                                    <input type="button" value="Cancelar" id="cancel" class="btn-cancel pull-left" /></a>
+                            </div>
                         </div>
                     </div>
                 </form>

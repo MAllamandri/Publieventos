@@ -1,4 +1,68 @@
 ﻿$(function () {
+    var cropperOptions = {
+        uploadUrl: "/Account/UploadOriginalImage",
+        cropUrl: "/Account/CroppedImage",
+        rotateControls: false,
+        modal: true,
+        imgEyecandyOpacity: 0.4,
+        loaderHtml: '<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+        onBeforeImgUpload: function () {
+            DeleteProfileImages();
+        },
+        onAfterImgCrop: function () {
+            $('#ImageCrop').val(response.fileName);
+        },
+        onAfterImgUpload: function () {
+            $('#UploadImage').val(response.fileName);
+        }
+    }
+
+    var cropper = new Croppic('cropContainerModal', cropperOptions);
+
+    $(document).on('click', '.cropControlRemoveCroppedImage', function () {
+        DeleteProfileImages();
+    });
+
+    $(document).on('click', '.cropControlReset', function () {
+        DeleteProfileImages();
+
+        $('.cropControlRemoveCroppedImage').click();
+    });
+
+    $('#cancel').click(function (event) {
+        $(window).unbind('beforeunload');
+        DeleteProfileImages();
+    });
+
+    $(window).bind("beforeunload", function () {
+        DeleteProfileImages();
+    })
+
+    function DeleteProfileImages() {
+        $.ajax({
+            url: "/Account/DeleteProfilePicture",
+            type: 'POST',
+            data: {
+                imageUploaded: $('#UploadImage').val(),
+                imageCrop: $('#ImageCrop').val()
+            }
+        }).done(function () {
+            $('#UploadImage').val("");
+            $('#ImageCrop').val("");
+        });
+    };
+
+    $('#EditPhoto').click(function () {
+        if ($('#editPhotoRegion').is(':visible')) {
+            $('#editPhotoRegion').hide('slow');
+        } else {
+            $('#editPhotoRegion').show('slow');
+        }
+
+        return false;
+    });
+
+
     $('#UserName').charactersQuantity(30);
     $('#FirstName').charactersQuantity(25);
     $('#LastName').charactersQuantity(25);
@@ -80,6 +144,7 @@
             url: "/Account/EditProfile",
             datatype: 'text/json',
             beforeSubmit: function (arr, $form, options) {
+                $(window).unbind('beforeunload');
                 $.blockUI();
             },
             complete: function (data) {

@@ -80,7 +80,7 @@
                 Email = user.Email,
                 FirstName = user.FirstName,
                 Id = user.Id,
-                PathProfile = !string.IsNullOrEmpty(user.ImageProfile) ? PathProfiles + user.ImageProfile : "/Content/images/Profiles/contact-default-image.jpg",
+                PathProfile = !string.IsNullOrEmpty(user.ImageProfile) ? PathProfiles + user.ImageProfile : "/Content/images/Profiles/contact-default-image.png",
                 LastName = user.LastName,
                 NullDate = user.NullDate,
                 Password = user.Password,
