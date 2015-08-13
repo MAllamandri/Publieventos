@@ -10,6 +10,7 @@
 @System.Web.Optimization.Scripts.Render("/Scripts/moment-with-locales.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
 @System.Web.Optimization.Scripts.Render("~/ViewScripts/Event/Create.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/yui/cropbox.js")
 
 @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
@@ -22,19 +23,21 @@
         <div style="margin-bottom: 25px" id="create">
             <form id="CreateForm" method="post" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
-                
+
                 <div class="col-md-12">
                     @Html.Partial("Partial/_Form")
                 </div>
                 <div class="margin-bottom-normal">
                     <div class="col-md-12">
                         <div class="col-md-6 margin-bottom-normal">
-                            <label class="label-description">FOTO DE PORTADA</label>
-                            <div class="browse-wrap">
-                                <div class="title-file">Ningún archivo seleccionado</div>
-                                <input type="file" id="CoverPhoto" name="CoverPhoto" class="upload" title="Seleccione un archivo">
+                            <label class="label-description">FOTO DE PORTADA </label>
+                            <br />
+                            <a href="#" id="EditPhoto">AGREGAR <i class="icon-upload icon-default" style="color: #2a6496"></i></a>
+                            <div id="editPhotoRegion" style="display: none">
+                                <div class="cropped" style="float: right; margin-top: -25px;">
+                                </div>
                             </div>
-                            <small>Extensiones permitidas (jpg, jpeg, gif y png)</small>
+                            @Html.HiddenFor(m => m.CoverPhoto)
                             @Html.ValidationMessage("ErrorCoverPhoto", new { @class = "field-validation-error", @name = "ErrorCoverPhoto" })
                         </div>
                         <div class="col-md-6 margin-bottom-normal">

@@ -71,6 +71,22 @@ function myViewModel() {
     self.Participants = ko.observableArray();
     self.Standby = ko.observableArray();
 
+    self.ParticipantsStyle = ko.computed(function () {
+        if (self.Participants().length == 0) {
+            return "col-md-7 partipants-panel  participants-panel-without-users panel panel-warning nano";
+        } else {
+            return "col-md-7 partipants-panel panel panel-warning nano partipants-panel-with-users ";
+        }
+    });
+
+    self.StandByStyle = ko.computed(function () {
+        if (self.Standby().length == 0) {
+            return "col-md-7 partipants-panel participants-panel-without-users panel panel-warning nano";
+        } else {
+            return "col-md-7 partipants-panel panel panel-warning nano partipants-panel-with-users";
+        }
+    });
+
     self.ParticipantsTitle = ko.computed(function () {
         return "ASISTIRÁN (" + self.Participants().length + ")";
     });

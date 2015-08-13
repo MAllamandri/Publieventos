@@ -68,7 +68,7 @@
         /// <summary>
         /// Foto de portada.
         /// </summary>
-        public HttpPostedFileBase CoverPhoto { get; set; }
+        public string CoverPhoto { get; set; }
 
         /// <summary>
         /// Nombre de la foto de portada.
@@ -141,7 +141,7 @@
                 yield return new ValidationResult("Ingrese la localización", new[] { "Localization" });
             }
 
-            if (this.EventDate < DateTime.Now.Date)
+            if (this.EventDate < DateTime.Now.Date && this.EnabledEdition)
             {
                 yield return new ValidationResult("La fecha del evento debe ser superior a hoy", new[] { "EventDate" });
             }

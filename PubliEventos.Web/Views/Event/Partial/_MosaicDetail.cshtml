@@ -12,12 +12,10 @@
     <div class="col-md-12 mosaic">
         <div class="row" style="margin-top: 10px">
             <div class="col-md-12">
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <img data-bind="attr: { 'src': Event().Path }" alt="" class="img-responsive img-rounded image-event-detail" data-src="holder.js/1000x500">
-                    </div>
+                <div class="col-md-5">
+                    <img data-bind="attr: { 'src': Event().Path }" alt="" class="img-rounded image-event-detail" data-src="holder.js/500x380">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="row">
                         <div class="col-md-10">
                             <div>
@@ -54,7 +52,7 @@
                         <div class="col-md-12">
                             <div class="col-md-12">
                                 <a href="#" data-bind="click: Event().AdministratorProfile" style="display: inline; margin-right: 15px;">
-                                    <img  data-toggle="tooltip" data-placement="top" data-bind="attr: { 'src': Event().UserImageProfile, 'title': Event().UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
+                                    <img data-toggle="tooltip" data-placement="top" data-bind="attr: { 'src': Event().UserImageProfile, 'title': Event().UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-rounded right" data-src="holder.js/40x40">
                                 </a>
                                 <p style="display: inline" class="participants-user" data-bind="text: Event().FullName"></p>
                             </div>
@@ -74,11 +72,11 @@
                     @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
                     {
                         <div style="float: right">
-                            <a href="#" id="comment"  data-toggle="tooltip" data-placement="top" title="Comentar"><span style="padding-right: 5px" class="icon-default icon-comments"></span></a>
+                            <a href="#" id="comment" data-toggle="tooltip" data-placement="top" title="Comentar"><span style="padding-right: 5px" class="icon-default icon-comments"></span></a>
 
                             <a  data-toggle="tooltip" data-placement="top" title="Reportar" data-bind="visible: !Event().IsReportedByCurrentUser()" class="reportEvent" rel="@Model.Id" href="#"><i style="padding-right: 5px" class="icon-default icon-ban-circle"></i></a>
-                            <a data-bind="visible: Event().AdministratorIsCurrentUser && !Event().AlreadyTookPlace, click: Event().InviteUsers"  data-toggle="tooltip" data-placement="top" title="Invitar"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-user"></span></a>
-                            <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures"  data-toggle="tooltip" data-placement="top" title="Subir fotos y Videos"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-picture"></span></a>
+                            <a data-bind="visible: Event().AdministratorIsCurrentUser && !Event().AlreadyTookPlace, click: Event().InviteUsers" data-toggle="tooltip" data-placement="top" title="Invitar"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-user"></span></a>
+                            <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures" data-toggle="tooltip" data-placement="top" title="Subir fotos y Videos"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-picture"></span></a>
 
                             <div data-bind="visible: Event().IsReportedByCurrentUser()" class="report-event-message">
                                 <strong>Has Reportado este Evento</strong>

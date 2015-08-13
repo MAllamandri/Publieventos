@@ -17,6 +17,7 @@
     using System.Configuration;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -390,50 +391,6 @@
             }
         }
 
-        /// <summary>
-        /// Corta la imagen que subio el usuario.
-        /// </summary>
-        /// <param name="originalFilePath">Path de la imagen original.</param>
-        /// <param name="origW">Ancho original.</param>
-        /// <param name="origH">Altura original.</param>
-        /// <param name="targetW">Ancho final.</param>
-        /// <param name="targetH">Alto final.</param>
-        /// <param name="cropStartY">Comienzo de corta vertical.</param>
-        /// <param name="cropStartX">Comienzo de corte horizontal.</param>
-        /// <param name="cropW">Ancho del corte.</param>
-        /// <param name="cropH">Altura del corte.</param>
-        /// <returns>FileName.</returns>
-        private string CropImage(string originalFilePath, int origW, int origH, int targetW, int targetH, int cropStartY, int cropStartX, int cropW, int cropH)
-        {
-            var originalImage = Image.FromFile(originalFilePath);
-
-            var resizedOriginalImage = new Bitmap(originalImage, targetW, targetH);
-            var targetImage = new Bitmap(cropW, cropH);
-
-            using (var g = Graphics.FromImage(targetImage))
-            {
-                g.CompositingQuality = CompositingQuality.HighQuality;
-                g.SmoothingMode = SmoothingMode.HighQuality;
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.DrawImage(resizedOriginalImage, new Rectangle(0, 0, cropW, cropH), new Rectangle(cropStartX, cropStartY, cropW, cropH), GraphicsUnit.Pixel);
-            }
-
-            string fileName = Path.GetFileName(originalFilePath);
-
-            string extension = Path.GetExtension(fileName);
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            var fileNameWithOutDate = fileNameWithoutExtension.Substring(0, fileNameWithoutExtension.Length - 15);
-
-            fileName = string.Format("{0}_{1}{2}", fileNameWithOutDate, DateTime.Now.ToString("ddMMyyyyhhMMss"), extension);
-
-            var folder = HttpContext.Server.MapPath(pathImageProfile);
-            string croppedPath = Path.Combine(folder, fileName);
-
-            targetImage.Save(croppedPath);
-
-            return fileName;
-        }
-
         #endregion
 
         #region Json Methods
@@ -599,27 +556,28 @@
 
                 if (!existEmail && !existUserName)
                 {
-                    if (!string.IsNullOrEmpty(model.ImageCrop))
+                    if (!string.IsNullOrEmpty(model.NewPhoto))
                     {
-                        if (!string.IsNullOrEmpty(model.ImageProfile) && System.IO.File.Exists(HttpContext.Server.MapPath(model.ImageProfile)))
+                        if (!string.IsNullOrEmpty(model.ImageProfile) && System.IO.File.Exists(HttpContext.Server.MapPath(pathImageProfile + model.ImageProfile)))
                         {
                             // Elimino la portada anterior.
                             this.DeleteFilePicture(model.ImageProfile);
                         }
 
-                        // Seteo el nombre de la imagen.
-                        model.ImageProfile = model.ImageCrop;
-                    }
+                        var contents = model.NewPhoto.Split(',');
+                        byte[] imageBytes = Convert.FromBase64String(contents[1]);
 
-                    if (!string.IsNullOrEmpty(model.UploadImage))
-                    {
-                        // Elimino la imagen que se subio primerio antes de cortarla.
-                        this.DeleteFilePicture(model.UploadImage);
+                        string fileName = string.Format("{0}.png", DateTime.Now.ToString("ddMMyyyyhhMMss"));
+
+                        System.IO.File.WriteAllBytes(HttpContext.Server.MapPath(pathImageProfile + fileName), imageBytes);
+
+                        // Seteo el nombre de la imagen.
+                        model.ImageProfile = fileName;
                     }
 
                     this.serviceAccounts.EditProfile(model);
 
-                    if (!string.IsNullOrEmpty(model.ImageCrop) || model.FirstNameOld != model.FirstName)
+                    if (!string.IsNullOrEmpty(model.NewPhoto) || model.FirstNameOld != model.FirstName)
                     {
                         //Obtengo la cookie y la desencripto.
                         HttpCookie cookie = (HttpCookie)(Request.Cookies[FormsAuthentication.FormsCookieName]);
@@ -700,99 +658,6 @@
             }
 
             return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
-        }
-
-
-        /// <summary>
-        /// Elimina la foto de perfil que se utilizo para cortar.
-        /// </summary>
-        /// <param name="imageUploaded">Imagen subida.</param>
-        /// <param name="imageCrop">Imagen cortada.</param>
-        /// <returns>True.</returns>
-        [HttpPost]
-        public JsonResult DeleteProfilePicture(string imageUploaded, string imageCrop)
-        {
-            if (!string.IsNullOrEmpty(imageUploaded))
-            {
-                this.DeleteFilePicture(imageUploaded);
-            }
-
-            if (!string.IsNullOrEmpty(imageCrop))
-            {
-                this.DeleteFilePicture(imageCrop);
-            }
-
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// Imagen que sube el usuario.
-        /// </summary>
-        /// <param name="img">Imagen.</param>
-        /// <returns>Result.</returns>
-        [HttpPost]
-        public string UploadOriginalImage(HttpPostedFileBase img)
-        {
-            if (PicturesExtensions.Contains(Path.GetExtension(img.FileName)))
-            {
-                string folder = HttpContext.Server.MapPath(pathImageProfile);
-
-                string extension = Path.GetExtension(img.FileName);
-                string fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(img.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), extension);
-
-                string tempFilePath = System.IO.Path.Combine(folder, fileName);
-
-                img.SaveAs(tempFilePath);
-                var image = System.Drawing.Image.FromFile(tempFilePath);
-
-                var result = new
-                {
-                    status = "success",
-                    width = image.Width,
-                    height = image.Height,
-                    url = pathImageProfile + fileName,
-                    fileName = fileName
-                };
-
-                return JsonConvert.SerializeObject(result);
-            }
-
-            var resultError = new
-            {
-                status = "error",
-                message = "Tipo de archivo no permitido"
-            };
-
-            return JsonConvert.SerializeObject(resultError);
-        }
-
-        /// <summary>
-        /// Corta la imagen que subio el usuario.
-        /// </summary>
-        /// <param name="imgUrl">Url de la imagen original.</param>
-        /// <param name="imgInitW">Ancho.</param>
-        /// <param name="imgInitH">Alto.</param>
-        /// <param name="imgW">Ancho final.</param>
-        /// <param name="imgH">Alto final.</param>
-        /// <param name="imgY1">Comienzo corte vertical.</param>
-        /// <param name="imgX1">Comienzo de corte horizontal.</param>
-        /// <param name="cropH">Alto del corte.</param>
-        /// <param name="cropW">Ancho del corte.</param>
-        /// <returns>Result.</returns>
-        [HttpPost]
-        public string CroppedImage(string imgUrl, int imgInitW, int imgInitH, double imgW, double imgH, int imgY1, int imgX1, int cropH, int cropW)
-        {
-            var originalFilePath = HttpContext.Server.MapPath(imgUrl);
-            var fileName = CropImage(originalFilePath, imgInitW, imgInitH, (int)imgW, (int)imgH, imgY1, imgX1, cropW, cropH);
-
-            var result = new
-            {
-                status = "success",
-                url = pathImageProfile + fileName,
-                fileName = fileName
-            };
-
-            return JsonConvert.SerializeObject(result);
         }
 
         #endregion

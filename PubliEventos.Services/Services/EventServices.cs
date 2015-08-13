@@ -85,7 +85,7 @@
         /// Edita un evento.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        public static void EditEvent(EventCreateOrUpdateRequest request)
+        public static EventCreateOrUpdateResponse EditEvent(EventCreateOrUpdateRequest request)
         {
             var eventToSave = CurrentSession.Query<Domain.Domain.Event>().Where(x => x.Id == request.Id).SingleOrDefault();
 
@@ -94,15 +94,25 @@
             eventToSave.Description = request.Description;
             eventToSave.User = CurrentSession.Get<Domain.Domain.User>(request.UserId);
             eventToSave.EventType = CurrentSession.Get<Domain.Domain.EventType>(request.EventTypeId);
-            eventToSave.EventDate = request.EventDate;
+
+            if (request.EnabledEdition)
+            {
+                eventToSave.EventDate = request.EventDate;
+                eventToSave.EventEndTime = request.EventEndTime;
+                eventToSave.EventStartTime = request.EventStartTime;
+            }
+
             eventToSave.Private = request.Private;
-            eventToSave.EventEndTime = request.EventEndTime;
-            eventToSave.EventStartTime = request.EventStartTime;
             eventToSave.FileName = !string.IsNullOrEmpty(request.FileName) ? request.FileName : null;
             eventToSave.Latitude = request.Latitude;
             eventToSave.Longitude = request.Longitude;
 
             new BaseQuery<Domain.Domain.Event, int>().Update(eventToSave);
+
+            return new EventCreateOrUpdateResponse
+            {
+                EventId = eventToSave.Id
+            };
         }
 
         /// <summary>

@@ -19,21 +19,24 @@
     $('#Save').click(function () {
         var val = $('#CoverPhoto').val();
 
-        if (val != "") {
-            switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
-                case 'gif':
-                case 'jpg':
-                case 'png':
-                case 'jpeg':
-                    submitForm();
-                    break;
-                default:
-                    $('#CoverPhoto').val('');
-                    $('span[name = "ErrorCoverPhoto"]').text('La extension del archivo no es correcta.').show();
-                    $('.title-file').text('Ningún archivo seleccionado');
-                    return false;
-                    break;
-            }
+        if (val == "" || val == null) {
+            $('span[name = "ErrorCoverPhoto"]').text('Ingrese foto de portada.').show();
+
+            return false;
+            //switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            //    case 'gif':
+            //    case 'jpg':
+            //    case 'png':
+            //    case 'jpeg':
+            //        submitForm();
+            //        break;
+            //    default:
+            //        $('#CoverPhoto').val('');
+            //        $('span[name = "ErrorCoverPhoto"]').text('La extension del archivo no es correcta.').show();
+            //        $('.title-file').text('Ningún archivo seleccionado');
+            //        return false;
+            //        break;
+            //}
         } else {
             submitForm();
         }

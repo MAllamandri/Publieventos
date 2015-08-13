@@ -35,10 +35,10 @@ $(function () {
     }
 
     $('#SearchTerm').keypress(function (e) {
-        if ($('#SearchTerm').val().length >= 5) {
-            SearchEvents(null, $('#SearchTerm').val());
-        } else if (e.keyCode == 13) {
+        if (e.keyCode == 13) {
             return false;
+        } else if ($('#SearchTerm').val().length >= 5) {
+            SearchEvents(null, $('#SearchTerm').val());
         } else if ($('#SearchTerm').val() < 4) {
             SearchEvents(true, null);
         };

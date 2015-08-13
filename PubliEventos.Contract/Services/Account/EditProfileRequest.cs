@@ -91,11 +91,6 @@
         /// <summary>
         /// Imagen cortada.
         /// </summary>
-        public string ImageCrop { get; set; }
-
-        /// <summary>
-        /// Imagen cargada.
-        /// </summary>
-        public string UploadImage { get; set; }
+        public string NewPhoto { get; set; }
     }
 }

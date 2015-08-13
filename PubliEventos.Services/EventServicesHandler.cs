@@ -43,9 +43,9 @@
         /// Edita un evento.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        public void EditEvent(EventCreateOrUpdateRequest request)
+        public EventCreateOrUpdateResponse EditEvent(EventCreateOrUpdateRequest request)
         {
-            EventServices.EditEvent(request);
+            return EventServices.EditEvent(request);
         }
 
         /// <summary>

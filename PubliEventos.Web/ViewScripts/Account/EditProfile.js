@@ -1,63 +1,48 @@
 ﻿$(function () {
-    var cropperOptions = {
-        uploadUrl: "/Account/UploadOriginalImage",
-        cropUrl: "/Account/CroppedImage",
-        rotateControls: false,
-        modal: true,
-        imgEyecandyOpacity: 0.4,
-        loaderHtml: '<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-        onBeforeImgUpload: function () {
-            DeleteProfileImages();
-        },
-        onAfterImgCrop: function () {
-            $('#ImageCrop').val(response.fileName);
-        },
-        onAfterImgUpload: function () {
-            $('#UploadImage').val(response.fileName);
+    $(window).load(function () {
+        var options =
+        {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: ''
         }
-    }
+        var cropper;
 
-    var cropper = new Croppic('cropContainerModal', cropperOptions);
-
-    $(document).on('click', '.cropControlRemoveCroppedImage', function () {
-        DeleteProfileImages();
-    });
-
-    $(document).on('click', '.cropControlReset', function () {
-        DeleteProfileImages();
-
-        $('.cropControlRemoveCroppedImage').click();
-    });
-
-    $('#cancel').click(function (event) {
-        $(window).unbind('beforeunload');
-        DeleteProfileImages();
-    });
-
-    $(window).bind("beforeunload", function () {
-        DeleteProfileImages();
-    })
-
-    function DeleteProfileImages() {
-        $.ajax({
-            url: "/Account/DeleteProfilePicture",
-            type: 'POST',
-            data: {
-                imageUploaded: $('#UploadImage').val(),
-                imageCrop: $('#ImageCrop').val()
+        $('#file').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
             }
-        }).done(function () {
-            $('#UploadImage').val("");
-            $('#ImageCrop').val("");
-        });
-    };
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+        })
+
+        $('#btnCrop').on('click', function () {
+            if (cropper != null) {
+                var img = cropper.getDataURL()
+                $('.cropped').html('<img src="' + img + '">');
+                $('#NewPhoto').val(img);
+
+                $('#editPhotoRegion').show('slow');
+            }
+        })
+
+        $('#btnZoomIn').on('click', function () {
+            if (cropper != null) {
+                cropper.zoomIn();
+            }
+        })
+
+        $('#btnZoomOut').on('click', function () {
+            if (cropper != null) {
+                cropper.zoomOut();
+            }
+        })
+    });
 
     $('#EditPhoto').click(function () {
-        if ($('#editPhotoRegion').is(':visible')) {
-            $('#editPhotoRegion').hide('slow');
-        } else {
-            $('#editPhotoRegion').show('slow');
-        }
+        $('#EditPhotoModal').modal('show');
 
         return false;
     });

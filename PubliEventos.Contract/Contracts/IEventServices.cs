@@ -32,7 +32,7 @@
         /// Edita un evento.
         /// </summary>
         /// <param name="request">Parámetros de entrada.</param>
-        void EditEvent(EventCreateOrUpdateRequest request);
+        EventCreateOrUpdateResponse EditEvent(EventCreateOrUpdateRequest request);
 
         /// <summary>
         /// Elimina un evento.

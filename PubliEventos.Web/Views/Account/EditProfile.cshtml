@@ -11,18 +11,11 @@
 @System.Web.Optimization.Scripts.Render("~/ViewScripts/Account/EditProfile.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/yui/cropbox.js")
 
-@System.Web.Optimization.Scripts.Render("/Content/Publieventos/croppic/croppic.js")
-@System.Web.Optimization.Scripts.Render("/Content/Publieventos/croppic/jquery.mousewheel.min.js")
-
-@Styles.Render("~/Content/Publieventos/croppic/croppic.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
 @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
-
-<script type="text/javascript">
-    var currentImage =   @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((Model.PathProfile)));
-</script>
 
 <div class="row">
     <div class="col-md-12">
@@ -39,8 +32,7 @@
                     @Html.HiddenFor(m => m.ImageProfile)
                     @Html.HiddenFor(m => m.FirstNameOld)
 
-                    @Html.Hidden("ImageCrop", null)
-                    @Html.Hidden("UploadImage", null)
+                    @Html.Hidden("NewPhoto", null)
 
                     @Html.Hidden("IsValid", true)
 
@@ -86,10 +78,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div id="editPhotoRegion" style="margin-top: 23px; display: none;">
+                            <div class="col-md-6" style="margin-top: 23px;">
+                                <div id="editPhotoRegion" style="display: none">
                                     <label class="label-description">NUEVA FOTO DE PERFIL</label>
-                                    <div style="margin-top: 10px" id="cropContainerModal"></div>
+                                    <div class="cropped">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6" style="margin-top: 23px;">
@@ -145,6 +138,36 @@
             <div class="modal-footer">
                 <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
                 <button type="button" id="savePassword" class="btn-confirm">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title-modal">NUEVA FOTO DE PERFIL</h4>
+            </div>
+            <div class="modal-body">
+                <div class="imageBox">
+                    <div class="thumbBox"></div>
+                    <div class="spinner" style="display: none">Loading...</div>
+                </div>
+                <div class="" style="margin-top: 10px">
+                    <i class="icon-plus button-zoom" id="btnZoomIn" style="float: right"></i>
+                    <i class="icon-minus button-zoom" id="btnZoomOut" style="float: right; margin-right: 10px;"></i>
+                </div>
+                <div class="">
+                    <div class="action browse-wrap">
+                        <div class="title-file">Ningún archivo seleccionado</div>
+                        <input type="file" id="file" class="upload">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnCrop" class="btn-confirm pull-right" data-dismiss="modal">Seleccionar</button>
             </div>
         </div>
     </div>

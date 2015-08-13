@@ -1,5 +1,7 @@
 ﻿@model PubliEventos.Contract.Services.Event.EventCreateOrUpdateRequest
 
+@System.Web.Optimization.Scripts.Render("~/ViewScripts/Event/Partial/_Form.js")
+
 <div class="row margin-bottom-normal">
     <div class="col-md-12 margin-bottom-normal">
         <div class="col-md-6">
@@ -64,6 +66,37 @@
                 <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
             </div>
             @Html.ValidationMessageFor(m => m.EventEndTime)
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title-modal">NUEVA FOTO DE PORTADA</h4>
+            </div>
+            <div class="modal-body">
+                <div class="imageBox imageBox-large">
+                    <div class="thumbBox thumbBox-large"></div>
+                    <div class="spinner" style="display: none">Loading...</div>
+                </div>
+                <div class="" style="margin-top: 10px">
+                    <i class="icon-plus button-zoom" id="btnZoomIn" style="float: right"></i>
+                    <i class="icon-minus button-zoom" id="btnZoomOut" style="float: right; margin-right: 10px;"></i>
+                </div>
+                <div class="">
+                    <div class="action browse-wrap">
+                        <div class="title-file">Ningún archivo seleccionado</div>
+                        <input type="file" id="file" class="upload">
+                        <small>Extensiones permitidas (jpg, jpeg, gif y png)</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnCrop" class="btn-confirm pull-right" data-dismiss="modal">Seleccionar</button>
+            </div>
         </div>
     </div>
 </div>

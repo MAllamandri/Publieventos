@@ -16,6 +16,7 @@
 @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
 @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
 @System.Web.Optimization.Scripts.Render("~/ViewScripts/Event/Edit.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/yui/cropbox.js")
 
 <div class="row">
     <h2 class="title-section">EDITAR EVENTO</h2>
@@ -37,26 +38,27 @@
                 <div class="margin-bottom-normal">
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <label class="label-description" style="padding-right: 10px">FOTO DE PORTADA ACTUAL</label>
-                            <img src="/Content/images/Covers/@Model.FileName" style="width: 120px; height: 120px;" alt="" class="img-circle" data-src="holder.js/120x120/auto">
-                        </div>
-                        <div class="col-md-6">
                             @Html.Label("TIPO DE EVENTO", new { @class = "label-description" })
                             @Html.DropDownListFor(m => m.EventTypeId, (SelectList)ViewBag.EventTypes, "[Seleccione Tipo Evento]", new { @class = "form-control font-text" })
                             @Html.ValidationMessageFor(m => m.EventTypeId)
                         </div>
                     </div>
                 </div>
-                <div class="margin-bottom-normal">
-                    <div class="col-md-12">
+                <div class="">
+                    <div class="col-md-12 margin-bottom-normal margin-top-normal">
                         <div class="col-md-6">
-                            <label class="label-description">MODIFICAR FOTO DE PORTADA</label>
-                            <div class="browse-wrap">
-                                <div class="title-file">Ningún archivo seleccionado</div>
-                                <input type="file" id="CoverPhoto" name="CoverPhoto" class="upload" title="Seleccione un archivo">
+                            <label class="label-description" style="padding-right: 10px">FOTO DE PORTADA ACTUAL</label><br />
+                            <a href="#" id="EditPhoto">MODIFICAR FOTO DE PORTADA <i class="icon-upload icon-default" style="color: #2a6496"></i></a>
+                            <img src="/Content/images/Covers/@Model.FileName" alt="" class="img-rounded image-event-detail">
+                        </div>
+                        <div class="col-md-6">
+                            <div id="editPhotoRegion" style="display: none">
+                                <label class="label-description" style="padding-right: 10px">NUEVA FOTO DE PORTADA</label><br />
+                                <div class="cropped" style="margin-top: 37px">
+                                </div>
                             </div>
-                            <p><small>Extensiones permitidas (jpg, jpeg, gif y png)</small></p>
                             @Html.ValidationMessage("ErrorCoverPhoto", new { @class = "field-validation-error", @name = "ErrorCoverPhoto" })
+                            @Html.HiddenFor(m => m.CoverPhoto)
                         </div>
                     </div>
                 </div>

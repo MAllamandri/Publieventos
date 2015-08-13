@@ -361,14 +361,18 @@
                 // Seteo el usuario creador.
                 model.UserId = User.Id;
 
-                if (model.CoverPhoto != null)
+                if (!string.IsNullOrEmpty(model.CoverPhoto))
                 {
-                    // Renombro el archivo.
-                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
-                    model.FileName = fileName;
-                    var path = Path.Combine(pathCoverPhoto, Path.GetFileName(fileName));
+                    var contents = model.CoverPhoto.Split(',');
+                    byte[] imageBytes = Convert.FromBase64String(contents[1]);
 
-                    model.CoverPhoto.SaveAs(path);
+                    string fileName = string.Format("{0}.png", DateTime.Now.ToString("ddMMyyyyhhMMss"));
+
+                    // Guardo la foto.
+                    System.IO.File.WriteAllBytes(pathCoverPhoto + fileName, imageBytes);
+
+                    // Seteo el nombre en el modelo.
+                    model.FileName = fileName;
                 }
 
                 // Doy de alta el evento.
@@ -390,25 +394,30 @@
         {
             if (ModelState.IsValid)
             {
-                if (model.CoverPhoto != null)
+                if (!string.IsNullOrEmpty(model.CoverPhoto))
                 {
-                    if (!string.IsNullOrEmpty(model.FileName))
+                    if (!string.IsNullOrEmpty(model.FileName) && System.IO.File.Exists(pathCoverPhoto + model.FileName))
                     {
                         // Elimino la portada anterior.
                         System.IO.File.Delete(pathCoverPhoto + model.FileName);
                     }
 
-                    var fileName = string.Format("{0}_{1}{2}", Path.GetFileNameWithoutExtension(model.CoverPhoto.FileName), DateTime.Now.ToString("ddMMyyyyhhMMss"), Path.GetExtension(model.CoverPhoto.FileName));
-                    model.FileName = fileName;
-                    var path = Path.Combine(pathCoverPhoto, Path.GetFileName(fileName));
+                    var contents = model.CoverPhoto.Split(',');
+                    byte[] imageBytes = Convert.FromBase64String(contents[1]);
 
-                    model.CoverPhoto.SaveAs(path);
+                    string fileName = string.Format("{0}.png", DateTime.Now.ToString("ddMMyyyyhhMMss"));
+
+                    // Guardo la foto.
+                    System.IO.File.WriteAllBytes(pathCoverPhoto + fileName, imageBytes);
+
+                    // Seteo el nombre en el modelo.
+                    model.FileName = fileName;
                 }
 
                 // Edito el evento.
-                this.serviceEvents.EditEvent(model);
+                var response = this.serviceEvents.EditEvent(model);
 
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, EventId = response.EventId }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = false, Errors = ModelErrors.GetModelErrors(ModelState) }, JsonRequestBehavior.AllowGet);

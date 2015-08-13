@@ -209,11 +209,6 @@
     <Content Include="Content\ladda\ladda-themeless.min.css" />
     <Content Include="Content\ladda\ladda.css" />
     <Content Include="Content\ladda\ladda.min.css" />
-    <Content Include="Content\Publieventos\croppic\croppic.css" />
-    <Content Include="Content\Publieventos\croppic\croppic.js" />
-    <Content Include="Content\Publieventos\croppic\croppic.min.js" />
-    <Content Include="Content\Publieventos\croppic\main.css" />
-    <Content Include="Content\Publieventos\croppic\main.js" />
     <Content Include="Content\Publieventos\img\cropperIcons.png" />
     <Content Include="Content\Publieventos\img\downloadIcon.png" />
     <Content Include="Content\Publieventos\img\headerBg.jpg" />
@@ -225,7 +220,6 @@
     <Content Include="Content\Publieventos\img\placeholder.png" />
     <Content Include="Content\Publieventos\img\steinlinconsulting.png" />
     <Content Include="Content\Publieventos\img\studio42.png" />
-    <Content Include="Content\Publieventos\croppic\jquery.mousewheel.min.js" />
     <Content Include="Content\Publieventos\Icons\warning.png" />
     <Content Include="Content\Publieventos\Icons\recycle.png" />
     <Content Include="Content\Publieventos\Icons\edit.png" />
@@ -253,6 +247,7 @@
     <Content Include="Content\themes\images\user-icon.gif" />
     <Content Include="Content\themes\images\YouTube-icon.png" />
     <Content Include="Content\themes\images\youtube.jpg" />
+    <Content Include="Scripts\yui\cropbox.js" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />
     <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
@@ -334,7 +329,6 @@
     <Content Include="Content\themes\images\star-gray.png" />
     <Content Include="Content\themes\images\star.png" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap\css\bootstrap.css.map" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -370,9 +364,6 @@
     <Content Include="Content\Publieventos\Fonts\ufonts.com_gotham-book.ttf" />
     <Content Include="Content\Publieventos\Fonts\ufonts.com_gotham-black.ttf" />
     <Content Include="Content\Publieventos\img\.DS_Store" />
-    <Content Include="Content\Publieventos\croppic\croppic.min.js.map">
-      <DependentUpon>croppic.js</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\publieventos - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\publieventos - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -418,6 +409,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\yui\yui-min.js" />
     <Content Include="ViewScripts\Account\EditProfile.js" />
     <Content Include="ViewScripts\Account\RecoverPassword.js" />
     <Content Include="ViewScripts\Admin\ReportContents.js" />
@@ -426,6 +418,7 @@
     <Content Include="ViewScripts\Event\MapStyles.js" />
     <Content Include="ViewScripts\Event\MyEvents.js" />
     <Content Include="ViewScripts\Event\Partial\_EventsFilter.js" />
+    <Content Include="ViewScripts\Event\Partial\_Form.js" />
     <Content Include="ViewScripts\Event\Partial\_LocalizationDetail.js" />
     <Content Include="ViewScripts\Event\UploadPictures.js" />
     <Content Include="ViewScripts\Group\Base.js" />
@@ -516,7 +509,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Publieventos\temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
