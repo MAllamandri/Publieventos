@@ -3,44 +3,54 @@
 @foreach (var Event in Model)
 {
     <div class="col-xs-12 mosaic" style="margin-bottom: 15%">
-        <div class="row">
-            <div class="col-xs-12">
-                <div style="text-align: center; margin-top: -20px;">
-                    <a href="/Event/Detail/@Event.Id" style="cursor: pointer">
-                        <img src="/Content/images/Covers/@Event.FileName" style="width: 120px; height: 120px; border: 3px solid #a69567;" alt="" class="img-circle tl-circ" data-src="holder.js/120x120/auto">
-                    </a>
+        <div class="image-container">
+            <a href="/Event/Detail/@Event.Id" style="cursor: pointer">
+                <img class="image-mosaic-event img-rounded" src="/Content/images/Covers/@Event.FileName" data-src="holder.js/120x120/auto">
+            </a>
+        </div>
+        <div>
+            <a href="/Event/Detail/@Event.Id" style="cursor: pointer; text-decoration: none;">
+                <h4 class="event-title" style="cursor: pointer">@Event.Title</h4>
+            </a>
+            <div>
+                <div>
+                    <p class="font-text event-date" data-toggle="tooltip" data-placement="top" title="Fecha de realización">
+                        <i class="icon-calendar">&nbsp</i><small class="text-muted">@Event.EventDate.ToShortDateString()</small>
+                    </p>
+                </div>
+                <div>
+                    <p class="font-text event-date" data-toggle="tooltip" data-placement="top" title="Hora de realización">
+                        <i class="icon-time">&nbsp</i><small class="text-muted">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</small>
+                    </p>
                 </div>
             </div>
-            <div class="col-xs-12 margin-bottom-normal">
-                <a href="/Event/Detail/@Event.Id" style="cursor: pointer; text-decoration: none;">
-                    <h4 class="font-text" style="color: #c25b4e">@Event.Title</h4>
-                </a>
-                <p>
-                    <p class="font-text" style="display: inline;">Fecha:</p>
-                    <strong class="font-text" style="display: inline">@Event.EventDate.ToShortDateString()</strong>
-                </p>
-                <br />
-                <p>
-                    <p class="font-text" style="display: inline;">Hora:</p>
-                    <strong class="font-text" style="display: inline;">@Event.EventStartTime.ToString(@"hh\:mm") a @Event.EventEndTime.ToString(@"hh\:mm") Hs</strong>
-                </p>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <p class="font-text">@Event.Description</p>
-            </div>
-            <div class="col-xs-12" style="margin-bottom: 5px;">
-                <ul style="list-style: none">
-                    <li><a class="deleteEvent" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a></li>
-                    <li><a title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a></li>
-                    <li><a title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a></li>
+        <div class="margin-top-normal">
+            <p class="font-text">@Event.Description</p>
+        </div>
+        <div class="margin-bottom-normal margin-top-normal" style="padding-bottom: 20px">
+            @if (ViewData["ViewActions"] == null || (bool)ViewData["ViewActions"] == true)
+            {
+                <div class="my-events-actions">
+                    <a class="deleteEvent"  data-toggle="tooltip" data-placement="top" title="Eliminar Evento" rel="@Event.Id" href="#"><i class="icon-default icon-remove"></i></a>
+                    @*<a  data-toggle="tooltip" data-placement="top" title="Editar Evento" href="/Event/Edit/@Event.Id"><i class="icon-default icon-pencil"></i></a>*@
+                    <a  data-toggle="tooltip" data-placement="top" title="Subir Contenidos" href="/Event/UploadPictures/@Event.Id"><i class="icon-default icon-picture"></i></a>
                     @if (!Event.AlreadyTookPlace)
                     {
-                        <li><a title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a></li>
+                        <a  data-toggle="tooltip" data-placement="top" title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a>
                     }
-                </ul>
-            </div>
+                </div>
+            }
         </div>
     </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="row">
+        <div class="col-xs-12 margin-top-normal" style="text-align: center">
+            <p class="not-found-message not-found-message-dark">NO SE ENCONTRARON EVENTOS</p>
+        </div>
+    </div>
+
 }

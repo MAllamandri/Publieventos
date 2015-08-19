@@ -3,116 +3,76 @@
 @using Newtonsoft.Json
 
 @{
-    Layout = null;
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Publieventos - Login</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
-    @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
-    @Styles.Render("/Content/ladda/ladda-themeless.min.css")
-    @Styles.Render("/Content/Site.css")
-    @Styles.Render("/Content/Base.css")
+<script type="text/javascript">
+    var isRegister = @Html.Raw(JsonConvert.SerializeObject(ViewBag.isRegister));
+</script>
 
-    @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
-    <link class="cssdeck" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
-</head>
-<body style="">
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div style="margin-top: 30px">
-                    <a class="title" title="PubliEventos" href="../">publieventos</a>
-                </div>
-                <div id="First" class="col-md-4"></div>
-                <div class="col-md-4 login-form" style="margin-top: 7.5%" id="loginModal">
-                    <div class="">
-                        <div class="well">
-                            <ul class="nav nav-tabs">
-                                <li id="tabLogin" class="active"><a class="font-text" href="#login" data-toggle="tab">Ingresar</a></li>
-                            </ul>
-                            <div id="myTabContent" class="tab-content">
-                                <div class="tab-pane active" id="login">
-                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div class="form-group">
-                                            <div class="row-fluid">
-                                                <div class="col-lg-12">
-                                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Usuario", @style = "height: 34px" })
-                                                </div>
-                                            </div>
-                                            <div class="row-fluid">
-                                                <div class="col-lg-12">
-                                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña", @style = "height: 34px" })
-                                                    @Html.ValidationMessage("Error", new { @class = "field-validation-error" })
-                                                </div>
-                                            </div>
-                                            <div class="row-fluid">
-                                                <div class="col-lg-6">
-                                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-control", @placeholder = "Contraseña", @style = "margin-top: -1px; display: inline;" })
-                                                    <span class="font-text">Recordarme</span>
-                                                </div>
-                                            </div>
-                                            <div style="margin-top: 10px">
-                                                <div class="row-fluid">
-                                                    <div class="col-lg-12">
-                                                        <input type="submit" id="Entry" value="Ingresar" class="btn-confirm font-text" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        if (ViewBag.isExpirate != null && (bool)ViewBag.isExpirate)
-                                        {
-                                        <div id="Active">
-                                            <div class="alert alert-danger" style="width: auto" role="alert">
-                                                <h2></h2>
-                                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                                <strong>Su cuenta no fue activada a tiempo.</strong><br />
-                                                <p>
-                                                    Para activar su cuenta reenvie el mail de activación haciendo click
-                                                            <a id="ResendEmail" style="font-family: 'MuseoSans-500'; cursor: pointer;" class="ladda-button" data-style="contract"><span class="ladda-label">Aqui</span></a>
-                                                </p>
-                                            </div>
-                                            @Html.Hidden("ResendEmailUserName", Model.UserName)
-                                        </div>
-                                        }
-                                        <div id="Success" style="display: none">
-                                            <div class="alert alert-success" style="width: auto" role="alert">
-                                                <h2></h2>
-                                                <span class="glyphicon glyphicon-check"></span>
-                                                <strong>Email enviado con exito.</strong><br />
-                                            </div>
-                                        </div>
-                                    }
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="login-form" id="loginModal">
+                <ul id="myTabs" class="nav nav-tabs tabs-login" role="tablist">
+                    <li role="presentation" class="active"><a href="#login" class="label-description" aria-controls="login" role="tab" data-toggle="tab">INGRESAR</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="login">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-12 form-group">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Usuario" })
+                            </div>
+                            <div class="col-md-12 form-group">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña" })
+                                @Html.ValidationMessage("Error", new { @class = "field-validation-error", @name = "Error" })
+                            </div>
+                             <div class="col-md-6 form-group">
+                                <input type="checkbox" class="checkbox-custom" id="RememberMe" />
+                                <label for="RememberMe">Recordarme</label>
+                            </div>
+                            <div class="col-md-12" id="resendEmailMessage" style="display: none">
+                                <div class="alert alert-danger" style="width: auto" role="alert">
+                                    <h4><span class="icon-remove-circle"></span>
+                                        <p>Su cuenta no fue activada a tiempo.</p>
+                                        <br />
+                                    </h4>
+                                    <p>
+                                        Para activar su cuenta reenvie el mail de activación haciendo click
+                                        <a id="ResendEmail" style="font-family: 'MuseoSans-500'; cursor: pointer;" class="ladda-button" data-style="contract"><span class="ladda-label">Aqui</span></a>
+                                    </p>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-12" id="Success" style="display: none">
+                                <div class="alert alert-success" style="width: auto" role="alert">
+                                    <h4>
+                                        <span class="icon-check"></span>
+                                        <p>Email enviado con exito.</p>
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 10px">
+                                <div class="col-md-12">
+                                    <input type="button" id="Entry" value="INGRESAR" class="btn-confirm" />
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
-                <div id="Second" class="col-md-4"></div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery.blockUI.js"></script>
-    <script src="/Scripts/jquery.form.js"></script>
-    <script src="/Scripts/spin.js"></script>
-    <script src="/Scripts/ladda.js"></script>
-    <script src="~/Scripts/moment.js"></script>
-    <script src="~/Scripts/moment-with-locales.js"></script>
-    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
-    <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/ViewScripts/Shared/Shared.js"></script>
-    <script src="/ViewScripts/Account/Login.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        var data = @Html.Raw(JsonConvert.SerializeObject(this.Model));
-    </script>
-</body>
-</html>
+<script src="/Scripts/jquery.form.js"></script>
+<script src="/Scripts/spin.js"></script>
+<script src="/Scripts/ladda.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/moment-with-locales.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="/ViewScripts/Shared/Shared.js"></script>
+<script src="/ViewScripts/Account/Login.js" type="text/javascript"></script>

@@ -8,77 +8,88 @@
     var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, coverImage);
 }
 
-<div class="col-xs-12 mosaic" style="margin-bottom: 5%;">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="tl-circ" style="padding-top: 10px; padding-bottom: 10px;">
-                <img data-bind="attr: { 'src': Event().Path }" style="width: 100%; height: 100%;" alt="" class="img-responsive" data-src="holder.js/1000x500">
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <h4 class="font-text" style="color: #c25b4e" data-bind="text: Event().Title"></h4>
-            <p>
-                <p class="font-text" style="display: inline; font-size: 15px">Fecha:</p>
-                <strong class="font-text" style="display: inline; font-size: 15px;" data-bind="text: Event().EventDate"></strong>
-            </p>
-            <br />
-            <p>
-                <p class="font-text" style="display: inline; font-size: 15px;">Hora:</p>
-                <strong class="font-text" style="display: inline; font-size: 15px;" data-bind="text: Event().Time"></strong>
-            </p>
-            <div class="row margin-bottom-normal margin-top-normal">
+<div class="col-md-12" style="margin-bottom: 1%;">
+    <div class="mosaic">
+        <div class="row" style="margin-top: 10px">
+            <div class="col-xs-12">
                 <div class="col-xs-12">
-                    <p class="font-text" style="font-size: 15px" data-bind="text: Event().Description"></p>
+                    <img data-bind="attr: { 'src': Event().Path }" alt="" class="img-rounded image-event-detail" data-src="holder.js/500x380">
+                </div>
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div>
+                                <h4 class="event-title-detail" data-bind="text: Event().Title"></h4>
+                            </div>
+                            <div class="margin-bottom-normal">
+                                <p class="margin-bottom-normal">
+                                    <p class="font-text" style="display: inline; font-size: 15px">Fecha:</p>
+                                    <strong class="font-text" style="display: inline; font-size: 15px;" data-bind="text: Event().EventDate"></strong>
+                                </p>
+                                <br />
+                                <p>
+                                    <p class="font-text" style="display: inline; font-size: 15px;">Hora:</p>
+                                    <strong class="font-text" style="display: inline; font-size: 15px;" data-bind="text: Event().Time"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
+                        {
+                            <div data-bind="visible: !Event().AlreadyTookPlace" class="col-md-2" style="text-align: center">
+                                <a href="#" data-bind="click: Event().AttendEvent, html: Event().AttendDescription"></a>
+                            </div>
+                        }
+                    </div>
+                    <div class="row margin-bottom-normal margin-top-normal">
+                        <div class="col-xs-12">
+                            <p class="event-description-detail" data-bind="text: Event().Description"></p>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-normal margin-top-normal">
+                        <div class="col-xs-12 margin-bottom-normal">
+                            <strong style="color: black">CREADO POR</strong>
+                        </div>
+                        <div class="col-xs-12">
+                            <a href="#" data-bind="click: Event().AdministratorProfile" style="display: inline; margin-right: 15px;">
+                                <img data-toggle="tooltip" data-placement="top" data-bind="attr: { 'src': Event().UserImageProfile, 'title': Event().UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-rounded right" data-src="holder.js/40x40">
+                            </a>
+                            <p style="display: inline" class="participants-user" data-bind="text: Event().FullName"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row margin-bottom-normal margin-top-normal">
-                <div class="col-xs-8">
-                    <div class="col-xs-12">
-                        <strong style="color: black">Administrador</strong>
-                    </div>
-                    <div class="col-xs-4">
-                        <a href="#" data-bind="click: Event().AdministratorProfile" style="display: inline; margin-right: 15px;">
-                            <img data-bind="attr: { 'src': Event().UserImageProfile, 'title': Event().UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-circle right" data-src="holder.js/40x40">
-                        </a>
-                        <p style="display: inline" class="participants-user" data-bind="text: Event().FullName"></p>
-                    </div>
+        </div>
+        <div class="row margin-bottom-normal">
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <p class="font-text" style="white-space: pre-line; font-size: 15px; margin-top: 5px;" data-bind="text: Event().Detail"></p>
                 </div>
-                @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
-                {
-                    <div data-bind="visible: !Event().AlreadyTookPlace" class="col-md-4" style="text-align: center">
-                        <a href="#" data-bind="click: Event().AttendEvent, html: Event().AttendDescription"></a>
-                    </div>
-                }
             </div>
         </div>
-    </div>
-    <div class="row margin-bottom-normal">
-        <div class="col-xs-12">
-            <p class="font-text" style="white-space: pre-line; font-size: 15px; margin-top: 5px;" data-bind="text: Event().Detail"></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div style="margin-bottom: 40px !important">
-                @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
-                {
-                    <a href="#" id="comment" title="Comentar"><span style="font-size: 25px; margin-top: -5px;" class="icon-default icon-comments"></span></a>
-                        
-                    <a title="Reportar" data-bind="visible: !Event().IsReportedByCurrentUser()" class="reportEvent" rel="@Model.Id" href="#"><i style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-ban-circle"></i></a>
-                    <a data-bind="visible: Event().AdministratorIsCurrentUser && !Event().AlreadyTookPlace, click: Event().InviteUsers" title="Invitar"><span style="font-size: 25px; padding-right: 25px; margin-top: -5px;" class="icon-default icon-user"></span></a>
-                    <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures" title="Subir fotos y Videos"><span style="font-size: 25px; padding-right: 30px; margin-top: -5px;" class="icon-default icon-picture"></span></a>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12 margin-bottom-normal">
+                    @if (ViewData["HiddenActions"] == null || (bool)ViewData["HiddenActions"] == false)
+                    {
+                        <div style="float: right">
+                            <a href="#" id="comment" data-toggle="tooltip" data-placement="top" title="Comentar"><span style="padding-right: 5px" class="icon-default icon-comments"></span></a>
 
-                    <div data-bind="visible: Event().IsReportedByCurrentUser()" style="display: inline; float: right; padding-right: 5px; color: #f00">
-                        <strong style="font-size: 11px !important">Has Reportado este Evento</strong>
-                    </div>
-                        
-                    <div style="padding-top: 7px; display: inline;">
-                        @Html.SharedTwitter(Model.Title, Model.Id.Value.ToString(), urlImage)
-                        <a href="#" onclick="fbShare('@urlEvent.ToString()', '@Model.Title', '@Model.Description', '@urlImage')">
-                            <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
-                        <div id="fb-root"></div>
-                    </div>
-                }
+                            <a  data-toggle="tooltip" data-placement="top" title="Reportar" data-bind="visible: !Event().IsReportedByCurrentUser()" class="reportEvent" rel="@Model.Id" href="#"><i style="padding-right: 5px" class="icon-default icon-ban-circle"></i></a>
+                            <a data-bind="visible: Event().AdministratorIsCurrentUser && !Event().AlreadyTookPlace, click: Event().InviteUsers" data-toggle="tooltip" data-placement="top" title="Invitar"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-user"></span></a>
+                            <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures" data-toggle="tooltip" data-placement="top" title="Subir fotos y Videos"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-picture"></span></a>
+
+                            <div data-bind="visible: Event().IsReportedByCurrentUser()" class="report-event-message">
+                                <strong>Has Reportado este Evento</strong>
+                            </div>
+                        </div>
+                        <div style="padding-top: 7px; display: inline;">
+                            @Html.SharedTwitter(Model.Title, Model.Id.Value.ToString(), urlImage)
+                            <a href="#" onclick="fbShare('@urlEvent.ToString()', '@Model.Title', '@Model.Description', '@urlImage')">
+                                <img class="shared-social" src="/Content/themes/images/facebook.jpeg" /></a>
+                            <div id="fb-root"></div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>

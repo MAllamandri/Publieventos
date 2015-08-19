@@ -8,66 +8,94 @@
     <title>Publieventos - @ViewBag.Title</title>
 
     @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
-    @Styles.Render("/Content/bootstrap/css/bootstrap-responsive.css")
-    @Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
-    @Styles.Render("/Content/bootstrap/css/bootstrap-glyphicons.css")
-    @Scripts.Render("~/bundles/modernizr")
+    @System.Web.Optimization.Styles.Render("/Content/bootstrap/css/bootstrap.min.css")
+    @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/modernizr")
     @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Shared.js")
     @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/_Layout.Mobile.js")
-    @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
     @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
     @System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
+    @System.Web.Optimization.Scripts.Render("/Scripts/bootstrap.min.js")
 
     <link rel="stylesheet" media="all" href="/Content/Base.css" />
-    <link rel="stylesheet" media="all" href="/Content/Site.Mobile.css" />
+    <link rel="stylesheet" media="all" href="/Content/Publieventos.Mobile.css" />
     <link rel="icon" href="/Content/themes/images/favicon.ico">
 </head>
 <body>
-    <div class="row">
+    <div class="header">
         <div class="col-xs-12">
-            <div class="col-xs-12" style="text-align: center">
-                <a class="title" href="/Home/Index">publieventos</a>
+            <a href="/Home/Index">
+                <img src="/Content/Publieventos/Images/Logo.png" class="logo" />
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                <div class="mobile-nav mobile-menu"></div>
             </div>
-
-            @if (User.Identity.IsAuthenticated)
+            @if (ViewBag.isHome != null && (bool)ViewBag.isHome == true)
             {
-                <div class="col-xs-12" style="text-align: center">
-                    <div class="row">
-                        <a href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)" title="Ver mi Perfil">
-                            <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-circle" data-src="holder.js/50x50">
-                            <span class="username">@User.Identity.Name</span>
-                        </a>
-                        <a title="Salir" href="/Account/LogOut">
-                            <img class="log-out" src="/Content/themes/images/door-open-icon.png" alt="log out" data-src="holder.js/50x50" /></a>
-                    </div>
-                    <div class="row">
-                        <div>
-                            <a class="sections-title" href="/Event/Create">Nuevo Evento</a>
-                            <a class="sections-title" href="/Event/MyEvents?currentEvents=true">Mis Eventos</a>
-                        </div>
-                        <div>
-                            <a class="sections-title" href="/Group/MyGroups">Mis Grupos</a>
-                            <a class="sections-title" href="/Invitation/MyInvitations">Invitaciones</a>
-                        </div>
-                        <div>
-                            <a class="sections-title" href="/Home/SearchEventsByDistance">Buscar Eventos</a>
-                        </div>
-                    </div>
+                <div class="col-xs-10">
+                    <p class="current-date">@ViewBag.currentDate</p>
                 </div>
             }
-            <br />
-            <div class="col-xs-12" style="text-align: center">
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <a class="sections-title" href="../Account/Login">Ingresar</a>
-                }
-            </div>
         </div>
     </div>
-    <div class="row">
+    <!-- /content -->
+    <nav class="menu-mobile">
+        <div class="mobile-nav-white mobile-menu"></div>
+        <ul class="list-actions">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li class="list-header">
+                    <p>INGRESO</p>
+                </li>
+                <li><a class="label-login" href="../Account/Login?isRegister=false">INGRESAR</a></li>
+                <li class="list-header">
+                    <p>HOME</p>
+                </li>
+                <li><a class="label-login" href="../Home/Index">INICIO</a></li>
+                <li class="list-header">
+                    <p>BÚSQUEDAS</p>
+                </li>
+                <li><a class="label-login" href="/Home/SearchEventsByDistance">APROXIMACIÓN</a></li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li style="margin-bottom: 15px">
+                    <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-responsive img-rounded right" data-src="holder.js/50x50">
+                    <a href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong data-toggle="tooltip" data-placement="bottom" title="Ver mi Perfil" class="username">Hola
+                            <br />@((User as PubliEventos.Web.App_Start.CustomPrincipal).FirstName)!</strong></a>
+                </li>
+                <li class="list-header">
+                    <p>HOME</p>
+                </li>
+                <li><a class="label-login" href="../Home/Index">INICIO</a></li>
+                <li class="list-header">
+                    <p>EVENTOS</p>
+                </li>
+                <li><a class="label-login" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a></li>
+                <li class="list-header">
+                    <p>GRUPOS</p>
+                </li>
+                <li><a class="label-login" href="/Group/MyGroups">MIS GRUPOS</a></li>
+                <li class="list-header">
+                    <p>INVITACIONES</p>
+                </li>
+                <li><a class="label-login" href="/Event/AssistsRecord">MIS ASISTENCIAS</a></li>
+                <li><a class="label-login" href="/Invitation/MyInvitations">INVITACIONES</a></li>
+                <li class="list-header">
+                    <p>BÚSQUEDAS</p>
+                </li>
+                <li><a class="label-login" href="/Home/SearchEventsByDistance">APROXIMACIÓN</a></li>
+                <li class="list-header"></li>
+                <li><a class="label-login" href="/Account/LogOut"><i class="log-out icon-off"></i>&nbspSALIR</a></li>
+            }
+        </ul>
+    </nav>
+    <div class="col-md-12 body">
         @RenderBody()
     </div>
-    <script src="/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

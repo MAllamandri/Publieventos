@@ -1,0 +1,105 @@
+﻿@model PubliEventos.Contract.Class.Group
+
+@{
+    ViewBag.Title = "Detalle del Grupo";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
+}
+
+@using PubliEventos.Contract.Class
+
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Group/Detail.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.signalR-1.0.0.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment-with-locales.js")
+
+<script src="~/signalr/hubs"></script>
+<script type="text/javascript">
+    var messages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<ChatMessage>)ViewBag.messages));
+    var groupId = @Html.Raw(Model.Id);
+</script>
+
+<div class="row">
+    <h2 class="title-section">@Model.Name</h2>
+    <div style="margin-bottom: 25px">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="message-group">@Model.Message</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <strong>Administrador</strong>
+                    <div class="col-xs-12">
+                        <p style="display: inline">@Model.Administrator.FirstName @Model.Administrator.LastName </p>
+                        <h4 style="display: inline; color: #c25b4e;" class="font-text">(@Model.Administrator.UserName)</h4>
+                    </div>
+                </div>
+                <div class="col-xs-12 margin-top-normal">
+                    <strong>Miembros</strong>
+                    <div class="">
+                        @foreach (var userGroup in Model.UsersGroup.Where(x => !x.Active.HasValue || x.Active == true))
+                        {
+                            var user = Model.Users.Where(x => x.Id == userGroup.UserId).SingleOrDefault();
+                                
+                            <div class="col-xs-12" style="margin-bottom: 10px">
+                                <div class="tl-heading">
+                                    <p style="display: inline">@user.FirstName @user.LastName </p>
+                                    <h4 style="display: inline; color: #c25b4e;" class="font-text">(@user.UserName)</h4>
+
+                                    @if (userGroup.Active == null)
+                                    {
+                                        <span style="font-size: 14px" class="label label-warning">A la espera de confirmación</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                        @if (!Model.UsersGroup.Any())
+                        {
+                            <p class="not-found-message not-found-message-dark">No se encontraron miembros</p>
+                        }
+                    </div>
+                </div>
+                <div class="col-xs-12 group-chat">
+                    <div class="header-chat">CHAT GRUPAL</div>
+                    <div class="container-chat">
+                        <div data-bind="foreach: Messages">
+                            <div class="Area">
+                                <div class="col-xs-3">
+                                    <a href="#" class="link-profile" data-bind="click: Profile">
+                                        <img class="img-profile-chat" data-bind="attr: {'src': PathProfile}" />
+                                        <div class="tooltip-chat" data-bind="text: FirstName">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="text col-xs-9">
+                                    <p data-bind="text: Message"></p>
+                                    <div style="float: right">
+                                        <small data-bind="text: ElapsedTime"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Area" data-bind="visible: Messages().length == 0" style="text-align: center">
+                            No hay mensajes en el chat
+                        </div>
+
+                        <div class="Area">
+                            <textarea placeholder="Escribe Aquí" class="textarea" id="currentMessage"></textarea>
+                            <br />
+                            <input value="Enviar" type="button" data-bind="click: Send" />
+                            <small>Presione enter para envíar</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 region-buttons">
+                    <a type="button" href="/Group/MyGroups">
+                        <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

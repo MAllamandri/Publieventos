@@ -14,7 +14,7 @@
     @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @System.Web.Optimization.Scripts.Render("/ViewScripts/Home/SearchEventsByDistance.js")
     @System.Web.Optimization.Styles.Render("/Content/Base.css")
-    @System.Web.Optimization.Styles.Render("/Content/Site.Mobile.css")
+    @System.Web.Optimization.Styles.Render("/Content/Publieventos.Mobile.css")
     @System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
     <link rel="icon" href="/Content/themes/images/favicon.ico">
 </head>
@@ -51,8 +51,10 @@
             <p>1000 km</p>
         </div>
     </div>
-    <a class="title" style="position: absolute; z-index: 1; left: 15%; top: 86%" href="/Home/Index">publieventos</a>
+    <a class="title" style="position: absolute; z-index: 1; bottom: 5px; right: 1px; width: 80%;" href="/Home/Index">
+        <img style="height: 80%; width: 80%; float: right;" src="/Content/Publieventos/Images/Logo.png" /></a>
     <div id="map-canvas" class="search-distance-map"></div>
     @Html.Hidden("LatitudeInitial")
     @Html.Hidden("LongitudeInitial")
 </body>
+</html>

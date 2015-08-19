@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Detalle del Evento";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
 }
 
 @using PubliEventos.Contract.Class;
@@ -10,13 +10,13 @@
 
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Detail.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Event/MapStyles.js")
-@System.Web.Optimization.Styles.Render("/Content/EventsDetail.css")
 @System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
-@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.signalR-1.0.0.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/jquery.nanoscroller.min.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Social.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment-with-locales.js")
 
 @Styles.Render("~/Content/Extensions/nanoscroller.css")
 <script src="~/signalr/hubs"></script>
@@ -29,53 +29,41 @@
     var pictures = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.pictures));
     var movies = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<MultimediaContentSummaryModel>)ViewBag.movies));
     var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal).Id);
+    var participants = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.participants));
+    var standby = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<User>)ViewBag.standby));
     var eventDetail = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((Event)Model));
     var attendEventByCurrentUser = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((bool)ViewBag.AttendEventByCurrentUser));
-    var participants = null;
-    var standby = null;
 </script>
 
 <div class="row">
-    <div class="col-xs-12" style="margin-bottom: 15px">
-        <h2 class="subtitle">Detalle del Evento</h2>
-        @if (Model != null)
-        {
-            <div class="row">
+    <h2 class="title-section">DETALLE</h2>
+    <div style="margin-bottom: 25px">
+        <div class="row">
+            <div class="col-xs-12" style="margin-top: 5px">
                 <div class="col-xs-12">
-                    <ul class="list-horizontal subtitle-sections">
-                        <li><a id="tabDetail" class="label-lobster active-link" href="#" data-toggle="tab">Detalle</a></li>
-                        <li><a id="tabLocalization" href="#" class="label-lobster" data-toggle="tab">Lugar</a></li>
-                        <li><a id="tabPictures" href="#" class="label-lobster" data-toggle="tab">Fotos</a></li>
-                        <li><a id="tabMovies" href="#" class="label-lobster" data-toggle="tab">Videos</a></li>
+                    <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a class="label-description" href="#regionDetail" aria-controls="regionDetail" role="tab" data-toggle="tab">DETALLE</a></li>
+                        <li role="presentation"><a id="tabLocalization" href="#regionLocalization" aria-controls="regionLocalization" role="tab" class="label-description" data-toggle="tab">LUGAR</a></li>
+                        <li role="presentation"><a href="#regionPictures" aria-controls="regionPictures" role="tab" data-toggle="tab" class="label-description">FOTOS</a></li>
+                        <li role="presentation"><a href="#regionMovies" aria-controls="regionMovies" role="tab" data-toggle="tab" class="label-description">VIDEOS</a></li>
                     </ul>
                 </div>
             </div>
-        }
-    </div>
-    @if (Model != null)
-    {
+        </div>
         @Html.Hidden("EventId", Model.Id)
         @Html.Hidden("CommentId")
-        <div class="row">
-            <div id="regionDetail" class="tab-content">
-                <div class="col-xs-12" style="margin-top: 20px">
-                    <div class="col-xs-12">
-                        @Html.Partial("Partial/_MosaicDetail", Model)
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 50px">
-                    <div class="col-xs-12" id="commentArea">
-                        <div class="col-xs-12">
-                            @Html.Partial("../Comment/Partial/_CommentBubble")
-                        </div>
-                        <div class="col-xs-12" id="loading" style="text-align: center">
-                            <img src="/Content/themes/images/loading.gif" />
-                            Cargando Comentarios...
-                        </div>
+        <div class="tab-content" style="margin-top: 25px">
+            <div id="regionDetail" role="tabpanel" class="tab-pane fade active in">
+                @Html.Partial("Partial/_MosaicDetail", Model)
+                <div class="col-xs-12" style="margin-top: 50px">
+                    @Html.Partial("../Comment/Partial/_CommentBubble")
+                    <div class="col-xs-12" id="loading" style="text-align: center">
+                        <img src="/Content/themes/images/loading.gif" />
+                        Cargando Comentarios...
                     </div>
                 </div>
             </div>
-            <div id="regionLocalization" class="tab-content" style="display: none">
+            <div id="regionLocalization" role="tabpanel" class="tab-pane fade">
                 <div class="col-xs-12">
                     @Html.HiddenFor(m => m.Latitude)
                     @Html.HiddenFor(m => m.Longitude)
@@ -84,35 +72,18 @@
                     @Html.Partial("Partial/_LocalizationDetail")
                 </div>
             </div>
-            <div id="regionPictures" class="tab-content" style="display: none">
-                <div class="tab-pane active col-xs-12">
+            <div id="regionPictures" role="tabpanel" class="tab-pane fade">
+                <div class="tab-pane active">
                     @Html.Partial("Partial/_PicturesForm", new ViewDataDictionary { { "UserId", Model.User.Id } })
                 </div>
             </div>
-            <div id="regionMovies" class="tab-content" style="display: none;">
-                <div class="tab-pane active col-xs-12">
+            <div id="regionMovies" role="tabpanel" class="tab-pane fade">
+                <div class="tab-pane active">
                     @Html.Partial("Partial/_MoviesForm", new ViewDataDictionary { { "UserId", Model.User.Id } })
                 </div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="row">
-            <div class="row offset3">
-                <div class="col-xs-12">
-                    <div class="col-xs-5" style="margin-top: 18%">
-                        <div class="span12">
-                            <div class="alert alert-danger" role="alert">
-                                <h3><span class="glyphicon glyphicon-remove-circle"></span>No se han encontrado contenidos</h3>
-                                <strong>El evento no existe o fue dado de baja.</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
+    </div>
 </div>
 
 <div class="modal fade" id="commentModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
@@ -123,7 +94,7 @@
                 <h4 class="title-modal" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
-                <textarea class="font-text form-control" name="detailComment" rows="4" id="detailComment"></textarea>
+                <textarea style="max-width: 565px" class="font-text form-control" name="detailComment" rows="4" id="detailComment"></textarea>
                 <input type="hidden" value="" id="commentId" />
             </div>
             <div class="modal-footer">
@@ -134,16 +105,16 @@
     </div>
 </div>
 
-<div class="modal fade" id="reportModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+<div class="modal fade" id="reportModal" data-toggle="modal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-                <h4 class="title-modal">Reportar Contenido</h4>
+                <h4 class="title-modal">REPORTAR CONTENIDO</h4>
             </div>
             <div class="modal-body">
                 <strong>Motivo</strong>
-                <textarea class="font-text form-control" rows="4" id="reasonReport"></textarea>
+                <textarea style="max-width: 565px" class="font-text form-control" rows="4" id="reasonReport"></textarea>
                 <input type="hidden" value="" id="contentId" />
                 <input type="hidden" value="" id="contentType" />
             </div>
@@ -154,4 +125,3 @@
         </div>
     </div>
 </div>
-

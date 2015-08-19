@@ -6,8 +6,6 @@
 @using PubliEventos.Contract.Class
 
 @System.Web.Optimization.Scripts.Render("~/bundles/Select2")
-@System.Web.Optimization.Scripts.Render("/Scripts/knockout-2.1.0.debug.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Shared/Social.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Home/Index.js")
 @System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
@@ -16,7 +14,6 @@
 
 @System.Web.Optimization.Styles.Render("~/bundles/Select2-css")
 @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
-@System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
 
 <script type="text/javascript">
     var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<Event>)ViewBag.events))
@@ -25,22 +22,15 @@
     var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal) != null ? (User as PubliEventos.Web.App_Start.CustomPrincipal).Id : 0);
 </script>
 
-<div class="row" style="margin-top: 50px">
-    <div class="col-xs-12">
-        <img class="image-cloud" alt="nube" src="/Content/themes/images/cloud_1.png" />
-        <div class="row">
-            <ul class="timeline" data-bind="foreach:Events">
-                <li>
-                    <div class="tldate" data-bind="text: Date"></div>
-                </li>
-                <div data-bind="foreach: EventsDetail">
-                    @Html.Partial("Partial/_Bubble.Mobile")
-                </div>
-            </ul>
-            <div data-bind="visible: viewModel.Events().length == 0">  
-                <p class="not-found-message">No hay Eventos Disponibles</p>
-            </div>
+<div class="row event-band">
+    <div class="row" data-bind="foreach:Events">
+        <div class="date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
+        <div class="col-xs-12" data-bind="foreach: EventsDetail, css: {'current-date-index': CurrentDate}">
+            @Html.Partial("Partial/_EventMosaic")
         </div>
+    </div>
+    <div data-bind="visible: viewModel.Events().length == 0" class="col-xs-12" style="text-align: center">
+        <p class="not-found-message">NO HAY EVENTOS DISPONIBLES</p>
     </div>
 </div>
 

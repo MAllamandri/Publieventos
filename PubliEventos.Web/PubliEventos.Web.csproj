@@ -209,6 +209,7 @@
     <Content Include="Content\ladda\ladda-themeless.min.css" />
     <Content Include="Content\ladda\ladda.css" />
     <Content Include="Content\ladda\ladda.min.css" />
+    <Content Include="Content\Publieventos\Images\menu-icon.png" />
     <Content Include="Content\Publieventos\img\cropperIcons.png" />
     <Content Include="Content\Publieventos\img\downloadIcon.png" />
     <Content Include="Content\Publieventos\img\headerBg.jpg" />
@@ -235,7 +236,7 @@
     <Content Include="Content\Select2\select2-bootstrap.css" />
     <Content Include="Content\Select2\select2-spinner.gif" />
     <Content Include="Content\Select2\select2.css" />
-    <Content Include="Content\Site.Mobile.css" />
+    <Content Include="Content\Publieventos.Mobile.css" />
     <Content Include="Content\themes\images\check.png" />
     <Content Include="Content\themes\images\Delete-picture-image.jpg" />
     <Content Include="Content\themes\images\error.png" />
@@ -247,6 +248,15 @@
     <Content Include="Content\themes\images\user-icon.gif" />
     <Content Include="Content\themes\images\YouTube-icon.png" />
     <Content Include="Content\themes\images\youtube.jpg" />
+    <Content Include="Scripts\jquery-mobile\images\ajax-loader.gif" />
+    <Content Include="Scripts\jquery-mobile\images\icons-18-black.png" />
+    <Content Include="Scripts\jquery-mobile\images\icons-18-white.png" />
+    <Content Include="Scripts\jquery-mobile\images\icons-36-black.png" />
+    <Content Include="Scripts\jquery-mobile\images\icons-36-white.png" />
+    <Content Include="Scripts\jquery-mobile\jquery.mobile-1.3.2.css" />
+    <Content Include="Scripts\jquery-mobile\jquery.mobile-1.3.2.js" />
+    <Content Include="Scripts\jquery-mobile\jquery.mobile-1.3.2.min.css" />
+    <Content Include="Scripts\jquery-mobile\jquery.mobile-1.3.2.min.js" />
     <Content Include="Scripts\yui\cropbox.js" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />
@@ -381,6 +391,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\jquery.nanoscroller.min.js.map" />
+    <Content Include="Scripts\jquery-mobile\jquery.mobile-1.3.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
@@ -491,7 +502,6 @@
     <Content Include="Views\Event\Partial\_LocalizationDetail.Mobile.cshtml" />
     <Content Include="Views\Event\Partial\_PicturesForm.Mobile.cshtml" />
     <Content Include="Views\Event\Partial\_MoviesForm.Mobile.cshtml" />
-    <Content Include="Views\Home\Partial\_Bubble.Mobile.cshtml" />
     <Content Include="ViewScripts\Shared\_Layout.Mobile.js" />
     <Content Include="Views\Event\MyEvents.Mobile.cshtml" />
     <Content Include="Views\Event\Partial\_Mosaic.Mobile.cshtml" />
@@ -506,6 +516,10 @@
     <Content Include="Views\Event\AssistsRecord.cshtml" />
     <Content Include="Views\Shared\_LayoutPublieventos.cshtml" />
     <Content Include="Views\Home\Partial\_EventMosaic.cshtml" />
+    <Content Include="Views\Event\Create.Mobile.cshtml" />
+    <Content Include="Views\Group\Create.Mobile.cshtml" />
+    <Content Include="Views\Group\Edit.Mobile.cshtml" />
+    <Content Include="Views\Group\Detail.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

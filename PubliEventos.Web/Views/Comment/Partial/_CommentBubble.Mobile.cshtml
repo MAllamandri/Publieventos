@@ -9,16 +9,16 @@
             <div class="profile-after" style="height: 25px"></div>
         </div>
         <div class="col-xs-12 bubble-comment">
-            <div class="col-xs-12" style="margin-top: 2px; margin-bottom: 2px;">
+            <div class="" style="margin-top: 2px; margin-bottom: 2px;">
                 <small data-bind="text: ElapsedTime" style="float: left; font-size: 10px;"></small>
             </div>
             <div class="col-xs-12 comment-detail" data-bind="text: Detail">
             </div>
-            <div class="col-xs-12 actions-comment">
-                <a data-bind="visible: !IsReported(), click: ShowReportModal"  data-toggle="tooltip" data-placement="top" title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
+            <div class="actions-comment">
+                <a data-bind="visible: !IsReported(), click: ShowReportModal" data-toggle="tooltip" data-placement="top" title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
 
-                <a data-bind="visible: EnabledActions, click: ShowCommentModal"  data-toggle="tooltip" data-placement="top" title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>
-                <a data-bind="visible: EnabledActions, click: DeleteComment" style="padding-left: 7px"  data-toggle="tooltip" data-placement="top" stitle="Eliminar" href="#"><i class="icon-default icon-remove"></i></a>
+                <a data-bind="visible: EnabledActions, click: ShowCommentModal" data-toggle="tooltip" data-placement="top" title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>
+                <a data-bind="visible: EnabledActions, click: DeleteComment" style="padding-left: 7px" data-toggle="tooltip" data-placement="top" stitle="Eliminar" href="#"><i class="icon-default icon-remove"></i></a>
 
                 <div data-bind="visible: IsReported()" style="display: none; display: inline; float: right; padding-right: 20px; color: #f00">
                     <strong style="font-size: 11px !important">Has Reportado este Comentario</strong>

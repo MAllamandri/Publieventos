@@ -4,67 +4,81 @@
 }
 
 @System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
-@System.Web.Optimization.Scripts.Render("/Scripts/jquery.blockUI.js")
 @System.Web.Optimization.Scripts.Render("/ViewScripts/Group/MyGroups.js")
 
 @using PubliEventos.Contract.Class;
 @using PubliEventos.Web.App_Start;
 
 <div class="row">
+    <h2 class="title-section">MIS GRUPOS</h2>
     <div style="margin-bottom: 25px" id="create">
-        <div class="col-xs-12">
-            <h2 class="subtitle">Mis Grupos</h2>
-            <div class="row" style="padding-bottom: -5px">
-                <div class="col-xs-12">
-                    <ul class="subtitle-sections" style="margin-left: -38px">
-                        <li><a href="/Group/Create" title="Nuevo Grupo" class="label-lobster">Nuevo Grupo</a></li>
-                    </ul>
-                </div>
-            </div>
-            @if (((List<Group>)ViewBag.groups).Count == 0)
-            {
-                <div class="row">
-                    <div class="col-xs-12" style="text-align: center">
-                        <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Participa de Ningún Grupo</p>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-xs-12" style="margin-top: 5px">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul class="nav nav-pills">
+                                <li><a href="/Group/Create" data-toggle="tooltip" data-placement="top" title="Nuevo Grupo" style="color: black" class="label-description section-button eventsSearch">NUEVO GRUPO</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            }
+                @if (((List<Group>)ViewBag.groups).Count == 0)
+                {
+                    <div class="row">
+                        <div class="col-xs-12 margin-top-normal" style="text-align: center">
+                            <p class="not-found-message not-found-message-dark">NO PARTICIPA DE NINGÚN GRUPO</p>
+                        </div>
+                    </div>
 
-            @foreach (var group in (List<Group>)ViewBag.groups)
-            {
-                <div class="col-xs-12" style="margin-bottom: 1%; height: auto;">
-                    <div class="col-xs-12 mosaic" style="margin-top: 30px;">
-                        <div class="row">
+                }
+
+                @foreach (var group in (List<Group>)ViewBag.groups)
+                {
+                    <div class="col-xs-12" style="min-height: 170px; margin-top: 20px;">
+                        <div class="col-xs-12 mosaic">
                             <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-8">
+                                        @if (group.Administrator.Id == (User as CustomPrincipal).Id)
+                                        {
+                                            <h4 class="font-text" style="color: #c25b4e">Soy Administrador</h4>
+                                        }
+                                    </div>
+                                    <div id="#nav-action" class="col-xs-4 actions-group">
+                                        @if (group.Administrator.Id == (User as CustomPrincipal).Id)
+                                        {
+                                            <a style="padding-bottom: 7px" class="deleteGroup"  data-toggle="tooltip" data-placement="top" title="Eliminar Grupo" rel="@group.Id" href="#"><i class="icon-default icon-remove"></i></a>
+                                            <a  data-toggle="tooltip" data-placement="top" title="Editar Grupo" href="/Group/Edit/@group.Id"><i class="icon-default icon-pencil"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a  data-toggle="tooltip" data-placement="top" title="Dejar Grupo" class="leaveGroup" rel="@group.Id" href="#"><i class="icon-default icon-hand-down"></i></a>
+                                        }
+                                        <a  data-toggle="tooltip" data-placement="top" title="Ver Grupo" href="/Group/Detail/@group.Id"><i class="icon-default icon-search"></i></a>
+                                    </div>
+                                </div>
                                 <div class="col-xs-12 div-group-name">
-                                    <strong class="font-text group-name-text">@group.Name</strong>
-                                    <div style="margin-top: -5px;">
-                                        @if (group.Administrator.Id == (User as CustomPrincipal).Id)
+                                    <a href="/Group/Detail/@group.Id"><strong class="font-text group-name-text">@group.Name.ToUpper()</strong></a>
+                                    <div class="col-xs-12" style="margin-top: 10px">
+                                        <strong>@(group.UsersGroup.Where(x => x.Active.HasValue && x.Active.Value).Count() + 1) Miembros Activos</strong>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        @if (group.UsersGroup.Where(x => !x.Active.HasValue).Count() > 0)
                                         {
-                                            <a style="padding-bottom: 7px" class="deleteGroup" title="Eliminar Grupo" rel="@group.Id" href="#"><i class="icon-default icon-remove"></i></a>
-                                            <a title="Editar Grupo" href="/Group/Edit/@group.Id"><i class="icon-default icon-pencil"></i></a>
+                                            <strong>@group.UsersGroup.Where(x => !x.Active.HasValue).Count().ToString() En Espera de Confirmación</strong>
                                         }
                                         else
                                         {
-                                            <a title="Dejar Grupo" class="leaveGroup" rel="@group.Id" href="#"><i class="icon-default icon-hand-down"></i></a>
-                                        }
-                                        <a title="Ver Grupo" href="/Group/Detail/@group.Id"><i class="icon-default icon-search"></i></a>
-
-                                        @if (group.Administrator.Id == (User as CustomPrincipal).Id)
-                                        {
-                                            <h4 class="font-text" style="color: #c25b4e; margin-left: 5px;">Soy Administrador</h4>
-                                        }
-                                        else
-                                        {
-                                            <h4></h4>   
+                                            <strong>No Hay Miembros En Espera de Confirmación</strong>
                                         }
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
 </div>
