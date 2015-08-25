@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Subir Contenidos";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
+}
+
+@System.Web.Optimization.Scripts.Render("~/bundles/dropzone")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/UploadPictures.js")
+@System.Web.Optimization.Styles.Render("/Content/fonts/css/font-awesome.css")
+
+@Styles.Render("~/bundles/dropzone-css")
+
+<div class="row">
+    <h2 class="title-section">SUBIR FOTOS Y VIDEOS</h2>
+    <div class="col-xs-12">
+        @Html.Hidden("EventId", (int)ViewBag.eventId)
+        <div class="margin-top-normal">
+            <a href="#" id="addMovie">
+                <img src="/Content/themes/images/YouTube-icon.png" style="width: 60px; height: 40px;" alt="Subir video de youtube" />&nbspSUBIR VIDEO</a>
+
+            <div style="padding: 10px 10px 10px 0px;" data-bind="foreach: Movies">
+                <div style="display: inline; margin-right: 15px;" class="movies">
+                    <img style="margin-bottom: 15px" data-bind="attr: { 'src': FileName }" /><div data-bind="    click: Remove" class="close close-movie"></div>
+                </div>
+            </div>
+        </div>
+        <div class="" id="detailRegion" style="display: none">
+            <strong>Cargados Correctamente:
+                                <span id="processCorrect">0</span><br />
+                Sin Cargar:
+                                <span id="processErrors">0</span>
+            </strong>
+        </div>
+        <div class="">
+            <div class="dropfiles">
+                <div class="dz-message" data-dz-message><span class="font-text default-message">Arrastre los archivos o haga click en el recuadro para subir fotos. Tipos permitidos jpg, png, gif y jpeg.</span></div>
+            </div>
+            <div id="dz-preview-template">
+                <div class="file-preview">
+                    <div class="result"></div>
+                    <div class="file-filename"><span data-dz-name></span></div>
+                    <div class="file-size" data-dz-size></div>
+                    <img class="file-thumbnail" data-dz-thumbnail />
+                    <div class="file-progress"><span class="file-upload" data-dz-uploadprogress></span></div>
+                    <div class="close close-picture"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="region-buttons">
+            <a type="button" href="/Event/Detail/@ViewBag.eventId">
+                <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="movieModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+                <h4 class="title-modal">SUBIR VIDEO</h4>
+            </div>
+            <div class="modal-body">
+                <strong>Ingrese la dirección del video</strong>
+                <input type="text" name="currentMovie" data-bind="value: CurrentMovie" class="form-control" style="width: 80%; display: inline;">
+                <img src="/Content/themes/images/youtube.jpg" style="width: 40px; height: 40px;" alt="YouTube" data-toggle="tooltip" data-placement="top" title="Copie la dirección del video" />
+                @Html.ValidationMessage("currentMovie")
+
+                <div data-bind="visible: viewMovie" style="display: none; height: 500px; margin-top: 20px;">
+                    <iframe style="overflow: hidden; height: 100%; width: 100%" data-bind="attr: { 'src': CurrentMovie() }" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" data-bind="click: AddMovie" class="btn-confirm">Subir</button>
+            </div>
+        </div>
+    </div>
+</div>

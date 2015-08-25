@@ -20,7 +20,7 @@ a:link {
 }
 
 .font-text {
-    font-family: 'MuseoSans-500';
+    font-family: 'MuseoSans-500' !important;
     color: #5f6364;
     font-size: 14px;
 }
@@ -392,7 +392,7 @@ input[type="checkbox"].checkbox-custom {
 
 .admin-name {
     color: #5f9977;
-    font-family: 'Gotham Black' !important;
+    font-family: 'Gotham Book' !important;
     font-size: 15px;
     font-weight: bold;
 }
@@ -569,7 +569,6 @@ input[type="checkbox"].checkbox-custom {
 
 .close {
     content: url("/Content/themes/images/Delete-picture-image.jpg");
-    display: none;
     width: 20px;
     height: 20px;
     border-radius: 15px;
@@ -579,6 +578,7 @@ input[type="checkbox"].checkbox-custom {
 .close-movie {
     /*top: 19px;
         left: 123px;*/
+
 }
 
 .close-picture {
@@ -1001,7 +1001,6 @@ input[type="checkbox"].checkbox-custom {
 .actions-comment {
     list-style: none;
     width: 100%;
-    visibility: hidden;
 }
 
 /*#endregion*/
@@ -1130,10 +1129,7 @@ input[type="checkbox"].checkbox-custom {
 
 .report-event-message {
     display: inline;
-    float: left;
-    padding-right: 25px;
     color: #f00;
-    font-size: 14px;
 }
 
 /*-------------------------
@@ -1327,8 +1323,6 @@ input[type="checkbox"].checkbox-custom {
 
 .imageBox {
     position: relative;
-    height: 400px;
-    width: 400px;
     border: 1px solid #aaa;
     background: #fff;
     overflow: hidden;

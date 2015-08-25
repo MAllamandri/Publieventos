@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Registro de Asistencias";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
+}
+
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/AssistsRecord.js")
+@System.Web.Optimization.Scripts.Render("/ViewScripts/Event/Partial/_EventsFilter.js")
+
+<div class="row">
+    <h2 class="title-section">MIS ASISTENCIAS</h2>
+    @Html.Partial("Partial/_EventsFilter")
+    <div class="col-xs-12 bar-search">
+        <div id="searchButton" class="search-title"><i class="icon-caret-down" id="icon-search"></i>&nbspBÚSQUEDAS</div>
+    </div>
+    <div class="col-xs-12">
+        <div style="margin-bottom: 25px" id="create">
+            <div class="row">
+                <div id="futures" class="col-xs-12">
+                    <div class="col-xs-12" style="margin-bottom: 30px">
+                        <h3 class="subtitle-section">EVENTOS FUTUROS</h3>
+                    </div>
+                    @if (((List<PubliEventos.Contract.Class.Event>)ViewBag.futureEvents).Any())
+                    {
+                        @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.futureEvents, new ViewDataDictionary { { "ViewActions", false } })
+                    }
+                    else
+                    {
+                        <div style="text-align: center">
+                            <p style="margin-top: 30px;" class="not-found-message not-found-message-dark">NO HAY EVENTOS DISPONIBLES</p>
+                        </div>
+                    }
+                </div>
+                <div id="previous" class="col-xs-12">
+                    <div class="col-xs-12" style="margin-bottom: 30px">
+                        <h3 class="subtitle-section">EVENTOS PREVIOS</h3>
+                    </div>
+                    @if (((List<PubliEventos.Contract.Class.Event>)ViewBag.previousEvents).Any())
+                    {
+                        @Html.Partial("Partial/_Mosaic", (List<PubliEventos.Contract.Class.Event>)ViewBag.previousEvents, new ViewDataDictionary { { "ViewActions", false } })
+                    }
+                    else
+                    {
+                        <div style="text-align: center">
+                            <p style="margin-top: 30px;" class="not-found-message not-found-message-dark">NO HAY EVENTOS DISPONIBLES</p>
+                        </div>
+                    }
+                </div>
+                <div id="regionEvents" class="col-xs-12" style="margin-top: 40px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

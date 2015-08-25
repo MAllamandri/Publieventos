@@ -65,3 +65,22 @@
 .my-events-actions {
     display: none;
 }
+
+.actions-comment {
+    visibility: hidden;
+}
+
+.report-event-message {
+    float: left;
+    padding-right: 25px;
+    font-size: 14px;
+}
+
+.close {
+    display: none;
+}
+
+.imageBox {
+    height: 400px;
+    width: 400px;
+}

@@ -429,6 +429,7 @@ html[dir="rtl"] .select2-results {
     background: #f4f4f4;
     display: list-item;
     padding-left: 5px;
+    color: #5f9977;
 }
 
 /*

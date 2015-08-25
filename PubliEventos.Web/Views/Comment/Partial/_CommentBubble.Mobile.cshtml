@@ -14,19 +14,18 @@
             </div>
             <div class="col-xs-12 comment-detail" data-bind="text: Detail">
             </div>
-            <div class="actions-comment">
+            <div class="col-xs-12 actions-comment">
                 <a data-bind="visible: !IsReported(), click: ShowReportModal" data-toggle="tooltip" data-placement="top" title="Reportar" href="#"><i class="icon-default icon-ban-circle"></i></a>
 
                 <a data-bind="visible: EnabledActions, click: ShowCommentModal" data-toggle="tooltip" data-placement="top" title="Editar" href="#"><i class="icon-default icon-pencil"></i></a>
                 <a data-bind="visible: EnabledActions, click: DeleteComment" style="padding-left: 7px" data-toggle="tooltip" data-placement="top" stitle="Eliminar" href="#"><i class="icon-default icon-remove"></i></a>
-
-                <div data-bind="visible: IsReported()" style="display: none; display: inline; float: right; padding-right: 20px; color: #f00">
+                <div data-bind="visible: IsReported()" style="display: none; display: inline; float: left; color: #f00">
                     <strong style="font-size: 11px !important">Has Reportado este Comentario</strong>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col-xs-12" style="text-align: center" data-bind="visible: Comments().length == 0 && ShowNotFoundComments() == true">
-    <p style="font-size: 20px; margin-top: 30px;" class="not-found-message">No Hay Comentarios Disponibles</p>
+<div class="col-xs-12 margin-bottom-normal" style="text-align: center" data-bind="visible: Comments().length == 0 && ShowNotFoundComments() == true">
+    <p style="font-size: 20px; margin-top: 30px;" class="not-found-message not-found-message-dark">NO HAY COMENTARIOS DISPONIBLES</p>
 </div>

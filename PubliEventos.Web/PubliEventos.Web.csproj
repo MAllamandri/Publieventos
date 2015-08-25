@@ -516,10 +516,13 @@
     <Content Include="Views\Event\AssistsRecord.cshtml" />
     <Content Include="Views\Shared\_LayoutPublieventos.cshtml" />
     <Content Include="Views\Home\Partial\_EventMosaic.cshtml" />
-    <Content Include="Views\Event\Create.Mobile.cshtml" />
     <Content Include="Views\Group\Create.Mobile.cshtml" />
     <Content Include="Views\Group\Edit.Mobile.cshtml" />
     <Content Include="Views\Group\Detail.Mobile.cshtml" />
+    <Content Include="Views\Event\UploadPictures.Mobile.cshtml" />
+    <Content Include="Views\Account\Profile.Mobile.cshtml" />
+    <Content Include="Views\Account\EditProfile.Mobile.cshtml" />
+    <Content Include="Views\Event\AssistsRecord.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

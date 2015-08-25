@@ -1,0 +1,107 @@
+﻿@model PubliEventos.Contract.Class.User
+
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
+}
+
+@using PubliEventos.Contract.Class;
+
+<div class="row">
+    <div style="margin-bottom: 25px">
+        <div class="" style="margin-top: 30px">
+            <div class="col-xs-12">
+                <div>
+                    <img src="@Model.PathProfile" alt="Foto de perfil" class="img-responsive img-rounded" data-src="holder.js/300x300">
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        <strong>Nombre de Usuario</strong><br />
+                        <p class="user-description">@Model.UserName</p>
+                    </div>
+                    <div class="col-xs-12">
+                        <strong>Email</strong><br />
+                        <p class="user-description">@Model.Email</p>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        <strong>Nombre</strong><br />
+                        @if (!string.IsNullOrEmpty(Model.FirstName))
+                        {
+                            <p class="user-description">@Model.FirstName </p>
+                        }
+                        else
+                        {
+                            <p class="user-description">-</p>
+                        }
+                    </div>
+                    <div class="col-xs-12" form-group>
+                        <strong>Apellido</strong><br />
+                        @if (!string.IsNullOrEmpty(Model.LastName))
+                        {
+                            <p class="user-description">@Model.LastName </p>
+                        }
+                        else
+                        {
+                            <p class="user-description">-</p>
+                        }
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        <strong>Localidad</strong><br />
+                        <p class="user-description">@Model.Locality.Name</p>
+                    </div>
+                    <div class="col-xs-12">
+                        <strong>Provincia</strong><br />
+                        <p class="user-description">@Model.Locality.Province.Name</p>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    @if (((List<Event>)ViewBag.events).Count() > 0)
+                    {
+                        <div class="col-xs-12">
+                            <strong>Últimos Eventos</strong>
+                            @foreach (var _event in (List<Event>)ViewBag.events)
+                            {
+                                <a href="/Event/Detail/@_event.Id">
+                                    <h4>@_event.Title</h4>
+                                </a>
+                            }
+                        </div>
+                    }
+
+                    @if (((List<Event>)ViewBag.mostPopularEvents).Count() > 0)
+                    {
+                        <div class="col-xs-12">
+                            <strong>Eventos más Populares</strong>
+                            @foreach (var _event in (List<Event>)ViewBag.mostPopularEvents)
+                            {
+                                <a href="/Event/Detail/@_event.Id">
+                                    <h4>@_event.Title</h4>
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="region-buttons">
+            <a type="button" href="/">
+                <input type="button" value="Volver" class="btn-cancel pull-left" /></a>
+            @if ((User as PubliEventos.Web.App_Start.CustomPrincipal).Id == Model.Id)
+            {
+                <a type="button" href="/Account/EditProfile/@Model.Id">
+                    <input type="button" value="Editar" class="btn-cancel pull-right" /></a>
+            }
+        </div>
+    </div>
+</div>

@@ -64,13 +64,11 @@
                 </div>
             </div>
             <div id="regionLocalization" role="tabpanel" class="tab-pane fade">
-                <div class="col-xs-12">
-                    @Html.HiddenFor(m => m.Latitude)
-                    @Html.HiddenFor(m => m.Longitude)
-                    @Html.Hidden("DestinationLatitude")
-                    @Html.Hidden("DestinationLongitude")
-                    @Html.Partial("Partial/_LocalizationDetail")
-                </div>
+                @Html.HiddenFor(m => m.Latitude)
+                @Html.HiddenFor(m => m.Longitude)
+                @Html.Hidden("DestinationLatitude")
+                @Html.Hidden("DestinationLongitude")
+                @Html.Partial("Partial/_LocalizationDetail")
             </div>
             <div id="regionPictures" role="tabpanel" class="tab-pane fade">
                 <div class="tab-pane active">

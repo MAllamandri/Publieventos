@@ -66,6 +66,7 @@
                     var controller = ViewContext.RouteData.Values["controller"].ToString();
                     var action = ViewContext.RouteData.Values["action"].ToString();
                                                 
+                    <a class="@(controller == "Home" && action == "Index" ? "sections-title sections-title-active" : "sections-title")" href="/Home/Index">INICIO</a><span class="sections-title bar-title">|</span>
                     <a class="@(controller == "Event" && action == "Create" ? "sections-title sections-title-active" : "sections-title")" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
                     <a class="@(controller == "Event" && action == "MyEvents" ? "sections-title sections-title-active" : "sections-title")" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
                     <a class="@(controller == "Group" && action == "MyGroups" ? "sections-title sections-title-active" : "sections-title")" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
@@ -93,6 +94,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="col-md-9" style="text-align: right; margin-top: 40px;">
+                <a class="sections-title-footer" href="/Home/Index">INICIO</a><span class="sections-title-footer bar-title">|</span>
                 <a class="sections-title-footer" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title-footer bar-title">|</span>
                 <a class="sections-title-footer" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title-footer bar-title">|</span>
                 <a class="sections-title-footer" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title-footer bar-title">|</span>

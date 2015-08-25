@@ -1,0 +1,170 @@
+﻿@model PubliEventos.Contract.Services.Account.EditProfileRequest
+
+@{
+    ViewBag.Title = "Editar Perfil";
+    Layout = "~/Views/Shared/_Layout.Mobile.cshtml";
+}
+
+@System.Web.Optimization.Scripts.Render("/Scripts/moment.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/moment-with-locales.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/bootstrap-datetimepicker.js")
+@System.Web.Optimization.Scripts.Render("~/ViewScripts/Account/EditProfile.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/jquery.form.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/bootbox.min.js")
+@System.Web.Optimization.Scripts.Render("/Scripts/yui/cropbox.js")
+
+@Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
+@Styles.Render("~/Content/bootstrap/css/bootstrap-theme.min.css")
+@Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+
+<div class="row">
+    <div style="margin-bottom: 25px">
+        <div class="col-xs-12" style="margin-top: 30px">
+            <div class="col-xs-12">
+                <div>
+                    <img src="@Model.PathProfile" alt="Foto de perfil" class="img-responsive img-rounded" data-src="holder.js/300x300">
+                </div>
+            </div>
+            <form id="form" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.UserId)
+                @Html.HiddenFor(m => m.ImageProfile)
+                @Html.HiddenFor(m => m.FirstNameOld)
+
+                @Html.Hidden("NewPhoto", null)
+
+                @Html.Hidden("IsValid", true)
+
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <label class="label-description">NOMBRE DE USUARIO</label>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "replaceBlank form-control font-text" })
+                            @Html.ValidationMessage("UserName")
+                            <div class="alert alert-danger" id="alertUserExist" style="display: none; margin-top: 15px; margin-bottom: 0px;" role="alert"><span class="glyphicon glyphicon-user"></span>&nbspEl usuario ya existe</div>
+                        </div>
+                        <div class="col-xs-12">
+                            <label class="label-description">EMAIL</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "replaceBlank form-control font-text" })
+                            @Html.ValidationMessage("Email")
+                            <div class="alert alert-danger" id="alertEmailExist" style="display: none; margin-top: 15px; margin-bottom: 0px;" role="alert"><span class="glyphicon glyphicon-envelope"></span>&nbspEl email ya existe</div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <label class="label-description">NOMBRE</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control font-text" })
+                            @Html.ValidationMessage("FirstName")
+                        </div>
+                        <div class="col-xs-12">
+                            <label class="label-description">APELLIDO</label>
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control font-text" })
+                            @Html.ValidationMessage("LastName")
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <label class="label-description">LOCALIDAD</label>
+                            @Html.DropDownListFor(m => m.LocalityId, (SelectList)ViewBag.Localities, "[Seleccione Localidad]", new { @class = "form-control font-text" })
+                            @Html.ValidationMessage("LocalityId")
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            <label class="label-description">PROVINCIA</label>
+                            @Html.DropDownListFor(m => m.ProvinceId, (SelectList)ViewBag.Provinces, "[Seleccione Provincia]", new { @class = "form-control font-text" })
+                            @Html.ValidationMessage("ProvinceId")
+                        </div>
+                    </div>
+                    <div class="row">
+@*                        <div class="col-md-6 form-group" style="margin-top: 23px;">
+                            <div id="editPhotoRegion" style="display: none">
+                                <label class="label-description">NUEVA FOTO DE PERFIL</label>
+                                <div class="cropped">
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="col-xs-12">
+                            <label class="label-description">FECHA DE NACIMIENTO</label>
+                            <div class="input-group date">
+                                @Html.TextBox("BirthDate", Model.BirthDate.ToShortDateString(), new { @class = "date form-control" })
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            @Html.ValidationMessage("BirthDate")
+@*                            <br />
+                            <a href="#" id="EditPhoto" style="float: right">Modificar Foto</a>*@
+                            <br />
+                            <a href="#" id="EditPassword" style="float: right">Modificar Contraseña </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="region-buttons">
+                        <input type="submit" id="Save" class="btn-confirm pull-right" value="Guardar" />
+                        <a type="button" href="/Account/Profile/@Model.UserId">
+                            <input type="button" value="Cancelar" id="cancel" class="btn-cancel pull-left" /></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+                <h4 class="title-modal" id="myModalLabel">MODIFICAR CONTRASEÑA</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("CurrentPassword", Model.Password)
+                <label class="label-description">CONTRASEÑA ACTUAL</label>
+                @Html.Password("OldPassword", null, new { @class = "form-control" })
+                @Html.ValidationMessage("OldPassword")
+                <br />
+                <label class="label-description">NUEVA CONTRASEÑA</label>
+                @Html.Password("NewPassword", null, new { @class = "form-control" })
+                @Html.ValidationMessage("NewPassword")
+                <br />
+                <label class="label-description">REPETIR CONTRASEÑA</label>
+                @Html.Password("RepeatPassword", null, new { @class = "form-control" })
+                @Html.ValidationMessage("RepeatPassword")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="savePassword" class="btn-confirm">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="EditPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title-modal">NUEVA FOTO DE PERFIL</h4>
+            </div>
+            <div class="modal-body">
+                <div class="imageBox">
+                    <div class="thumbBox"></div>
+                    <div class="spinner" style="display: none">Loading...</div>
+                </div>
+                <div class="" style="margin-top: 10px">
+                    <i class="icon-plus button-zoom" id="btnZoomIn" style="float: right"></i>
+                    <i class="icon-minus button-zoom" id="btnZoomOut" style="float: right; margin-right: 10px;"></i>
+                </div>
+                <div class="">
+                    <div class="action browse-wrap">
+                        <div class="title-file">Ningún archivo seleccionado</div>
+                        <input type="file" id="file" class="upload">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel pull-left" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnCrop" class="btn-confirm pull-right" data-dismiss="modal">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+</div>*@
