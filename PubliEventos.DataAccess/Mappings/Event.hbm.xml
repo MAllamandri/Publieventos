@@ -16,15 +16,15 @@
     <property name="EventStartTime" type="TimeAsTimeSpan" />
     <property name="EventEndTime" type="TimeAsTimeSpan" />
     <property name="FileName" column="CoverPhoto" />
-    <many-to-one name="EventType" class="EventType" column="IdEventType"/>
+    <many-to-one name="EventType" class="EventType" column="EventTypeId"/>
     <property name="Active" />
-    <many-to-one name="User" class="User" column="IdUser"/>
+    <many-to-one name="User" class="User" column="UserId"/>
     <bag name="Comments" cascade="save-update">
-      <key column="IdEvent"/>
+      <key column="EventId"/>
       <one-to-many class="Comment"/>
     </bag>
     <bag name="MultimediaContents" cascade="save-update" where="NullDate IS NULL">
-      <key column="IdEvent"/>
+      <key column="EventId"/>
       <one-to-many class="MultimediaContent"/>
     </bag>
     <bag name="Reports" cascade="save-update" where="NullDate IS NULL">

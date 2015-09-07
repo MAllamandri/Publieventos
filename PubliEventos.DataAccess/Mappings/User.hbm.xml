@@ -24,6 +24,6 @@
       <one-to-many class="Suspension"/>
     </bag>
 
-    <many-to-one name="Locality" class="Locality" column="IdLocality"/>
+    <many-to-one name="Locality" class="Locality" column="LocalityId"/>
   </class>
 </hibernate-mapping>

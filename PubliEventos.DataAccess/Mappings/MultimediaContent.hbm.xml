@@ -11,8 +11,8 @@
     <property name="Active"/>
     <property name="NullDate"/>
     <property name="EffectDate"/>
-    <many-to-one name="Event" class="Event" column="IdEvent" cascade="save-update"/>
-    <property name="ContentType" column="IdContentType" type="int"/>
+    <many-to-one name="Event" class="Event" column="EventId" cascade="save-update"/>
+    <property name="ContentType" column="ContentTypeId" type="int"/>
     <bag name="Reports" cascade="save-update" where="NullDate IS NULL">
       <key column="MultimediaContentId" />
       <one-to-many class="Report"/>

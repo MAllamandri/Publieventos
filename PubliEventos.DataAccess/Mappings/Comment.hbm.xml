@@ -7,8 +7,8 @@
     <id name="Id">
       <generator class="identity" />
     </id>
-    <many-to-one name="Event" class="Event" column="IdEvent"/>
-    <many-to-one name="User" class="User" column="IdUser" />
+    <many-to-one name="Event" class="Event" column="EventId"/>
+    <many-to-one name="User" class="User" column="UserId" />
     <bag name="Reports" cascade="save-update" where="NullDate IS NULL">
       <key column="CommentId" />
       <one-to-many class="Report"/>

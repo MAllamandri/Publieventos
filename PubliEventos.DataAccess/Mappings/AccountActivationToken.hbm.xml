@@ -7,7 +7,7 @@
     <id name="Id">
       <generator class="identity" />
     </id>
-    <many-to-one name="User" class="User" column="IdUser"/>
+    <many-to-one name="User" class="User" column="UserId"/>
     <property name="Token" type="AnsiString" />
     <property name="ExpirationDate" />
     <property name="EffectDate" />

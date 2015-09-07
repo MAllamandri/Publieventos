@@ -210,6 +210,7 @@
     <Content Include="Content\ladda\ladda.css" />
     <Content Include="Content\ladda\ladda.min.css" />
     <Content Include="Content\Publieventos\Images\menu-icon.png" />
+    <Content Include="Content\Publieventos\Images\NotAuthorized.jpg" />
     <Content Include="Content\Publieventos\img\cropperIcons.png" />
     <Content Include="Content\Publieventos\img\downloadIcon.png" />
     <Content Include="Content\Publieventos\img\headerBg.jpg" />

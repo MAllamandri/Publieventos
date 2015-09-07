@@ -9,7 +9,7 @@
     </id>
     <property name="Name" />
     <bag name="Localities">
-      <key column="IdProvince"/>
+      <key column="ProvinceId"/>
       <one-to-many class="Locality"/>
     </bag>
   </class>

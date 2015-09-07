@@ -2,8 +2,8 @@
 
 @foreach (var Event in Model)
 {
-    <div class="col-xs-12 mosaic" style="margin-bottom: 15%">
-        <div class="image-container">
+    <div class="col-xs-12  event-mosaic" style="margin-bottom: 15%">
+        <div class="row">
             <a href="/Event/Detail/@Event.Id" style="cursor: pointer">
                 <img class="image-mosaic-event img-rounded" src="/Content/images/Covers/@Event.FileName" data-src="holder.js/120x120/auto">
             </a>
