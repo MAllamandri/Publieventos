@@ -7,6 +7,7 @@
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Account;
     using PubliEventos.Contract.Services.Event;
+    using PubliEventos.Contract.Services.Invitation;
     using PubliEventos.Web.App_Start;
     using PubliEventos.Web.Helpers;
     using PubliEventos.Web.Models;
@@ -52,6 +53,12 @@
         [Dependency]
         public IEventServices serviceEvents { get; set; }
 
+        /// <summary>
+        /// Servicio de eventos.
+        /// </summary>
+        [Dependency]
+        public IInvitationServices serviceInvitations { get; set; }
+
         #endregion
 
         #region Views
@@ -84,11 +91,17 @@
             if (ModelState.IsValid)
             {
                 var returnAction = string.Empty;
+                int? userId = null;
 
-                if (this.ValidateUser(ref model))
+                if (this.ValidateUser(ref model, ref userId))
                 {
                     if (string.IsNullOrEmpty(ReturnUrl))
                     {
+                        // Busco si el usuario tiene invitaciones pendientes.
+                        var hasInvitations = this.serviceInvitations.HasUserPendingInvitations(new HasUserPendingInvitationsRequest() { UserId = userId.Value }).HasInvitations;
+
+                        TempData["HasInvitations"] = hasInvitations;
+
                         returnAction = "/Home/Index";
                     }
                     else
@@ -207,7 +220,7 @@
         /// </summary>
         /// <param name="model">Modelo de login.</param>
         /// <returns>True si es valido, false caso contrario.</returns>
-        private bool ValidateUser(ref UserModel model)
+        private bool ValidateUser(ref UserModel model, ref int? userId)
         {
             if (!string.IsNullOrEmpty(model.UserName) && !string.IsNullOrEmpty(model.Password))
             {
@@ -234,6 +247,9 @@
                         // Inicializa el identity y crea la cookie.
                         var custom = new CustomPrincipal(model.UserName);
                         this.CreateAuthenticationTicket(model.UserName, model.RememberMe);
+
+                        // Seteo el id del usuario para devolverlo.
+                        userId = user.Id;
 
                         return true;
                     }

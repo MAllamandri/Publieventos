@@ -1,6 +1,16 @@
 ﻿var viewModel = {};
 
 $(function () {
+    if (hasInvitations != null && hasInvitations) {
+        new PNotify({
+            title: 'Atención',
+            text: 'Tiene invitaciones pendientes, revise su sección de Invitaciones.',
+            type: 'success',
+            styling: 'bootstrap3',
+            icon: 'icon-flag'
+        });
+    };
+
     $('.date').datetimepicker({
         pickTime: false,
         format: "DD/MM/YYYY",

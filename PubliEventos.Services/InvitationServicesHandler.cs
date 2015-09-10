@@ -68,5 +68,15 @@
         {
             return InvitationServices.AttendEvent(request);
         }
+
+        /// <summary>
+        /// Indica si el usuario tiene invitaciones pendientes.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public HasUserPendingInvitationsResponse HasUserPendingInvitations(HasUserPendingInvitationsRequest request)
+        {
+            return InvitationServices.HasUserPendingInvitations(request);
+        }
     }
 }

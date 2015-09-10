@@ -14,6 +14,43 @@ $(function () {
         }
     });
 
+    $('.leaveGroup').click(function () {
+        var userId = $(this).attr('rel');
+
+        bootbox.confirm({
+            title: "<h4 class='title-modal'>QUITAR USUARIO</h4>",
+            message: "<p class='font-text'>Esta seguro que desea quitar este usuario del grupo?</p>",
+            buttons: {
+                'cancel': {
+                    label: "Cancelar",
+                    className: "btn-cancel pull-left",
+                },
+                'confirm': {
+                    label: "Aceptar",
+                    className: "btn-confirm"
+                }
+            }, callback: function (result) {
+                if (result) {
+                    $.blockUI({ message: "" });
+
+                    $.ajax({
+                        url: "/Group/LeaveGroup",
+                        data: {
+                            groupId: groupId,
+                            userId: userId
+                        }
+                    }).done(function (data) {
+                        if (data.Success) {
+                            window.location.href = '/Group/Detail/' + groupId;
+                        }
+                    });
+                }
+            }
+        });
+
+        return false;
+    });
+
     $.each(messages, function (index, message) {
         viewModel.Messages.push(new messageModel(message));
     });

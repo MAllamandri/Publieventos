@@ -27,7 +27,10 @@
                     @foreach (var invitation in (List<Invitation>)ViewBag.invitations)
                     {
                         var userAdministrator = invitation.Event != null ? invitation.Event.User : invitation.Group.Administrator;
-                            
+                        
+                        var messageSucces = invitation.Group != null ? "ACEPTO" : "ASISTIRÉ";
+                        var messageCancel = invitation.Group != null ? "NO ACEPTO" : "NO ASISTIRÉ";
+                        
                         <div class="col-md-4 mosaic-invitation" style="margin-bottom: 40px; margin-top: 40px; height: 270px;">
                             <div class="col-md-12 mosaic" style="min-height: 170px">
                                 <div class="row">
@@ -60,8 +63,8 @@
                                             }
                                         </div>
                                         <div class="col-md-12 invitation-actions" style="margin-bottom: 15px">
-                                            <button type="button"  data-toggle="tooltip" data-placement="top" title="Cancelar Invitación" class="replyInvitation cancel invitation-button invitation-cancel" rel="@invitation.Id">NO ASISTIRÉ</button>
-                                            <button type="button"  data-toggle="tooltip" data-placement="top" title="Aceptar Invitación" class="replyInvitation confirm invitation-button invitation-confirm" rel="@invitation.Id" style="margin-right: 10px;">ASISTIRÉ</button>
+                                            <button type="button"  data-toggle="tooltip" data-placement="top" title="Cancelar Invitación" class="replyInvitation cancel invitation-button invitation-cancel" rel="@invitation.Id">@messageCancel</button>
+                                            <button type="button"  data-toggle="tooltip" data-placement="top" title="Aceptar Invitación" class="replyInvitation confirm invitation-button invitation-confirm" rel="@invitation.Id" style="margin-right: 10px;">@messageSucces</button>
                                         </div>
                                     </div>
                                 </div>

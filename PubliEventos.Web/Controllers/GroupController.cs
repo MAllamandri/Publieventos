@@ -184,11 +184,11 @@
         /// <param name="groupId">Identificador del grupo.</param>
         /// <param name="userId">Identificador del usuario.</param>
         /// <returns></returns>
-        public JsonResult LeaveGroup(int groupId)
+        public JsonResult LeaveGroup(int groupId, int? userId)
         {
             try
             {
-                this.serviceGroups.LeaveGroup(new LeaveGroupRequest() { GroupId = groupId, UserId = User.Id });
+                this.serviceGroups.LeaveGroup(new LeaveGroupRequest() { GroupId = groupId, UserId = !userId.HasValue ? User.Id : userId.Value });
 
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }

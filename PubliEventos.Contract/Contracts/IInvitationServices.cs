@@ -48,5 +48,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         AttendEventResponse AttendEvent(AttendEventRequest request);
+
+        /// <summary>
+        /// Indica si el usuario tiene invitaciones pendientes.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        HasUserPendingInvitationsResponse HasUserPendingInvitations(HasUserPendingInvitationsRequest request);
     }
 }

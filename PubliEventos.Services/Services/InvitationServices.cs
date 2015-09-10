@@ -217,6 +217,21 @@
             }
         }
 
+        /// <summary>
+        /// Indica si el usuario tiene invitaciones pendientes.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static HasUserPendingInvitationsResponse HasUserPendingInvitations(HasUserPendingInvitationsRequest request)
+        {
+            var hasInvitations = CurrentSession.Query<Domain.Domain.Invitation>().Where(x => !x.NullDate.HasValue && !x.Confirmed.HasValue && x.User.Id == request.UserId).Any();
+
+            return new HasUserPendingInvitationsResponse
+            {
+                HasInvitations = hasInvitations
+            };
+        }
+
         #region Private Methods
 
         /// <summary>

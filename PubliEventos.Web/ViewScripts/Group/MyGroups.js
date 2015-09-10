@@ -56,7 +56,10 @@
 
                     $.ajax({
                         url: "/Group/LeaveGroup",
-                        data: { groupId: groupId }
+                        data: {
+                            groupId: groupId,
+                            userId: null
+                        }
                     }).done(function (data) {
                         if (data.Success) {
                             window.location.href = '/Group/MyGroups'

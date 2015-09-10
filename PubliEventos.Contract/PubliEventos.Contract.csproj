@@ -128,6 +128,8 @@
     <Compile Include="Services\Invitation\AttendEventResponse.cs" />
     <Compile Include="Services\Invitation\CreateInvitationRequest.cs" />
     <Compile Include="Services\Invitation\CreateInvitationResponse.cs" />
+    <Compile Include="Services\Invitation\HasUserPendingInvitationsRequest.cs" />
+    <Compile Include="Services\Invitation\HasUserPendingInvitationsResponse.cs" />
     <Compile Include="Services\Invitation\ReplyInvitationRequest.cs" />
     <Compile Include="Services\Invitation\ReplyInvitationResponse.cs" />
     <Compile Include="Services\Invitation\SearchEventsUserConfirmedRequest.cs" />
