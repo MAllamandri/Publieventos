@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Representa los parámetros de la operación EditPassword.
@@ -64,6 +65,16 @@
                 {
                     yield return new ValidationResult("La contraseña actual no coincide.", new[] { "OldPassword" });
                 }
+            }
+
+            if (!this.NewPassword.Any(x => char.IsUpper(x)))
+            {
+                yield return new ValidationResult("La contraseña debe contener al menos una mayúscula.", new[] { "NewPassword" });
+            }
+
+            if (!this.NewPassword.Any(char.IsDigit))
+            {
+                yield return new ValidationResult("La contraseña debe contener al menos un número.", new[] { "NewPassword" });
             }
         }
     }

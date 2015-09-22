@@ -27,7 +27,9 @@
             height: 100%;
         }
     </style>
-
+    <a class="title" style="position: absolute; z-index: 1; right: 10px; width: 50%;" href="/Home/Index">
+        <img style="height: auto; width: 100%; float: right;" src="/Content/Publieventos/Images/Logo.png" /></a>
+    <div id="map-canvas" class="search-distance-map"></div>
     <div class="col-xs-12 distance-form">
         <div>
             <p>Buscar eventos en un radio de</p>
@@ -51,9 +53,6 @@
             <p>1000 km</p>
         </div>
     </div>
-    <a class="title" style="position: absolute; z-index: 1; bottom: 5px; right: 1px; width: 80%;" href="/Home/Index">
-        <img style="height: 80%; width: 80%; float: right;" src="/Content/Publieventos/Images/Logo.png" /></a>
-    <div id="map-canvas" class="search-distance-map"></div>
     @Html.Hidden("LatitudeInitial")
     @Html.Hidden("LongitudeInitial")
 </body>

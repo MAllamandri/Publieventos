@@ -1178,7 +1178,7 @@ input[type="checkbox"].checkbox-custom {
 #colorNav {
     position: absolute;
     right: 45px;
-    top: 30px;
+    top: 45px;
     width: 50px;
 }
 
@@ -1425,6 +1425,7 @@ input[type="checkbox"].checkbox-custom {
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
+    /*left: 10px !important;*/
 }
 
     #pac-input:focus {

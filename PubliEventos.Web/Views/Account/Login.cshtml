@@ -145,9 +145,11 @@
                 <h4 class="title-modal" id="myModalLabel">RECUPERAR CONTRASEÑA</h4>
             </div>
             <div class="modal-body">
-                <strong>Ingrese Usuario</strong>
-                @Html.TextBox("UserNameToRecover", null, new { @class = "form-control" })
-                @Html.ValidationMessage("UserNameToRecover")
+                <strong>USUARIO</strong>
+                @Html.TextBox("UserNameToRecover", null, new { @class = "form-control", @style = "margin-bottom: 10px" })
+                <strong>EMAIL</strong>
+                @Html.TextBox("EmailToRecover", null, new { @class = "form-control" })
+                @Html.ValidationMessage("UserNameToRecoverError", new { @name = "UserNameToRecoverError" })
                 <small>
                     <p>Recibira un email con el códgio de verificación de su cuenta</p>
                 </small>

@@ -300,7 +300,7 @@
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
                 var user = CurrentSession.Query<Domain.Domain.User>()
-                            .Where(x => x.UserName.ToLower() == request.UserName.ToLower() && !x.NullDate.HasValue && x.Active)
+                            .Where(x => x.UserName.ToLower() == request.UserName.ToLower() && !x.NullDate.HasValue && x.Active && request.Email.ToLower() == x.Email.ToLower())
                             .SingleOrDefault();
 
                 if (user == null)

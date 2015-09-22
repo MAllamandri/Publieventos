@@ -211,8 +211,13 @@
     }
 
     $('#recoverPassword').click(function () {
-        if ($('#UserNameToRecover').val() != null && $.trim($('#UserNameToRecover').val()) != "") {
+        var userName = $('#UserNameToRecover').val();
+        var email = $('#EmailToRecover').val();
+
+        if (userName != null && $.trim(userName) != "" && email != null && $.trim(email) != "") {
             $('#UserNameToRecover').hideMessageError();
+            $('#EmailToRecover').hideMessageError();
+            $('span[name=UserNameToRecoverError]').hideMessageError();
 
             $.blockUI({ message: "" });
 
@@ -220,14 +225,17 @@
                 type: "POST",
                 url: "/Account/SendRecoverPasswordCode",
                 async: false,
-                data: { UserName: $('#UserNameToRecover').val() }
+                data: {
+                    UserName: $.trim(userName),
+                    Email: $.trim(email)
+                }
             }).done(function (data) {
                 if (data.Success) {
                     $.blockUI({ message: "" });
                     window.location.href = "/Account/RecoverPassword/" + data.UserId;
                 } else {
                     $.unblockUI();
-                    $('#UserNameToRecover').showMessageError("Nombre de usuario incorrecto");
+                    $('span[name=UserNameToRecoverError]').showMessageError("Los datos no son correctos");
                 }
             }).error(function () {
                 alert("Ha ocurrido un error interno");
@@ -235,6 +243,7 @@
             });
         } else {
             $('#UserNameToRecover').showMessageError("");
+            $('#EmailToRecover').showMessageError("");
         }
     });
 });
