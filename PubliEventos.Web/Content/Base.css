@@ -59,6 +59,20 @@ a:link {
     cursor: pointer;
 }
 
+.icon-padlock {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    bottom: -7px;
+    left: -4px;
+}
+
+.icon-padlock-detail {
+    height: 70px;
+    width: 70px;
+    margin-left: -15px;
+}
+
 .label-description {
     font-size: 14px;
     font-family: 'Gotham Book';
@@ -412,6 +426,14 @@ input[type="checkbox"].checkbox-custom {
     background-color: #f5fbfa;
     margin-bottom: 5px;
     border-radius: 10px 10px 10px 10px;
+}
+
+.event-mosaic-public {
+    background-color: #f5fbfa;
+}
+
+.event-mosaic-private {
+    background-color: #FADBDB !important;
 }
 
 .image-mosaic-event {

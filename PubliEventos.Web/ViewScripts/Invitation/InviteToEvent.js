@@ -121,6 +121,7 @@ function EventModel(event) {
     self.Time = event.EventStartTime.toString().substring(0, 5) + " a " + event.EventEndTime.toString().substring(0, 5) + " Hs";
     self.Description = event.Description;
     self.Detail = event.Detail;
+    self.Private = event.Private;
 
     self.UserImageProfile = event.User.PathProfile;
     self.UserName = event.User.UserName;

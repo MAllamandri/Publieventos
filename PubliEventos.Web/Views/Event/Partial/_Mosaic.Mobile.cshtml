@@ -2,7 +2,7 @@
 
 @foreach (var Event in Model)
 {
-    <div class="col-xs-12  event-mosaic" style="margin-bottom: 15%">
+    <div class="col-xs-12  event-mosaic @(Event.Private ? "event-mosaic-private" : "event-mosaic-public")" style="margin-bottom: 15%">
         <div class="row">
             <a href="/Event/Detail/@Event.Id" style="cursor: pointer">
                 <img class="image-mosaic-event img-rounded" src="/Content/images/Covers/@Event.FileName" data-src="holder.js/120x120/auto">
@@ -40,6 +40,10 @@
                         <a  data-toggle="tooltip" data-placement="top" title="Invitar" href="/Invitation/InviteToEvent/@Event.Id"><i class="icon-default icon-user"></i></a>
                     }
                 </div>
+            }
+            @if (Event.Private)
+            {
+                <img data-toggle="tooltip" data-placement="top" title="Evento privado" class="icon-padlock" src="/Content/Publieventos/Icons/padlock.png">
             }
         </div>
     </div>

@@ -211,6 +211,7 @@
     <Content Include="Content\ladda\ladda.min.css" />
     <Content Include="Content\pnotify\pnotify.custom.min.css" />
     <Content Include="Content\pnotify\pnotify.custom.min.js" />
+    <Content Include="Content\Publieventos\Icons\padlock.png" />
     <Content Include="Content\Publieventos\Images\menu-icon.png" />
     <Content Include="Content\Publieventos\Images\NotAuthorized.jpg" />
     <Content Include="Content\Publieventos\img\cropperIcons.png" />
