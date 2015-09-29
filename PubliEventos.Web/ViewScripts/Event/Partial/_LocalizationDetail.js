@@ -65,10 +65,10 @@
             }
 
             // Seteo los hidden para guardar la posición.
-            if (place.geometry.location.B != undefined && place.geometry.location.k != undefined) {
+            if (place.geometry.location.H != undefined && place.geometry.location.L != undefined) {
                 // Armo el recorrido.
-                calcRoute(place.geometry.location.k, place.geometry.location.B);
-                setLatLng(place.geometry.location.k, place.geometry.location.B);
+                calcRoute(place.geometry.location.H, place.geometry.location.L);
+                setLatLng(place.geometry.location.H, place.geometry.location.L);
             } else {
                 $('#DestinationLatitude').val("");
                 $('#DestinationLongitude').val("");
@@ -111,8 +111,8 @@
                 }
 
                 var request = {
-                    origin: start,
-                    destination: end,
+                    origin: end,
+                    destination: start,
                     travelMode: google.maps.TravelMode[selectedMode],
                     unitSystem: google.maps.UnitSystem.METRIC,
                     provideRouteAlternatives: true
@@ -126,8 +126,8 @@
 
                         var leg = result.routes[0].legs[0];
 
-                        makeMarker(leg.start_location, icons.start);
-                        makeMarker(leg.end_location, icons.end);
+                        makeMarker(leg.start_location, icons.end);
+                        makeMarker(leg.end_location, icons.start);
                     } else {
                         $('#NotFoundRoutes').show();
                         directionsDisplay.setMap(null);
