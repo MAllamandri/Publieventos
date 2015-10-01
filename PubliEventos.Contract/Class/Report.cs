@@ -1,5 +1,7 @@
 ﻿namespace PubliEventos.Contract.Class
 {
+    using System;
+
     /// <summary>
     /// Representa un reporte.
     /// </summary>
@@ -29,5 +31,10 @@
         /// Indica si el admin aprobo el reporte.
         /// </summary>
         public bool? IsReported { get; set; }
+
+        /// <summary>
+        /// Fecha del reporte.
+        /// </summary>
+        public DateTime EffectDate { get; set; }
     }
 }

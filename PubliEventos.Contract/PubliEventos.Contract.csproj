@@ -144,6 +144,8 @@
     <Compile Include="Services\Report\EvaluateReportsForDisabledResponse.cs" />
     <Compile Include="Services\Report\ReportContentRequest.cs" />
     <Compile Include="Services\Report\ReportContentResponse.cs" />
+    <Compile Include="Services\Report\SearchReasonsByContentReportedRequest.cs" />
+    <Compile Include="Services\Report\SearchReasonsByContentReportedResponse.cs" />
     <Compile Include="Services\Report\SearchReportedContentsRequest.cs" />
     <Compile Include="Services\Report\SearchReportedContentsResponse.cs" />
   </ItemGroup>

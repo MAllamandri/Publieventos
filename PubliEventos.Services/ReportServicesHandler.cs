@@ -48,5 +48,15 @@
         {
             return ReportServices.AdministrationReported(request);
         }
+
+        /// <summary>
+        /// Obtiene los motivos de los reportes sobre un contenido.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public SearchReasonsByContentReportedResponse SearchReasonsByContentReported(SearchReasonsByContentReportedRequest request)
+        {
+            return ReportServices.SearchReasonsByContentReported(request);
+        }
     }
 }

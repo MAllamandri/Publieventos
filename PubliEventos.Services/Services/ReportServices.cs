@@ -1,6 +1,7 @@
 ﻿namespace PubliEventos.Services.Services
 {
     using NHibernate.Linq;
+    using PubliEventos.Contract.Class;
     using PubliEventos.Contract.Enums;
     using PubliEventos.Contract.Services.Report;
     using PubliEventos.DataAccess.Querys;
@@ -241,6 +242,55 @@
             }
 
             return new AdministrationReportedResponse();
+        }
+
+        /// <summary>
+        /// Obtiene los motivos de los reportes sobre un contenido.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        public static SearchReasonsByContentReportedResponse SearchReasonsByContentReported(SearchReasonsByContentReportedRequest request)
+        {
+            var reports = new List<Report>();
+
+            if (request.ContentTypeId == (int)ContentTypes.Event)
+            {
+                reports.AddRange(CurrentSession.Query<Domain.Domain.Report>().Where(x => x.Event.Id == Convert.ToInt32(request.ContentId) && !x.IsReported.HasValue && !x.NullDate.HasValue)
+                                                                              .Select(x => new Report
+                                                                              {
+                                                                                  Reason = x.Reason,
+                                                                                  EffectDate = x.EffectDate
+                                                                              }).ToList());
+            }
+
+            if (request.ContentTypeId == (int)ContentTypes.Comment)
+            {
+                reports.AddRange(CurrentSession.Query<Domain.Domain.Report>().Where(x => x.Comment.Id == Convert.ToInt32(request.ContentId) && !x.IsReported.HasValue && !x.NullDate.HasValue)
+                                                                              .Select(x => new Report
+                                                                              {
+                                                                                  Reason = x.Reason,
+                                                                                  EffectDate = x.EffectDate
+                                                                              }).ToList());
+            }
+
+            if (request.ContentTypeId == (int)ContentTypes.Image || request.ContentTypeId == (int)ContentTypes.Movie)
+            {
+                var multimediaContent = CurrentSession.Query<Domain.Domain.MultimediaContent>().Where(x => x.Name.Equals(request.ContentId) && !x.NullDate.HasValue && x.Event.Id == request.EventId).Single();
+
+
+                reports.AddRange(CurrentSession.Query<Domain.Domain.Report>().Where(x => x.MultimediaContent.Id == multimediaContent.Id && !x.IsReported.HasValue && !x.NullDate.HasValue)
+                                                                            .Select(x => new Report
+                                                                              {
+                                                                                  Reason = x.Reason,
+                                                                                  EffectDate = x.EffectDate
+                                                                              }).ToList());
+
+            }
+
+            return new SearchReasonsByContentReportedResponse
+            {
+                Reports = reports
+            };
         }
 
         #endregion

@@ -50,6 +50,7 @@ function myViewModel() {
     self.Pictures = ko.observableArray();
     self.Movies = ko.observableArray();
 
+    self.Reasons = ko.observableArray();
     self.ContentId = ko.observable();
     self.ContentType = ko.observable();
     self.EventId = ko.observable();
@@ -177,7 +178,31 @@ function myViewModel() {
             }
         }
     }
-}
+
+    self.SearchReaons = function (contentId, contentType, eventId) {
+        $.blockUI({ message: "" });
+
+        $.ajax({
+            url: "/Admin/SearchReasonsByContentReported",
+            data: {
+                ContentId: contentId,
+                ContentTypeId: contentType,
+                EventId: eventId
+            }
+        }).done(function (data) {
+            if (data.Reports != null) {
+                viewModel.Reasons.removeAll();
+
+                $.each(data.Reports, function (index, report) {
+                    viewModel.Reasons.push(new ReasonModel(report));
+                });
+
+                $('#reasonsModal').modal('show');
+                $.unblockUI();
+            }
+        });
+    }
+};
 
 function ContentModel(content) {
     var self = this;
@@ -199,6 +224,10 @@ function ContentModel(content) {
         viewModel.ContentType(content.ContentType);
         viewModel.EventId(content.EventId);
         viewModel.IgnoreReportedContent();
+    }
+
+    self.SearchReaons = function () {
+        viewModel.SearchReaons(content.FileName, content.ContentType, content.EventId);
     }
 }
 
@@ -230,6 +259,10 @@ function EventModel(event) {
         viewModel.ContentType(contents.Event);
         viewModel.IgnoreReportedContent();
     }
+
+    self.SearchReaons = function () {
+        viewModel.SearchReaons(event.Id, contents.Event, null);
+    }
 }
 
 function CommentModel(comment) {
@@ -256,4 +289,15 @@ function CommentModel(comment) {
         viewModel.ContentType(contents.Comment);
         viewModel.IgnoreReportedContent();
     }
+
+    self.SearchReaons = function () {
+        viewModel.SearchReaons(comment.Id, contents.Comment, null);
+    }
+}
+
+function ReasonModel(report) {
+    var self = this;
+
+    self.EffectDate = moment(report.EffectDate).format("DD/MM/YYYY");
+    self.Reason = $.trim(report.Reason) == null || $.trim(report.Reason) == "" ? "No especificado" : report.Reason;
 }

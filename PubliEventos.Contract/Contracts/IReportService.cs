@@ -34,5 +34,12 @@
         /// <param name="request">Los parámetros de entrada.</param>
         /// <returns>El resultado de la operación.</returns>
         AdministrationReportedResponse AdministrationReported(AdministrationReportedRequest request);
+
+        /// <summary>
+        /// Obtiene los motivos de los reportes sobre un contenido.
+        /// </summary>
+        /// <param name="request">Los parámetros de entrada.</param>
+        /// <returns>El resultado de la operación.</returns>
+        SearchReasonsByContentReportedResponse SearchReasonsByContentReported(SearchReasonsByContentReportedRequest request);
     }
 }

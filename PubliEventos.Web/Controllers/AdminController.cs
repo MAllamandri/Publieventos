@@ -34,5 +34,17 @@
 
             return View(model);
         }
+
+        /// <summary>
+        /// Obtiene las razones de los reportes de un contenido.
+        /// </summary>
+        /// <param name="model">SearchReasonsByContentReportedRequest model.</param>
+        /// <returns>Reportes.</returns>
+        public JsonResult SearchReasonsByContentReported(SearchReasonsByContentReportedRequest model)
+        {
+            var reports = this.serviceReports.SearchReasonsByContentReported(model).Reports;
+
+            return Json(new { Reports = reports }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

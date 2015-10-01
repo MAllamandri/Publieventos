@@ -96,6 +96,9 @@
                                     <div class="form-group">
                                         @Html.PasswordFor(m => m.SignUpModel.RepeatPassword, new { @class = "form-control", @placeholder = "Repetir Contraseña" })
                                         @Html.ValidationMessage("SignUpModel.RepeatPassword")
+                                        <small>
+                                            <p>La contraseña debe contener al menos una letra en mayúscula y un número</p>
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
