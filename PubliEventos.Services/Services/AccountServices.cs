@@ -206,11 +206,16 @@
         {
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
             {
-                var total = CurrentSession.Query<Domain.Domain.User>().
-                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue && u.Active).Count();
+                var predicate = PredicateBuilder.True<Domain.Domain.User>();
+                predicate = predicate.And(x => !x.NullDate.HasValue && x.Active);
+                predicate = predicate.And(x => x.UserName.ToLower().Contains(request.UserName.ToLower()) ||
+                                                x.FirstName.ToLower().Contains(request.UserName.ToLower()) ||
+                                                x.LastName.ToLower().Contains(request.UserName.ToLower()));
+
+                var total = CurrentSession.Query<Domain.Domain.User>().Where(predicate).Count();
 
                 var users = CurrentSession.Query<Domain.Domain.User>().
-                     Where(u => u.UserName.ToLower().StartsWith(request.UserName.ToLower()) && !u.NullDate.HasValue && u.Active)
+                     Where(predicate)
                      .Skip(request.PageNumber - 1)
                      .Take(request.PageSize)
                      .Select(u => InternalServices.GetUserSummary(u)).ToList();

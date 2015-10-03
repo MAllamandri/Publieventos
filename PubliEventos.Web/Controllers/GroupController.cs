@@ -77,7 +77,7 @@
                 GroupName = group.Name,
                 Message = group.Message,
                 UserIds = string.Join(",", group.Users.Select(x => x.Id).ToArray()),
-                UserNames = string.Join(",", group.Users.Select(x => x.UserName).ToArray())
+                UserNames = string.Join(",", group.Users.Select(x => string.Format("{0} {1} ({2})", x.FirstName, x.LastName, x.UserName)).ToArray())
             };
 
             return View(model);

@@ -4,7 +4,7 @@ $(function () {
     if (hasInvitations != null && hasInvitations) {
         new PNotify({
             title: 'Atención',
-            text: 'Tiene invitaciones pendientes, revise su sección de Invitaciones.',
+            text: 'Tiene invitaciones pendientes, revise su sección de Invitaciones. <a href="/Invitation/MyInvitations">Ver</a>',
             type: 'success',
             styling: 'bootstrap3',
             icon: 'icon-flag'

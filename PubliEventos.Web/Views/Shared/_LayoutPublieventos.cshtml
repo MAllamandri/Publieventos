@@ -62,28 +62,28 @@
                     }
                 }
             </div>
-            <div class="col-md-12" style="text-align: right">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    var controller = ViewContext.RouteData.Values["controller"].ToString();
-                    var action = ViewContext.RouteData.Values["action"].ToString();
+        </div>
+        <div class="col-md-12" style="text-align: right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                var controller = ViewContext.RouteData.Values["controller"].ToString();
+                var action = ViewContext.RouteData.Values["action"].ToString();
                                                 
-                    <a class="@(controller == "Home" && action == "Index" ? "sections-title sections-title-active" : "sections-title")" href="/Home/Index">INICIO</a><span class="sections-title bar-title">|</span>
-                    <a class="@(controller == "Event" && action == "Create" ? "sections-title sections-title-active" : "sections-title")" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
-                    <a class="@(controller == "Event" && action == "MyEvents" ? "sections-title sections-title-active" : "sections-title")" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
-                    <a class="@(controller == "Group" && action == "MyGroups" ? "sections-title sections-title-active" : "sections-title")" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
-                    <a class="@(controller == "Event" && action == "AssistsRecord" ? "sections-title sections-title-active" : "sections-title")" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title bar-title">|</span>
-                    <a class="@(controller == "Invitation" && action == "MyInvitations" ? "sections-title sections-title-active" : "sections-title")" href="/Invitation/MyInvitations">INVITACIONES</a>
-                    if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
-                    {
-                    <span class="sections-title bar-title">|</span>
-                    <a class="@(controller == "Admin" && action == "ReportContents" ? "sections-title sections-title-active" : "sections-title")" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
-                    }
-                        
-                    <span class="sections-title bar-title">|</span>
-                    <a class="sections-title" href="/Account/LogOut">SALIR&nbsp<i class="log-out icon-off"></i></a>
+                <a class="@(controller == "Home" && action == "Index" ? "sections-title sections-title-active" : "sections-title")" href="/Home/Index">INICIO</a><span class="sections-title bar-title">|</span>
+                <a class="@(controller == "Event" && action == "Create" ? "sections-title sections-title-active" : "sections-title")" href="/Event/Create">PUBLICAR EVENTO</a><span class="sections-title bar-title">|</span>
+                <a class="@(controller == "Event" && action == "MyEvents" ? "sections-title sections-title-active" : "sections-title")" href="/Event/MyEvents?currentEvents=true">MIS EVENTOS</a><span class="sections-title bar-title">|</span>
+                <a class="@(controller == "Group" && action == "MyGroups" ? "sections-title sections-title-active" : "sections-title")" href="/Group/MyGroups">MIS GRUPOS</a><span class="sections-title bar-title">|</span>
+                <a class="@(controller == "Event" && action == "AssistsRecord" ? "sections-title sections-title-active" : "sections-title")" href="/Event/AssistsRecord">MIS ASISTENCIAS</a><span class="sections-title bar-title">|</span>
+                <a class="@(controller == "Invitation" && action == "MyInvitations" ? "sections-title sections-title-active" : "sections-title")" href="/Invitation/MyInvitations">INVITACIONES</a>
+                if ((User as PubliEventos.Web.App_Start.CustomPrincipal).IsAdministrator)
+                {
+                <span class="sections-title bar-title">|</span>
+                <a class="@(controller == "Admin" && action == "ReportContents" ? "sections-title sections-title-active" : "sections-title")" href="/Admin/ReportContents">ADMINISTRAR REPORTES</a>
                 }
-            </div>
+                        
+                <span class="sections-title bar-title">|</span>
+                <a class="sections-title" href="/Account/LogOut">SALIR&nbsp<i class="log-out icon-off"></i></a>
+            }
         </div>
     </div>
     <div class="col-md-12 body">

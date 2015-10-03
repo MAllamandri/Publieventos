@@ -547,7 +547,7 @@
             {
                 var userResult = new Select2Result();
                 userResult.id = user.Id.Value;
-                userResult.text = user.UserName;
+                userResult.text = string.Format("{0} {1} ({2})", user.FirstName, user.LastName, user.UserName);
 
                 Users.Add(userResult);
             }
