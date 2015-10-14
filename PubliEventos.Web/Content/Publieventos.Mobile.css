@@ -1,0 +1,157 @@
+﻿/*#region Layout */
+
+.header {
+    background-color: white;
+}
+
+.logo {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 70%;
+}
+
+.label-login {
+    text-shadow: none !important;
+    color: white !important;
+}
+
+.list-actions {
+    list-style: none;
+    padding: 5px;
+}
+
+.menu-mobile {
+    background-color: #363639;
+}
+
+.list-header {
+    height: 30px;
+    font-weight: bold;
+    font-family: 'Gotham black' !important;
+    border-bottom: 1px solid;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    color: whitesmoke;
+}
+
+.icon-default {
+    color: #5f9977;
+    font-size: 18px;
+}
+
+.current-date {
+    text-shadow: none !important;
+    font-size: 15px;
+}
+
+/*#endregion*/
+
+/*.image-mosaic-event {
+    margin-top: 10px;
+}*/
+
+.admin-name-container {
+    width: 78%;
+}
+
+.image-profile {
+    display: inline;
+}
+
+.username {
+    color: #5f9977;
+    float: right;
+    margin-left: 10px;
+    position: absolute;
+}
+
+.distance-form {
+    bottom: 10px;
+    font-size: 12px;
+    width: 80%;
+}
+
+.mobile-menu {
+    background: url(/Content/Publieventos/images/menu-icon.png) no-repeat;
+    cursor: pointer;
+    height: 30px;
+    position: relative;
+    width: 30px;
+}
+
+.mobile-nav {
+    left: 1em;
+    background-color: #5f9977;
+    margin-bottom: 10px;
+}
+
+.mobile-nav-white {
+    color: white;
+    left: -1em;
+    top: -1em;
+    float: right;
+}
+
+nav {
+    background: rgba(41,128,185,1);
+    position: absolute;
+    left: -100%;
+    top: 0;
+    padding-top: 1em;
+    box-sizing: border-box;
+    z-index: 20;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    width: 60%;
+    height: 100%;
+    overflow: scroll;
+}
+
+    nav.active {
+        left: 0;
+    }
+
+.title-section {
+    padding: 10px;
+}
+
+.image-event-detail {
+    width: 100%;
+}
+
+.profile-after {
+    position: absolute;
+    border: 1px solid;
+    width: 1px;
+    background-color: #5f9977;
+    left: 50%;
+}
+
+.actions-comment {
+    text-align: right;
+}
+
+.report-event-message {
+    text-align: center;
+    font-size: 13px;
+}
+
+.close-movie {
+    top: 50px;
+    display: inline;
+    margin-left: -8px;
+}
+
+.user-description {
+    word-break: break-word;
+}
+
+.imageBox {
+    width: 100%;
+}
+
+.activation-message {
+    margin-top: 50px;
+    width: 70%;
+}

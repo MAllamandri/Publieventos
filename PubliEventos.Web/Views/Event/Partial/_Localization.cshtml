@@ -55,9 +55,9 @@
                 }
 
                 // Seteo los hidden para guardar la posición.
-                if (place.geometry.location.H != undefined && place.geometry.location.L != undefined) {
-                    setLatLng(place.geometry.location.H, place.geometry.location.L);
-                    makeMarker(new google.maps.LatLng(place.geometry.location.H, place.geometry.location.L));
+                if (place.geometry.location.lat() != undefined && place.geometry.location.lng() != undefined) {
+                    setLatLng(place.geometry.location.lat(), place.geometry.location.lng());
+                    makeMarker(new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
                 } else {
                     $('#Latitude').val("");
                     $('#Longitude').val("");

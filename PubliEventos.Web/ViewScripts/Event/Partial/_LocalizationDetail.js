@@ -65,10 +65,10 @@
             }
 
             // Seteo los hidden para guardar la posición.
-            if (place.geometry.location.H != undefined && place.geometry.location.L != undefined) {
+            if (place.geometry.location.lat() != undefined && place.geometry.location.lng() != undefined) {
                 // Armo el recorrido.
-                calcRoute(place.geometry.location.H, place.geometry.location.L);
-                setLatLng(place.geometry.location.H, place.geometry.location.L);
+                calcRoute(place.geometry.location.lat(), place.geometry.location.lng());
+                setLatLng(place.geometry.location.lat(), place.geometry.location.lng());
             } else {
                 $('#DestinationLatitude').val("");
                 $('#DestinationLongitude').val("");

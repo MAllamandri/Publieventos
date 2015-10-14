@@ -44,9 +44,11 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <div class="col-md-5" style="float: right">
-                        <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-responsive img-rounded right" data-src="holder.js/50x50">
-                        <a href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong data-toggle="tooltip" data-placement="bottom" title="Ver mi Perfil" class="username">Hola @((User as PubliEventos.Web.App_Start.CustomPrincipal).FirstName)!</strong></a>
-                        <p class="current-date">@((User as PubliEventos.Web.App_Start.CustomPrincipal).DateTimeNow)</p>
+                        <div class="row">
+                            <img id="imageCurrentUser" src="/Content/images/Profiles/@((User as PubliEventos.Web.App_Start.CustomPrincipal).ImageProfile)" alt="" class="image-profile img-responsive img-rounded right" data-src="holder.js/50x50">
+                            <a href="/Account/Profile/@((User as PubliEventos.Web.App_Start.CustomPrincipal).Id)"><strong data-toggle="tooltip" data-placement="bottom" title="Ver mi Perfil" class="username">Hola @((User as PubliEventos.Web.App_Start.CustomPrincipal).FirstName)!</strong></a>
+                            <p class="current-date">@((User as PubliEventos.Web.App_Start.CustomPrincipal).DateTimeNow)</p>
+                        </div>
                     </div>
                 }
                 else

@@ -1,5 +1,6 @@
 ﻿.header {
-    min-height: 180px;
+    height: 180px;
+    top: 0;
 }
 
 .label-login {
