@@ -47,34 +47,20 @@ $(function () {
     $('#SearchTerm').keypress(function (e) {
         if (e.keyCode == 13) {
             return false;
-        } else if ($('#SearchTerm').val().length >= 5) {
-            SearchEvents(null, $('#SearchTerm').val());
-        } else if ($('#SearchTerm').val() < 4) {
-            SearchEvents(true, null);
-        };
+        }
     });
 
-    $('#SearchTerm').keyup(function (e) {
-        if (e.keyCode == 8 && $('#SearchTerm').val().length > 4) {
-            SearchEvents(null, $('#SearchTerm').val());
-        } else if (e.keyCode == 8 && $('#SearchTerm').val().length == 4) {
-            SearchEvents(true, null);
-        } else if ($('#SearchTerm').val() < 4) {
-            SearchEvents(true, null);
-        };
-    });
-
-    function SearchEvents(initialSearch, searchTerm) {
+    function SearchEvents(initialSearch) {
         $.ajax({
             type: 'POST',
             url: '/Home/SearchEvents',
             dataType: "json",
             data: {
-                initialSearch: initialSearch,
-                fullText: searchTerm
+                initialSearch: initialSearch
             }
         }).success(function (data) {
             viewModel.Events.removeAll();
+            viewModel.Filter("");
 
             LoadEvents(JSON.parse(data.Events));
 
@@ -89,7 +75,6 @@ $(function () {
             $('#UserName').val()) {
 
             $.blockUI({ message: "" });
-            $('#SearchTerm').val("");
 
             $.ajax({
                 type: 'POST',
@@ -103,6 +88,7 @@ $(function () {
                 }
             }).success(function (data) {
                 viewModel.Events.removeAll();
+                viewModel.Filter("");
 
                 LoadEvents(JSON.parse(data.Events));
 
@@ -119,7 +105,7 @@ $(function () {
         $("#UserName").select2("val", "");
         $('#EventType').val("");
 
-        SearchEvents(true, null);
+        SearchEvents(true);
     });
 
     ko.applyBindings(viewModel);
@@ -132,6 +118,7 @@ function LoadEvents(events) {
             eventsArray.push(event);
         } else {
             viewModel.Events.push(new EventsHeader(eventsArray));
+
             eventsArray = [];
             eventsArray.push(event);
         }
@@ -146,6 +133,26 @@ function myViewModel() {
     self = this;
 
     self.Events = ko.observableArray();
+    self.Filter = ko.observable("");
+
+    self.FilteredItems = ko.dependentObservable(function () {
+        var filter = self.Filter().toLowerCase();
+        if (!filter || filter.length < 3) {
+            return self.Events();
+        } else {
+            return ko.utils.arrayFilter(self.Events(), function (item) {
+                var events = item.filteredItems(filter);
+
+                if (events.length > 0) {
+                    item.EventsDetail.removeAll();
+                    item.EventsDetail(events);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        }
+    }, self);
 }
 
 function EventsHeader(events) {
@@ -157,6 +164,17 @@ function EventsHeader(events) {
     self.CurrentDate = moment(new Date()).format("DD/MM/YYYY") == moment(events[0].EventDate).format("DD/MM/YYYY");
 
     self.EventsDetail = ko.observableArray();
+
+    self.filteredItems = function (filter) {
+        if (!filter || filter.length < 3) {
+            return self.EventsDetail();
+        } else {
+            return ko.utils.arrayFilter(self.EventsDetail(), function (event) {
+                return event.Title.toLowerCase().indexOf(filter) > -1 ||
+                       event.Description.toLowerCase().indexOf(filter) > -1;
+            });
+        };
+    }
 
     $.each(events, function (index, event) {
         self.EventsDetail.push(new EventModel(event));

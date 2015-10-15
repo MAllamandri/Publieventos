@@ -8,13 +8,15 @@
     var urlImage = string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, coverImage);
 }
 
-<div class="col-md-12" style="margin-bottom: 1%;">
+<div class="col-xs-12" style="margin-bottom: 1%;">
     <div class="mosaic @(Model.Private ? "event-mosaic-private" : "event-mosaic-public")">
+        <div class="col-xs-12">
+            <div class="row">
+                <img data-bind="attr: { 'src': Event().Path }" alt="" class="img-rounded image-event-detail" data-src="holder.js/500x380">
+            </div>
+        </div>
         <div class="row" style="margin-top: 10px">
             <div class="col-xs-12">
-                <div class="col-xs-12">
-                    <img data-bind="attr: { 'src': Event().Path }" alt="" class="img-rounded image-event-detail" data-src="holder.js/500x380">
-                </div>
                 <div class="col-xs-12">
                     <div class="row">
                         <div class="col-md-10">

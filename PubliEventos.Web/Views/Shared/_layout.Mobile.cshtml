@@ -35,14 +35,18 @@
             <div class="col-xs-2">
                 <div class="mobile-nav mobile-menu"></div>
             </div>
-            @if (ViewBag.isHome != null && (bool)ViewBag.isHome == true)
-            {
-                <div class="col-xs-10">
+            <div class="col-xs-10">
+                @if (!User.Identity.IsAuthenticated)
+                {
                     <p class="current-date">@ViewBag.currentDate</p>
-                </div>
-            }
+                }
+                else
+                {
+                    <p class="current-date">@((User as PubliEventos.Web.App_Start.CustomPrincipal).DateTimeNow)</p>
+                }
+            </div>
         </div>
-    </div>            
+    </div>
     <nav class="menu-mobile">
         <div class="mobile-nav-white mobile-menu"></div>
         <ul class="list-actions">
