@@ -72,7 +72,7 @@
             </div>
             <div class="col-md-12" data-bind="foreach:FilteredItems">
                 <div class="col-md-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
-                <div class="col-md-12" data-bind="foreach: EventsDetail, css: {'current-date-index': CurrentDate}">
+                <div class="col-md-12" data-bind="foreach: FilteredEventsDetail(), css: {'current-date-index': CurrentDate}">
                     @Html.Partial("Partial/_EventMosaic")
                 </div>
             </div>

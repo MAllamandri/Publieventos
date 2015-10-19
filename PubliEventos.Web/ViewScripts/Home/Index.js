@@ -137,15 +137,14 @@ function myViewModel() {
 
     self.FilteredItems = ko.dependentObservable(function () {
         var filter = self.Filter().toLowerCase();
+
         if (!filter || filter.length < 3) {
             return self.Events();
         } else {
             return ko.utils.arrayFilter(self.Events(), function (item) {
-                var events = item.filteredItems(filter);
+                var events = item.FilteredEventsDetail();
 
                 if (events.length > 0) {
-                    item.EventsDetail.removeAll();
-                    item.EventsDetail(events);
                     return true;
                 } else {
                     return false;
@@ -165,7 +164,9 @@ function EventsHeader(events) {
 
     self.EventsDetail = ko.observableArray();
 
-    self.filteredItems = function (filter) {
+    self.FilteredEventsDetail = ko.dependentObservable(function () {
+        var filter = viewModel.Filter().toLowerCase();
+
         if (!filter || filter.length < 3) {
             return self.EventsDetail();
         } else {
@@ -174,7 +175,7 @@ function EventsHeader(events) {
                        event.Description.toLowerCase().indexOf(filter) > -1;
             });
         };
-    }
+    }, self);
 
     $.each(events, function (index, event) {
         self.EventsDetail.push(new EventModel(event));

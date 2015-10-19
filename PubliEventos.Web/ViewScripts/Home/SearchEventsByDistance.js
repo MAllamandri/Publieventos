@@ -94,7 +94,7 @@ $(function () {
 
     function makeInfoBox(position, icon, initialMarker, description, eventId) {
         var boxText = document.createElement("div");
-        boxText.innerHTML = "<div class=''><a class='link-event m_tooltip' href='/Event/Detail/" + eventId + "'>" + description + "</a></div>";
+        boxText.innerHTML = "<div class=''><a class='link-event m_tooltip' href='/Event/Detail/" + eventId + "'>" + description.toUpperCase() + "</a></div>";
 
         var infobox = new InfoBox({
             content: boxText,
