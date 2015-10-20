@@ -202,6 +202,7 @@ function EventModel(event) {
     self.AlreadyTookPlace = event.AlreadyTookPlace;
     self.PathProfile = event.User.PathProfile;
     self.Administrator = event.User.FullName;
+    self.EventType = event.EventType.Description.toUpperCase();
 
     self.Profile = function () {
         window.location.href = "/Account/Profile/" + event.User.Id;

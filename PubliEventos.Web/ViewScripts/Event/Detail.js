@@ -592,6 +592,7 @@ function EventModel(event) {
     self.Detail = event.Detail;
     self.AlreadyTookPlace = event.AlreadyTookPlace;
     self.Private = event.Private;
+    self.EventType = event.EventType.Description.toUpperCase();
 
     self.UserImageProfile = event.User.PathProfile;
     self.UserName = event.User.UserName;
