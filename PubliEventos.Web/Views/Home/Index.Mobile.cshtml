@@ -25,9 +25,11 @@
 
 <div class="row event-band">
     <div class="row" data-bind="foreach:Events">
-        <div class="date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
+        <div class="col-xs-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
         <div class="col-xs-12" data-bind="foreach: EventsDetail, css: {'current-date-index': CurrentDate}">
-            @Html.Partial("Partial/_EventMosaic")
+            <div class="col-xs-12" data-bind="css: {'current-date-description': $root.CurrentDate }">
+                @Html.Partial("Partial/_EventMosaic")
+            </div>
         </div>
     </div>
     <div data-bind="visible: viewModel.Events().length == 0" class="col-xs-12" style="text-align: center">

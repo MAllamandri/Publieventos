@@ -73,7 +73,9 @@
             <div class="col-md-12" data-bind="foreach:FilteredItems">
                 <div class="col-md-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
                 <div class="col-md-12" data-bind="foreach: FilteredEventsDetail(), css: {'current-date-index': CurrentDate}">
-                    @Html.Partial("Partial/_EventMosaic")
+                    <div class="col-md-3">
+                        @Html.Partial("Partial/_EventMosaic")
+                    </div>
                 </div>
             </div>
             <div data-bind="visible: viewModel.FilteredItems().length == 0" class="col-md-12" style="text-align: center; margin-top: 20px;">
