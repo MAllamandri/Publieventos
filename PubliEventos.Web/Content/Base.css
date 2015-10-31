@@ -156,6 +156,13 @@ p, strong, label, textarea {
     padding: 10px;
 }
 
+.well-region-line {
+    border-radius: 10px;
+    width: auto;
+    padding: 10px;
+    border: 1px solid #5f9977;
+}
+
 .title-modal {
     font-family: 'Gotham Book';
     font-size: 20px;

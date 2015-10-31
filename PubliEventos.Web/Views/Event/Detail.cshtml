@@ -58,7 +58,7 @@
                     <div class="col-md-12">
                         @Html.Partial("Partial/_MosaicDetail", Model)
                     </div>
-                    <div class="col-md-12" style="margin-top: 50px">
+                    <div class="col-md-12" style="margin-top: 30px">
                         <div class="col-md-8" id="commentArea">
                             @Html.Partial("../Comment/Partial/_CommentBubble")
                             <div class="col-md-12" id="loading" style="text-align: center">
@@ -67,6 +67,9 @@
                             </div>
                         </div>
                         <div class="col-md-4" style="overflow-y: no-display; height: 100% !important;">
+                            <div class="col-md-12 well-region-line" style="margin-bottom: 20px">
+                                <a style="margin-top: 2px;" href="/Home/SearchEventsByDistance">Búsqueda por Aproximación</a><br />
+                            </div>
                             <div class="col-md-12" style="margin-bottom: 20px">
                                 @Html.Partial("../Invitation/Partial/_PendingConfirmation")
                             </div>

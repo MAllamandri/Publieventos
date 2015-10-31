@@ -29,7 +29,7 @@
         [AllowAnonymous]
         public ActionResult Index()
         {
-            ViewBag.events = serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { StartDate = DateTime.Now.AddMonths(-3), EndDate = DateTime.Now.AddMonths(6), SearchPublics = true }).Events
+            ViewBag.events = serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest() { StartDate = DateTime.Now.AddMonths(-3), EndDate = DateTime.Now.AddMonths(3), SearchPublics = true }).Events
                 .OrderByDescending(x => x.EventDate)
                 .ToList();
 
@@ -71,7 +71,7 @@
             var events = serviceEvents.SearchFilteredEvents(new SearchFilteredEventsRequest()
             {
                 StartDate = initialSearch.HasValue && initialSearch.Value ? DateTime.Now.AddMonths(-3) : startDate,
-                EndDate = initialSearch.HasValue && initialSearch.Value ? DateTime.Now.AddMonths(6) : endDate,
+                EndDate = initialSearch.HasValue && initialSearch.Value ? DateTime.Now.AddMonths(3) : endDate,
                 SearchPublics = true,
                 EventTypeId = eventType,
                 UserId = userId,

@@ -614,6 +614,10 @@ function EventModel(event) {
         window.location.href = "/Account/Profile/" + self.UserId;
     }
 
+    self.EditEvent = function () {
+        window.location.href = '/Event/Edit/' + self.Id;
+    }
+
     self.IsReportedByCurrentUser = ko.computed(function () {
         if (eventDetail.Reports == null) {
             return false;

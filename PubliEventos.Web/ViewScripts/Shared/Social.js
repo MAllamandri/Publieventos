@@ -16,9 +16,9 @@
     window.fbShare = function(url, title, description, image) {
         FB.ui(
         {
-            method: 'feed',
-            name: title,
-            link: url,
+            method: 'share',
+            title: title,
+            href: url,
             picture: image,
             caption: ' ',
             description: description.length > 0 ? description.substring(0, 269) : " ",

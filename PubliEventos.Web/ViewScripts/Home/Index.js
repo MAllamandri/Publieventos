@@ -212,6 +212,10 @@ function EventModel(event) {
         window.location.href = "/Event/Detail/" + event.Id;
     }
 
+    self.EditEvent = function () {
+        window.location.href = '/Event/Edit/' + event.Id;
+    }
+
     self.UploadContents = function () {
         window.location.href = "/Event/UploadPictures/" + event.Id;
     }

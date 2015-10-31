@@ -90,7 +90,8 @@
 
                             <a  data-toggle="tooltip" data-placement="top" title="Reportar" data-bind="visible: !Event().IsReportedByCurrentUser()" class="reportEvent" rel="@Model.Id" href="#"><i style="padding-right: 5px" class="icon-default icon-ban-circle"></i></a>
                             <a data-bind="visible: Event().AdministratorIsCurrentUser && !Event().AlreadyTookPlace, click: Event().InviteUsers" data-toggle="tooltip" data-placement="top" title="Invitar"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-user"></span></a>
-                            <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures" data-toggle="tooltip" data-placement="top" title="Subir fotos y Videos"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-picture"></span></a>
+                            <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().UploadPictures" data-toggle="tooltip" data-placement="top" title="Subir Fotos y Videos"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-picture"></span></a>
+                            <a data-bind="visible: Event().AdministratorIsCurrentUser, click: Event().EditEvent" data-toggle="tooltip" data-placement="top" title="Editar Evento"><span style="padding-right: 5px; cursor: pointer;" class="icon-default icon-pencil"></span></a>
 
                             <div data-bind="visible: Event().IsReportedByCurrentUser()" class="report-event-message">
                                 <strong>Has Reportado este Evento</strong>
