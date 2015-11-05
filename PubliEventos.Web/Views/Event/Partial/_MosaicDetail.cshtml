@@ -40,14 +40,14 @@
                             </div>
                         }
                     </div>
-                    <div class="row margin-bottom-normal margin-top-normal">
+                    <div class="row margin-bottom-normal">
                         <div class="col-md-12">
                             <p class="event-description-detail" data-bind="text: Event().Description"></p>
                         </div>
                     </div>
                     <div class="row margin-bottom-normal margin-top-normal">
                         <div class="col-md-12 margin-bottom-normal">
-                            <strong style="color: black">TIPO </strong>
+                            <p>Tipo </p>
                         </div>
                         <div class="col-md-12">
                             <label class="label label-default" style="font-size: 14px" data-bind="text: Event().EventType"></label>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="row margin-bottom-normal margin-top-normal">
                         <div class="col-md-12 margin-bottom-normal">
-                            <strong style="color: black">CREADO POR</strong>
+                            <p>Creado por</p>
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -64,7 +64,19 @@
                                 </a>
                                 <p style="display: inline" class="participants-user" data-bind="text: Event().FullName"></p>
                             </div>
-                            <div class="col-md-12" data-bind="visible: Event().Private">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3 margin-top-normal">
+                                <div class="row">
+                                    <p>Creado el </p>
+                                    <strong style="color: black" data-bind="text: Event().EffectDate"></strong>
+                                </div>
+                                <div class="row margin-top-normal">
+                                    <p>Visto </p>
+                                    <strong style="color: black" data-bind="text: Event().Views"></strong>
+                                </div>
+                            </div>
+                            <div class="col-md-9 margin-top-normal" data-bind="visible: Event().Private">
                                 <img class="icon-padlock-detail" src="/Content/Publieventos/Icons/padlock.png">
                                 <strong>Evento privado</strong>
                             </div>

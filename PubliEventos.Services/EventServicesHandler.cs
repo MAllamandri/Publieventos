@@ -116,5 +116,15 @@
         {
             return EventServices.SearchMostPopularEvents(request);
         }
+
+        /// <summary>
+        /// Actualiza la cantidad de vistas a un evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public UpdateViewsToEventResponse UpdateViewsToEvent(UpdateViewsToEventRequest request)
+        {
+            return EventServices.UpdateViewsToEvent(request);
+        }
     }
 }

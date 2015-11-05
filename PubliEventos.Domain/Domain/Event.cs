@@ -98,5 +98,10 @@
         /// Longitud.
         /// </summary>
         public virtual string Longitude { get; set; }
+
+        /// <summary>
+        /// Cantidad de veces que fue visto el evento.
+        /// </summary>
+        public virtual int Views { get; set; }
     }
 }

@@ -103,6 +103,8 @@
     <Compile Include="Services\Event\SearchFilteredEventsResponse.cs" />
     <Compile Include="Services\Event\SearchMostPopularEventsRequest.cs" />
     <Compile Include="Services\Event\SearchMostPopularEventsResponse.cs" />
+    <Compile Include="Services\Event\UpdateViewsToEventRequest.cs" />
+    <Compile Include="Services\Event\UpdateViewsToEventResponse.cs" />
     <Compile Include="Services\Event\ValidateExistsContentRequest.cs" />
     <Compile Include="Services\Event\ValidateExistsContentResponse.cs" />
     <Compile Include="Services\Group\CreateChatMessageRequest.cs" />

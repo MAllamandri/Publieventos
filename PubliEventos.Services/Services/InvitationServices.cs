@@ -148,7 +148,7 @@
 
             // Obtengo las que estan confirmadas.
             var events = invitations.Where(x => x.Confirmed.HasValue && x.Confirmed.Value)
-                             .Select(x => InternalServices.GetEventSummary(x.Event))
+                             .Select(x => InternalServices.GetEventSummary(x.Event, true))
                              .Take(500)
                              .ToList();
 

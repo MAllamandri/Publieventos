@@ -49,21 +49,51 @@
                     </div>
                     <div class="row margin-bottom-normal margin-top-normal">
                         <div class="col-xs-12 margin-bottom-normal">
-                            <strong style="color: black">TIPO </strong>
+                            <div class="col-xs-8">
+                                <div class="row">
+                                    <p>Tipo</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="row">
+                                    <p>Creado el</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xs-12">
-                            <label class="label label-default" style="font-size: 14px" data-bind="text: Event().EventType"></label>
+                            <div class="col-xs-8">
+                                <div class="row">
+                                    <label class="label label-default" style="font-size: 14px" data-bind="text: Event().EventType"></label>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="row">
+                                    <strong style="color: black" data-bind="text: Event().EffectDate"></strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row margin-bottom-normal margin-top-normal">
                         <div class="col-xs-12 margin-bottom-normal">
-                            <strong style="color: black">CREADO POR</strong>
+                            <p style="color: black">Creado por</p>
                         </div>
                         <div class="col-xs-12">
-                            <a href="#" data-bind="click: Event().AdministratorProfile" style="display: inline; margin-right: 15px;">
-                                <img data-toggle="tooltip" data-placement="top" data-bind="attr: { 'src': Event().UserImageProfile, 'title': Event().UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-rounded right" data-src="holder.js/40x40">
-                            </a>
-                            <p style="display: inline" class="participants-user" data-bind="text: Event().FullName"></p>
+                            <div class="col-xs-3">
+                                <div class="row">
+                                    <a href="#" data-bind="click: Event().AdministratorProfile" style="display: inline; margin-right: 15px;">
+                                        <img data-toggle="tooltip" data-placement="top" data-bind="attr: { 'src': Event().UserImageProfile, 'title': Event().UserName }" style="cursor: pointer" alt="Perfil del usuario" class="participants-image-profile img-rounded right" data-src="holder.js/40x40">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="row">
+                                    <p style="display: inline" class="participants-user" data-bind="text: Event().FullName"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 margin-top-normal">
+                            <p>Visto </p>
+                            <strong style="color: black" data-bind="text: Event().Views"></strong>
                         </div>
                         <div class="col-xs-12" data-bind="visible: Event().Private">
                             <img class="icon-padlock-detail" src="/Content/Publieventos/Icons/padlock.png">

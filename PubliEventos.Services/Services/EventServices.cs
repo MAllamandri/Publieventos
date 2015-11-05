@@ -78,7 +78,7 @@
                 throw new Exception("El evento no existe o fue dado de baja");
             }
 
-            return InternalServices.GetEventSummary(_event);
+            return InternalServices.GetEventSummary(_event, true);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@
 
             var events = CurrentSession.Query<Domain.Domain.Event>()
                             .Where(predicate)
-                            .Select(x => InternalServices.GetEventSummary(x))
+                            .Select(x => InternalServices.GetEventSummary(x, false))
                             .Take(500)
                             .ToList();
 
@@ -341,12 +341,30 @@
                            .Take(5)
                            .ToList();
 
-            var mostPopularEvents = invitationsFilters.Select(x => InternalServices.GetEventSummary(x.First().Event)).ToList();
+            var mostPopularEvents = invitationsFilters.Select(x => InternalServices.GetEventSummary(x.First().Event, false)).ToList();
 
             return new SearchMostPopularEventsResponse
             {
                 Events = mostPopularEvents
             };
+        }
+
+        /// <summary>
+        /// Actualiza la cantidad de vistas a un evento.
+        /// </summary>
+        /// <param name="request">Parámetros de entrada.</param>
+        /// <returns>Lista de eventos filtrados.</returns>
+        public static UpdateViewsToEventResponse UpdateViewsToEvent(UpdateViewsToEventRequest request)
+        {
+            using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var _event = CurrentSession.Get<Domain.Domain.Event>(request.EventId);
+                _event.Views = _event.Views + 1;
+
+                transaction.Complete();
+            }
+
+            return new UpdateViewsToEventResponse();
         }
     }
 }

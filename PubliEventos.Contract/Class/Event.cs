@@ -91,6 +91,11 @@
         public string Longitude { get; set; }
 
         /// <summary>
+        /// Fecha de alta.
+        /// </summary>
+        public DateTime? EffectDate { get; set; }
+
+        /// <summary>
         /// Indica si está dado de baja.
         /// </summary>
         public DateTime NullDate { get; set; }
@@ -99,6 +104,27 @@
         /// Reportes del evento.
         /// </summary>
         public List<Report> Reports { get; set; }
+
+        /// <summary>
+        /// Cantidad de vistos del video.
+        /// </summary>
+        public int? Views { get; set; }
+
+        /// <summary>
+        /// Descripción de la fecha de alta.
+        /// </summary>
+        public string EffectDateDescription
+        {
+            get
+            {
+                if (this.EffectDate.HasValue)
+                {
+                    return this.EffectDate.Value.ToShortDateString();
+                }
+
+                return null;
+            }
+        }
 
         /// <summary>
         /// Indica que el evento ya se realizo.

@@ -243,6 +243,10 @@ function EventModel(event) {
     self.PicturePath = "/Content/images/Covers/" + event.FileName;
     self.UserName = event.User.UserName;
     self.ImageProfile = event.User.PathProfile;
+    self.Private = event.Private;
+    self.EffectDate = event.EffectDateDescription;
+    self.Views = event.Views + " veces";
+    self.EventType = event.EventType.Description.toUpperCase();
 
     self.UserProfile = function () {
         window.location.href = "/Account/Profile/" + event.User.Id;

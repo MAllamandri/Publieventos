@@ -76,6 +76,9 @@
         [UserActionRestriction(ValidateCondition.Event)]
         public ActionResult Detail(int id)
         {
+            // Actualizo los vistos al evento.
+            this.serviceEvents.UpdateViewsToEvent(new UpdateViewsToEventRequest() { EventId = id });
+
             var model = this.serviceEvents.GetEventById(id);
             var invitations = this.servicesInvitations.SearchInvitationsByEvent(new SearchInvitationsByEventRequest() { EventId = id }).Invitations;
 
@@ -366,7 +369,7 @@
                     var contents = model.CoverPhoto.Split(',');
                     byte[] imageBytes = Convert.FromBase64String(contents[1]);
 
-                    string fileName = string.Format("{0}.png", DateTime.Now.ToString("ddMMyyyyhhMMss"));
+                    string fileName = string.Format("{0}_{1}.png", Guid.NewGuid().ToString(), DateTime.Now.ToString("ddMMyyyyhhMMss"));
 
                     // Guardo la foto.
                     System.IO.File.WriteAllBytes(pathCoverPhoto + fileName, imageBytes);
@@ -405,7 +408,7 @@
                     var contents = model.CoverPhoto.Split(',');
                     byte[] imageBytes = Convert.FromBase64String(contents[1]);
 
-                    string fileName = string.Format("{0}.png", DateTime.Now.ToString("ddMMyyyyhhMMss"));
+                    string fileName = string.Format("{0}_{1}.png", Guid.NewGuid().ToString(), DateTime.Now.ToString("ddMMyyyyhhMMss"));
 
                     // Guardo la foto.
                     System.IO.File.WriteAllBytes(pathCoverPhoto + fileName, imageBytes);

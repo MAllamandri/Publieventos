@@ -129,7 +129,7 @@
             var events = reports.Where(x => x.Event != null)
                         .GroupBy(x => x.Event.Id)
                         .Where(x => x.Count() >= countReportsForDisabled)
-                        .Select(x => InternalServices.GetEventSummary(x.First().Event))
+                        .Select(x => InternalServices.GetEventSummary(x.First().Event, true))
                         .ToList();
 
             var comments = reports.Where(x => x.Comment != null)

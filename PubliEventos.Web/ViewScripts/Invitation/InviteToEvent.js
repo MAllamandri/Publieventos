@@ -123,6 +123,8 @@ function EventModel(event) {
     self.Detail = event.Detail;
     self.Private = event.Private;
     self.EventType = event.EventType.Description.toUpperCase();
+    self.EffectDate = event.EffectDateDescription;
+    self.Views = event.Views + " veces";
 
     self.UserImageProfile = event.User.PathProfile;
     self.UserName = event.User.UserName;

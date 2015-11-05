@@ -13,14 +13,14 @@
         /// </summary>
         /// <param name="eventToParse">Evento a parsear.</param>
         /// <returns>Evento de contrato.</returns>
-        public Event GetEventSummary(Domain.Domain.Event eventToParse)
+        public Event GetEventSummary(Domain.Domain.Event eventToParse, bool includeAdditionalInformation)
         {
             if (eventToParse == null)
             {
                 return null;
             }
 
-            return new Event()
+            var response = new Event()
             {
                 Id = eventToParse.Id,
                 Title = eventToParse.Title.ToUpper(),
@@ -33,16 +33,24 @@
                 EventEndTime = eventToParse.EventEndTime,
                 Private = eventToParse.Private,
                 User = GetUserSummary(eventToParse.User),
-                EventType = new EventType()
+                EventType = new EventType
                 {
                     Id = eventToParse.EventType.Id,
                     Description = eventToParse.EventType.Description
                 },
                 Latitude = eventToParse.Latitude,
                 Longitude = eventToParse.Longitude,
-                MultimediaContents = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Where(x => x.Active).Select(x => GetMultimediaContentSummary(x)).ToList() : null,
-                Reports = eventToParse.Reports.Any() ? eventToParse.Reports.Select(x => GetReportSummary(x)).ToList() : null
+                EffectDate = eventToParse.CreationDate,
+                Views = eventToParse.Views
             };
+
+            if (includeAdditionalInformation)
+            {
+                response.MultimediaContents = eventToParse.MultimediaContents.Any() ? eventToParse.MultimediaContents.Where(x => x.Active).Select(x => GetMultimediaContentSummary(x)).ToList() : null;
+                response.Reports = eventToParse.Reports.Any() ? eventToParse.Reports.Select(x => GetReportSummary(x)).ToList() : null;
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -59,7 +67,7 @@
                 EffectDate = comment.EffectDate,
                 Id = comment.Id,
                 NullDate = comment.NullDate,
-                Event = GetEventSummary(comment.Event),
+                Event = GetEventSummary(comment.Event, true),
                 User = GetUserSummary(comment.User),
                 IsReportedByUser = comment.Reports != null && comment.Reports.Any() && comment.Reports.Where(x => !x.IsReported.HasValue).Select(x => x.User.Id).ToList().Contains(currentUserId.Value) ? true : false
             };
@@ -148,7 +156,7 @@
             {
                 Id = invitation.Id,
                 Confirmed = invitation.Confirmed,
-                Event = invitation.Event != null ? this.GetEventSummary(invitation.Event) : null,
+                Event = invitation.Event != null ? this.GetEventSummary(invitation.Event, true) : null,
                 Group = invitation.Group != null ? this.GetGroupSummary(invitation.Group) : null,
                 User = this.GetUserSummary(invitation.User),
                 EffectDate = invitation.EffectDate
