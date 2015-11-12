@@ -1,5 +1,5 @@
 ﻿.header {
-    height: 180px;
+    min-height: 110px;
     top: 0;
 }
 
@@ -96,4 +96,5 @@
 
 .image-event-detail {
     padding-top: 10px;
+    width: 100%;
 }

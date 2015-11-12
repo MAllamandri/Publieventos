@@ -18,12 +18,6 @@ $(function () {
         autoclose: true,
     });
 
-    $('.current-date').click(function () {
-        if ($('.current-date-description').length > 0) {
-            $("html, body").scrollTop($('.current-date-description').offset().top);
-        }
-    });
-
     $("#searchButton").click(function () {
         $('#search-form').slideToggle("slow", function () {
             if ($('#icon-search').hasClass('icon-caret-down')) {
@@ -64,6 +58,9 @@ $(function () {
 
             LoadEvents(JSON.parse(data.Events));
 
+            // Subo la barra de búsqueda.
+            $("#searchButton").click();
+
             $.unblockUI();
         });
     }
@@ -92,6 +89,9 @@ $(function () {
 
                 LoadEvents(JSON.parse(data.Events));
 
+                // Subo la barra de búsqueda.
+                $("#searchButton").click();
+
                 $.unblockUI();
             });
         }
@@ -109,6 +109,8 @@ $(function () {
     });
 
     ko.applyBindings(viewModel);
+
+    viewModel.CurrentDatePosition();
 });
 
 function LoadEvents(events) {
@@ -135,6 +137,10 @@ function myViewModel() {
     self.Events = ko.observableArray();
     self.Filter = ko.observable("");
 
+    self.CurrentDatePosition = function () {
+        $('.current-date').click();
+    };
+
     self.FilteredItems = ko.dependentObservable(function () {
         var filter = self.Filter().toLowerCase();
 
@@ -159,12 +165,15 @@ function EventsHeader(events) {
 
     var month = moment(events[0].EventDate).format("MM");
 
-    self.Date = moment(events[0].EventDate).format("DD") + " DE " + GetMonthDescription(month) + " DE " + moment(events[0].EventDate).format("YYYY");;
     self.CurrentDate = moment(new Date()).format("DD/MM/YYYY") == moment(events[0].EventDate).format("DD/MM/YYYY");
+    self.Date = moment(events[0].EventDate).format("DD") + " DE " + GetMonthDescription(month) + " DE " + moment(events[0].EventDate).format("YYYY");
+    self.ShortDate = moment(events[0].EventDate).format("DD/MM/YYYY");
 
     self.EventsDetail = ko.observableArray();
 
     self.FilteredEventsDetail = ko.dependentObservable(function () {
+        $(window).scrollTop(0);
+
         var filter = viewModel.Filter().toLowerCase();
 
         if (!filter || filter.length < 3) {

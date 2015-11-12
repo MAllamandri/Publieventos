@@ -10,7 +10,7 @@ html, body {
 
 .body {
     background-color: #e1e1e1;
-    min-height: 65vh;
+    min-height: 67vh;
     /*min-height: -o-calc(100% - 320px);*/ /* opera */
     /*min-height: -webkit-calc(100% - 320px);*/ /* google, safari */
     /*min-height: -moz-calc(100% - 320px);*/ /* firefox */
@@ -18,7 +18,7 @@ html, body {
 
 .footer {
     background-color: black;
-    height: 150px;
+    height: 125px;
     width: 100%;
     bottom: 0;
 }
@@ -346,7 +346,8 @@ input[type="checkbox"].checkbox-custom {
 }
 
 .logo {
-    margin-top: 35px;
+    width: 250px;
+    margin-top: 10px;
 }
 
 .sections-title {

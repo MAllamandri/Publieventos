@@ -14,6 +14,7 @@
 
 @System.Web.Optimization.Styles.Render("~/bundles/Select2-css")
 @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.min.css")
+@System.Web.Optimization.Styles.Render("~/Content/Index.css")
 
 <script type="text/javascript">
     var events = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject((List<Event>)ViewBag.events))
@@ -21,6 +22,12 @@
     var urlImage = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(string.Format("{0}://{1}{2}", System.Web.HttpContext.Current.Request.Url.Scheme, System.Web.HttpContext.Current.Request.Url.Authority, System.Configuration.ConfigurationManager.AppSettings["PathCovers"] + '#')))
     var currentUserId = @((User as PubliEventos.Web.App_Start.CustomPrincipal) != null ? (User as PubliEventos.Web.App_Start.CustomPrincipal).Id : 0);
     var hasInvitations =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(TempData["HasInvitations"]));
+
+    $('.current-date').click(function () {
+        if ($('.current-date-description').length > 0) {
+            $("html, body").scrollTop($('.current-date-description').offset().top - 150);
+        }
+    });
 </script>
 
 <div class="row">
@@ -70,16 +77,18 @@
             <div class="col-md-12 bar-search">
                 <div id="searchButton" class="search-title"><i class="icon-caret-down" id="icon-search"></i>&nbspBÚSQUEDAS</div>
             </div>
-            <div class="col-md-12" data-bind="foreach:FilteredItems">
-                <div class="col-md-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
-                <div class="col-md-12" data-bind="foreach: FilteredEventsDetail(), css: {'current-date-index': CurrentDate}">
-                    <div class="col-md-3">
-                        @Html.Partial("Partial/_EventMosaic")
+            <div data-bind="template: { afterRender: CurrentDatePosition }">
+                <div class="col-md-12" data-bind="foreach:FilteredItems">
+                    <div class="col-md-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
+                    <div class="col-md-12" data-bind="foreach: FilteredEventsDetail(), css: {'current-date-index': CurrentDate}">
+                        <div class="col-md-3">
+                            @Html.Partial("Partial/_EventMosaic")
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div data-bind="visible: viewModel.FilteredItems().length == 0" class="col-md-12" style="text-align: center; margin-top: 20px;">
-                <p class="not-found-message">NO SE ENCONTRARON EVENTOS</p>
+                <div data-bind="visible: viewModel.FilteredItems().length == 0" class="col-md-12" style="text-align: center; margin-top: 20px;">
+                    <p class="not-found-message">NO SE ENCONTRARON EVENTOS</p>
+                </div>
             </div>
         </div>
     </div>

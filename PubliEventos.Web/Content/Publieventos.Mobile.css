@@ -72,11 +72,11 @@
 }
 
 .mobile-menu {
-    background: url(/Content/Publieventos/images/menu-icon.png) no-repeat;
+    background: url(/Content/Publieventos/images/menu-icon.png) no-repeat 2px;
     cursor: pointer;
     height: 30px;
     position: relative;
-    width: 30px;
+    width: 35px;
 }
 
 .mobile-nav {
@@ -154,4 +154,22 @@ nav {
 .activation-message {
     margin-top: 50px;
     width: 70%;
+}
+
+.header-scroll {
+    background: white;
+    height: 40px;
+    position: fixed;
+    top: 0;
+    transition: top 0.2s ease-in-out;
+    width: 100%;
+    z-index: 1;
+}
+
+.nav-up {
+    top: -40px;
+}
+
+.mobile-nav-scroll {
+    margin-top: 5px;
 }

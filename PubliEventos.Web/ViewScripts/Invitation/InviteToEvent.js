@@ -131,4 +131,8 @@ function EventModel(event) {
     self.FullName = event.User.FullName != "" ? event.User.FullName : event.User.UserName;
     self.AdministratorIsCurrentUser = event.User.Id == currentUserId ? true : false;
     self.UserId = event.User.Id;
+
+    self.AdministratorProfile = function () {
+        window.location.href = "/Account/Profile/" + event.User.Id;
+    }
 }

@@ -205,6 +205,7 @@
     <Content Include="Content\images\Covers\publieventos.PNG" />
     <Content Include="Content\images\EventsPictures\colon_28032015010301718.jpg" />
     <Content Include="Content\images\Profiles\contact-default-image.png" />
+    <Content Include="Content\Index.css" />
     <Content Include="Content\ladda\ladda-themeless.css" />
     <Content Include="Content\ladda\ladda-themeless.min.css" />
     <Content Include="Content\ladda\ladda.css" />
@@ -440,6 +441,7 @@
     <Content Include="ViewScripts\Group\Detail.js" />
     <Content Include="ViewScripts\Group\MyGroups.js" />
     <Content Include="ViewScripts\Home\Index.js" />
+    <Content Include="ViewScripts\Home\Index.Mobile.js" />
     <Content Include="ViewScripts\Home\SearchEventsByDistance.js" />
     <Content Include="ViewScripts\Invitation\InviteToEvent.js" />
     <Content Include="ViewScripts\Invitation\MyInvitations.js" />

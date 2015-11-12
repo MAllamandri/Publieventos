@@ -35,7 +35,7 @@
             <div class="col-xs-2">
                 <div class="mobile-nav mobile-menu"></div>
             </div>
-            <div class="col-xs-10">
+            <div class="col-xs-10" style="margin-top: 5px">
                 @if (!User.Identity.IsAuthenticated)
                 {
                     <p class="current-date">@ViewBag.currentDate</p>
@@ -43,6 +43,25 @@
                 else
                 {
                     <p class="current-date">@((User as PubliEventos.Web.App_Start.CustomPrincipal).DateTimeNow)</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="header-scroll nav-up">
+        <div class="col-xs-2">
+            <div class="row">
+                <div class="mobile-nav mobile-nav-scroll mobile-menu"></div>
+            </div>
+        </div>
+        <div class="col-xs-10">
+            <div class="row">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <p class="current-date" style="margin-top: 10px">@ViewBag.currentDate</p>
+                }
+                else
+                {
+                    <p class="current-date" style="margin-top: 10px">@((User as PubliEventos.Web.App_Start.CustomPrincipal).DateTimeNow)</p>
                 }
             </div>
         </div>
