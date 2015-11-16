@@ -426,14 +426,28 @@ input[type="checkbox"].checkbox-custom {
 }
 
 .current-date-index {
-    background-color: #c25b4e;
+    /*background-color: #c25b4e;*/
 }
 
 .current-date-description {
     color: white !important;
-    background-color: #c25b4e;
+    /*background-color: #c25b4e;*/
     height: 60px !important;
     margin: 0 !important;
+}
+
+.image-current-date {
+    background-image: url(Publieventos/Images/logohoy.png);
+    background-repeat: no-repeat;
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+    position: absolute;
+    width: 190px;
+    height: 90px;
+    z-index: 1;
 }
 
 .event-mosaic {

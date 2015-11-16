@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $('.current-date').click(function () {
+    $(document).on("click", '.current-date', function (event) {
         if ($('.current-date-description').length > 0) {
             $("html, body").scrollTop($('.current-date-description').offset().top - 50);
 

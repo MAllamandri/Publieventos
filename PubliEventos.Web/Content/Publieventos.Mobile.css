@@ -173,3 +173,9 @@ nav {
 .mobile-nav-scroll {
     margin-top: 5px;
 }
+
+.image-current-date {
+    margin-top: -51px;
+    background-position: -8px 3px;
+    background-size: 100px;
+}

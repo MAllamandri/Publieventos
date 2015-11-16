@@ -1,6 +1,8 @@
 ﻿var viewModel = {};
 
 $(function () {
+    moment.locale('es');
+
     if (hasInvitations != null && hasInvitations) {
         new PNotify({
             title: 'Atención',
@@ -110,6 +112,8 @@ $(function () {
 
     ko.applyBindings(viewModel);
 
+    viewModel.SetCurrentDate();
+
     viewModel.CurrentDatePosition();
 });
 
@@ -141,6 +145,35 @@ function myViewModel() {
         $('.current-date').click();
     };
 
+    self.SetCurrentDate = function () {
+        // Verifico si ya esta seteado el dia de hoy.
+        var eventCurrents = ko.utils.arrayFirst(self.Events(), function (event) {
+            return event.CurrentDate() == true;
+        });
+
+        if (eventCurrents == null) {
+            var nextDay = null;
+            var min = null;
+
+            // Busco el dia mas próximo.
+            $.each(self.Events(), function (index, event) {
+                if (min == null || (event.DifferenceDays != null && event.DifferenceDays < min)) {
+                    nextDay = event;
+                    min = event.DifferenceDays;
+                }
+            });
+
+            if (nextDay != null) {
+                // Lo seteo como si fuera el dia de hoy.
+                $.each(self.Events(), function (index, event) {
+                    if (event.ShortDate == nextDay.ShortDate) {
+                        event.CurrentDate(true);
+                    }
+                });
+            }
+        }
+    };
+
     self.FilteredItems = ko.dependentObservable(function () {
         var filter = self.Filter().toLowerCase();
 
@@ -164,10 +197,20 @@ function EventsHeader(events) {
     var self = this;
 
     var month = moment(events[0].EventDate).format("MM");
+    var day = moment(events[0].EventDate).format("DD");
+    var year = moment(events[0].EventDate).format("YYYY");
 
-    self.CurrentDate = moment(new Date()).format("DD/MM/YYYY") == moment(events[0].EventDate).format("DD/MM/YYYY");
-    self.Date = moment(events[0].EventDate).format("DD") + " DE " + GetMonthDescription(month) + " DE " + moment(events[0].EventDate).format("YYYY");
     self.ShortDate = moment(events[0].EventDate).format("DD/MM/YYYY");
+    self.CurrentDate = ko.observable(moment(new Date()).format("DD/MM/YYYY") == moment(events[0].EventDate).format("DD/MM/YYYY"));
+    self.Now = moment(new Date()).format("DD/MM/YYYY") == moment(events[0].EventDate).format("DD/MM/YYYY");
+    self.Date = moment(events[0].EventDate).format("DD") + " DE " + GetMonthDescription(month) + " DE " + moment(events[0].EventDate).format("YYYY");
+    self.DifferenceDays = null;
+
+    var differenceDays = moment([year, month, day]).diff(moment([moment(new Date()).format("YYYY"), moment(new Date()).format("MM"), moment(new Date()).format("DD")]), 'days');
+
+    if (differenceDays > 0) {
+        self.DifferenceDays = differenceDays;
+    }
 
     self.EventsDetail = ko.observableArray();
 

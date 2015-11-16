@@ -79,8 +79,11 @@
             </div>
             <div data-bind="template: { afterRender: CurrentDatePosition }">
                 <div class="col-md-12" data-bind="foreach:FilteredItems">
-                    <div class="col-md-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate }"></div>
-                    <div class="col-md-12" data-bind="foreach: FilteredEventsDetail(), css: {'current-date-index': CurrentDate}">
+                    <div class="col-md-12 date-description" data-bind="text: Date, css: {'current-date-description': CurrentDate() }"></div>
+                    <div class="col-md-6" data-bind="visible: Now">
+                        <div class="image-current-date"></div>
+                    </div>
+                    <div class="col-md-12" data-bind="foreach: FilteredEventsDetail(), css: {'current-date-index': CurrentDate() }">
                         <div class="col-md-3">
                             @Html.Partial("Partial/_EventMosaic")
                         </div>
