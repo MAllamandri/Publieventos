@@ -553,7 +553,7 @@ function CommentModel(comment) {
         $('#detailComment').val(self.Detail());
         $('#commentId').val(comment.Id);
         $('#commentModal').modal('show');
-        $('.title-modal').text("EDITAR COMENTARIO");
+        $('#myModalLabel').text("EDITAR COMENTARIO");
     }
 
     self.ShowReportModal = function () {
