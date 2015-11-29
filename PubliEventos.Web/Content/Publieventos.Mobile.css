@@ -7,7 +7,7 @@
 .logo {
     margin-top: 10px;
     margin-bottom: 15px;
-    width: 70%;
+    /*width: 70%;*/
 }
 
 .label-login {
@@ -22,6 +22,7 @@
 
 .menu-mobile {
     background-color: #363639;
+    max-width: 200px;
 }
 
 .list-header {
@@ -178,4 +179,12 @@ nav {
     margin-top: -51px;
     background-position: -8px 3px;
     background-size: 100px;
+}
+
+.event-mosaic {
+    max-width: 330px;
+}
+
+.edit-event-home-icon {
+    display: none !important;
 }
